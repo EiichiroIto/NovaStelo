@@ -352,7 +352,7 @@ ScratchTheme class >> themeNames [
 
 { #category : #private }
 ScratchTheme class >> themesURL [
-	^ 'https://github.com/EiichiroIto/Stelo/raw/master/misc/Themes.zip'
+	^ 'https://github.com/EiichiroIto/NovaStelo/raw/master/src/Themes.zip'
 ]
 
 { #category : #private }

@@ -193,6 +193,7 @@ SpSteloFrame >> helpMenu [
 			item
 				name: 'Change world';
 				action: [ application toggleSWorld ];
+				enabled: [ self isPluginAvailable ];
 				autoRefresh: true ];
 		yourself
 ]
@@ -226,6 +227,12 @@ SpSteloFrame >> initializePresenters [
 	self setupTitlePane.
 	self focusOrder
 		add: editorPane
+]
+
+{ #category : #private }
+SpSteloFrame >> isPluginAvailable [
+	[ SteloLibCall new getErrorMessage ] ifError: [ ^ false ].
+	^ true
 ]
 
 { #category : #private }
