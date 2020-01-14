@@ -3,6 +3,12 @@ NovaStelo is a block-style programming environment for multi agent system, based
 
 ![Entire Screen](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/NovaStelo.png)
 
+NovaStelo is inspired from StarLogo and Scratch, more precisely
+StarLogo on the book "Turtles, Termites, and Traffic Jams" and Scratch 1.4.
+Both are of Resnick's great works.
+
+NovaStelo is built on Pharo Smalltalk 8.0. Almost all Model and UI are rewritten using Spec2.
+
 ## Install and Play for Windows
 1. extract zipped files on some folder.
 2. start Pharo.exe application.
