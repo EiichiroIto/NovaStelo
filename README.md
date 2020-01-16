@@ -12,6 +12,7 @@ NovaStelo is built on Pharo Smalltalk 8.0. Almost all Model and UI are rewritten
 ## Install and Play on Windows
 1. clone this repository or extract zipped master files on some folder.
 2. start Pharo.exe application.
+3. click NovaStelo on a menu bar to start NovaStelo.
 
 ## License
 MIT License
