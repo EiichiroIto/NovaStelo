@@ -66,6 +66,11 @@ SpScratchApp class >> useErrorCatcher [
 	^ UseErrorCatcher
 ]
 
+{ #category : #accessing }
+SpScratchApp class >> useErrorCatcher: aBoolean [
+	UseErrorCatcher := aBoolean
+]
+
 { #category : #private }
 SpScratchApp >> aboutAppString [
 	self subclassResponsibility

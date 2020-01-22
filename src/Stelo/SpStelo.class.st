@@ -487,6 +487,13 @@ SpStelo >> toggleSWorld [
 	self updateStatus
 ]
 
+{ #category : #'menu actions' }
+SpStelo >> toggleStageRecording [
+	self isRecording
+		ifTrue: [ self stopStageRecording ]
+		ifFalse: [ self startStageRecording ]
+]
+
 { #category : #accessing }
 SpStelo >> turtlesScript: bno [
 	^ project scriptOf: bno

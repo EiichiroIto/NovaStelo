@@ -91,14 +91,11 @@ SpSteloFrame >> dataMenu [
 						action: [ application saveStageAsImage ] ];
 				addItem: [ :item | 
 					item
-						name: 'Start Recording';
-						action: [ application startStageRecording ];
-						enabled: [ application isRecording not ] ];
-				addItem: [ :item | 
-					item
-						name: 'Stop Recording';
-						action: [ application stopStageRecording ];
-						enabled: [ application isRecording ] ] ];
+						name: [ application isRecording
+								ifTrue: [ 'Stop Stage Recording' ]
+								ifFalse: [ 'Start Stage Recording' ] ];
+						autoRefresh: true;
+						action: [ application toggleStageRecording ] ] ];
 		addGroup: [ :grp | 
 			grp
 				addItem: [ :item | 
@@ -119,6 +116,22 @@ SpSteloFrame >> dataMenu [
 { #category : #private }
 SpSteloFrame >> defaultExtent [
 	^ 1024 @ 768
+]
+
+{ #category : #private }
+SpSteloFrame >> errorCatcherMenu [
+	^ self newMenu
+		addItem: [ :item | 
+			item
+				name: 'enable';
+				action: [ application class useErrorCatcher: false ];
+				enabled: [ application class useErrorCatcher ] ];
+		addItem: [ :item | 
+			item
+				name: 'disable';
+				action: [ application class useErrorCatcher: true ];
+				enabled: [ application class useErrorCatcher not ] ];
+		yourself
 ]
 
 { #category : #private }
@@ -195,6 +208,10 @@ SpSteloFrame >> helpMenu [
 				action: [ application toggleSWorld ];
 				enabled: [ self isPluginAvailable ];
 				autoRefresh: true ];
+		addItem: [ :item | 
+			item
+				name: 'Error Catcher';
+				subMenu: self errorCatcherMenu ];
 		yourself
 ]
 
