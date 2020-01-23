@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"AvailableThemes",
+		"CurrentTheme"
+	],
+	"instvars" : [
+		"colors",
+		"forms",
+		"fonts"
+	],
+	"name" : "ScratchTheme",
+	"type" : "normal"
+}

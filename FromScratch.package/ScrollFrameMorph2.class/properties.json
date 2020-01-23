@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "jm 2/23/2005 14:15",
+	"super" : "ScrollFrameMorph",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"scrollBarStartInset",
+		"scrollBarEndInset"
+	],
+	"name" : "ScrollFrameMorph2",
+	"type" : "normal"
+}

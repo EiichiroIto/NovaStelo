@@ -1,0 +1,3 @@
+accessing
+numPlots
+	^ pens size

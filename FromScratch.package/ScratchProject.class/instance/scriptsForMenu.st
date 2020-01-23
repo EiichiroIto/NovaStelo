@@ -1,0 +1,3 @@
+accessing
+scriptsForMenu
+	^ self scripts

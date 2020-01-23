@@ -1,0 +1,3 @@
+testing
+isLabel
+	^ true

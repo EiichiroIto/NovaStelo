@@ -1,0 +1,3 @@
+accessing
+appName
+	self subclassResponsibility

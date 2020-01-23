@@ -1,0 +1,3 @@
+accessing
+ticksVarNo
+	^ 4

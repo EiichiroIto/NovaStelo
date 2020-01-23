@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Stelo-Process",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"codes",
+		"entryPoints"
+	],
+	"name" : "SProgram",
+	"type" : "normal"
+}

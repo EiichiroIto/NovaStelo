@@ -1,0 +1,3 @@
+private
+privNeighbor
+	^ neighbor

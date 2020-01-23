@@ -1,0 +1,3 @@
+private
+newProgram
+	self subclassResponsibility

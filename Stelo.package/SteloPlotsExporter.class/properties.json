@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchExporter",
+	"category" : "Stelo-Converter",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SteloPlotsExporter",
+	"type" : "normal"
+}

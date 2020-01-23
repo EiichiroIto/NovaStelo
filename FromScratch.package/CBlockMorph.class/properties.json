@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "jm 12/7/2002 16:07",
+	"super" : "CommandBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"nestedBlock",
+		"nextBlock",
+		"topBarBottom",
+		"blockBottom",
+		"loopMorph",
+		"stretchHeight"
+	],
+	"name" : "CBlockMorph",
+	"type" : "normal"
+}

@@ -1,0 +1,3 @@
+accessing
+widthVarNo
+	^ 1

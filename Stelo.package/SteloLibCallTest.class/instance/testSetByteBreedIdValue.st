@@ -1,0 +1,3 @@
+test
+testSetByteBreedIdValue
+	self testGetByteBreedId.

@@ -1,0 +1,3 @@
+accessing
+extension
+	^ fileInfo extension

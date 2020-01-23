@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchBaseProcess",
+	"category" : "Stelo-Process",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"sworld"
+	],
+	"name" : "SteloProcess",
+	"type" : "normal"
+}

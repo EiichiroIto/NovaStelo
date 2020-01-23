@@ -1,0 +1,3 @@
+test
+testPrivCodes
+	self testCodes.

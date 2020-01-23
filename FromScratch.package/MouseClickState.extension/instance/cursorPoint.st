@@ -1,0 +1,3 @@
+*FromScratch
+cursorPoint
+	^ firstClickDown cursorPoint

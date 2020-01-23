@@ -1,0 +1,3 @@
+private
+errorOccuered
+	self stopAll.

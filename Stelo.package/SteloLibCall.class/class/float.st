@@ -1,0 +1,3 @@
+constants
+float
+	^ 1

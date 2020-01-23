@@ -1,0 +1,3 @@
+private
+newTurtles
+	^ sworld newBreed

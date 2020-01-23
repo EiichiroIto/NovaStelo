@@ -1,0 +1,3 @@
+accessing
+codeSize
+	^ 0

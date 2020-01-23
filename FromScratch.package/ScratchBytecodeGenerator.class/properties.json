@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Process",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"stream",
+		"labelId",
+		"address",
+		"subTable"
+	],
+	"name" : "ScratchBytecodeGenerator",
+	"type" : "normal"
+}

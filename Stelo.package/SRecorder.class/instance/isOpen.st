@@ -1,0 +1,3 @@
+testing
+isOpen
+	^ writer notNil

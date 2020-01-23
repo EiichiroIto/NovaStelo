@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"array",
+		"className",
+		"fixedSize",
+		"defaultValue"
+	],
+	"name" : "LazyArray",
+	"type" : "normal"
+}

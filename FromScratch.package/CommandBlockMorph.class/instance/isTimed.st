@@ -1,0 +1,4 @@
+testing
+isTimed
+
+	^ isTimed

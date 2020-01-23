@@ -1,0 +1,3 @@
+private
+newBlockDef
+	^ ScratchBlockDef new

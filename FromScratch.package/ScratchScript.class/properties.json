@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Project",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"blocksBin",
+		"project",
+		"blockDef"
+	],
+	"name" : "ScratchScript",
+	"type" : "normal"
+}

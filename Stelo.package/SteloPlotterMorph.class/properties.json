@@ -1,0 +1,20 @@
+{
+	"commentStamp" : "",
+	"super" : "Morph",
+	"category" : "Stelo-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"pens",
+		"data",
+		"last",
+		"min",
+		"max",
+		"cache",
+		"lastUpdateTime",
+		"project"
+	],
+	"name" : "SteloPlotterMorph",
+	"type" : "normal"
+}

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "SWorld",
+	"category" : "Stelo-Plugins",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"plugin"
+	],
+	"name" : "SPluginWorld",
+	"type" : "normal"
+}

@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "Stelo-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"labelName",
+		"toolBar"
+	],
+	"name" : "SpSteloTitle",
+	"type" : "normal"
+}

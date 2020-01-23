@@ -1,0 +1,3 @@
+accessing
+breedNo
+	^ breed breedNo

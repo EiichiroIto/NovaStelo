@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"varNames",
+		"classNames",
+		"reservedVarNames"
+	],
+	"name" : "VarDef",
+	"type" : "normal"
+}

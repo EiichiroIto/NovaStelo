@@ -1,0 +1,3 @@
+specs
+defaultSpec
+	^ self listToPlotSpec

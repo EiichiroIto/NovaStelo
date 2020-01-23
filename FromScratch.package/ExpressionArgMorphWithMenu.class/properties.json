@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "jm 3/28/2005 15:10",
+	"super" : "ExpressionArgMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"menuMorph",
+		"getMenuSelector",
+		"specialValue"
+	],
+	"name" : "ExpressionArgMorphWithMenu",
+	"type" : "normal"
+}

@@ -1,0 +1,3 @@
+private
+colors
+	^ colors copy

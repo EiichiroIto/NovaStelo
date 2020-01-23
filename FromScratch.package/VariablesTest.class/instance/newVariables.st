@@ -1,0 +1,3 @@
+private
+newVariables
+	^ Variables new

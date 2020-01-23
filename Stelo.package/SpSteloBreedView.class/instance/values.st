@@ -1,0 +1,3 @@
+accessing
+values
+	^ tableVars items

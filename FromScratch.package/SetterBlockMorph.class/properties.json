@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "jm 11/25/2003 13:04",
+	"super" : "CommandBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"variable"
+	],
+	"name" : "SetterBlockMorph",
+	"type" : "normal"
+}

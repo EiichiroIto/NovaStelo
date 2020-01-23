@@ -1,0 +1,3 @@
+accessing
+breedName
+	self subclassResponsibility

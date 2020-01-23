@@ -1,0 +1,3 @@
+accessing
+whenDoubleClickDo
+	^ whenDoubleClickDo

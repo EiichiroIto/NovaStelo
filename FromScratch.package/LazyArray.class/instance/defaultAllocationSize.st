@@ -1,0 +1,3 @@
+private
+defaultAllocationSize
+	^ 100

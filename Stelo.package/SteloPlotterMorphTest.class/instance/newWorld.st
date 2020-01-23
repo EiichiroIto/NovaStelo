@@ -1,0 +1,3 @@
+private
+newWorld
+	^ SMicroWorld new

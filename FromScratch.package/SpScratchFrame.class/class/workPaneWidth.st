@@ -1,0 +1,3 @@
+private
+workPaneWidth
+	^ 600

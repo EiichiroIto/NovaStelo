@@ -1,0 +1,3 @@
+constants
+orange
+	^ 25

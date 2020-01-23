@@ -1,0 +1,3 @@
+private
+display
+	^ stageFrame display

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "CommandBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"isBoolean"
+	],
+	"name" : "ReporterBlockMorph",
+	"type" : "normal"
+}

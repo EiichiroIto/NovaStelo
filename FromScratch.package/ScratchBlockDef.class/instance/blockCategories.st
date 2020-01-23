@@ -1,0 +1,3 @@
+accessing
+blockCategories
+	^ blocks keys

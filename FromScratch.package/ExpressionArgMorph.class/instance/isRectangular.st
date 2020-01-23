@@ -1,0 +1,4 @@
+drawing
+isRectangular
+
+	^ isNumber not

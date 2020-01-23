@@ -1,0 +1,4 @@
+*FromScratch
+asNumberNoError
+
+	^ self

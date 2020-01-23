@@ -1,0 +1,3 @@
+accessing
+objName
+	^ 'Observer'

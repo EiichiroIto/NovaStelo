@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "BaseId",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SBreedId",
+	"type" : "normal"
+}

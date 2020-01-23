@@ -1,0 +1,4 @@
+layout
+vResizing
+
+	^ #spaceFill

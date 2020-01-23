@@ -1,0 +1,17 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "FromScratch-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"shortcuts",
+		"fileList",
+		"title",
+		"textFilename",
+		"fileInfo"
+	],
+	"name" : "SpFileChooserDialog",
+	"type" : "normal"
+}

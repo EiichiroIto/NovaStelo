@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "SpScratchEditor",
+	"category" : "Stelo-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"plotter"
+	],
+	"name" : "SpSteloEditor",
+	"type" : "normal"
+}

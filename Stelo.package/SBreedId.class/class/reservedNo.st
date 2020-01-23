@@ -1,0 +1,3 @@
+private
+reservedNo
+	^ 2

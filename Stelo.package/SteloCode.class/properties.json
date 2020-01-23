@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchCode",
+	"category" : "Stelo-Process",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SteloCode",
+	"type" : "normal"
+}

@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "SBreed",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"order",
+		"diffuser",
+		"halfOrder",
+		"negatedHalfOrder"
+	],
+	"name" : "SPatches",
+	"type" : "normal"
+}

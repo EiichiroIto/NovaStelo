@@ -1,0 +1,3 @@
+constants
+byte
+	^ 2

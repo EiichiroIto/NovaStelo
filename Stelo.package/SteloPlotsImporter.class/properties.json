@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchImporter",
+	"category" : "Stelo-Converter",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SteloPlotsImporter",
+	"type" : "normal"
+}

@@ -1,0 +1,3 @@
+test
+testCreateTurtles
+	self testCountAliveOf.

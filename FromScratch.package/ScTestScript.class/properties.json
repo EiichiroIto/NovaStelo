@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchScript",
+	"category" : "FromScratch-Tests",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ScTestScript",
+	"type" : "normal"
+}

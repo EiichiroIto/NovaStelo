@@ -1,0 +1,3 @@
+test
+testDoRepeatEndLabels
+	self testDoRepeatBegin.

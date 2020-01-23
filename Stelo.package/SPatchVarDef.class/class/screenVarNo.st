@@ -1,0 +1,3 @@
+accessing
+screenVarNo
+	^ 2

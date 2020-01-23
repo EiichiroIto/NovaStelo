@@ -1,0 +1,3 @@
+testing
+isFixed
+	^ fixedSize notNil

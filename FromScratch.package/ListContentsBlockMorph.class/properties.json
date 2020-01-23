@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "jm 5/5/2008 10:40",
+	"super" : "ReporterBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ListContentsBlockMorph",
+	"type" : "normal"
+}

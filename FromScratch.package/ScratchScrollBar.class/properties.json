@@ -1,0 +1,24 @@
+{
+	"commentStamp" : "",
+	"super" : "Morph",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"target",
+		"selector",
+		"sliderStart",
+		"sliderLength",
+		"frameStartForm",
+		"frameMiddleForm",
+		"frameEndForm",
+		"sliderStartForm",
+		"sliderMiddleForm",
+		"sliderEndForm",
+		"sliderInsets",
+		"dragOffset"
+	],
+	"name" : "ScratchScrollBar",
+	"type" : "normal"
+}

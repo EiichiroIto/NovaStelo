@@ -1,0 +1,3 @@
+accessing
+loop
+	self subclassResponsibility.

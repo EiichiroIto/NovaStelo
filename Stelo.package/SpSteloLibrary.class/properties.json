@@ -1,0 +1,21 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "Stelo-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"buttonObserver",
+		"buttonPatches",
+		"buttonTurtles",
+		"buttonAddTurtles",
+		"buttonDeleteTurtles",
+		"turtles",
+		"whenTurtlesSelectedDo",
+		"whenTurtlesAddedDo",
+		"whenTurtlesDeletedDo"
+	],
+	"name" : "SpSteloLibrary",
+	"type" : "normal"
+}

@@ -1,0 +1,19 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "FromScratch-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"directory",
+		"pattern",
+		"buttonParent",
+		"buttonNew",
+		"itemSelectedBlock",
+		"listHierarchy",
+		"listEntries"
+	],
+	"name" : "SpFileList",
+	"type" : "normal"
+}

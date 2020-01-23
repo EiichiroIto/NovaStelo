@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "Stelo-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"dropListNames",
+		"dropPlots",
+		"labelListNames",
+		"labelPlots"
+	],
+	"name" : "SpSteloConvDialog",
+	"type" : "normal"
+}

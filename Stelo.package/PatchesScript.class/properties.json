@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "SteloScript",
+	"category" : "Stelo-Project",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "PatchesScript",
+	"type" : "normal"
+}

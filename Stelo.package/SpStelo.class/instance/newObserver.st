@@ -1,0 +1,3 @@
+private
+newObserver
+	^ SObserver new

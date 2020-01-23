@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "SteloPlot",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"command",
+		"args"
+	],
+	"name" : "SteloPlotCommand",
+	"type" : "normal"
+}

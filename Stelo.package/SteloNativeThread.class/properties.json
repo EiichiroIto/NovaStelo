@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchNativeThread",
+	"category" : "Stelo-Process",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"world",
+		"breedId"
+	],
+	"name" : "SteloNativeThread",
+	"type" : "normal"
+}

@@ -1,0 +1,4 @@
+accessing
+acceptsDroppedReporters
+
+	^ true

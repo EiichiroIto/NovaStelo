@@ -1,0 +1,19 @@
+{
+	"commentStamp" : "",
+	"super" : "SpApplication",
+	"category" : "FromScratch-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"Clipboard",
+		"UseErrorCatcher"
+	],
+	"instvars" : [
+		"presenter",
+		"project",
+		"process",
+		"updateInfoCount"
+	],
+	"name" : "SpScratchApp",
+	"type" : "normal"
+}

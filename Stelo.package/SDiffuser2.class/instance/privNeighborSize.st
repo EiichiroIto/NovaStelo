@@ -1,0 +1,3 @@
+private
+privNeighborSize
+	^ neighborSize

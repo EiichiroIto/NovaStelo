@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "jm 9/28/2003 11:18",
+	"super" : "Object",
+	"category" : "FromScratch-Project",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"objectID"
+	],
+	"name" : "ObjRefRecord",
+	"type" : "normal"
+}

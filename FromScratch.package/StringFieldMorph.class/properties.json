@@ -1,0 +1,30 @@
+{
+	"commentStamp" : "jm 6/23/2005 16:08",
+	"super" : "BorderedMorph",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"stringMorph",
+		"frame",
+		"client",
+		"insetX",
+		"insetY",
+		"heightPadding",
+		"doResizing",
+		"isNumeric",
+		"isEditable",
+		"acceptWhenFocusLost",
+		"isKeyboardFocus",
+		"selectionColor",
+		"selectionStart",
+		"selectionEnd",
+		"dragStartIndex",
+		"undoState",
+		"blinkState",
+		"lastContents"
+	],
+	"name" : "StringFieldMorph",
+	"type" : "normal"
+}

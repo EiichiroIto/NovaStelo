@@ -1,0 +1,3 @@
+private
+newThread
+	^ ScratchNativeThread new

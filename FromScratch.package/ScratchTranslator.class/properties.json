@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "jm 6/2/2008 15:11",
+	"super" : "Object",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"RenderCenterOffsetCache",
+		"RenderVerticalTrimCache"
+	],
+	"instvars" : [ ],
+	"name" : "ScratchTranslator",
+	"type" : "normal"
+}

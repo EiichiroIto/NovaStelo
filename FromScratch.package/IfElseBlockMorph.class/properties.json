@@ -1,0 +1,20 @@
+{
+	"commentStamp" : "jm 12/13/2005 20:51",
+	"super" : "CommandBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"trueBlock",
+		"falseBlock",
+		"nextBlock",
+		"elseLabel",
+		"elseBarY",
+		"topBarBottom",
+		"blockBottom",
+		"elseMorph"
+	],
+	"name" : "IfElseBlockMorph",
+	"type" : "normal"
+}

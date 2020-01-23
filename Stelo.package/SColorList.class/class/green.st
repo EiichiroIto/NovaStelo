@@ -1,0 +1,3 @@
+constants
+green
+	^ 55

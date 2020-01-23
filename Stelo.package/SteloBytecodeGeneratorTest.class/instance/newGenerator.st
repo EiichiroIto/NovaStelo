@@ -1,0 +1,3 @@
+private
+newGenerator
+	^ SteloBytecodeGenerator new

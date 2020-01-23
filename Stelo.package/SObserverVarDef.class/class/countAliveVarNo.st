@@ -1,0 +1,3 @@
+accessing
+countAliveVarNo
+	^ 5

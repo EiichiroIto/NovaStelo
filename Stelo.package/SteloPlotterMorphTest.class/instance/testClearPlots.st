@@ -1,0 +1,3 @@
+test
+testClearPlots
+	self testReset

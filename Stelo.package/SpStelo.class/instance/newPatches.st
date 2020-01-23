@@ -1,0 +1,3 @@
+private
+newPatches
+	^ SPatches new

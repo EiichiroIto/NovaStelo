@@ -1,0 +1,3 @@
+processes
+newProgram
+	^ SProgram new

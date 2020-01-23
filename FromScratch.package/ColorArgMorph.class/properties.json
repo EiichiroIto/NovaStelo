@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "jm 3/12/2003 18:44",
+	"super" : "ArgMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"ColorPalette"
+	],
+	"instvars" : [
+		"showPalette"
+	],
+	"name" : "ColorArgMorph",
+	"type" : "normal"
+}

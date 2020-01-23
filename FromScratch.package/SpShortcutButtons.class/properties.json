@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "FromScratch-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"buttonComputer",
+		"buttonUser",
+		"buttonDesktop",
+		"buttonExamples",
+		"buttonProjects",
+		"list"
+	],
+	"name" : "SpShortcutButtons",
+	"type" : "normal"
+}

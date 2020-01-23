@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "SteloProcess",
+	"category" : "Stelo-Plugins",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SPluginProcess",
+	"type" : "normal"
+}

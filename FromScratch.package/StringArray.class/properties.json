@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"literals",
+		"array",
+		"nextId",
+		"invLiterals"
+	],
+	"name" : "StringArray",
+	"type" : "variable"
+}

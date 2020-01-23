@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "SteloPlot",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"channel",
+		"data"
+	],
+	"name" : "SteloPlotData",
+	"type" : "normal"
+}

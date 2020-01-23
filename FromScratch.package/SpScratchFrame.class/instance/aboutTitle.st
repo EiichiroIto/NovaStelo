@@ -1,0 +1,3 @@
+private
+aboutTitle
+	^ application appName

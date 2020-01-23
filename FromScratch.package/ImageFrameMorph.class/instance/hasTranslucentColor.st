@@ -1,0 +1,4 @@
+drawing
+hasTranslucentColor
+
+	^ true

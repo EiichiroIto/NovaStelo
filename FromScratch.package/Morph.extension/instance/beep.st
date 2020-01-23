@@ -1,0 +1,3 @@
+*FromScratch
+beep
+	"do nothing"

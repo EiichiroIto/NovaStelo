@@ -1,0 +1,3 @@
+*FromScratch
+fieldsVersion
+	^ 1

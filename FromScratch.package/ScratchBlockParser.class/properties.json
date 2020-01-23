@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Bytecode",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"InvOperatorDict",
+		"OperatorDict"
+	],
+	"instvars" : [
+		"codeGenerator"
+	],
+	"name" : "ScratchBlockParser",
+	"type" : "normal"
+}

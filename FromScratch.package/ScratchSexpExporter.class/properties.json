@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchExporter",
+	"category" : "FromScratch-Converter",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"appName"
+	],
+	"name" : "ScratchSexpExporter",
+	"type" : "normal"
+}

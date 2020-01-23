@@ -1,0 +1,3 @@
+constants
+computedFloat
+	^ 4

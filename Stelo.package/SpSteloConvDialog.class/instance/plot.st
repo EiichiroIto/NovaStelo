@@ -1,0 +1,3 @@
+accessing
+plot
+	^ dropPlots selectedItem

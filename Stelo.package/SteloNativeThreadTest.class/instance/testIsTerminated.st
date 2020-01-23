@@ -1,0 +1,3 @@
+test
+testIsTerminated
+	self testPrivIsTerminated.

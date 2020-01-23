@@ -1,0 +1,3 @@
+test
+testSize
+	self testMax

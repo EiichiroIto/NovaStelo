@@ -1,0 +1,3 @@
+constants
+yellow
+	^ 45

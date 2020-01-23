@@ -1,0 +1,20 @@
+{
+	"commentStamp" : "jm 6/3/2004 16:36",
+	"super" : "BorderedMorph",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"contents",
+		"hScrollbar",
+		"vScrollbar",
+		"cornerMorph",
+		"hbarInset",
+		"vbarInset",
+		"contentsChanged",
+		"growthFraction"
+	],
+	"name" : "ScrollFrameMorph",
+	"type" : "normal"
+}

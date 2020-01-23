@@ -1,0 +1,3 @@
+accessing
+stepTime
+	^ stepTime

@@ -1,0 +1,17 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "FromScratch-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"labelStatus",
+		"editor",
+		"target",
+		"labelName",
+		"notebook"
+	],
+	"name" : "SpScratchEditor",
+	"type" : "normal"
+}

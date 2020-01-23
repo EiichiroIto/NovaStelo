@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "SteloScript",
+	"category" : "Stelo-Project",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"objName"
+	],
+	"name" : "TurtlesScript",
+	"type" : "normal"
+}

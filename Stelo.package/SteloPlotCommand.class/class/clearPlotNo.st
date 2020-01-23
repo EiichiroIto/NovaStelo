@@ -1,0 +1,3 @@
+private
+clearPlotNo
+	^ 1

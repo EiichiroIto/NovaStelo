@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ArgMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "BooleanArgMorph",
+	"type" : "normal"
+}

@@ -1,0 +1,3 @@
+private
+newArray
+	^ StringArray new

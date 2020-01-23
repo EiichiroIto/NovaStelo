@@ -1,0 +1,3 @@
+constants
+word
+	^ 3

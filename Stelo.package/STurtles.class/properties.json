@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "SBreed",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"defaultColor",
+		"breedNo",
+		"defaultPosition"
+	],
+	"name" : "STurtles",
+	"type" : "normal"
+}

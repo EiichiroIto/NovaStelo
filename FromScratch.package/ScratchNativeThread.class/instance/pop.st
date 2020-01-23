@@ -1,0 +1,3 @@
+private
+pop
+	^ stack removeLast

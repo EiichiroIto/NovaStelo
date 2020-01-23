@@ -1,0 +1,3 @@
+*FromScratch
+requestWindowClose
+	^ true

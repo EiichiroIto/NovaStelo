@@ -1,0 +1,23 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Process",
+	"classinstvars" : [
+		"cachedSymbols"
+	],
+	"pools" : [ ],
+	"classvars" : [
+		"OpTable"
+	],
+	"instvars" : [
+		"stack",
+		"pc",
+		"codes",
+		"id",
+		"isRunning",
+		"isTerminated",
+		"retVal"
+	],
+	"name" : "ScratchNativeThread",
+	"type" : "normal"
+}

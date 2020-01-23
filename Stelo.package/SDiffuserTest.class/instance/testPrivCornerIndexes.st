@@ -1,0 +1,3 @@
+tests-private
+testPrivCornerIndexes
+	self testSetupNeighbor4.

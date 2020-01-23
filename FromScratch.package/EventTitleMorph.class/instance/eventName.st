@@ -1,0 +1,4 @@
+accessing
+eventName
+
+	^ labelMorph contents

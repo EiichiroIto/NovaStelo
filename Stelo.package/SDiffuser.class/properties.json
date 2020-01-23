@@ -1,0 +1,20 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"src",
+		"dst",
+		"rows",
+		"cols",
+		"neighbor",
+		"indexesDict",
+		"cornerIndexes",
+		"setupSelector"
+	],
+	"name" : "SDiffuser",
+	"type" : "normal"
+}

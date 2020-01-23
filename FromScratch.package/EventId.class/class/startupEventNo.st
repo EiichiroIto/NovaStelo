@@ -1,0 +1,3 @@
+accessing
+startupEventNo
+	^ 1

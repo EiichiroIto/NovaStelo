@@ -1,0 +1,23 @@
+{
+	"commentStamp" : "jm 8/22/2006 08:22",
+	"super" : "SimpleButtonMorph",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"onForm",
+		"offForm",
+		"overForm",
+		"disabledForm",
+		"isMomentary",
+		"toggleMode",
+		"isOn",
+		"isDisabled",
+		"isOver",
+		"wasOn",
+		"alphaOn"
+	],
+	"name" : "ToggleButton",
+	"type" : "normal"
+}

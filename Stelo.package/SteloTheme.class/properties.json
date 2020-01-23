@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchTheme",
+	"category" : "Stelo-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SteloTheme",
+	"type" : "normal"
+}

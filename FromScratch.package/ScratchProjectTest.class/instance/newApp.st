@@ -1,0 +1,3 @@
+private
+newApp
+	^ SpScratchApp basicNew

@@ -1,0 +1,3 @@
+private
+newBytecode
+	^ ScratchBytecode basicNew

@@ -1,0 +1,4 @@
+accessing
+evaluate
+
+	^ self eventName

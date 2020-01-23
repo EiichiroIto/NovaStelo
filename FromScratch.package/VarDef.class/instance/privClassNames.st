@@ -1,0 +1,3 @@
+private
+privClassNames
+	^ classNames

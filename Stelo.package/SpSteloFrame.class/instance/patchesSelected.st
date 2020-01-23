@@ -1,0 +1,3 @@
+private
+patchesSelected
+	self currentTarget: application patchesScript

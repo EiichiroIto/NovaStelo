@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchBytecodeGenerator",
+	"category" : "Stelo-Process",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SteloBytecodeGenerator",
+	"type" : "normal"
+}

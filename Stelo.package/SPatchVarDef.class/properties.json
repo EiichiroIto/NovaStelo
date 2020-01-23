@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "SBreedVarDef",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SPatchVarDef",
+	"type" : "normal"
+}

@@ -1,0 +1,3 @@
+accessing
+heightVarNo
+	^ 2

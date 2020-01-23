@@ -1,0 +1,3 @@
+accessing
+penDownFlagNo
+	^ 1

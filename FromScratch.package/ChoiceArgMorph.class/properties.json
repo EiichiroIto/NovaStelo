@@ -1,0 +1,17 @@
+{
+	"commentStamp" : "jm 7/7/2004 00:28",
+	"super" : "ArgMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"menuIconMorph",
+		"isBoolean",
+		"options",
+		"choice",
+		"getOptionsSelector"
+	],
+	"name" : "ChoiceArgMorph",
+	"type" : "normal"
+}

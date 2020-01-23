@@ -1,0 +1,3 @@
+program
+newCode
+	^ SteloCode new

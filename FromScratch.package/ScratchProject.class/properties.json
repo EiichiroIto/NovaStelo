@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "FromScratch-Project",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"scripts",
+		"application",
+		"info",
+		"modified"
+	],
+	"name" : "ScratchProject",
+	"type" : "normal"
+}

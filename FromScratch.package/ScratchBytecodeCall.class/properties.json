@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchBytecode",
+	"category" : "FromScratch-Bytecode",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"subName",
+		"address"
+	],
+	"name" : "ScratchBytecodeCall",
+	"type" : "normal"
+}

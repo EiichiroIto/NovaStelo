@@ -1,0 +1,17 @@
+{
+	"commentStamp" : "jm 3/28/2005 12:25",
+	"super" : "BlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"scriptNameMorph",
+		"indicatorMorph",
+		"scriptOwner",
+		"parameters",
+		"isClickable"
+	],
+	"name" : "HatBlockMorph",
+	"type" : "normal"
+}

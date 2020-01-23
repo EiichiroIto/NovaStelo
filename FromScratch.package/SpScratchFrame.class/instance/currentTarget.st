@@ -1,0 +1,3 @@
+accessing
+currentTarget
+	^ editorPane target

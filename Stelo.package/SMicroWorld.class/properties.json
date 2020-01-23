@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "SWorld",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"breeds",
+		"raisedEvents",
+		"plotList"
+	],
+	"name" : "SMicroWorld",
+	"type" : "normal"
+}

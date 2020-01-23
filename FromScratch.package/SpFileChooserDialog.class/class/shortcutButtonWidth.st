@@ -1,0 +1,3 @@
+private
+shortcutButtonWidth
+	^ 120

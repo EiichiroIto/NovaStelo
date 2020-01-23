@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "jm 3/15/2003 12:22",
+	"super" : "BorderedMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"DropDownMenuForm"
+	],
+	"instvars" : [
+		"labelMorph"
+	],
+	"name" : "ArgMorph",
+	"type" : "normal"
+}

@@ -1,0 +1,3 @@
+testing
+isEmpty
+	^ array isEmpty

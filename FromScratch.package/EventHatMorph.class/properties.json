@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "jm 3/28/2005 12:25",
+	"super" : "HatBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "EventHatMorph",
+	"type" : "normal"
+}

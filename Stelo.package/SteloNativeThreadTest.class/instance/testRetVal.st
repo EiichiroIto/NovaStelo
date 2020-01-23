@@ -1,0 +1,3 @@
+test
+testRetVal
+	self testPrivRetVal.

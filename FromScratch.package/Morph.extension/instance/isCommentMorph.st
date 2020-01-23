@@ -1,0 +1,3 @@
+*FromScratch
+isCommentMorph
+	^ false

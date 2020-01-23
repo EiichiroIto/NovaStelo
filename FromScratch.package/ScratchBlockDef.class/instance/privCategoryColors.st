@@ -1,0 +1,3 @@
+private
+privCategoryColors
+	^ categoryColors

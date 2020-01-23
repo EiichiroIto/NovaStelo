@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "SteloProcess",
+	"category" : "Stelo-Process",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"runningEvents",
+		"transition"
+	],
+	"name" : "SProcess",
+	"type" : "normal"
+}

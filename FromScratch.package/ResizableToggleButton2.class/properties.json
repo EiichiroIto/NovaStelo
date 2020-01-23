@@ -1,0 +1,29 @@
+{
+	"commentStamp" : "",
+	"super" : "SimpleButtonMorph",
+	"category" : "FromScratch-Morphic",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"label2",
+		"iconMorph",
+		"current",
+		"normal",
+		"pressed",
+		"over",
+		"labelColorOff",
+		"labelColorOn",
+		"labelColorOver",
+		"isOn",
+		"wasOn",
+		"toggleMode",
+		"toggleButtonMode",
+		"justification",
+		"padding",
+		"hOffset",
+		"vOffset"
+	],
+	"name" : "ResizableToggleButton2",
+	"type" : "normal"
+}

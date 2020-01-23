@@ -1,0 +1,3 @@
+private
+setPlotYMax
+	^ 3

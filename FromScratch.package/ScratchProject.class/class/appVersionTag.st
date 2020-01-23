@@ -1,0 +1,3 @@
+accessing
+appVersionTag
+	self subclassResponsibility

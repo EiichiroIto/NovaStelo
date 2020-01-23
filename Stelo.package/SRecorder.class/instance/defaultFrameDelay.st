@@ -1,0 +1,3 @@
+private
+defaultFrameDelay
+	^ 10

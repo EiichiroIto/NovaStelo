@@ -1,0 +1,32 @@
+{
+	"commentStamp" : "jm 3/13/2003 17:16",
+	"super" : "Morph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"ArgFont",
+		"CBlockBracketThickness",
+		"DebugMenu",
+		"LabelColor",
+		"LabelFont",
+		"PuzzleInset",
+		"PuzzleWidth"
+	],
+	"instvars" : [
+		"isSpecialForm",
+		"oldColor",
+		"highlightColor1",
+		"highlightColor2",
+		"shadowColor",
+		"scratchProc",
+		"hadError",
+		"blockLayoutNeeded",
+		"cachedForm",
+		"cachedFeedbackForm",
+		"copyTooltip",
+		"lastLayoutTime"
+	],
+	"name" : "BlockMorph",
+	"type" : "normal"
+}

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "HatBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"subName"
+	],
+	"name" : "SubHatMorph",
+	"type" : "normal"
+}

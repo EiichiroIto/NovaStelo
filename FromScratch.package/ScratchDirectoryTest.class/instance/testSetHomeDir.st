@@ -1,0 +1,3 @@
+test
+testSetHomeDir
+	self testUser

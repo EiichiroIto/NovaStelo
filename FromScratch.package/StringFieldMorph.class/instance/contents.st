@@ -1,0 +1,4 @@
+accessing
+contents
+
+	^ stringMorph contents

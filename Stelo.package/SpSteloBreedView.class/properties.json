@@ -1,0 +1,19 @@
+{
+	"commentStamp" : "",
+	"super" : "SpPresenter",
+	"category" : "Stelo-Spec2",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"labelVars",
+		"buttonDelete",
+		"tableVars",
+		"whenDeletedDo",
+		"title",
+		"getValuesBlock",
+		"buttonRefresh"
+	],
+	"name" : "SpSteloBreedView",
+	"type" : "normal"
+}

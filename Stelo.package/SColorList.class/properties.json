@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Stelo-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
+		"DefaultList"
+	],
+	"instvars" : [
+		"colors"
+	],
+	"name" : "SColorList",
+	"type" : "normal"
+}

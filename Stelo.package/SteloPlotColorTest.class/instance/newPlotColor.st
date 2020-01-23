@@ -1,0 +1,3 @@
+private
+newPlotColor
+	^ SteloPlotColor new

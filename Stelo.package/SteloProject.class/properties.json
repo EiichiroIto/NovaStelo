@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchProject",
+	"category" : "Stelo-Project",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"observerScript",
+		"patchesScript"
+	],
+	"name" : "SteloProject",
+	"type" : "normal"
+}

@@ -1,0 +1,4 @@
+testing
+isSpecialForm
+
+	^isSpecialForm.

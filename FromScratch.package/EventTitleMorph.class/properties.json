@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "jm 3/28/2005 15:16",
+	"super" : "ArgMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"menuIconMorph"
+	],
+	"name" : "EventTitleMorph",
+	"type" : "normal"
+}

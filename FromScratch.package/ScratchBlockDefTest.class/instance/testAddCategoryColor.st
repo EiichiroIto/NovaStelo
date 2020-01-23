@@ -1,0 +1,3 @@
+test
+testAddCategoryColor
+	self testBlockColorFor

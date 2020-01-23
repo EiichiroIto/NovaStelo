@@ -1,0 +1,4 @@
+accessing
+nestedBlockAt: aPoint
+
+	^ nestedBlock

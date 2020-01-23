@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ObjStream",
+	"category" : "Stelo-Project",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SteloObjStream",
+	"type" : "normal"
+}

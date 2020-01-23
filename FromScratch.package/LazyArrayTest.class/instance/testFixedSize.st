@@ -1,0 +1,3 @@
+test
+testFixedSize
+	self testPrivFixedSize.

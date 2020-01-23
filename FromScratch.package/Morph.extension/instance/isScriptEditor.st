@@ -1,0 +1,3 @@
+*FromScratch
+isScriptEditor
+	^ false

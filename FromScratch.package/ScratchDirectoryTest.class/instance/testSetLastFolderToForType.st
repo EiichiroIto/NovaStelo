@@ -1,0 +1,3 @@
+test
+testSetLastFolderToForType
+	self testGetLastFolderForType

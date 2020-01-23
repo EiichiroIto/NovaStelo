@@ -1,0 +1,3 @@
+accessing
+realVarNames
+	^ varId realVarNames

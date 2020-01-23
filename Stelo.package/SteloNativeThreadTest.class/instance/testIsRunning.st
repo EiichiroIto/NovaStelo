@@ -1,0 +1,3 @@
+test
+testIsRunning
+	self testPrivIsRunning.

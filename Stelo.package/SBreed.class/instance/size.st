@@ -1,0 +1,3 @@
+microworld
+size
+	self subclassResponsibility.
