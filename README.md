@@ -15,6 +15,13 @@ NovaStelo is built on Pharo Smalltalk 8.0. Almost all Model and UI are rewritten
 3. Start Pharo.exe application.
 4. Click NovaStelo on a menu bar to start NovaStelo.
 
+## Install repository on Pharo
+NovaStelo sources available on github(https://github.com/EiichiroIto/NovaStelo/filetree).
+    Metacello new
+        baseline: 'NovaStelo';
+        repository: 'github://EiichiroIto/NovaStelo/filetree';
+        load.
+
 ## Examples
 1. Select Open from File menu.
 2. Click Examples button on the file open dialog.
