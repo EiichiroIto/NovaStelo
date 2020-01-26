@@ -17,10 +17,12 @@ NovaStelo is built on Pharo Smalltalk 8.0. Almost all Model and UI are rewritten
 
 ## Install repository on Pharo
 NovaStelo sources available on github(https://github.com/EiichiroIto/NovaStelo/filetree).
-    Metacello new
-        baseline: 'NovaStelo';
-        repository: 'github://EiichiroIto/NovaStelo/filetree';
-        load.
+```
+Metacello new
+    baseline: 'NovaStelo';
+    repository: 'github://EiichiroIto/NovaStelo/filetree';
+    load.
+```
 
 ## Examples
 1. Select Open from File menu.
