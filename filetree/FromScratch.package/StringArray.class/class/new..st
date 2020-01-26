@@ -1,3 +1,5 @@
 instance creation
 new: anInteger
-	self shouldBeImplemented
+	^ self new
+		forceTo: anInteger paddingWith: '';
+		yourself

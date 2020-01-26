@@ -1,7 +1,6 @@
 accessing
 classFor: aString
-	| vno className |
-	vno := self varNoFor: aString.
-	className := self classNameForVarNo: vno.
+	| className |
+	className := self classNameFor: aString.
 	className ifNil: [ ^ nil ].
 	^ LazyArray className: className

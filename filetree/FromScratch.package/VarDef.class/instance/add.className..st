@@ -6,5 +6,5 @@ add: aString className: aSymbol
 		ifTrue: [ self varNoFor: aString ]
 		ifFalse: [ varNames := varNames copyWith: aString.
 			varNames size ].
-	classNames at: id put: aSymbol.
+	varClasses at: aString put: aSymbol.
 	^ id

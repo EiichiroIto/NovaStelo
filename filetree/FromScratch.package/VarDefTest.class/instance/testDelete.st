@@ -7,4 +7,4 @@ testDelete
 	v addVariable: 'ghi'.
 	self assertCollection: v privVarNames asArray equals: #('abc' 'def' 'ghi').
 	v delete: 'abc'.
-	self assertCollection: v privVarNames asArray equals: #(nil 'def' 'ghi').
+	self assertCollection: v privVarNames asArray equals: #('def' 'ghi').

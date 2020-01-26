@@ -1,6 +1,6 @@
 private
 addReserved: aString varNo: anInteger className: aSymbol
-	classNames at: anInteger put: aSymbol.
+	varClasses at: aString put: aSymbol.
 	reservedVarNames size < anInteger
 		ifTrue: [ reservedVarNames := reservedVarNames
 				forceTo: anInteger

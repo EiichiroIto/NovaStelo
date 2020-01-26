@@ -1,3 +1,5 @@
 testing
 isStringVar: vno
-	^ (classNames at: vno) = #StringArray
+	| v |
+	v := varNames at: vno.
+	^ (varClasses at: v ifAbsent: [ ^ false ]) = #StringArray

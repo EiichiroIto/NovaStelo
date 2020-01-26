@@ -11,6 +11,6 @@ testAddReservedVariableVarNo
 	self assert: (v privVarNames includes: 'b').
 	self assert: v privReservedVarNames size equals: 1.
 	self assert: (v privReservedVarNames includes: 'b').
-	self assertCollection: v privClassNames size equals: 2.
-	self assert: (v privClassNames at: a) equals: #FloatArray.
-	self assert: (v privClassNames at: b) equals: #FloatArray.
+	self assertCollection: v privVarClasses size equals: 2.
+	self assert: (v privVarClasses at: 'a') equals: #FloatArray.
+	self assert: (v privVarClasses at: 'b') equals: #FloatArray.

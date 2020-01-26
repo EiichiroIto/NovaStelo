@@ -1,4 +1,3 @@
 accessing
 realVarNames
-	^ self varNames
-		withIndexSelect: [ :each :index | (self classNameForVarNo: index) notNil ]
+	^ self varNames select: [ :each | (self classNameFor: each) notNil ]

@@ -7,8 +7,8 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"varNames",
-		"classNames",
-		"reservedVarNames"
+		"reservedVarNames",
+		"varClasses"
 	],
 	"name" : "VarDef",
 	"type" : "normal"
