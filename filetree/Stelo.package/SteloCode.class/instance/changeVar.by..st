@@ -4,6 +4,6 @@ changeVar: var by: num
 	v := var choice.
 	v isEmpty
 		ifTrue: [ self error ].
-	bcGenerator
-		changeVar: [ targetMorph varId varNoFor: v ]
+	generator
+		changeVar: [ script varId varNoFor: v ]
 		by: [ num argString: parser ].

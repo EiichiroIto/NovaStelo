@@ -9,13 +9,9 @@
 		"commandSpec",
 		"argPermutation",
 		"argMorphs",
-		"titleMorph",
 		"receiver",
 		"selector",
-		"isReporter",
 		"isTimed",
-		"wantsName",
-		"wantsPossession",
 		"numberArgFlags",
 		"labelId"
 	],

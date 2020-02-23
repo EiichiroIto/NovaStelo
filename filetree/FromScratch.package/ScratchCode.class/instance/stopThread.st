@@ -1,3 +1,3 @@
 control ops
 stopThread
-	bcGenerator stopThread.
+	generator stopThread.

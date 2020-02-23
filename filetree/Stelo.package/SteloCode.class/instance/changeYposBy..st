@@ -1,3 +1,3 @@
 basic ops
 changeYposBy: num
-	bcGenerator changeYposBy: [ num argString: parser ].
+	generator changeYposBy: [ num argString: parser ].

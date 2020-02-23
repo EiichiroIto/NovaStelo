@@ -1,3 +1,3 @@
 basic ops
 clearAll
-	bcGenerator clearAll.
+	generator clearAll.

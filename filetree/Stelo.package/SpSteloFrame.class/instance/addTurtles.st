@@ -1,5 +1,5 @@
 private
 addTurtles
 	self
-		currentTarget: application addTurtles;
+		target: application addTurtles;
 		updateTurtles

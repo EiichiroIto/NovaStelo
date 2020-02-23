@@ -1,3 +1,3 @@
 block specs
 blockSpecAt: aSymbol
-	^ blockDef blockSpecAt: aSymbol
+	^ self blockDef blockSpecAt: aSymbol

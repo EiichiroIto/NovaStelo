@@ -6,7 +6,7 @@ rootForGrabOf: aMorph
 	root := aMorph.
 	[root = self] whileFalse: [
 		root owner == self ifTrue: [
-			self isPartsBin ifTrue: [^ root fullCopy].
+			self isBlockPalette ifTrue: [^ root fullCopy].
 			self dragNDropEnabled ifTrue: [^ root]].
 		root := root owner].
 

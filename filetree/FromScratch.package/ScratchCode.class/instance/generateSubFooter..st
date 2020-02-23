@@ -1,3 +1,3 @@
 code generator
-generateSubFooter: aString 
-	bcGenerator return: 0.
+generateSubFooter: aString
+	"do nothing"

@@ -9,8 +9,7 @@
 		"scriptNameMorph",
 		"indicatorMorph",
 		"scriptOwner",
-		"parameters",
-		"isClickable"
+		"parameters"
 	],
 	"name" : "HatBlockMorph",
 	"type" : "normal"

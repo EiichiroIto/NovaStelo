@@ -5,7 +5,7 @@ setupEvent: aHatBlock program: aProgram table: aDictionary events: aDictionary2
 		at: aHatBlock eventName asSymbol
 		ifPresent: [ :eventNo | 
 			addr := aProgram nextAddress.
-			code := self newCode
+			code := project newCode
 				startAddress: addr;
 				subTable: aDictionary;
 				parse: aHatBlock target: self.

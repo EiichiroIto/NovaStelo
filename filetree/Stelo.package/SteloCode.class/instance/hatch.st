@@ -1,3 +1,3 @@
 basic ops
 hatch
-	bcGenerator hatch.
+	generator hatch.

@@ -1,3 +1,3 @@
 sensing ops
 getXpos
-	^ bcGenerator getXpos
+	^ generator getXpos

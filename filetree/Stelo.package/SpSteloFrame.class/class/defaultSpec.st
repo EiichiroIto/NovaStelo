@@ -4,7 +4,7 @@ defaultSpec
 		add:
 			(SpBoxLayout newHorizontal
 				spacing: 4;
-				add: #logo withConstraints: [ :c | c width: 160 ];
+				add: #logo withConstraints: [ :c | c width: 200 ];
 				add: #buttonOpen withConstraints: [ :c | c width: self buttonWidth ];
 				add: #buttonSave withConstraints: [ :c | c width: self buttonWidth ];
 				add: #menu;

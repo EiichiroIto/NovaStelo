@@ -1,3 +1,3 @@
 pen ops
 stamp
-	bcGenerator stamp.
+	generator stamp.

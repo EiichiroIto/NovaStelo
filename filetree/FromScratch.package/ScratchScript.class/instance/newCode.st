@@ -1,3 +1,0 @@
-instance creation
-newCode
-	self subclassResponsibility

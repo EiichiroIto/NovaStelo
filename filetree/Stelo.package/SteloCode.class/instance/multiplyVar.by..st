@@ -1,5 +1,5 @@
 patch ops
 multiplyVar: var by: num
-	bcGenerator
-		multiplyVar: (targetMorph patchVarId varNoFor: var choice)
+	generator
+		multiplyVar: (script patchVarId varNoFor: var choice)
 		by: [ num argString: parser ]

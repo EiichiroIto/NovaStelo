@@ -1,3 +1,3 @@
 control ops
 doIfEnd: aMorph
-	bcGenerator doIfEnd: aMorph labelId.
+	generator doIfEnd: aMorph labelId.

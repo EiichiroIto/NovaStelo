@@ -1,3 +1,3 @@
 sensing ops
 getHeading
-	^ bcGenerator getVar: STurtleVarDef headingVarNo
+	^ generator getVar: STurtleVarDef headingVarNo

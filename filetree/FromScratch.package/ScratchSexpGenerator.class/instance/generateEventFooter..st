@@ -1,3 +1,5 @@
 code generator
 generateEventFooter: aString
-	stream nextPutAll: '))'.
+	self
+		printCloseParen;
+		printCloseParen

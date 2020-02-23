@@ -1,0 +1,3 @@
+private
+topBarHeight
+	self shouldNotImplement

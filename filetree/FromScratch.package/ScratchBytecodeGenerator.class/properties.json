@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "Object",
-	"category" : "FromScratch-Process",
+	"category" : "FromScratch-Bytecode",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],

@@ -1,3 +1,0 @@
-*FromScratch
-isBlockMorph
-	^ false

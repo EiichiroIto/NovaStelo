@@ -1,3 +1,3 @@
 sensing ops
 dx
-	^ bcGenerator dx
+	^ generator dx

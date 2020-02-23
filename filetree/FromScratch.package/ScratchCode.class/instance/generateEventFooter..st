@@ -1,3 +1,3 @@
 code generator
 generateEventFooter: aString 
-	bcGenerator stopThread.
+	generator stopThread.

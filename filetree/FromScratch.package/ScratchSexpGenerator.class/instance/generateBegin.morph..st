@@ -1,10 +1,12 @@
 code generator
 generateBegin: aSymbol morph: aMorph
-	stream nextPut: $(.
-	stream nextPutAll: aSymbol.
+	self
+		printOpenParen;
+		printString: aSymbol.
 	aMorph blockArgs
 		do: [ :each | 
-			stream nextPut: Character space.
-			stream nextPutAll: (each argString: parser) asString ].
+			self
+				printSpace;
+				printString: (each argString: parser) ].
 	self generateLineFeed.
-	stream nextPut: $(.
+	self printOpenParen

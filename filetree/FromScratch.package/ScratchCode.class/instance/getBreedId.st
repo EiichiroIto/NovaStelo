@@ -1,3 +1,3 @@
 sensing ops
 getBreedId
-	^ bcGenerator getBreedId
+	^ generator getBreedId

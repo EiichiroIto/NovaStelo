@@ -1,3 +1,3 @@
 sensing ops
 getId
-	^ bcGenerator getId
+	^ generator getId

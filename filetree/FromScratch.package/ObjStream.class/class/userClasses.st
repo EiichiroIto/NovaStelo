@@ -56,7 +56,7 @@ userClasses
 		"(168		MouseClickEventHatMorph)"
 		(169		ExpressionArgMorphWithMenu)
 		(170		ReporterBlockMorph)
-		(171		MultilineStringMorph)
+		"(171		MultilineStringMorph)"
 		(172		ToggleButton)
 		"(173		WatcherReadoutFrameMorph)"
 		"(174		WatcherSliderMorph)"

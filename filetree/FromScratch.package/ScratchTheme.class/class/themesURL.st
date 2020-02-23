@@ -1,3 +1,3 @@
-private
+accessing
 themesURL
-	self subclassResponsibility
+	^ ThemesURL

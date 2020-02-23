@@ -1,3 +1,3 @@
 control ops
 returnValue
-	^ bcGenerator returnValue
+	^ generator returnValue

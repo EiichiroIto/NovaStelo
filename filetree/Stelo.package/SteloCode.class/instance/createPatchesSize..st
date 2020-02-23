@@ -1,3 +1,3 @@
 basic ops
 createPatchesSize: size
-	bcGenerator createPatchesSize: [ size argString: parser ].
+	generator createPatchesSize: [ size argString: parser ].

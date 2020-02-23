@@ -1,3 +1,0 @@
-test
-testStringAt
-	self testAtPut

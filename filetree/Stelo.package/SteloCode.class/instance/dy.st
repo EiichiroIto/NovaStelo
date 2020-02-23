@@ -1,3 +1,3 @@
 sensing ops
 dy
-	^ bcGenerator dy
+	^ generator dy

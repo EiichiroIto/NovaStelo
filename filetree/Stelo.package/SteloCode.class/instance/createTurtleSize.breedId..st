@@ -1,5 +1,5 @@
 basic ops
 createTurtleSize: size breedId: bno
-	bcGenerator
+	generator
 		createTurtleSize: [ size argString: parser ]
 		breedId: [ bno argString: parser ].

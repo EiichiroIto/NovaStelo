@@ -6,4 +6,4 @@ target: aScratchObjectOrNil
 			self editorContents: (Morph new color: Color red).
 			^ self ].
 	labelName label: aScratchObjectOrNil objName.
-	self currentTab: self scriptsLabel
+	self tab: self scriptsLabel

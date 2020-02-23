@@ -23,9 +23,7 @@
 		"hadError",
 		"blockLayoutNeeded",
 		"cachedForm",
-		"cachedFeedbackForm",
-		"copyTooltip",
-		"lastLayoutTime"
+		"cachedFeedbackForm"
 	],
 	"name" : "BlockMorph",
 	"type" : "normal"

@@ -1,0 +1,3 @@
+variables
+addVariable: aString
+	self subclassResponsibility

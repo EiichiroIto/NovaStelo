@@ -7,5 +7,4 @@ storeFieldsOn: anObjStream
 		indicatorMorph
 		scriptOwner
 		parameters
-		isClickable
 	) on: anObjStream.

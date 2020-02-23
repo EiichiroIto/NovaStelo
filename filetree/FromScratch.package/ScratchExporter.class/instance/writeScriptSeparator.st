@@ -1,0 +1,3 @@
+private
+writeScriptSeparator
+	"do nothing"

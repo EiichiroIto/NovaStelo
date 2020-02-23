@@ -1,3 +1,3 @@
 basic ops
 setXpos: num
-	bcGenerator setXpos: [ num argString: parser ].
+	generator setXpos: [ num argString: parser ].

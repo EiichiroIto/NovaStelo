@@ -1,3 +1,5 @@
 code generator
 generateSubFooter: aString
-	stream nextPutAll: '))'.
+	self
+		printCloseParen;
+		printCloseParen

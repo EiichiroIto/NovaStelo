@@ -1,16 +1,15 @@
 {
 	"commentStamp" : "",
 	"super" : "Object",
-	"category" : "FromScratch-Bytecode",
+	"category" : "FromScratch-Process",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [
 		"UsedCommands"
 	],
 	"instvars" : [
-		"targetMorph",
-		"bcGenerator",
-		"parser"
+		"parser",
+		"generator"
 	],
 	"name" : "ScratchCode",
 	"type" : "normal"

@@ -1,3 +1,3 @@
 sensing ops
 front
-	^ bcGenerator front
+	^ generator front

@@ -1,3 +1,3 @@
 basic ops
 turn: angle
-	bcGenerator turn: [ angle argString: parser ].
+	generator turn: [ angle argString: parser ].

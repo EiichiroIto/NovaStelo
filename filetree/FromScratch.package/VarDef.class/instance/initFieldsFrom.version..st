@@ -1,4 +1,4 @@
 object i/o
 initFieldsFrom: anObjStream version: classVersion
-	self initFieldsNamed: #(varNames classNames) from: anObjStream.
+	self initFieldsNamed: #(varNames varClasses) from: anObjStream.
 	varNames ifNotNil: [ self regularize ]

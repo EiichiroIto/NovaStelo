@@ -1,3 +1,3 @@
 accessing
 startAddress: anInteger
-	bcGenerator address: anInteger.
+	generator address: anInteger.

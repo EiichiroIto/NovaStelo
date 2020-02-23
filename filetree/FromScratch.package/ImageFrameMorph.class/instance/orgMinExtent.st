@@ -1,3 +1,0 @@
-private
-orgMinExtent
-	^ super minExtent

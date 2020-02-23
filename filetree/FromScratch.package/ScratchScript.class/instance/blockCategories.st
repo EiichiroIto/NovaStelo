@@ -1,3 +1,3 @@
 accessing
 blockCategories
-	^ blockDef blockCategories
+	^ self blockDef blockCategories

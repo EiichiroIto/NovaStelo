@@ -1,5 +1,5 @@
 arithmetic ops
 or: x with: y
-	^ bcGenerator
+	^ generator
 		or: [ x argString: parser ]
 		with: [ y argString: parser ]

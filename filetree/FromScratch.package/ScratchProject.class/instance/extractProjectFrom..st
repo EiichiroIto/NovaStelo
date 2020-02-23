@@ -3,8 +3,8 @@ extractProjectFrom: aByteArray
 	| s version proj |
 	s := ReadStream on: aByteArray.
 	version := ObjStream fileVersion: self class from: s.
-	version = 1
-		ifFalse: [ ^ self error: 'Invalid version' ].
+	version = self class appVersion
+		ifFalse: [ ^ self inform: 'Invalid app version' ].
 	s skip: s uint32.
 	proj := self newObjStream readObjFrom: s showProgress: true.
 	proj isProject

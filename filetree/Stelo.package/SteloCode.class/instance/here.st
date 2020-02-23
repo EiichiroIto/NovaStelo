@@ -1,3 +1,3 @@
 sensing ops
 here
-	^ bcGenerator here
+	^ generator here

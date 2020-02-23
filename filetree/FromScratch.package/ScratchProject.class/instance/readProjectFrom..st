@@ -16,4 +16,5 @@ readProjectFrom: aFileReference
 				alert: err
 				title: 'Could not read project; file may be damaged'.
 			^ nil ].
+	self modified: false.
 	^ newProj

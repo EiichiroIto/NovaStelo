@@ -1,3 +1,3 @@
 basic ops
 clearGraphics
-	bcGenerator clearGraphics.
+	generator clearGraphics.

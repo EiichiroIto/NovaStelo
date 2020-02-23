@@ -4,4 +4,4 @@ callSub: subName
 	str := subName choice.
 	str isEmpty
 		ifTrue: [ ^ self ].
-	bcGenerator callSub: str.
+	generator callSub: str.

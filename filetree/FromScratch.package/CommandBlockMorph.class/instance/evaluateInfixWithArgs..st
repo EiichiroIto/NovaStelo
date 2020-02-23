@@ -1,38 +1,32 @@
 evaluation
 evaluateInfixWithArgs: rawArgs
 	"Evalue an infix operator with the given arguments list. Special case for comparison operatores when both operands are strings. Reverse order of comparison operands in RTL languages."
+
 	"Note: The strings 'true' and 'false' in either English or the current language are equal to the boolean value that they name."
 
-	| args result arg1 arg2 |
-	args := rawArgs.
-
-	#= = selector ifTrue: [
-		"special case: check for equality between a boolean and the special strings 'true' or 'false'"
-		((args first isString) and: [args second isKindOf: Boolean]) ifTrue: [
-			(args first = 'true') ifTrue: [^ args second = true].
-			(args first = 'false') ifTrue: [^ args second = false].
-			"(args first = (ScratchTranslator translationFor: 'true')) ifTrue: [^ args second = true]."
-			"(args first = (ScratchTranslator translationFor: 'false')) ifTrue: [^ args second = false]"].
-		((args first isKindOf: Boolean) and: [args second isString]) ifTrue: [
-			(args second = 'true') ifTrue: [^ args first = true].
-			(args second = 'false') ifTrue: [^ args first = false].
-			"(args second = (ScratchTranslator translationFor: 'true')) ifTrue: [^ args first = true]."
-			"(args second = (ScratchTranslator translationFor: 'false')) ifTrue: [^ args first = false]"]].
-
+	| arg1 arg2 |
+	arg1 := rawArgs first.
+	arg2 := rawArgs second.
+	#= = selector
+		ifTrue: [ (arg1 isString and: [ arg2 isKindOf: Boolean ])
+				ifTrue: [ arg1 = 'true'
+						ifTrue: [ ^ arg2 = true ].
+					arg1 = 'false'
+						ifTrue: [ ^ arg2 = false ] ].
+			((arg1 isKindOf: Boolean) and: [ arg2 isString ])
+				ifTrue: [ arg2 = 'true'
+						ifTrue: [ ^ arg1 = true ].
+					arg2 = 'false'
+						ifTrue: [ ^ arg1 = false ] ] ].
 	(#(< = >) includes: selector)
-		ifTrue: [((args first isString) or: [args second isString]) ifTrue: [
-				arg1 := receiver interpretStringAsNumberIfPossible: args first.
-				arg2 := receiver interpretStringAsNumberIfPossible: args second.
-				((arg1 isString) and: [arg2 isString]) ifTrue: [
-					result := args first compare: args second.
-					#< = selector ifTrue: [^ result = 1].
-					#= = selector ifTrue: [^ result = 2].
-					#> = selector ifTrue: [^ result = 3]].
-				((arg1 isNumber) and: [arg2 isNumber]) ifTrue: [
-					^ arg1 perform: selector with: arg2].
-				^ false]]
-		"ifFalse: [(ScratchTranslator isRTLMath and: [((selector = #\\) not)]) ifTrue: [args := args reversed]]". "RTLMath operators are RTL"
-
-	(#(& |) includes: selector) ifTrue: [^ args first perform: selector with: args second].
-
-	^ args first asNumberNoError perform: selector with: args second asNumberNoError
+		ifTrue: [ (arg1 isString and: [ arg1 isNumberString ])
+				ifTrue: [ arg1 := arg1 asNumber ].
+			(arg2 isString and: [ arg2 isNumberString ])
+				ifTrue: [ arg2 := arg2 asNumber ].
+			((arg1 isNumber and: [ arg2 isNumber ])
+				or: [ arg1 isString and: [ arg2 isString ] ])
+				ifTrue: [ ^ arg1 perform: selector with: arg2 ].
+			^ false ].
+	(#(& |) includes: selector)
+		ifTrue: [ ^ arg1 perform: selector with: arg2 ].
+	^ arg1 asNumberNoError perform: selector with: arg2 asNumberNoError

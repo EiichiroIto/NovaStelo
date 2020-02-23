@@ -1,3 +1,0 @@
-*FromScratch
-isUnicode
-	^ false

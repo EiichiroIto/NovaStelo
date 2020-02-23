@@ -1,3 +1,3 @@
 sensing ops
 distanceTo: pno
-	^ bcGenerator distanceTo: (pno argString: parser)
+	^ generator distanceTo: (pno argString: parser)

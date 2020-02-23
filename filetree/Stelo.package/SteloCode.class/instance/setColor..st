@@ -1,3 +1,3 @@
 color ops
 setColor: color
-	bcGenerator setColorTo: [ color argString: parser ].
+	generator setColorTo: [ color argString: parser ].

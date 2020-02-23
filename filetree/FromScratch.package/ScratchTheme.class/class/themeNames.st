@@ -1,3 +1,0 @@
-accessing
-themeNames
-	^ AvailableThemes keys

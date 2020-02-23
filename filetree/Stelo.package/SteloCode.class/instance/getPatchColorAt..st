@@ -1,3 +1,3 @@
 patch ops
 getPatchColorAt: pno
-	^ bcGenerator getPatchColorAt: (pno argString: parser)
+	^ generator getPatchColorAt: (pno argString: parser)

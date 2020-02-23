@@ -1,0 +1,3 @@
+accessing
+bracketThickness
+	self shouldNotImplement

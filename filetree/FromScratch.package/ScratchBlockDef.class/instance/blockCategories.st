@@ -1,3 +1,3 @@
 accessing
 blockCategories
-	^ blocks keys
+	^ categoryColors keys copyWithout: 'list'

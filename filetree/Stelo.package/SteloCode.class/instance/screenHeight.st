@@ -1,3 +1,3 @@
 sensing ops
 screenHeight
-	^ bcGenerator getObserverVar: SObserverVarDef heightVarNo
+	^ generator getObserverVar: SObserverVarDef heightVarNo

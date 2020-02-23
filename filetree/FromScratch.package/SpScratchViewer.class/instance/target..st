@@ -2,7 +2,7 @@ accessing
 target: anObject
 	| categories |
 	target := anObject.
-	target ifNil: [ ^ self currentCategory: #none ].
+	target ifNil: [ ^ self currentCategory: nil ].
 	categories := target blockCategories.
 	self
 		currentCategory:

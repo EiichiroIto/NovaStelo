@@ -4,6 +4,6 @@ setupView
 	viewTarget := project scripts first.
 	project scripts
 		do: [ :m | 
-			m scripts size > viewTarget scripts size
+			m hatBlocks size > viewTarget hatBlocks size
 				ifTrue: [ viewTarget := m ] ].
 	presenter target: viewTarget

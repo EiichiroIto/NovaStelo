@@ -1,3 +1,3 @@
 sensing ops
 getYpos
-	^ bcGenerator getYpos
+	^ generator getYpos

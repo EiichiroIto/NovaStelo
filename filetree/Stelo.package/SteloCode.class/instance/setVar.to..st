@@ -4,6 +4,6 @@ setVar: var to: num
 	v := var choice.
 	v isEmpty
 		ifTrue: [ self error ].
-	bcGenerator
-		setVar: (targetMorph varId varNoFor: v)
+	generator
+		setVar: (script varId varNoFor: v)
 		to: [ num argString: parser ].

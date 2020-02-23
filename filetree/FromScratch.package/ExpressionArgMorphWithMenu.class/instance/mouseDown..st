@@ -1,21 +1,23 @@
 event handling
 mouseDown: evt
-	| rcvr menu choice ret |
+	| rcvr list choice ret |
 	menuMorph ifNil: [ ^ super mouseDown: evt ].
 	evt cursorPoint x < (menuMorph left - 1)
 		ifTrue: [ ^ super mouseDown: evt ].
-	(getMenuSelector notNil
-		and: [ (owner isKindOf: BlockMorph) and: [ (rcvr := owner receiver) notNil ] ])
-		ifFalse: [ ^ self beep ].
-	menu := MenuMorph new.
-	menu target: [ :v | choice := v ].
-	(rcvr perform: getMenuSelector)
-		do: [ :each | menu add: each first selector: #value: argument: each second ].
-	menu invokeAt: ActiveHand position in: self world.
-	choice ifNil: [ ^ self ].
-	evt hand newKeyboardFocus: nil.	"close mini-editor, if any"
-	"(#(listIndexMenu listIndexForDeleteMenu) includes: getMenuSelector)
-		ifTrue: [ ^ self specialValue: choice ]."
+	rcvr := self menuTarget.
+	rcvr ifNil: [ rcvr := owner receiver ].
+	(self menuSelector isNil or: [ rcvr isNil ])
+		ifTrue: [ ^ self beep ].
+	list := rcvr perform: self menuSelector.
+	list isEmpty
+		ifTrue: [ ^ self ].
+	ret := UIManager default chooseFrom: (list collect: #first).
+	ret = 0
+		ifTrue: [ ^ self ].
+	choice := (list at: ret) second.
+	evt hand newKeyboardFocus: nil.
+	(#(listIndexNames listIndexForDeleteNames) includes: getMenuSelector)
+		ifTrue: [ ^ self specialValue: choice ].
 	isNumber
 		ifTrue: [ self numExpression: choice ]
-		ifFalse: [ self stringExpression: choice ].
+		ifFalse: [ self stringExpression: choice ]

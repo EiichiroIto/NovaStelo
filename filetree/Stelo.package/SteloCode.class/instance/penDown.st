@@ -1,3 +1,3 @@
 pen ops
 penDown
-	bcGenerator penDown: true.
+	generator penDown: true.

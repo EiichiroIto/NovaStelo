@@ -1,3 +1,3 @@
 pen ops
 setPlotYMax: aNumber
-	bcGenerator setPlotYMax: [ aNumber argString: parser ]
+	generator setPlotYMax: [ aNumber argString: parser ]

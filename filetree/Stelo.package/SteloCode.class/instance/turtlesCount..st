@@ -1,5 +1,5 @@
 basic ops
 turtlesCount: bno
-	^ bcGenerator
+	^ generator
 		getObserverVar: SObserverVarDef countAliveVarNo
 		arg: (bno argString: parser)

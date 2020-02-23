@@ -14,6 +14,7 @@ read: aString
 							(self whiteSpaces includes: c)
 								ifFalse: [ out nextPut: c ] ]
 						ifFalse: [ token := in upToAny: self delimiters.
+							token := self literal: token.
 							in back.
 							out nextPut: token ] ] ].
 	^ out contents

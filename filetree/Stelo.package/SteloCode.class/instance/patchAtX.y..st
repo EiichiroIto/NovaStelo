@@ -1,5 +1,5 @@
 sensing ops
 patchAtX: x y: y
-	^ bcGenerator
+	^ generator
 		patchAtX: [ x argString: parser ]
 		y: [ y argString: parser ]

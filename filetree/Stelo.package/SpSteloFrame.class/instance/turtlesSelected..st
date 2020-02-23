@@ -1,3 +1,3 @@
 private
 turtlesSelected: bno
-	self currentTarget: (application scriptOf: bno)
+	self target: (application scriptOf: bno)

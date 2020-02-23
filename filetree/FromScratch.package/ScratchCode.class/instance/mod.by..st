@@ -1,5 +1,5 @@
 arithmetic ops
 mod: x by: y
-	^ bcGenerator
+	^ generator
 		mod: [ x argString: parser ]
 		by: [ y argString: parser ]

@@ -1,3 +1,3 @@
 control ops
 stopAll
-	bcGenerator stopAll.
+	generator stopAll.

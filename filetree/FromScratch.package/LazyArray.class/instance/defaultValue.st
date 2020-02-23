@@ -1,3 +1,3 @@
 accessing
 defaultValue
-	^ defaultValue ifNil: [ 0 ]
+	^ defaultValue ifNil: [ self array defaultElement ]

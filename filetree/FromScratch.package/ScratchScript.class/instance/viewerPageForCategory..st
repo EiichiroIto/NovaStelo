@@ -3,9 +3,9 @@ viewerPageForCategory: aCategoryName
 	| bin x y |
 	aCategoryName = 'variables'
 		ifTrue: [ ^ self variablesPage ].
-	aCategoryName = 'sensing'
-		ifTrue: [ ^ self viewerPageForSensing ].
-	bin := self newBlockPaletteMorph isForScript: true; yourself.
+	bin := self newBlockPaletteMorph
+		isForScript: true;
+		yourself.
 	x := 12.
 	y := 10.
 	(self blocksFor: aCategoryName)

@@ -5,8 +5,8 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [
-		"AvailableThemes",
-		"CurrentTheme"
+		"CurrentTheme",
+		"ThemesURL"
 	],
 	"instvars" : [
 		"colors",

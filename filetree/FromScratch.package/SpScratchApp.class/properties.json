@@ -6,7 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [
 		"Clipboard",
-		"UseErrorCatcher"
+		"Options"
 	],
 	"instvars" : [
 		"presenter",

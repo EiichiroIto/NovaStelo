@@ -1,11 +1,9 @@
 private
 parseItem: aStream
-	| token list |
+	| token |
 	aStream atEnd
 		ifTrue: [ ^ nil ].
 	token := aStream next.
 	token = $(
-		ifTrue: [ list := OrderedCollection new.
-			self parseItems: aStream to: list.
-			^ list asArray ].
+		ifTrue: [ ^ self parseItems: aStream delimiter: $) ].
 	^ token

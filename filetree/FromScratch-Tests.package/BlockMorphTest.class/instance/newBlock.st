@@ -1,0 +1,3 @@
+private
+newBlock
+	^ BlockMorph new

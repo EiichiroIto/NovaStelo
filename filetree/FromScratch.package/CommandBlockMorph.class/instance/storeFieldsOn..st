@@ -5,11 +5,7 @@ storeFieldsOn: anObjStream
 	self storeFieldsNamed: #(
 		commandSpec
 		argMorphs
-		titleMorph
 		receiver
 		selector
-		isReporter
 		isTimed
-		wantsName
-		wantsPossession
 	) on: anObjStream.

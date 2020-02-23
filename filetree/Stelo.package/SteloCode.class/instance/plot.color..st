@@ -1,5 +1,5 @@
 pen ops
 plot: anInteger color: color
-	bcGenerator
+	generator
 		plot: [ anInteger argString: parser ]
 		color: [ color argString: parser ]

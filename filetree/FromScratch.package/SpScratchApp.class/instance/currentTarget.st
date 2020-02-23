@@ -1,3 +1,0 @@
-accessing
-currentTarget
-	^ presenter currentTarget

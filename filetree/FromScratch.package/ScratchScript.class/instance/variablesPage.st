@@ -3,7 +3,6 @@ variablesPage
 	| page y maxX |
 	page := self newBlockPaletteMorph
 		isForScript: true;
-		color: (Color r: 0.8 g: 0.8 b: 1.0);
 		borderWidth: 0.
 	y := 7.
 	self useVariable

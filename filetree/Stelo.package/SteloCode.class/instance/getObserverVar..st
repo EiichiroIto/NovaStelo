@@ -1,4 +1,4 @@
 patch ops
 getObserverVar: var
-	^ bcGenerator
-		getObserverVar: (targetMorph observerVarId varNoFor: var choice)
+	^ generator
+		getObserverVar: (script observerVarId varNoFor: var choice)

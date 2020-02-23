@@ -1,3 +1,3 @@
 pen ops
 clearPlots
-	bcGenerator clearPlots
+	generator clearPlots

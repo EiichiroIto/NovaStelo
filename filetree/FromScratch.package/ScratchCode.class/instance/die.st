@@ -1,3 +1,3 @@
 basic ops
 die
-	bcGenerator die.
+	generator die.

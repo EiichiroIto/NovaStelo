@@ -1,3 +1,3 @@
 sensing ops
 aimHigh: var
-	^ bcGenerator aimHighVar: (targetMorph patchVarId varNoFor: var choice)
+	^ generator aimHighVar: (script patchVarId varNoFor: var choice)

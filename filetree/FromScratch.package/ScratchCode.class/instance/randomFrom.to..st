@@ -1,5 +1,5 @@
 arithmetic ops
 randomFrom: a to: b
-	^ bcGenerator
+	^ generator
 		randomFrom: [ a argString: parser ]
 		to: [ b argString: parser ]

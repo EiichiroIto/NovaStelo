@@ -28,6 +28,11 @@ setupButtons
 				help: 'Step');
 		addItem:
 			(SpToolBarButton new
+				label: 'Event';
+				icon: (ScratchTheme formAt: #eventButtonGray);
+				help: 'Event');
+		addItem:
+			(SpToolBarButton new
 				label: 'Slowly';
 				icon: (ScratchTheme formAt: #loopSlowButtonGray);
 				help: 'Loop slowly');

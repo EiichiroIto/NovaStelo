@@ -7,8 +7,11 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"parser",
-		"targetMorph",
-		"stream"
+		"stream",
+		"indents",
+		"position",
+		"wantsLinefeed",
+		"indentLevel"
 	],
 	"name" : "ScratchSexpGenerator",
 	"type" : "normal"

@@ -1,3 +1,3 @@
 basic ops
 clearTurtles
-	bcGenerator clearTurtles.
+	generator clearTurtles.

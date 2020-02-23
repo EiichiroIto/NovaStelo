@@ -1,3 +1,3 @@
 basic ops
 changeXposBy: num
-	bcGenerator changeXposBy: [ num argString: parser ].
+	generator changeXposBy: [ num argString: parser ].

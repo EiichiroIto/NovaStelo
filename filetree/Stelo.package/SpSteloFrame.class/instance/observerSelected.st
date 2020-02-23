@@ -1,4 +1,4 @@
 private
 observerSelected
-	self currentTarget: application observerScript.
+	self target: application observerScript.
 	self updateThumbnail

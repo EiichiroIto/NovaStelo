@@ -1,3 +1,3 @@
 pen ops
 isPenDown
-	^ bcGenerator isPenDown
+	^ generator isPenDown

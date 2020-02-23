@@ -1,4 +1,4 @@
 class initialization
 initialize
-	UseErrorCatcher := false.
-	Clipboard := nil
+	Clipboard := nil.
+	Options := nil

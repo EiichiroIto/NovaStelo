@@ -1,3 +1,3 @@
 accessing
 subTable: aDictionary
-	bcGenerator subTable: aDictionary.
+	generator subTable: aDictionary.

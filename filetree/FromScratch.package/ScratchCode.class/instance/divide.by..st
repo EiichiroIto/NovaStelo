@@ -1,5 +1,5 @@
 arithmetic ops
 divide: x by: y
-	^ bcGenerator
+	^ generator
 		divide: [ x argString: parser ]
 		by: [ y argString: parser ]

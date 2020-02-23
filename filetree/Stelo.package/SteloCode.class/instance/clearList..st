@@ -4,4 +4,4 @@ clearList: aList
 	v := aList choice.
 	v isEmpty
 		ifTrue: [ self error ].
-	^ bcGenerator clearList: (targetMorph varId varNoFor: v)
+	^ generator clearList: (script varId varNoFor: v)

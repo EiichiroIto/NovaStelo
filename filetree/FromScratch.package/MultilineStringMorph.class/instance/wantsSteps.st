@@ -1,4 +1,0 @@
-stepping
-wantsSteps
-
-	^ hasFocus

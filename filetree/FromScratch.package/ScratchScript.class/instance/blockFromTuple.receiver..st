@@ -30,12 +30,12 @@ blockFromTuple: tuple receiver: scriptOwner
 						ifFalse: [ block toggleShowing ] ].
 			block color: (Color r: 0.8 g: 0 b: 0).
 			^ block ]."
-	spec := blockDef blockSpecAt: k.
+	spec := self blockDef blockSpecAt: k.
 	spec
 		ifNil: [ ^ scriptOwner
 				blockFromSpec: #('obsolete!' - yourself)
 				color: Color red ].
-	blockColor := blockDef blockColorAt: k.
+	blockColor := self blockDef blockColorAt: k.
 	block := scriptOwner blockFromSpec: spec color: blockColor.
 	block isCommandBlock
 		ifTrue: [ argCount := block argumentCount min: tuple size - 1.

@@ -4,7 +4,7 @@ setLine: anInteger ofList: aList to: anObject
 	v := aList choice.
 	v isEmpty
 		ifTrue: [ self error ].
-	bcGenerator
+	generator
 		setLine: [ anInteger argString: parser ]
-		ofList: (targetMorph varId varNoFor: v)
+		ofList: (script varId varNoFor: v)
 		to: [ anObject argString: parser ]

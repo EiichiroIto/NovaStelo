@@ -1,3 +1,3 @@
 sensing ops
 ticks
-	^ bcGenerator getObserverVar: SObserverVarDef ticksVarNo
+	^ generator getObserverVar: SObserverVarDef ticksVarNo

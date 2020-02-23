@@ -1,11 +1,9 @@
 private
 updateContents
 	| p |
-	self target
-		ifNil: [ self
-				pageViewerContents: (Morph new color: ScratchTheme palettePaneColor).
-			^ self ].
-	p := self target viewerPageForCategory: currentCategory.
+	p := self target
+		ifNil: [ Morph new ]
+		ifNotNil: [ self target viewerPageForCategory: currentCategory ].
 	p color: ScratchTheme palettePaneColor.
-	self pageViewerContents: p.
-	p fixLayout
+	p fixLayout.
+	self pageViewerContents: p

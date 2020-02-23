@@ -2,7 +2,7 @@ program
 setupSub: aHatBlock program: aProgram table: aDictionary
 	| code addr |
 	addr := aProgram nextAddress.
-	code := self newCode
+	code := project newCode
 		startAddress: addr;
 		subTable: aDictionary;
 		parse: aHatBlock target: self.

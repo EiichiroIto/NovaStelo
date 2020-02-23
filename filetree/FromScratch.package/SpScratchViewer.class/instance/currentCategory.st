@@ -1,3 +1,3 @@
 accessing
 currentCategory
-	^ currentCategory
+	^ currentCategory ifNil: [ #none ]

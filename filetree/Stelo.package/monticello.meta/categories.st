@@ -6,4 +6,3 @@ SystemOrganization addCategory: #'Stelo-Plugins'!
 SystemOrganization addCategory: #'Stelo-Process'!
 SystemOrganization addCategory: #'Stelo-Project'!
 SystemOrganization addCategory: #'Stelo-Spec2'!
-SystemOrganization addCategory: #'Stelo-Tests'!

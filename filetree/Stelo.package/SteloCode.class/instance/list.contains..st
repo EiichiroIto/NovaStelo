@@ -4,6 +4,6 @@ list: aList contains: anInteger
 	v := aList choice.
 	v isEmpty
 		ifTrue: [ self error ].
-	^ bcGenerator
-		list: (targetMorph varId varNoFor: v)
+	^ generator
+		list: (script varId varNoFor: v)
 		contains: [ anInteger argString: parser ]

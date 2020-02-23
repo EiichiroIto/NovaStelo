@@ -1,5 +1,5 @@
 code generator
 generateCenter: aSymbol morph: aMorph
-	stream nextPut: $).
+	self printCloseParen.
 	self generateLineFeed.
-	stream nextPut: $(.
+	self printOpenParen

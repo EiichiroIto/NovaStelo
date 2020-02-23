@@ -1,9 +1,9 @@
 private
 importSub: aCollection for: aScript subName: aString
-	| block prev tuple |
+	| block prev tuple top |
 	prev := aScript blocksBin.
 	tuple := self subBlockTupleFor: aString.
-	block := aScript hatBlockFromTuple: tuple receiver: aScript.
+	top := block := aScript hatBlockFromTuple: tuple receiver: aScript.
 	prev addMorph: block.
 	prev := block.
 	aCollection
@@ -11,4 +11,5 @@ importSub: aCollection for: aScript subName: aString
 			tuple := self tupleFrom: each.
 			block := aScript blockFromTuple: tuple receiver: aScript.
 			prev nextBlock: block.
-			prev := block ]
+			prev := block ].
+	^ top

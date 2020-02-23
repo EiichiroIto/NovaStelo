@@ -1,3 +1,3 @@
 color ops
 getColor
-	^ bcGenerator getColor
+	^ generator getColor

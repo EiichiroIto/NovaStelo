@@ -1,0 +1,3 @@
+private
+newLexer
+	^ SexpLexer new

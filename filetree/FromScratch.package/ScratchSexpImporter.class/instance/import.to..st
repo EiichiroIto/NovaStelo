@@ -1,4 +1,4 @@
-acccessing
+accessing
 import: aString to: anApplication
 	| lex list |
 	project := anApplication project.

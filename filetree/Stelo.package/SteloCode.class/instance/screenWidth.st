@@ -1,3 +1,3 @@
 sensing ops
 screenWidth
-	^ bcGenerator getObserverVar: SObserverVarDef widthVarNo
+	^ generator getObserverVar: SObserverVarDef widthVarNo

@@ -1,5 +1,5 @@
 accessing
 try: aBlock onFailure: anErrorBlock
-	self useErrorCatcher
+	^ self useErrorCatcher
 		ifTrue: [ aBlock ifError: anErrorBlock ]
 		ifFalse: aBlock value

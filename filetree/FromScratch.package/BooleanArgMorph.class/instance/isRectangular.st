@@ -1,4 +1,0 @@
-drawing
-isRectangular
-
-	^ false

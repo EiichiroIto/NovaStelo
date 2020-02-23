@@ -1,3 +1,3 @@
 code generator
 generateLineFeed
-	stream nextPut: Character lf.
+	wantsLinefeed := true

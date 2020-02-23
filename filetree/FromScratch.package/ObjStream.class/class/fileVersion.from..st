@@ -3,7 +3,7 @@ fileVersion: anAppClass from: aStream
 	"Answer the Scratch file version number from the given string. If the string is of the form: 'ScratchVxx', were xx is a two-digit integer, answer the value of xx. Otherwise, answer 0."
 
 	| str |
-	str := (aStream next: anAppClass appVersion size) asString.
+	str := (aStream next: anAppClass appVersionString size) asString.
 	(str beginsWith: anAppClass appVersionTag)
 		ifFalse: [ ^ 0 ].
 	^ (str

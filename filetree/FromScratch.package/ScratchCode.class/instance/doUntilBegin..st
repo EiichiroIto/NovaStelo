@@ -1,5 +1,5 @@
 control ops
 doUntilBegin: aMorph
 	| id |
-	id := bcGenerator doUntilBegin.
+	id := generator doUntilBegin.
 	aMorph labelId: id.

@@ -1,4 +1,4 @@
-accessing
+testing
 isHatBlock
 
 	^ true

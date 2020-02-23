@@ -1,3 +1,3 @@
 control ops
 doRepeatEnd: aMorph
-	bcGenerator doRepeatEndLabels: aMorph labelId.
+	generator doRepeatEndLabels: aMorph labelId.

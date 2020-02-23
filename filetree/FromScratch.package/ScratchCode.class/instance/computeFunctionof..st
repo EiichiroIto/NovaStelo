@@ -7,4 +7,4 @@ computeFunctionof: aMorph
 	op = '10 ^'
 		ifTrue: [ op := 'exp10' ].
 	v := [ aMorph blockArgs second argString: parser ].
-	^ bcGenerator computeFunction: op asSymbol of: v
+	^ generator computeFunction: op asSymbol of: v

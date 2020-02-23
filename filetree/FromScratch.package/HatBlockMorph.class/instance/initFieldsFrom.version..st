@@ -7,7 +7,6 @@ initFieldsFrom: anObjStream version: classVersion
 		indicatorMorph
 		scriptOwner
 		parameters
-		isClickable
 	) from: anObjStream.
 	parameters := nil.  "procedures with parameters are no longer supported"
 

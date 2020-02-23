@@ -1,0 +1,3 @@
+accessing
+newCode
+	^ application newCode

@@ -10,7 +10,8 @@
 		"isBoolean",
 		"options",
 		"choice",
-		"getOptionsSelector"
+		"getOptionsSelector",
+		"getOptionsTarget"
 	],
 	"name" : "ChoiceArgMorph",
 	"type" : "normal"

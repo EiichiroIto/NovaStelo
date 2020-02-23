@@ -4,4 +4,4 @@ lineCountOfList: aList
 	v := aList choice.
 	v isEmpty
 		ifTrue: [ self error ].
-	^ bcGenerator lineCountOfList: (targetMorph varId varNoFor: v)
+	^ generator lineCountOfList: (script varId varNoFor: v)

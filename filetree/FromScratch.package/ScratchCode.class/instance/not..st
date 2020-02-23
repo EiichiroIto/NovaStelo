@@ -1,3 +1,3 @@
 arithmetic ops
 not: x
-	^ bcGenerator not: (x argString: parser)
+	^ generator not: (x argString: parser)

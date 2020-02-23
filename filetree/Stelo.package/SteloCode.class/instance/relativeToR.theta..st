@@ -1,5 +1,5 @@
 sensing ops
 relativeToR: r theta: theta
-	^ bcGenerator
+	^ generator
 		relativeToR: [ r argString: parser ]
 		theta: [ theta argString: parser ]

@@ -1,3 +1,3 @@
 accessing
 useErrorCatcher: aBoolean
-	UseErrorCatcher := aBoolean
+	self options at: #useErrorCatcher put: aBoolean

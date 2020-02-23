@@ -1,3 +1,3 @@
 pen ops
 setPlotYMin: aNumber
-	bcGenerator setPlotYMin: [ aNumber argString: parser ]
+	generator setPlotYMin: [ aNumber argString: parser ]

@@ -1,5 +1,5 @@
 arithmetic ops
 more: x than: y
-	^ bcGenerator
+	^ generator
 		less: [ y argString: parser ]
 		than: [ x argString: parser ]

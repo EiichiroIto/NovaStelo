@@ -6,21 +6,19 @@ writeScript: aScript
 		nextPutAll: aScript objName;
 		nextPut: Character space;
 		nextPut: $(.
-	aScript varNames
-		do: [ :each | stream nextPutAll: (SexpLexer quotedString: each) ]
-		separatedBy: [ stream nextPut: Character space ].
-	stream
-		nextPut: $);
-		nextPut: Character lf;
-		nextPut: $(.
+	self writetVarNames: aScript.
+	stream nextPut: $).
+	self writeIndent.
+	stream nextPut: $(.
 	aScript subBlocks
 		do: [ :each | 
-			code := ScratchSexpGenerator new parse: each target: aScript.
-			stream nextPutAll: code ].
+			code := ScratchSexpGenerator new parse: each initialIndent: 3.
+			stream nextPutAll: code ]
+		separatedBy: [ self writeIndent ].
+	self writeIndent.
 	aScript eventBlocks
 		do: [ :each | 
-			code := ScratchSexpGenerator new parse: each target: aScript.
-			stream nextPutAll: code ].
-	stream
-		nextPutAll: '))';
-		nextPut: Character lf
+			code := ScratchSexpGenerator new parse: each initialIndent: 3.
+			stream nextPutAll: code ]
+		separatedBy: [ self writeIndent ].
+	stream nextPutAll: '))'

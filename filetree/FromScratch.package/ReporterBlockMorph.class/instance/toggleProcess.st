@@ -1,3 +1,3 @@
 processes
 toggleProcess
-	"do nothing"
+	self showValue

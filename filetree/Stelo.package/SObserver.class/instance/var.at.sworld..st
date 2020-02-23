@@ -15,5 +15,5 @@ var: anInteger at: id sworld: aWorld
 	anInteger = v sizeVarNo
 		ifTrue: [ ^ aWorld sizeOf: id ].
 	anInteger = v maxVarVarNo
-		ifTrue: [ ^ self ].
+		ifTrue: [ ^ varId size ].
 	^ self var: anInteger at: id

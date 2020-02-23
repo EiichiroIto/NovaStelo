@@ -1,0 +1,3 @@
+variables
+deleteVariable: aString
+	self subclassResponsibility

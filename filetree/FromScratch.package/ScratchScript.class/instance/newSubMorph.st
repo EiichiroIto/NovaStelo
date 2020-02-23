@@ -1,5 +1,5 @@
 private
 newSubMorph
 	^ SubHatMorph new
-		newScriptOwner: self;
+		scriptOwner: self;
 		yourself

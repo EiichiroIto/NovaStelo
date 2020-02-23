@@ -1,8 +1,10 @@
 code generator
 generateEventHeader: aString
+	"self generateLineFeed."
+	self
+		printOpenParen;
+		printString: 'when';
+		printSpace;
+		printString: aString.
 	self generateLineFeed.
-	stream
-		nextPutAll: '(when ';
-		nextPutAll: aString.
-	self generateLineFeed.
-	stream nextPut: $(.
+	self printOpenParen

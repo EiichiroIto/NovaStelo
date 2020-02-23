@@ -4,6 +4,6 @@ append: anObject toList: aList
 	v := aList choice.
 	v isEmpty
 		ifTrue: [ self error ].
-	bcGenerator
+	generator
 		append: [ anObject argString: parser ]
-		toList: (targetMorph varId varNoFor: v)
+		toList: (script varId varNoFor: v)

@@ -8,7 +8,7 @@ initialize
 		font: (StrikeFont fontName: 'Verdana' size: 12).
 	self addMorph: stringMorph.
 
-	color := ScratchTheme fieldColor.
+	self color: Color red.
 	self textColor: ScratchTheme dialogBoxTextColor.
 	doResizing := false.
 	isNumeric := false.

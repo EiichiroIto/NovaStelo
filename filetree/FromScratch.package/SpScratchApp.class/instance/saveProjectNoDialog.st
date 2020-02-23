@@ -12,9 +12,4 @@ saveProjectNoDialog
 	ScratchDirectory current lastFolderIsSampleProjectsFolder
 		ifTrue: [ self projectDirectory: ScratchDirectory current project.
 			^ self saveProject ].
-	project
-		thumbnailForm: (presenter stageShotExtent: self class thumbnailExtent).
-	(project writeProjectAs: file)
-		ifFalse: [ ^ self ].
-	self projectName: file base.
-	self projectDirectory: file parent
+	self saveProjectAs: file

@@ -1,3 +1,3 @@
 accessing
 projectName
-	^ titlePane projectName
+	^ titlePane ifNotNil: [ titlePane projectName ]

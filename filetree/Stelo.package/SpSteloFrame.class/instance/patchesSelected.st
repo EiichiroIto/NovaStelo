@@ -1,3 +1,3 @@
 private
 patchesSelected
-	self currentTarget: application patchesScript
+	self target: application patchesScript

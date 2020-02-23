@@ -8,4 +8,5 @@ setupTitlePane
 		stopAllAction: [ application stopAll ];
 		stepLoopAction: [ application stepLoop ];
 		startLoopSlowAction: [ application startLoopSlow ];
-		startLoopAction: [ application startLoop ]
+		startLoopAction: [ application startLoop ];
+		startEventAction: [ application startEvent ]

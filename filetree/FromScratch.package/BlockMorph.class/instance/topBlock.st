@@ -4,5 +4,6 @@ topBlock
 
 	| m |
 	m := self.
-	[m owner isKindOf: BlockMorph] whileTrue: [m := m owner].
+	[ m owner notNil and: [ m owner isBlockMorph ] ]
+		whileTrue: [ m := m owner ].
 	^ m

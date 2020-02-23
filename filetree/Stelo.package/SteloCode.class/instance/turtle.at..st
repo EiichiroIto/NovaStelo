@@ -1,5 +1,5 @@
 sensing ops
 turtle: bno at: pno
-	^ bcGenerator
+	^ generator
 		turtle: [ bno argString: parser ]
 		at: [ pno argString: parser ]

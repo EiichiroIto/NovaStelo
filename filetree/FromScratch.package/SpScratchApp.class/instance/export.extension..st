@@ -1,28 +1,10 @@
 private
 export: anExporter extension: aString
-	| fName f str |
-	self closeMediaEditorsAndDialogs
-		ifFalse: [ ^ self ].
-	self stopAllProcesses.
-	fName := self
-		chooseNewFileDefault: self projectName
-		extension: aString
-		title: 'Export ...'
-		type: #export.
-	fName ifNil: [ ^ self ].
-	fName := fName withExtension: aString.
-	fName isFile
-		ifTrue: [ (UIManager default
-				confirm: 'Overwrite existing ' , fName basename , '?')
-				ifFalse: [ ^ self ].
-			fName delete ].
-	f := nil.
-	self class
-		try: [ f := fName writeStream.
-			str := anExporter exportFrom: self.
-			f nextPutAll: str.
-			f close ]
-		onFailure: [ f ifNotNil: [ f close ].
+	| str |
+	str := self class
+		try: [ anExporter exportFrom: self ]
+		onFailure: [ :err | 
 			UIManager default
-				alert: 'Could not write file' , fName basename
-				title: 'Export failed' localized ]
+				alert: 'Could not generate code:' , err asString
+				title: 'Export failed' localized ].
+	self exportString: str extension: aString

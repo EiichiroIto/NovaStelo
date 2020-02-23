@@ -1,8 +1,10 @@
 code generator
 generateSubHeader: aString
 	self generateLineFeed.
-	stream
-		nextPutAll: '(sub ';
-		nextPutAll: aString.
+	self
+		printOpenParen;
+		printString: 'sub';
+		printSpace;
+		printString: aString.
 	self generateLineFeed.
-	stream nextPut: $(.
+	self printOpenParen

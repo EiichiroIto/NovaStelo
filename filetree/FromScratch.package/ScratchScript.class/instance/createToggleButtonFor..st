@@ -12,5 +12,6 @@ createToggleButtonFor: block
 			block};
 		borderWidth: 0;
 		setProperty: #balloonText toValue: 'View on stage' localized.
-	self updateWatcher: toggleButton for: block.
+	self useVariableWatcher
+		ifTrue: [ self updateWatcher: toggleButton for: block ].
 	^ toggleButton

@@ -3,8 +3,8 @@ SystemOrganization addCategory: #'FromScratch-Blocks'!
 SystemOrganization addCategory: #'FromScratch-Bytecode'!
 SystemOrganization addCategory: #'FromScratch-Converter'!
 SystemOrganization addCategory: #'FromScratch-Core'!
+SystemOrganization addCategory: #'FromScratch-Manifest'!
 SystemOrganization addCategory: #'FromScratch-Morphic'!
 SystemOrganization addCategory: #'FromScratch-Process'!
 SystemOrganization addCategory: #'FromScratch-Project'!
 SystemOrganization addCategory: #'FromScratch-Spec2'!
-SystemOrganization addCategory: #'FromScratch-Tests'!

@@ -1,3 +1,3 @@
 basic ops
 forward: num
-	bcGenerator forward: [ num argString: parser ].
+	generator forward: [ num argString: parser ].

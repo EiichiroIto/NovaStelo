@@ -2,7 +2,7 @@ class initialization
 initialize
 	"self initialize"
 
-	LabelColor := Color white.
+	LabelColor := nil.
 
 	PuzzleInset := 11.
 	PuzzleWidth := 14.

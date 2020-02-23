@@ -1,3 +1,3 @@
 accessing
 projectName: aString
-	titlePane projectName: aString
+	titlePane ifNotNil: [ titlePane projectName: aString ]

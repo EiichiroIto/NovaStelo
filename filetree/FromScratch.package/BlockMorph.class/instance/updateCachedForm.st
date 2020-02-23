@@ -8,5 +8,4 @@ updateCachedForm
 	c := c copyOffset: self topLeft negated.
 	self drawOn: c.
 	self drawSubmorphsOn: c.
-	cachedForm := c form.
-	lastLayoutTime := Time millisecondClockValue
+	cachedForm := c form

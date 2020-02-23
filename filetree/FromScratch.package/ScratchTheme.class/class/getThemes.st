@@ -1,7 +1,9 @@
 private
 getThemes
-	| response ref |
-	response := ZnEasy get: self themesURL.
+	| response ref url |
+	url := self themesURL.
+	url ifNil: [ self error: 'Need to set ThemesURL' ].
+	response := ZnEasy get: url.
 	response isSuccess
 		ifFalse: [ self error: 'Cannot get Themes.zip' ].
 	ref := 'Themes.zip' asFileReference.

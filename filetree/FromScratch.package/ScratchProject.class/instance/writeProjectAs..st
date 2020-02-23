@@ -17,7 +17,7 @@ writeProjectAs: aFileReference
 		try: [ out := tmpFile binaryWriteStream.
 			out
 				ifNil: [ saveError := 'Folder may be locked or read-only' ]
-				ifNotNil: [ out nextPutAll: self appVersion asByteArray.
+				ifNotNil: [ out nextPutAll: self class appVersionString asByteArray.
 					self storeProjectInfoOn: out.
 					self newObjStream storeObj: self on: out.
 					out close ] ]
@@ -36,4 +36,5 @@ writeProjectAs: aFileReference
 				alert: 'Is the folder read-only?' localized
 				title: 'Save failed'.
 			^ false ].
+	self modified: false.
 	^ true

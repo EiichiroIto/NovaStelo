@@ -6,6 +6,6 @@ computeFunction: operator of: num
 		ifTrue: [ op := 'exp' ].
 	op = '10 ^'
 		ifTrue: [ op := 'exp10' ].
-	^ bcGenerator
+	^ generator
 		computeFunction: op asSymbol
 		of: [ num argString: parser ]
