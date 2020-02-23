@@ -1,0 +1,40 @@
+(NovaStelo ( Observer Patches Turtles3)
+       ((for Observer ()
+	     ((when startup
+		((clearAll)
+		 (createTurtleSize:breedId: 15 Turtles3)))))
+	(for Patches ( rader)
+	     ((when setup
+		((setColor: (plus:and: (colorGreen) 5))
+		 (doIf (equal:to: (getYpos) 0)
+		       ((setColor: (colorBlack))))
+		 (setVar:to: rader 0)
+		 (doIf (and:with: (equal:to: (getYpos) 0) (is:between:and: (getXpos) 20 25))
+		       ((setVar:to: rader 1)
+			(setColor: (plus:and: (colorBlue) 2))))))))
+	(for Turtles3 ( step-size speed-limit)
+	     ((sub check
+		   ((doIf (more:than: (turtle:at: Turtles3 (front)) 0)
+			  ((return: 1)))
+		    (doIf (more:than: (turtle:at: Turtles3 (relativeToR:theta: 2 (getHeading))) 0)
+			  ((return: 1)))
+		    (return: 0)))
+	      (when loop
+		((callSub: check)
+		 (doIfElse (more:than: (returnValue) 0)
+			   ((setVar:to: step-size 0.5))
+			   ((changeVar:by: step-size 0.1)))
+		 (doIf (more:than: (getVar step-size) (getVar speed-limit))
+		       ((setVar:to: step-size (getVar speed-limit))))))
+	      (when loop
+		((doIf (and:with: (more:than: (getVar step-size) 0.8) (more:than: (getPatchVar:at: rader (here)) 0))
+		       ((changeVar:by: step-size -0.4)))))
+	      (when loop
+		((forward: (getVar step-size))))
+	      (when setup
+		((setColor: (colorWhite))
+		 (setHeading: 0)
+		 (setXpos: (randomFrom:to: 1 (screenWidth)))
+		 (setYpos: 0)
+		 (setVar:to: step-size (plus:and: 0.1 (multiply:and: 0.1 (randomFrom:to: 1 16))))
+		 (setVar:to: speed-limit 2)))))))

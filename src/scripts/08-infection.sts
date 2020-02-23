@@ -1,0 +1,27 @@
+(NovaStelo ( Observer Patches Turtles3)
+  ((for Observer ()
+	((when startup
+	   ((clearTurtles)
+	    (createTurtleSize:breedId: 200 Turtles3)))))
+   (for Patches ()
+	())
+   (for Turtles3 ( deltaX deltaY level another)
+	((when loop
+	   ((doIf (equal:to: (getVar level) 0)
+		  ((setVar:to: another (turtle:at: Turtles3 (here)))
+		   (doIf (more:than: (getTurtle:breed:var: (getVar another) Turtles3 level) 0)
+			 ((setVar:to: level 100)))))))
+	 (when loop
+	   ((doIf (more:than: (getVar level) 0)
+		  ((changeVar:by: level -1)))))
+	 (when setup
+	   ((setXpos: (randomFrom:to: 1 100))
+	    (setYpos: (randomFrom:to: 1 100))
+	    (doIf (equal:to: (getId) 1)
+		  ((setVar:to: level 100)))))
+	 (when loop
+	   ((forward: 1)
+	    (turn: (randomFrom:to: -15 15))
+	    (doIfElse (more:than: (getVar level) 0)
+		      ((setColor: (colorRed)))
+		      ((setColor: (colorGreen))))))))))

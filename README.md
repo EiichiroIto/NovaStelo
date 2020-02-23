@@ -16,13 +16,18 @@ NovaStelo is built on Pharo Smalltalk 8.0. Almost all Model and UI are rewritten
 4. Click NovaStelo on a menu bar to start NovaStelo.
 
 ## Install repository on Pharo
-NovaStelo sources available on github(https://github.com/EiichiroIto/NovaStelo/filetree).
+NovaStelo sources available on github (https://github.com/EiichiroIto/NovaStelo/).
 ```
 Metacello new
     baseline: 'NovaStelo';
     repository: 'github://EiichiroIto/NovaStelo/filetree';
     load.
 ```
+
+## [Beware] Before update
+* You need keep script files before update, because project files are incompatible with any previous versions.
+* To keep script files, select "File - Export - Export Scripts in S-EXP".
+* To recovery the file, select "File - Import - Import Scripts"
 
 ## Examples
 1. Select Open from File menu.
