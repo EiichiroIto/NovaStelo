@@ -1,3 +1,3 @@
 code generation
 argOf: aParser
-	^ [ aParser argString: self ]
+	^ [ self argString: aParser ]

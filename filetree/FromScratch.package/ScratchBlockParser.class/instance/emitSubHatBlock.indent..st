@@ -1,11 +1,12 @@
 code generator
 emitSubHatBlock: aMorph indent: indent
-	| str |
+	| str i2 |
 	str := aMorph subName.
-	str isEmpty ifTrue: [^ self].
+	str isEmpty
+		ifTrue: [ ^ self ].
 	codeGenerator generateSubHeader: str.
 	aMorph nextBlock
-		ifNotNil: [self
-				emitCode: aMorph nextBlock
-				indent: indent + (codeGenerator indentLevelFor: str)].
-	codeGenerator generateSubFooter: str.
+		ifNotNil: [ i2 := indent + (codeGenerator indentLevelFor: str).
+			self emitGlobalVars: aMorph varNames indent: i2.
+			self emitCode: aMorph nextBlock indent: i2 ].
+	codeGenerator generateSubFooter: str

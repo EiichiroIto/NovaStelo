@@ -1,3 +1,0 @@
-private
-newPlotData
-	^ SteloPlotData new

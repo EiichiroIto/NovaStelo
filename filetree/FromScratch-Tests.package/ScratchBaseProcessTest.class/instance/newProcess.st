@@ -1,3 +1,0 @@
-private
-newProcess
-	^ ScratchBaseProcess new

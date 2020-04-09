@@ -6,11 +6,13 @@ fileMenu
 				addItem: [ :item | 
 					item
 						name: 'New';
-						action: [ application newProject ] ];
+						action: [ application newProject.
+							self plotter clearPlots ] ];
 				addItem: [ :item | 
 					item
 						name: 'Open';
-						action: [ application openProject ] ];
+						action: [ application openProject.
+							self plotter clearPlots ] ];
 				addItem: [ :item | 
 					item
 						name: 'Project Notes';

@@ -18,10 +18,6 @@ dataMenu
 			grp
 				addItem: [ :item | 
 					item
-						name: 'Save Plots as PNG';
-						action: [ application savePlotsAsImage ] ];
-				addItem: [ :item | 
-					item
 						name: 'Plots Data to Observer List';
 						action: [ application copyPlotsToList ] ];
 				addItem: [ :item | 

@@ -1,3 +1,0 @@
-private
-plotterBase
-	^ plotter morph

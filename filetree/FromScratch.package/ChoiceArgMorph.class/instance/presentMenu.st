@@ -1,4 +1,4 @@
-accessing
+private
 presentMenu
 	"Pop up a menu of choices."
 

@@ -1,6 +1,5 @@
 event handling
 showMenu: anEvent
-	| m |
-	(m := self project) ifNil: [ ^ self ].
-	m application target
-		ifNotNil: [ :s | self scriptsMenu: anEvent script: s ]
+	self project
+		ifNotNil:
+			[ :p | p application showScriptMenu: p application target event: anEvent ]

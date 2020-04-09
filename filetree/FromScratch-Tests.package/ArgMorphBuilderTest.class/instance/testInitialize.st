@@ -1,0 +1,3 @@
+test
+testInitialize
+	self testPrivDict

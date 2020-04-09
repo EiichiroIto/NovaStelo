@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "ScratchBaseProcess",
+	"super" : "ScratchNativeProcess",
 	"category" : "Stelo-Process",
 	"classinstvars" : [ ],
 	"pools" : [ ],

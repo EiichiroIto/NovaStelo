@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "VariableBlockMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "LocalVarBlockMorph",
+	"type" : "normal"
+}

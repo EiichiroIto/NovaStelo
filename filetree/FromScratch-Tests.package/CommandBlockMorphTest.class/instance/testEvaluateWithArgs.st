@@ -5,7 +5,7 @@ testEvaluateWithArgs
 		receiver: self newTestScript;
 		yourself.
 	b commandSpec: 'abs %n'.
-	b selector: #abs.
+	b selector: #abs:.
 	self assert: (b evaluateWithArgs: #(-5)) equals: 5.
 	b commandSpec: 'plus %n and %n'.
 	b selector: #plus:and:.

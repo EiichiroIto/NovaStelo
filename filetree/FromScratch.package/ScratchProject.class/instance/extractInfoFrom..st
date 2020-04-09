@@ -1,9 +1,10 @@
 file read/write
 extractInfoFrom: aByteArray
-	| s version |
+	| s version obj |
+	obj := self newObjStream.
 	s := ReadStream on: aByteArray.
-	version := ObjStream fileVersion: self class from: s.
+	version := obj class fileVersion: self class from: s.
 	version = self class appVersion
 		ifFalse: [ ^ self inform: 'Invalid version' ].
 	s skip: 4.
-	info := self newObjStream readObjFrom: s showProgress: false
+	info := obj readObjFrom: s showProgress: false

@@ -12,7 +12,6 @@ initialize
 	self textColor: ScratchTheme dialogBoxTextColor.
 	doResizing := false.
 	isNumeric := false.
-	isEditable := true.
 	isKeyboardFocus := false.
 	acceptWhenFocusLost := false.
 	self keyboardFocusChange: false.

@@ -1,3 +1,3 @@
 accessing
 useErrorCatcher
-	^ self options at: #useErrorCatcher ifAbsent: [ false ]
+	^ self settings at: #useErrorCatcher ifAbsent: [ false ]

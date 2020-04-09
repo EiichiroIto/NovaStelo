@@ -1,0 +1,23 @@
+{
+	"commentStamp" : "",
+	"super" : "Morph",
+	"category" : "FromScratch-Plotter",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"pens",
+		"data",
+		"last",
+		"min",
+		"max",
+		"cache",
+		"lastUpdateTime",
+		"updatePeriod",
+		"whenMouseClicked",
+		"maxSize",
+		"acceptPlots"
+	],
+	"name" : "ScratchPlotterMorph",
+	"type" : "normal"
+}

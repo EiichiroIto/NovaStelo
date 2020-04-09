@@ -4,6 +4,8 @@ blockFromTuple: tuple receiver: scriptOwner
 
 	| k spec blockColor block argCount arg argBlock |
 	k := tuple first.
+	k = #localVar
+		ifTrue: [ ^ self localVarBlockFromTuple: tuple receiver: scriptOwner ].
 	(#(readVariable changeVariable) includes: k)
 		ifTrue: [ ^ self variableBlockFromTuple: tuple receiver: scriptOwner ].
 	(#(EventHatMorph SubHatMorph) includes: k)

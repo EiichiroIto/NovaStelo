@@ -9,7 +9,7 @@ setupThemeColor: aTheme
 		colorAt: #labelOffColor put: Color white;
 		colorAt: #listBlockColor put: (Color r: 0.85 g: 0.303 b: 0.068);
 		colorAt: #plotterFrameColor put: systemTheme windowShadowColor;
-		colorAt: #plotterPaneColor put: systemTheme windowColor;
+		colorAt: #plotterPaneColor put: systemTheme backgroundColor;
 		colorAt: #palettePaneColor put: systemTheme windowColor;
 		colorAt: #scriptsPaneColor put: systemTheme windowColor;
 		colorAt: #textColor put: systemTheme textColor;

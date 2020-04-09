@@ -1,6 +1,5 @@
-other
+evaluation
 evaluate
 	"Answer my value."
 
-	isBoolean ifTrue: [^ 'true' = choice].
 	^ choice

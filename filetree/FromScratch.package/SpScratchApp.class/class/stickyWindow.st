@@ -1,3 +1,3 @@
 accessing
 stickyWindow
-	^ self options at: #stickyWindow ifAbsent: [ false ]
+	^ self settings at: #stickyWindow ifAbsent: [ false ]

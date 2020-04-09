@@ -9,7 +9,7 @@ blockFromSpec: spec color: blockColor
 	blockType := spec at: 2.
 	selector := (spec at: 3) asSymbol.
 	defaultArgs := self defaultArgsFor: spec.
-	(#(E K M S T L) includes: blockType)
+	(#(E K M S T L G) includes: blockType)
 		ifTrue: [ ^ (self hatBlockType: blockType) color: blockColor ].
 	(blockType includes: $c)
 		ifTrue: [ block := selector = #doIfElse

@@ -1,3 +1,3 @@
 accessing
 setPlotYMin: aNumber
-	plotList add: (SteloPlot setPlotYMin: aNumber)
+	plotList add: (ScratchPlot setPlotYMin: aNumber)

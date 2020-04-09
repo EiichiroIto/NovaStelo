@@ -1,3 +1,3 @@
 code generation
 argOf: aParser
-	^ [ aParser reporterArgString: self ]
+	^ [ self argString: aParser ]

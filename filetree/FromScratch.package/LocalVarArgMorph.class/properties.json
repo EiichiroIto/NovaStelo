@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "ArgMorph",
+	"category" : "FromScratch-Blocks",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"iconMorph"
+	],
+	"name" : "LocalVarArgMorph",
+	"type" : "normal"
+}

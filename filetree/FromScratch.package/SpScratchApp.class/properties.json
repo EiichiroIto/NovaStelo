@@ -6,7 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [
 		"Clipboard",
-		"Options"
+		"Settings"
 	],
 	"instvars" : [
 		"presenter",

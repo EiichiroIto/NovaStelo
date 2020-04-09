@@ -1,0 +1,3 @@
+watcher
+canBecomeWatcher
+	^ false

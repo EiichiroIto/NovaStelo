@@ -5,9 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"variable"
-	],
+	"instvars" : [ ],
 	"name" : "SetterBlockMorph",
 	"type" : "normal"
 }

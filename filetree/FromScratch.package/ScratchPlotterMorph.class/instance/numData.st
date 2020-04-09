@@ -1,0 +1,3 @@
+accessing
+numData
+	^ data size

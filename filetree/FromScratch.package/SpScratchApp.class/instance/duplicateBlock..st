@@ -1,14 +1,7 @@
 menu actions
 duplicateBlock: aBlockMorph
-	| code lex list obj |
-	code := ScratchSexpGenerator new parse: aBlockMorph initialIndent: 1.
-	aBlockMorph isHatBlock
-		ifFalse: [ code := '(' , code , ')' ].
-	lex := SexpLexer new read: code.
-	list := SexpParser new parse: lex.
-	obj := (ScratchSexpImporter appName: self appName)
-		importCode: list
-		into: self target.
+	| code obj |
+	code := self serializeBlocks: aBlockMorph.
+	obj := self deserializeFrom: code.
 	obj ifNil: [ ^ self ].
-	obj position: ActiveHand position.
 	ActiveHand grabMorph: obj

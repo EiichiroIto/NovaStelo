@@ -1,4 +1,4 @@
-test
+tests
 testPlotData
 	| w b t ret |
 	w := self newWorld.
@@ -13,4 +13,4 @@ testPlotData
 	t execute: 1.
 	ret := w plotList.
 	self assert: ret size equals: 1.
-	self assertCollection: ret first class equals: SteloPlotData.
+	self assertCollection: ret first class equals: ScratchPlotData.

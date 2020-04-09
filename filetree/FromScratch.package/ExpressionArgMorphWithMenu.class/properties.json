@@ -7,9 +7,9 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"menuMorph",
-		"getMenuSelector",
 		"specialValue",
-		"getMenuTarget"
+		"getOptionsSelector",
+		"getOptionsTarget"
 	],
 	"name" : "ExpressionArgMorphWithMenu",
 	"type" : "normal"

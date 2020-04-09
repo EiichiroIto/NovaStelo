@@ -4,7 +4,9 @@ convertTuplesToStacks
 	blocksBin isArray
 		ifFalse: [ ^ self ].
 	tuplesList := blocksBin.
-	blocksBin := ScratchScriptsMorph new.
+	blocksBin := ScratchScriptsMorph new
+		project: self project;
+		yourself.
 	tuplesList
 		do: [ :pair | 
 			stack := self stackFromTupleList: pair second receiver: self.

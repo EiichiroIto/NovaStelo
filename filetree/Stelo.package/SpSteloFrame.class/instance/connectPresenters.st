@@ -8,5 +8,6 @@ connectPresenters
 		whenTurtlesSelectedDo: [ :bno | self turtlesSelected: bno ];
 		whenTurtlesAddedDo: [ self addTurtles ];
 		whenTurtlesDeletedDo: [ :bno | self turtlesDeleted: bno ].
-	self
-		updateThumbnail
+	editorPane
+		whenPlotterClicked: [ :plotter :event | self showMenuForPlotter: plotter event: event ].
+	self updateThumbnail

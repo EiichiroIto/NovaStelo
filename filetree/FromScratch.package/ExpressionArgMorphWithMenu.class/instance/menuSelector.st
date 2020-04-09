@@ -1,5 +1,0 @@
-accessing
-menuSelector
-
-	^ getMenuSelector
-

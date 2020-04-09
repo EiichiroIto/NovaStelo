@@ -5,6 +5,11 @@ hatBlockFromTuple: tuple receiver: scriptOwner
 	block := blockClass new scriptOwner: scriptOwner.
 	blockClass = EventHatMorph
 		ifTrue: [ eventName := tuple at: 2.
+			eventName = 'start'
+				ifTrue: [ block
+						for: 'when start' event: #start;
+						scriptOwner: scriptOwner.
+					^ block ].
 			eventName = 'startup'
 				ifTrue: [ block
 						forStartupEvent;

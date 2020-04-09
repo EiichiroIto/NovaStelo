@@ -2,8 +2,5 @@ initialization
 connectPresenters
 	categories
 		display: [ :each | each asCamelCase ];
-		icons: [ :each | 
-			ScratchTheme
-				formAt: (each , 'Pressed') asSymbol
-				ifAbsent: [ ScratchTheme formAt: #unknownPressed ] ];
+		icons: [ :each | self markerFormFor: each ];
 		whenSelectionChangedDo: [ :each | self updateContents ]

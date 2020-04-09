@@ -1,3 +1,3 @@
 accessing
 objName
-	^ 'test'
+	^ objName

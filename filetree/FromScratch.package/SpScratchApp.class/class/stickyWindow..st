@@ -1,3 +1,3 @@
 accessing
 stickyWindow: aBoolean
-	self options at: #stickyWindow put: aBoolean
+	self settings at: #stickyWindow put: aBoolean

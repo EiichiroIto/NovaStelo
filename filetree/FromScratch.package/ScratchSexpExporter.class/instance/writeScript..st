@@ -6,7 +6,7 @@ writeScript: aScript
 		nextPutAll: aScript objName;
 		nextPut: Character space;
 		nextPut: $(.
-	self writetVarNames: aScript.
+	self writeVarNames: aScript.
 	stream nextPut: $).
 	self writeIndent.
 	stream nextPut: $(.

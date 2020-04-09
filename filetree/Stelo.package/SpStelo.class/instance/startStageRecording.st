@@ -14,8 +14,8 @@ startStageRecording
 				confirm: 'Are you sure you want to overwrite the file''' , fName basename , '''?')
 				ifFalse: [ ^ self ].
 			fName delete ].
-	recorder := SRecorder new
+	recorder := ScratchRecorder new
 		openFileNamed: fName;
-		sworld: sworld;
+		model: presenter;
 		extent: 200 @ 200.
 	self updateStatus

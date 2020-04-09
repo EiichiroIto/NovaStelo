@@ -5,7 +5,7 @@ testEvaluate
 		receiver: self newTestScript;
 		yourself.
 	b commandSpec: 'abs %n'.
-	b selector: #abs.
+	b selector: #abs:.
 	b argPermutation: #(1).
 	b defaultArgs: #(-5).
 	self assert: b evaluate equals: 5.

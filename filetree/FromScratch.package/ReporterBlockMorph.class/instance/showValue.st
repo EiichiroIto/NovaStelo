@@ -6,6 +6,6 @@ showValue
 		onFailure: [ :err | 'Error!' localized , err asString ].
 	msg ifNil: [ ^ self ].
 	msg := self isBooleanReporter
-		ifTrue: [ msg localized ]
+		ifTrue: [ msg asString localized ]
 		ifFalse: [ msg asString ].
 	self showBalloon: msg

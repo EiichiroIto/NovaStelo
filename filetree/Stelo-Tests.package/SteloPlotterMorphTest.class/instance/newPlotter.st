@@ -1,3 +1,0 @@
-private
-newPlotter
-	^ SteloPlotterMorph new

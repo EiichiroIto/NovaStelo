@@ -5,9 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"out"
-	],
+	"instvars" : [ ],
 	"name" : "SexpParser",
 	"type" : "normal"
 }

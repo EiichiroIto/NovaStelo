@@ -7,6 +7,9 @@ hatBlockType: blockType
 			^ EventHatMorph new
 				scriptOwner: self;
 				eventName: evtName ].
+	'G' = blockType
+		ifTrue: [ ^ (EventHatMorph new for: 'when start' event: #start)
+				scriptOwner: self ].
 	'S' = blockType
 		ifTrue: [ ^ EventHatMorph new forSetupEvent scriptOwner: self ].
 	'T' = blockType

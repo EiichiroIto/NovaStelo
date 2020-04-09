@@ -10,7 +10,7 @@ tupleFrom: aCollection
 		ifTrue: [ ^ self setVarTupleFrom: aCollection ].
 	selector = #doIfElse
 		ifTrue: [ ^ self ifElseTupleFrom: aCollection ].
-	(#(doIf doRepeat doUntil) includes: selector)
+	(#(doIf doRepeat doUntil doForever doWhile) includes: selector)
 		ifTrue: [ ^ self cBlockTupleFrom: aCollection ].
 	tuple := aCollection copy.
 	self updateArgs: tuple.

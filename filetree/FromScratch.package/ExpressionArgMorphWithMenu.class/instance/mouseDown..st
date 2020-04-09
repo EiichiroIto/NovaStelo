@@ -4,11 +4,11 @@ mouseDown: evt
 	menuMorph ifNil: [ ^ super mouseDown: evt ].
 	evt cursorPoint x < (menuMorph left - 1)
 		ifTrue: [ ^ super mouseDown: evt ].
-	rcvr := self menuTarget.
+	rcvr := self getOptionsTarget.
 	rcvr ifNil: [ rcvr := owner receiver ].
-	(self menuSelector isNil or: [ rcvr isNil ])
+	(self getOptionsSelector isNil or: [ rcvr isNil ])
 		ifTrue: [ ^ self beep ].
-	list := rcvr perform: self menuSelector.
+	list := rcvr perform: self getOptionsSelector.
 	list isEmpty
 		ifTrue: [ ^ self ].
 	ret := UIManager default chooseFrom: (list collect: #first).
@@ -16,7 +16,7 @@ mouseDown: evt
 		ifTrue: [ ^ self ].
 	choice := (list at: ret) second.
 	evt hand newKeyboardFocus: nil.
-	(#(listIndexNames listIndexForDeleteNames) includes: getMenuSelector)
+	(#(listIndexNames listIndexForDeleteNames) includes: getOptionsSelector)
 		ifTrue: [ ^ self specialValue: choice ].
 	isNumber
 		ifTrue: [ self numExpression: choice ]

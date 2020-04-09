@@ -1,0 +1,3 @@
+private
+windowClosing
+	"do nothing"

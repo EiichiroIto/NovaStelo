@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "ScratchPlot",
+	"category" : "FromScratch-Plotter",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"channel",
+		"color"
+	],
+	"name" : "ScratchPlotColor",
+	"type" : "normal"
+}

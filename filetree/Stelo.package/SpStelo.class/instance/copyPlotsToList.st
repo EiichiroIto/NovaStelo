@@ -5,10 +5,10 @@ copyPlotsToList
 	listNames isEmpty
 		ifTrue: [ ^ self ].
 	observerScript := project scriptOf: SBreedId observerBreedNo.
-	plots := (1 to: observerScript plotter numPlots) asArray.
+	plots := (1 to: self plotter numPlots) asArray.
 	ret := SpSteloConvDialog plots: plots listNames: listNames.
 	ret ifNil: [ ^ self ].
-	list := observerScript plotter listOf: ret first.
+	list := self plotter listOf: ret first.
 	vno := project observer varNoFor: ret second.
 	sworld
 		var: vno

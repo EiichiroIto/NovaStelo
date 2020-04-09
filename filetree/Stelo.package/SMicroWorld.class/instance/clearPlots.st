@@ -1,3 +1,3 @@
 accessing
 clearPlots
-	plotList add: SteloPlot clearPlots
+	plotList add: ScratchPlot clearPlots

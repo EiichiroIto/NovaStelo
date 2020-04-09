@@ -63,6 +63,8 @@ blocks
 			('patch''s %p at %n'							r 	getPatchVar:at: 	'' 'where')
 			('set patch''s %p at %n to %n'			-	setPatchVar:at:to: '' 'where' 0)
 			('change patch''s %p at %n by %n'		-	changePatchVar:at:by: '' 'where' 1)
+			-
+			('change observer''s %o by %n'				-	changeObserverVar:by: '' 1)
 	).
 
 	^ blocks, self colorBlocks, self variablesBlocks, super blocks, self observerBlocks

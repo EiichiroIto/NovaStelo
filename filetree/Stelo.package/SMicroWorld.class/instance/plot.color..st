@@ -1,3 +1,5 @@
 accessing
 plot: anInteger color: color
-	plotList add: (SteloPlot channel: anInteger colorAt: color)
+	| c |
+	c := SColorList colorAt: color.
+	plotList add: (ScratchPlot channel: anInteger color: c)

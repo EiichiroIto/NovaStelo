@@ -5,9 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"plotter"
-	],
+	"instvars" : [ ],
 	"name" : "ObserverScript",
 	"type" : "normal"
 }

@@ -1,0 +1,3 @@
+private
+settingsFilename
+	^ 'settings.ston'

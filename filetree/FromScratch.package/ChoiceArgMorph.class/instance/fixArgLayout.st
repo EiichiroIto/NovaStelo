@@ -1,4 +1,4 @@
-other
+private
 fixArgLayout
 	"Set my color to my owner's color."
 

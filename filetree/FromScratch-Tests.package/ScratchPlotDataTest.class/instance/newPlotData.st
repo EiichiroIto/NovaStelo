@@ -1,0 +1,3 @@
+private
+newPlotData
+	^ ScratchPlotData new

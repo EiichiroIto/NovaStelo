@@ -1,3 +1,3 @@
 accessing
 setPlotYMax: aNumber
-	plotList add: (SteloPlot setPlotYMax: aNumber)
+	plotList add: (ScratchPlot setPlotYMax: aNumber)

@@ -7,8 +7,6 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"menuIconMorph",
-		"isBoolean",
-		"options",
 		"choice",
 		"getOptionsSelector",
 		"getOptionsTarget"

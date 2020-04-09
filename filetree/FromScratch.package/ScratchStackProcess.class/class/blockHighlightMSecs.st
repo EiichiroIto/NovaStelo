@@ -1,0 +1,3 @@
+accessing
+blockHighlightMSecs
+	^ 1

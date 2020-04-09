@@ -1,4 +1,4 @@
 accessing
 addPlots: aCollection
-	self plotterContents
+	self plotter
 		ifNotNil: [ :morph | morph addPlots: aCollection ]
