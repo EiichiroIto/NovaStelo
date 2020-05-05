@@ -14,6 +14,6 @@ helpMenu
 				autoRefresh: true ];
 		addItem: [ :item | 
 			item
-				name: 'Error Catcher';
-				subMenu: self errorCatcherMenu ];
+				name: 'Settings';
+				subMenu: self settingsMenu ];
 		yourself

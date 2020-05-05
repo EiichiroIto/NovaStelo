@@ -5,4 +5,5 @@ initializeWindow: aWindow
 		aboutText: application aboutAppString;
 		whenClosedDo: [ application windowClosing ].
 	application class stickyWindow
-		ifTrue: [ aWindow window beSticky ]
+		ifTrue: [ aWindow window beSticky ].
+	self updateDontCloseSetting
