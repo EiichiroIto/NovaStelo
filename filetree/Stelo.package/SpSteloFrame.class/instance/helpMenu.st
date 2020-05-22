@@ -6,6 +6,14 @@ helpMenu
 				name: 'About ' , application appName;
 				action: [ owner window showAbout ] ];
 		addItem: [ :item | 
+			item
+				name: 'Restart';
+				action: [ stageFrame startStepping ] ];
+		addItem: [ :item | 
+			item
+				name: 'Inspect';
+				action: [ application inspect ] ];
+		addItem: [ :item | 
 			menuChangeWorld := item.
 			item
 				name: 'Change world';

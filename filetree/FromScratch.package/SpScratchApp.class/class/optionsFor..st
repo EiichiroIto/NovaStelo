@@ -6,4 +6,6 @@ optionsFor: aSymbol
 		ifTrue: [ ^ {true . false} ].
 	aSymbol = #dontClose
 		ifTrue: [ ^ {true . false} ].
+	aSymbol = #keepMaximize
+		ifTrue: [ ^ {true . false} ].
 	^ #()
