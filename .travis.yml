@@ -1,0 +1,14 @@
+language: smalltalk
+sudo: false
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
+os:
+  - linux
+
+smalltalk:
+  - Pharo32-8.0
+  - Pharo64-8.0
