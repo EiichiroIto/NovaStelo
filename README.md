@@ -3,6 +3,8 @@ NovaStelo is a block-style programming environment for multi agent system, based
 
 ![Entire Screen](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/NovaStelo.png)
 
+[![Build Status](https://travis-ci.com/EiichiroIto/NovaStelo.svg?branch=master)](https://travis-ci.com/EiichiroIto/NovaStelo)
+
 NovaStelo is inspired from StarLogo and Scratch, more precisely
 StarLogo on the book "Turtles, Termites, and Traffic Jams" and Scratch 1.4.
 Both are of Resnick's great works.
