@@ -1,3 +1,7 @@
 class initialization
 initialize
-	ScratchDirectory current appName: self appFolderName
+	"self initialize"
+	ScratchDirectory current appName: self appFolderName.
+	ScratchTheme
+		themesURL: self themesURL;
+		setupThemeNamed: self appFolderName
