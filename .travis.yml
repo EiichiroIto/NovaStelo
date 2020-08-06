@@ -10,5 +10,4 @@ os:
   - linux
 
 smalltalk:
-  - Pharo32-8.0
   - Pharo64-8.0
