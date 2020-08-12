@@ -7,7 +7,7 @@ selectSetting: aSymbol
 		ifTrue: [ ^ self ].
 	choice := UIManager default
 		chooseFrom: list
-		title: 'Select options for ' , aSymbol.
+		title: 'Select options for ' localized , aSymbol.
 	choice = 0
 		ifTrue: [ ^ self ].
 	appClass perform: (aSymbol , ':') asSymbol with: (list at: choice).

@@ -36,6 +36,7 @@ addGenericListBlocksTo: page y: startY
 						ifTrue: [ y := y + 15 ].
 					blockOrSym = #~
 						ifTrue: [ y := y + 5 ] ]
-				ifFalse: [ y := self createBlock: blockOrSym atPosition: x @ y onPage: page.
+				ifFalse: [ self updateListArgFor: blockOrSym.
+					y := self createBlock: blockOrSym atPosition: x @ y onPage: page.
 					page submorphs last color: ScratchTheme listBlockColor ] ].
 	^ y

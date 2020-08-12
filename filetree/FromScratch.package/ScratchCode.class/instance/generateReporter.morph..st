@@ -7,5 +7,5 @@ generateReporter: aSymbol morph: aMorph
 		try: [ ret := self
 				perform: aSymbol asSymbol
 				withArguments: aMorph blockArgs ]
-		onFailure: [ aMorph showBalloon: 'error' ].
+		onFailure: [ aMorph showBalloon: 'Error!' localized ].
 	^ ret

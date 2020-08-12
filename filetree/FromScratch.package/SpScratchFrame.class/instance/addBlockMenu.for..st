@@ -5,19 +5,19 @@ addBlockMenu: aMenu for: aBlockMorph
 			grp
 				addItem: [ :item | 
 					item
-						name: 'copy';
+						name: 'copy' localized;
 						action: [ application copyBlock: aBlockMorph ] ];
 				addItem: [ :item | 
 					item
-						name: 'cut';
+						name: 'cut' localized;
 						action: [ application cutBlock: aBlockMorph ] ] ];
 		addGroup: [ :grp | 
 			grp
 				addItem: [ :item | 
 					item
-						name: 'delete';
+						name: 'delete' localized;
 						action: [ aBlockMorph delete ] ];
 				addItem: [ :item | 
 					item
-						name: 'duplicate';
+						name: 'duplicate' localized;
 						action: [ application duplicateBlock: aBlockMorph ] ] ]

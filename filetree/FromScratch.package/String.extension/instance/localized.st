@@ -4,6 +4,6 @@ localized
 
 	"| selfAsString |
 	selfAsString := self asString.
-	ScratchTranslator addUITranslation: selfAsString.
-	^ ScratchTranslator translationFor: selfAsString."
-	^ self
+	ScratchTranslator addUITranslation: selfAsString."
+
+	^ ScratchTranslator translationFor: self asString

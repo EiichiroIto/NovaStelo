@@ -57,7 +57,7 @@ blocks
 			-
 			('%f of %n'						r	computeFunction:of: 'sqrt' 10)
 		'sensing'
-			('return value'				r	returnValue)
+			('returned value'				r	returnValue)
 	).
 
 	^ blocks

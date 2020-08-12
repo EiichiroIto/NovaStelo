@@ -4,8 +4,8 @@ initialize
 	super initialize.
 	self removeAllMorphs.
 	label := StringMorph
-		contents: 'when I receive'
-		font: ScratchTheme labelFont.
+		contents: 'when I receive' localized
+		font: ScratchTranslator labelFont.
 	label color: Color white.
 	self addMorphBack: label.
 	scriptNameMorph := EventTitleMorph new.

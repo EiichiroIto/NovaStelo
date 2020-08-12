@@ -8,4 +8,6 @@ optionsFor: aSymbol
 		ifTrue: [ ^ {true . false} ].
 	aSymbol = #keepMaximize
 		ifTrue: [ ^ {true . false} ].
+	aSymbol = #language
+		ifTrue: [ ^ ScratchTranslator availableLocales ].
 	^ #()

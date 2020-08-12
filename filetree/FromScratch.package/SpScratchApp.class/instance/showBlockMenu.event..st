@@ -1,6 +1,8 @@
 menu actions
 showBlockMenu: aBlockMorph event: anEvent
-	(presenter
+	| menu |
+	menu := presenter
 		blockMenuFor: aBlockMorph
-		inScriptEditor: aBlockMorph isInScriptEditor)
-		openWithSpecAt: anEvent cursorPoint
+		inScriptEditor: aBlockMorph isInScriptEditor.
+	menu ifNil: [ ^ self ].
+	menu openWithSpecAt: anEvent cursorPoint

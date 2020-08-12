@@ -5,7 +5,7 @@ buttonLabel: aString selector: aSymbolOrNil
 	| button |
 	button := ResizableToggleButton2 new
 		offForm: (self formAt: #btn) onForm: (self formAt: #btnPressed);
-		label: aString font: self buttonFont;
+		label: aString font: ScratchTranslator buttonFont;
 		actionSelector: aSymbolOrNil;
 		labelColorOn: self labelOnColor
 			labelColorOff: self labelOffColor

@@ -9,7 +9,7 @@ saveScriptsToImage
 	fName := self
 		chooseNewFileDefault: ''
 		extension: pngExt
-		title: 'Save Scripts Snapshot'
+		title: 'Save script snapshot' localized
 		type: #scriptsSnapshot.
 	fName ifNil: [ ^ self ].
 	fName := fName withExtension: pngExt.

@@ -3,7 +3,7 @@ newLabelMorph
 	^ StringFieldMorph new
 		forExpressionArg;
 		doResizing: true;
-		font: ScratchTheme argFont;
+		font: ScratchTranslator argFont;
 		color: Color transparent;
 		isNumeric: false;
 		contents: ''

@@ -1,6 +1,6 @@
 initialization
 initSetterForVar: varName
-	self commandSpec: 'set %v to %n'.
+	self commandSpec: 'set %v to %n' localized.
 	argPermutation := CommandBlockMorph
 		argPermutationForSpec: 'set %v to %n'
 		withTranslation: commandSpec.

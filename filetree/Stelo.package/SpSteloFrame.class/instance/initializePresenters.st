@@ -4,7 +4,7 @@ initializePresenters
 	buttonSave := self newButton.
 	buttonOpen := self newButton.
 	menu := self newMenuBar.
-	viewerPane := self instantiate: SpSteloViewer.
+	viewerPane := self instantiate: SpScratchListViewer.
 	editorPane := self instantiate: SpSteloEditor.
 	titlePane := self instantiate: SpSteloTitle.
 	stageFrame := self instantiate: SpSteloStage.

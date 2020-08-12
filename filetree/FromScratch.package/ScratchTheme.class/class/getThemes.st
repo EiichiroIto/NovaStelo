@@ -2,10 +2,10 @@ private
 getThemes
 	| response ref url |
 	url := self themesURL.
-	url ifNil: [ self error: 'Need to set ThemesURL' ].
+	url ifNil: [ self error: 'ThemesURL is not set!' ].
 	response := ZnEasy get: url.
 	response isSuccess
-		ifFalse: [ self error: 'Cannot get Themes.zip' ].
+		ifFalse: [ self error: 'Could not get Themes.zip!' ].
 	ref := 'Themes.zip' asFileReference.
 	ref binaryWriteStream
 		nextPutAll: response contents;

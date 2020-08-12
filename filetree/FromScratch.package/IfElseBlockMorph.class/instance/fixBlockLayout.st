@@ -43,4 +43,5 @@ fixBlockLayout
 					(self top + elseBarY
 						+
 							((ScratchTranslator
-								centerOffsetForButtonWithFont: ScratchTheme labelFont) // 4))
+								centerOffsetForButtonWithFont: ScratchTranslator labelFont)
+								// 4))

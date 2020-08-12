@@ -1,9 +1,5 @@
 {
-	"commentStamp" : "",
-	"super" : "SpScratchFrame",
-	"category" : "Stelo-Spec2",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TScratchPlotterMenu classTrait",
 	"classvars" : [ ],
 	"instvars" : [
 		"menuChangeWorld",
@@ -13,5 +9,11 @@
 		"menu"
 	],
 	"name" : "SpSteloFrame",
-	"type" : "normal"
+	"commentStamp" : "",
+	"super" : "SpScratchFrame",
+	"traitcomposition" : "TScratchPlotterMenu",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Stelo-Spec2"
 }

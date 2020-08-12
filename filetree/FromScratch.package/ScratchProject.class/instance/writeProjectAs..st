@@ -16,7 +16,7 @@ writeProjectAs: aFileReference
 	SpScratchApp
 		try: [ out := tmpFile binaryWriteStream.
 			out
-				ifNil: [ saveError := 'Folder may be locked or read-only' ]
+				ifNil: [ saveError := 'Folder may be locked or read-only' localized ]
 				ifNotNil: [ out nextPutAll: self class appVersionString asByteArray.
 					self storeProjectInfoOn: out.
 					self newObjStream storeObj: self on: out.
@@ -28,13 +28,13 @@ writeProjectAs: aFileReference
 			saveError := err ].
 	self scripts do: [ :m | m convertTuplesToStacks ].
 	saveError
-		ifNotNil: [ UIManager default alert: saveError title: 'Save failed'.
+		ifNotNil: [ UIManager default alert: saveError title: 'Save failed' localized.
 			^ false ].
 	aFileReference deleteIfAbsent: [  ].
 	[ tmpFile renameTo: aFileReference basename ]
 		ifError: [ UIManager default
 				alert: 'Is the folder read-only?' localized
-				title: 'Save failed'.
+				title: 'Save failed' localized.
 			^ false ].
 	self modified: false.
 	^ true

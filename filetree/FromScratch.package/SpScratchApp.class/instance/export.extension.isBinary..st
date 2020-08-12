@@ -5,6 +5,6 @@ export: anExporter extension: aString isBinary: aBoolean
 		try: [ anExporter exportFrom: self isBinary: aBoolean ]
 		onFailure: [ :err | 
 			UIManager default
-				alert: 'Could not generate code:' , err asString
+				alert: 'Could not generate code: ' localized , err asString
 				title: 'Export failed' localized ].
 	self exportString: str extension: aString isBinary: aBoolean

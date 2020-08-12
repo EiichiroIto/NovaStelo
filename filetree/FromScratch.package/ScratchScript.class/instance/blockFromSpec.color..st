@@ -2,7 +2,7 @@ blocks
 blockFromSpec: spec color: blockColor
 	| blockLabelSpec blockType selector defaultArgs block rcvr argPermutation c |
 	c := blockColor.
-	blockLabelSpec := spec at: 1.
+	blockLabelSpec := (spec at: 1) localized.
 	argPermutation := CommandBlockMorph
 		argPermutationForSpec: (spec at: 1)
 		withTranslation: blockLabelSpec.

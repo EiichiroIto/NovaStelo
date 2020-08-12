@@ -6,6 +6,6 @@ addList: aScript
 		ifTrue: [ ^ self ].
 	(aScript variableNameInUse: listName)
 		ifTrue: [ ^ UIManager default
-				alert: 'That list name is already in use' localized ].
+				alert: 'That list name is already in use!' localized ].
 	aScript addList: listName.
 	presenter currentCategory: #variables

@@ -6,7 +6,7 @@ openScratchFileFor: aProject
 		extension: self extension;
 		project: aProject;
 		setupForFileInfoViewer;
-		title: 'Open Project';
+		title: 'Open Project' localized;
 		type: #project.
 	d := dialog openModalWithSpec: #openScratchFileSpec.
 	d isCancelled

@@ -5,7 +5,7 @@ initializePresenters
 	textFilename := self instantiate: SpLabelledTextInput.
 	fileInfo := self instantiate: SpFileInfo.
 	textFilename
-		label: 'Filename:' localized;
+		label: 'Filename:';
 		acceptOnCR: true.
 	self focusOrder
 		add: fileList;

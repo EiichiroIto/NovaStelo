@@ -1,8 +1,8 @@
 initialization
 initChangerForVar: varName
-	self commandSpec: 'change %v by %n'.
+	self commandSpec: 'change %v by %n' localized.
 	argPermutation := CommandBlockMorph
-		argPermutationForSpec: 'set %v to %n'
+		argPermutationForSpec: 'change %v to %n'
 		withTranslation: commandSpec.
 	self selector: #changeVar:by:.
 	self variable: varName

@@ -5,7 +5,7 @@ initialize
 	self borderWidth: 1.
 	self color: Color brown.
 	labelMorph := StringMorph new
-		font: ScratchTheme argFont;
+		font: ScratchTranslator argFont;
 		color: Color white.
 	self addMorph: labelMorph.
 	menuIconMorph := ImageMorph new form: DropDownMenuForm.

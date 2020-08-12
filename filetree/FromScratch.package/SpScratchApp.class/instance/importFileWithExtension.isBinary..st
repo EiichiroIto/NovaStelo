@@ -6,7 +6,7 @@ importFileWithExtension: aString isBinary: aBoolean
 	self stopAllProcesses.
 	response := self
 		chooseExistingFileType: #export
-		title: 'Import ...'
+		title: 'Import ...' localized
 		extension: aString.
 	response ifNil: [ ^ nil ].
 	fr := response asFileReference.
@@ -22,6 +22,6 @@ importFileWithExtension: aString isBinary: aBoolean
 			fr} ]
 		onFailure: [ f ifNotNil: [ f close ].
 			UIManager default
-				alert: 'Could not read file' localized
+				alert: 'Could not read file: ' localized , fr basename
 				title: 'Import failed' localized.
 			nil ]

@@ -7,12 +7,12 @@ testSetupFrom
 	sp addCategory: 'operators' color: Color blue.
 	list := #(
 			'sensing'
-			('return value'				r	returnValue)
+			('returned value'				r	returnValue)
 			'operators'
 			('%n + %n'						r	+ - -)
 			('%n - %n'						r	- - -)).
 	sp setupFrom: list.
-	self assertCollection: (sp privBlockSpecs at: #returnValue) equals: #('return value' r #returnValue).
+	self assertCollection: (sp privBlockSpecs at: #returnValue) equals: #('returned value' r #returnValue).
 	self assertCollection: (sp privBlockSpecs at: #+) equals: #('%n + %n' r #+ #- #-).
 	self assertCollection: (sp privBlockSpecs at: #-) equals: #('%n - %n' r #- #- #-).
 	self assert: (sp privBlockColors at: #returnValue) equals: sp unknownCategoryColor.

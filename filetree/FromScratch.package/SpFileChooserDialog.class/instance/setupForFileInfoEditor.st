@@ -1,4 +1,4 @@
 initialization
 setupForFileInfoEditor
 	fileInfo readOnly: false.
-	textFilename label: 'New filename:' localized
+	textFilename label: 'New filename:'

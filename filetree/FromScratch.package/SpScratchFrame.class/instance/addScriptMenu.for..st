@@ -4,22 +4,22 @@ addScriptMenu: aMenu for: aScript
 		ifTrue: [ aMenu
 				addItem: [ :item | 
 					item
-						name: 'paste';
+						name: 'paste' localized;
 						action: [ application pasteBlock ] ] ].
 	aMenu
 		addGroup: [ :grp | 
 			grp
 				addItem: [ :item | 
 					item
-						name: 'add sub block';
+						name: 'add sub block' localized;
 						action: [ application addSubBlock: ActiveHand cursorPoint script: aScript ] ] ];
 		addGroup: [ :grp | 
 			grp
 				addItem: [ :item | 
 					item
-						name: 'clean up';
+						name: 'clean up' localized;
 						action: [ aScript cleanUp ] ];
 				addItem: [ :item | 
 					item
-						name: 'save picture of scripts';
+						name: 'save picture of scripts' localized;
 						action: [ application saveScriptsToImage ] ] ]

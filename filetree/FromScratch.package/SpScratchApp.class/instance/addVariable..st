@@ -6,6 +6,6 @@ addVariable: aScript
 		ifTrue: [ ^ self ].
 	(aScript variableNameInUse: varName)
 		ifTrue: [ ^ UIManager default
-				alert: 'That variable name is already in use' localized ].
+				alert: 'That variable name is already in use!' localized ].
 	aScript addVariable: varName.
 	presenter currentCategory: #variables

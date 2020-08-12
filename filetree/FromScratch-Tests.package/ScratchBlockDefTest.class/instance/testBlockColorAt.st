@@ -5,7 +5,7 @@ testBlockColorAt
 	sp addCategory: 'operators' color: Color blue.
 	list := #(
 			'sensing'
-			('return value'				r	returnValue)
+			('returned value'				r	returnValue)
 			'operators'
 			('%n + %n'						r	+ - -)
 			('%n - %n'						r	- - -)).

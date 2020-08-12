@@ -29,4 +29,4 @@ variableBlockFromTuple: tuple receiver: scriptOwner
 					block replaceArgMorph: block expressionArg by: argBlock ]
 				ifFalse: [ "argument is a value" block expressionArg defaultValue: arg ].
 			^ block ].
-	self error: 'unknown variable spec'
+	self error: 'unknown variable spec!'

@@ -4,7 +4,7 @@ for: aString event: aSymbol
 	super initialize.
 	self removeAllMorphs.
 	s := self newLabelString
-		contents: aString;
+		contents: aString localized;
 		yourself.
 	self addMorphBack: s.
 

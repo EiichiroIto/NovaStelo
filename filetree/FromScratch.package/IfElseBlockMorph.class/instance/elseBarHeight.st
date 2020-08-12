@@ -1,4 +1,5 @@
 private
 elseBarHeight
-
-	 ^ (ScratchTranslator stringExtent: 'else' localized font: (ScratchTheme labelFont)) y
+	^ (ScratchTranslator
+		stringExtent: 'else' localized
+		font: ScratchTranslator labelFont) y

@@ -6,7 +6,7 @@ saveScratchFileFor: aProject
 		filename: self projectName;
 		extension: self extension;
 		setupForFileInfoEditor;
-		title: 'Save Project';
+		title: 'Save Project' localized;
 		type: #project;
 		author: aProject author;
 		comment: aProject comment.

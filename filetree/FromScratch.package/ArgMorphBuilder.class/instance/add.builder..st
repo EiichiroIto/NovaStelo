@@ -1,5 +1,5 @@
 private
 add: aCharacter builder: aBlock
 	(dict includesKey: aCharacter)
-		ifTrue: [ self error: 'duplicate arg character' ].
+		ifTrue: [ self error: 'arg character duplicated!' ].
 	dict at: aCharacter put: aBlock

@@ -4,8 +4,8 @@ readProjectFrom: aFileReference
 	f := aFileReference binaryReadStream.
 	f
 		ifNil: [ UIManager default
-				alert: aFileReference pathString
-				title: 'Could not read' localized.
+				alert: 'Could not read file: ' localized , aFileReference pathString
+				title: 'Load failed' localized.
 			^ nil ].
 	SpScratchApp
 		try: [ projData := f contents.
@@ -14,7 +14,7 @@ readProjectFrom: aFileReference
 		onFailure: [ :err :rcvr | 
 			UIManager default
 				alert: err
-				title: 'Could not read project; file may be damaged'.
+				title: 'Could not read project; file may be damaged' localized.
 			^ nil ].
 	self modified: false.
 	^ newProj
