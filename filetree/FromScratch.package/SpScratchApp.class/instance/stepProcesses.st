@@ -1,7 +1,6 @@
 processes
 stepProcesses
-	process ifNil: [ ^ self ].
-	process step.
+	process ifNotNil: [ process step ].
 	updateInfoCount := updateInfoCount + 1.
 	updateInfoCount > self maxUpdateInfoCount
 		ifTrue: [ updateInfoCount := 0.

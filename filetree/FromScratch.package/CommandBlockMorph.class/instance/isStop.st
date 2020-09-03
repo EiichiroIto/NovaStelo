@@ -1,3 +1,3 @@
 testing
 isStop
-	^ #(stopThread stopAll return: break continue) includes: selector
+	^ #(stopThread stopAll return: break continue doReturn) includes: selector

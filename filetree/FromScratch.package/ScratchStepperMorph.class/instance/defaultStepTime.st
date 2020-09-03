@@ -1,0 +1,3 @@
+private
+defaultStepTime
+	^ 100
