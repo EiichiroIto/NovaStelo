@@ -1,3 +1,3 @@
 private
 newFont1
-	^ StrikeFont fontName: 'Verdana' size: 10
+	^ StrikeFont familyName: 'Verdana' size: 10

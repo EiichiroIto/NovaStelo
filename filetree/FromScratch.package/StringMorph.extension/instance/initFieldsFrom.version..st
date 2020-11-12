@@ -5,7 +5,7 @@ initFieldsFrom: anObjStream version: classVersion
 	super initFieldsFrom: anObjStream version: classVersion.
 	fontSpec := anObjStream nextField.
 	fontSpec ifNotNil: [
-		font := StrikeFont fontName: fontSpec first size: fontSpec second].
+		font := StrikeFont familyName: fontSpec first size: fontSpec second].
 
 	self initFieldsNamed: #(
 		emphasis

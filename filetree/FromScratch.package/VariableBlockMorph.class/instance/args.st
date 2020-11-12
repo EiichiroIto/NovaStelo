@@ -1,0 +1,3 @@
+accessing
+args
+	^ { self variable }
