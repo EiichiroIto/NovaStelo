@@ -10,14 +10,14 @@ setupTopPane
 	menu
 		addItem: [ :item | 
 			item
-				name: 'File';
+				name: 'File' localized;
 				subMenu: self fileMenu ];
 		addItem: [ :item | 
 			item
-				name: 'Data';
+				name: 'Data' localized;
 				subMenu: self dataMenu ];
 		addItem: [ :item | 
 			item
-				name: 'Help';
+				name: 'Help' localized;
 				subMenu: self helpMenu ].
 	menu applyTo: self

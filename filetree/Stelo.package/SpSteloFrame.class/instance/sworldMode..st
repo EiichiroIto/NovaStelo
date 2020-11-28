@@ -3,5 +3,5 @@ sworldMode: aSymbol
 	menuChangeWorld
 		name:
 			(aSymbol = #SMicroWorld
-				ifTrue: [ 'Change to Pluginworld' ]
-				ifFalse: [ 'Change to Microworld' ])
+				ifTrue: [ 'Change to Pluginworld' localized ]
+				ifFalse: [ 'Change to Microworld' localized ])
