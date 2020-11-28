@@ -1,6 +1,16 @@
 specs
 defaultSpec
-	^ SpBoxLayout newHorizontal
+	^ SpBoxLayout newVertical
 		add: #labelName;
-		add: #toolBar;
+		add:
+			(SpBoxLayout newHorizontal
+				add: #clearTurtleButton;
+				add: #clearPatchesButton;
+				add: #setupButton;
+				add: #stepButton;
+				add: #stopButton;
+				add: #eventButton;
+				add: #loopSlowButton;
+				add: #loopButton;
+				yourself);
 		yourself

@@ -1,3 +1,3 @@
 accessing
 startSetupAction: aBlock
-	(self buttonNamed: 'Setup') action: aBlock
+	setupButton action: aBlock

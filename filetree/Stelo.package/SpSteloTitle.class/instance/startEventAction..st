@@ -1,3 +1,3 @@
 accessing
 startEventAction: aBlock
-	(self buttonNamed: 'Event') action: aBlock
+	eventButton action: aBlock

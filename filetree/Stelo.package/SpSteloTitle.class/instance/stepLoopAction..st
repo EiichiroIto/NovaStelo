@@ -1,3 +1,3 @@
 accessing
 stepLoopAction: aBlock
-	(self buttonNamed: 'Step') action: aBlock
+	stepButton action: aBlock

@@ -1,7 +1,22 @@
 initialization
 initializePresenters
 	labelName := self newLabel.
-	toolBar := self newToolBar.
 	labelName label: 'new project'.
+	clearTurtleButton := self newButton.
+	clearPatchesButton := self newButton.
+	setupButton := self newButton.
+	stopButton := self newButton.
+	stepButton := self newButton.
+	eventButton := self newButton.
+	loopSlowButton := self newButton.
+	loopButton := self newButton.
 	self setupButtons.
-	self focusOrder add: toolBar
+	self focusOrder
+		add: clearTurtleButton;
+		add: clearPatchesButton;
+		add: setupButton;
+		add: stopButton;
+		add: stepButton;
+		add: eventButton;
+		add: loopSlowButton;
+		add: loopButton

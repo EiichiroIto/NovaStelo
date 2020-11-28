@@ -7,7 +7,14 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"labelName",
-		"toolBar"
+		"clearTurtleButton",
+		"setupButton",
+		"stopButton",
+		"stepButton",
+		"eventButton",
+		"loopSlowButton",
+		"loopButton",
+		"clearPatchesButton"
 	],
 	"name" : "SpSteloTitle",
 	"type" : "normal"

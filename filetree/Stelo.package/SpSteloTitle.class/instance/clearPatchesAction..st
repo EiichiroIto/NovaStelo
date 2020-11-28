@@ -1,3 +1,3 @@
 accessing
 clearPatchesAction: aBlock
-	(self buttonNamed: 'ClearP') action: aBlock
+	clearPatchesButton action: aBlock

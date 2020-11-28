@@ -1,3 +1,3 @@
 accessing
 startLoopAction: aBlock
-	(self buttonNamed: 'Loop') action: aBlock
+	loopButton action: aBlock
