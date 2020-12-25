@@ -30,7 +30,7 @@ diffuseAndMultiply: anInteger
 
 	| w p pr ret v |
 	w := SMicroWorld new.
-	w addBreed: (SObserver new sworld: w).
+	w addBreed: SObserver new.
 	w addBreed: SPatches new.
 	w createPatch: 100.
 	v := w patches addVariable: 'a'.

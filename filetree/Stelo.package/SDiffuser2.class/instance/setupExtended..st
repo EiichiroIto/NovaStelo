@@ -1,11 +1,13 @@
 private
 setupExtended: anArray
 	| src dst |
-	src := ReadStream on: anArray.
-	dst := WriteStream on: extented.
-	order + 2 timesRepeat: [ dst nextPut: 0 ].
+	src := 1.
+	dst := order + 4.
 	order
-		timesRepeat: [ dst nextPut: 0.
-			order timesRepeat: [ dst nextPut: src next ].
-			dst nextPut: 0 ].
-	order + 2 timesRepeat: [ dst nextPut: 0 ]
+		timesRepeat: [ extented
+				replaceFrom: dst
+				to: dst + order - 1
+				with: anArray
+				startingAt: src.
+			src := src + order.
+			dst := dst + order + 2 ]

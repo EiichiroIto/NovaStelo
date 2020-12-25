@@ -42,11 +42,11 @@ forwardAndTurn: anInteger
 
 	"SBenchmark new forwardAndTurn: 100000. 31757 "
 	"SBenchmark new forwardAndTurn: 100000. "
-	"42847 33955 30555 "
+	"42847 33955 30555 28312 "
 
 	| w p pr ret |
 	w := SMicroWorld new.
-	w addBreed: (SObserver new sworld: w).
+	w addBreed: SObserver new.
 	w addBreed: SPatches new.
 	w addBreed: (STurtles new breedNo: 3).
 	w
