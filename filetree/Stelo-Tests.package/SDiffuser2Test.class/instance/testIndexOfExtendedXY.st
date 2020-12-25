@@ -15,6 +15,8 @@ testIndexOfExtendedXY
 	self assert: (d indexOfExtendedX: 2 y: 0) equals: 10.
 	self assert: (d indexOfExtendedX: 3 y: 0) equals: 11.
 	self assert: (d indexOfExtendedX: 4 y: 0) equals: 12.
+	self assert: (d indexOfExtendedX: 5 y: 0) equals: 13.
+	self assert: (d indexOfExtendedX: 0 y: 1) equals: 14.
 	self assert: (d indexOfExtendedX: -1 y: 3) equals: 25.
 	self assert: (d indexOfExtendedX: 0 y: 3) equals: 26.
 	self assert: (d indexOfExtendedX: 1 y: 3) equals: 27.

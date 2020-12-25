@@ -1,13 +1,14 @@
 private
 restoreExtended: anArray
 	| src dst |
+	src := self indexOfExtendedX: 0 y: 0.
+	dst := self indexOfNormalX: 0 y: 0.
 	0 to: order - 1 do: [ :y | 
-		src := self indexOfExtendedX: 0 y: y.
-		dst := self indexOfNormalX: 0 y: y.
 		order
 			timesRepeat: [ anArray at: dst put: (extented at: src).
 				src := src + 1.
-				dst := dst + 1 ] ].
+				dst := dst + 1 ].
+		src := src + 2 ].
 	src := self indexOfExtendedX: 0 y: -1.
 	dst := self indexOfNormalX: 0 y: order - 1.
 	order
