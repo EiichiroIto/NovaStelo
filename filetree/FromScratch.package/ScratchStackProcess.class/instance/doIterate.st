@@ -1,8 +1,8 @@
 special ops
-doRepeat
+doIterate
 	"Handles one iteration of a repeat block."
 
-	| arguments argExp block counter frame max |
+	| arguments argExp block counter frame list |
 	block := stackFrame expression.
 	arguments := stackFrame arguments.
 
@@ -12,12 +12,12 @@ doRepeat
 			^ self pushStackFrame: (ScratchStackFrame new expression: argExp) ].
 
 	arguments size = 1
-		ifTrue: [ arguments := { 0 }, arguments ].
+		ifTrue: [ arguments := { 1 }, arguments ].
 
 	"If the number of times to repeat is 0, then we're done."
 	counter := arguments first asNumberNoError.
-	max := arguments second asNumberNoError.
-	counter >= max
+	list := arguments second.
+	counter > list size
 		ifTrue: [ ^ self popStackFrame ].
 
 	"Pop this instruction from the stack."
@@ -33,10 +33,10 @@ doRepeat
 	frame := ScratchStackFrame new
 		expression: block;
 		addArgument: counter + 1;
-		addArgument: max.
+		addArgument: list.
 
 	block localVars
-		withIndexDo: [ :each :index | frame localVarAt: each put: counter ].
+		withIndexDo: [ :each :index | frame localVarAt: each put: (list at: counter) ].
 
 	self pushStackFrame: frame.
 

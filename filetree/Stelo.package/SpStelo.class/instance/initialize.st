@@ -4,4 +4,5 @@ initialize
 	lastMSec := nil.
 	lastTicks := 0.
 	sworldMode := self defaultSWorldMode.
-	presenter sworldMode: sworldMode
+	presenter sworldMode: sworldMode.
+	updateInfoCount := 0

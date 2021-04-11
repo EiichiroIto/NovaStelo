@@ -1,3 +1,0 @@
-processes
-updateInfo
-	self subclassResponsibility

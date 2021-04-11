@@ -12,7 +12,8 @@
 		"pc",
 		"startTime",
 		"startValue",
-		"shouldUnlight"
+		"shouldUnlight",
+		"localVars"
 	],
 	"name" : "ScratchStackFrame",
 	"type" : "normal"

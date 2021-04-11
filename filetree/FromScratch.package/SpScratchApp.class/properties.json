@@ -10,9 +10,7 @@
 	],
 	"instvars" : [
 		"presenter",
-		"project",
-		"process",
-		"updateInfoCount"
+		"project"
 	],
 	"name" : "SpScratchApp",
 	"type" : "normal"

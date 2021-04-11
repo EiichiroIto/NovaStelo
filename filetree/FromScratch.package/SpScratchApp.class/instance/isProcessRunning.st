@@ -1,3 +1,3 @@
 processes
 isProcessRunning
-	^ process notNil and: [ process isRunning ]
+	self subclassResponsibility

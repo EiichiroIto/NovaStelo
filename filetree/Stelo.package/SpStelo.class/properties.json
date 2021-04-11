@@ -11,7 +11,9 @@
 		"lastMSec",
 		"lastTicks",
 		"sworldMode",
-		"recorder"
+		"recorder",
+		"process",
+		"updateInfoCount"
 	],
 	"name" : "SpStelo",
 	"type" : "normal"
