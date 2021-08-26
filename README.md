@@ -22,7 +22,7 @@ NovaStelo sources available on github (https://github.com/EiichiroIto/NovaStelo/
 ```
 Metacello new
     baseline: 'NovaStelo';
-    repository: 'github://EiichiroIto/NovaStelo/filetree';
+    repository: 'github://EiichiroIto/NovaStelo/src';
     load.
 ```
 
