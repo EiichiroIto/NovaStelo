@@ -60,6 +60,11 @@ SNativeDiffuser >> diffuse: anArray percent: aNumber [
 			dst := dst + 2 ]
 ]
 
+{ #category : #accessing }
+SNativeDiffuser >> diffuserName [
+	^ 'native diffuser'
+]
+
 { #category : #private }
 SNativeDiffuser >> indexOfExtendedX: x y: y [
 	^ x + 2 + ((y + 1) * (order + 2))
@@ -192,6 +197,19 @@ SNativeDiffuser >> restoreExtended: anArray [
 	src := self indexOfExtendedX: order y: -1.
 	dst := self indexOfNormalX: 0 y: order - 1.
 	anArray at: dst incrementBy: (extented at: src)
+]
+
+{ #category : #api }
+SNativeDiffuser >> scale: aFloatArray dst: aByteArray color: baseColor from: anInteger to: anInteger5 [
+	| c |
+	aFloatArray
+		withIndexDo: [ :each :index | 
+			c := SColorList
+				scaleValue: each
+				color: baseColor
+				from: anInteger
+				to: anInteger5.
+			aByteArray at: index put: c ]
 ]
 
 { #category : #private }

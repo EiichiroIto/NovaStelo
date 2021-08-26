@@ -462,6 +462,8 @@ SMicroWorld >> varsBreed: bno at: id [
 
 { #category : #accessing }
 SMicroWorld >> worldName [
+	self maxBreedNo >= SBreedId patchBreedNo
+		ifTrue: [ ^ 'MicroWorld - ' , self patches diffuserName ].
 	^ 'MicroWorld'
 ]
 

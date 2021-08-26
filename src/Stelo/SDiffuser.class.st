@@ -52,6 +52,11 @@ SDiffuser >> diffuse8: anArray cols: anInteger2 rows: anInteger3 percent: aNumbe
 	self subclassResponsibility
 ]
 
+{ #category : #accessing }
+SDiffuser >> diffuserName [
+	self subclassResponsibility
+]
+
 { #category : #api }
 SDiffuser >> nsum4: anArray1 dst: anArray2 cols: anInteger3 rows: anInteger4 [
 	self subclassResponsibility
@@ -59,5 +64,10 @@ SDiffuser >> nsum4: anArray1 dst: anArray2 cols: anInteger3 rows: anInteger4 [
 
 { #category : #api }
 SDiffuser >> nsum8: anArray1 dst: anArray2 cols: anInteger3 rows: anInteger4 [
+	self subclassResponsibility
+]
+
+{ #category : #api }
+SDiffuser >> scale: aFloatArray dst: aByteArray color: baseColor from: anInteger to: anInteger5 [
 	self subclassResponsibility
 ]

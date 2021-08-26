@@ -104,6 +104,11 @@ SPatches >> diffuse8: anInteger1 varNo: anInteger2 [
 ]
 
 { #category : #accessing }
+SPatches >> diffuserName [
+	^ diffuser diffuserName
+]
+
+{ #category : #accessing }
 SPatches >> extent [
 	^ order @ order
 ]
@@ -221,14 +226,8 @@ SPatches >> rows [
 SPatches >> scaleVarNo: vid color: baseColor from: from to: to [
 	| v c |
 	v := variables realArrayAt: vid.
-	v
-		withIndexDo: [ :each :index | 
-			c := self
-				scaleValue: each
-				color: baseColor
-				from: from
-				to: to.
-			self colorAt: index put: c ]
+	c := variables realArrayAt: SPatchVarDef colorVarNo.
+	diffuser scale: v dst: c color: baseColor from: from to: to
 ]
 
 { #category : #private }
