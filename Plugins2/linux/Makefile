@@ -1,7 +1,7 @@
 CXX ?= c++
 CXXFLAGS ?= -g
 CXXFLAGS += -fPIC
-#CXXFLAGS += -DNDEBUG
+CXXFLAGS += -DNDEBUG
 SRC = ../src
 
 all: SteloPlugin2.so testAll

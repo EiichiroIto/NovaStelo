@@ -3,6 +3,7 @@ CXXFLAGS ?= -g
 #CXXFLAGS += -DWindowsDLL
 CXXFLAGS += -fPIC -static-libgcc
 #CXXFLAGS += -I$(HOME)/working/m5stack/ArduinoJson/ -w
+CXXFLAGS += -DNDEBUG
 SRC = ../src
 
 all: SteloPlugin2.dll testAll.exe
