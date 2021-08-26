@@ -66,3 +66,8 @@ SDiffuser >> nsum4: anArray1 dst: anArray2 cols: anInteger3 rows: anInteger4 [
 SDiffuser >> nsum8: anArray1 dst: anArray2 cols: anInteger3 rows: anInteger4 [
 	self subclassResponsibility
 ]
+
+{ #category : #api }
+SDiffuser >> scale: aFloatArray dst: aByteArray color: baseColor from: anInteger to: anInteger5 [
+	self subclassResponsibility
+]

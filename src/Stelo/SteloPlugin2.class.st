@@ -48,6 +48,11 @@ SteloPlugin2 >> extNsum8Src: src dst: dst cols: cols rows: rows [
 	self ffiCall: #(void nsum8(FFIExternalArray src, FFIExternalArray dst, int cols, int rows))
 ]
 
+{ #category : #private }
+SteloPlugin2 >> extScaleColor: src dst: dst size: size from: from to: to baseColor: baseColor [
+	self ffiCall: #(void scaleColor(FFIExternalArray src, FFIExternalArray dst, int size, float from, float to, byte baseColor))
+]
+
 { #category : #resources }
 SteloPlugin2 >> ffiLibrary [
 	^ self class ffiLibrary

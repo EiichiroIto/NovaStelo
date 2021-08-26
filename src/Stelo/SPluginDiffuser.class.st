@@ -85,3 +85,25 @@ SPluginDiffuser >> nsum8: aFloatArray dst: aFloatArray2 cols: anInteger rows: an
 SPluginDiffuser >> plugin [
 	^ SteloPlugin2 default
 ]
+
+{ #category : #api }
+SPluginDiffuser >> scale: aFloatArray dst: aByteArray color: baseColor from: anInteger to: anInteger5 [
+	| src dst |
+	src := FFIExternalArray
+		externalNewType: 'float'
+		size: aFloatArray size.
+	dst := FFIExternalArray
+		externalNewType: FFIUInt8
+		size: aByteArray size.
+	[ src fillFrom: aFloatArray with: [ :v | v ].
+	self plugin
+		extScaleColor: src
+		dst: dst
+		size: src size
+		from: anInteger
+		to: anInteger5
+		baseColor: baseColor.
+	aByteArray fillFrom: dst with: [ :v | v ] ]
+		ensure: [ src free.
+			dst free ]
+]

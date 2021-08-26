@@ -199,6 +199,19 @@ SNativeDiffuser >> restoreExtended: anArray [
 	anArray at: dst incrementBy: (extented at: src)
 ]
 
+{ #category : #api }
+SNativeDiffuser >> scale: aFloatArray dst: aByteArray color: baseColor from: anInteger to: anInteger5 [
+	| c |
+	aFloatArray
+		withIndexDo: [ :each :index | 
+			c := SColorList
+				scaleValue: each
+				color: baseColor
+				from: anInteger
+				to: anInteger5.
+			aByteArray at: index put: c ]
+]
+
 { #category : #private }
 SNativeDiffuser >> setupBorder [
 	| src dst |
