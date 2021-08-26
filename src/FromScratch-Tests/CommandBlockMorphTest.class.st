@@ -1,0 +1,215 @@
+"
+A CommandBlockMorphTest is a test class for testing the behavior of CommandBlockMorph
+"
+Class {
+	#name : #CommandBlockMorphTest,
+	#superclass : #TestCase,
+	#category : #'FromScratch-Tests'
+}
+
+{ #category : #private }
+CommandBlockMorphTest >> newBlock [
+	^ CommandBlockMorph new
+]
+
+{ #category : #private }
+CommandBlockMorphTest >> newScript [
+	^ ScratchScript new
+		setupArgBuilder;
+		yourself
+]
+
+{ #category : #private }
+CommandBlockMorphTest >> newTestScript [
+	^ ScTestScript new
+		setupArgBuilder;
+		yourself
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testArgSpecs [
+	| b |
+	b := self newBlock
+		receiver: self newScript;
+		yourself.
+	b commandSpec: 'abc %s def %n ghi %m'.
+	self assertCollection: b argSpecs equals: #('%s' '%n' '%m')
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testAsBlockTuple [
+	| b ret |
+	b := self newBlock
+		receiver: self newScript;
+		yourself.
+	b selector: #abc:def:.
+	b commandSpec: 'abc %n def %s ghi'.
+	ret := b asBlockTuple.
+	self assertCollection: ret equals: #(#abc:def: 10 '').
+	b argPermutation: #(1 2).
+	(b argumentAt: 1) numExpression: 5.
+	(b argumentAt: 2) stringExpression: 'a'.
+	ret := b asBlockTuple.
+	self assertCollection: ret equals: #(#abc:def: 5 'a')
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testCoerceArgs [
+	| b ret |
+	b := self newBlock
+		receiver: self newScript;
+		yourself.
+	b selector: #abc:def:.
+	b commandSpec: 'abc %n def %s ghi %n'.
+	ret := b coerceArgs: #('20.0' 'abc' 30).
+	self assertCollection: ret equals: #(20 'abc' 30).
+	b selector: #setVar:to:.
+	ret := b coerceArgs: #('20.0' 'abc' 30).
+	self assertCollection: ret equals: #('20.0' 'abc' 30)
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testDefaultArgs [
+	| b |
+	b := self newBlock
+		receiver: self newScript;
+		yourself.
+	b selector: #abc:def:.
+	b commandSpec: 'abc %n def %s ghi'.
+	b argPermutation: #(2 1).
+	self assert: (b argumentAt: 1) evaluate equals: ''.
+	self assert: (b argumentAt: 2) evaluate equals: 10.
+	b defaultArgs: #('def').
+	self assert: (b argumentAt: 1) evaluate equals: 'def'.
+	self assert: (b argumentAt: 2) evaluate equals: 10.
+	b defaultArgs: #('abc' 1).
+	self assert: (b argumentAt: 1) evaluate equals: 'abc'.
+	self assert: (b argumentAt: 2) evaluate equals: 1
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testEvaluate [
+	| b |
+	b := self newBlock
+		receiver: self newTestScript;
+		yourself.
+	b commandSpec: 'abs %n'.
+	b selector: #abs:.
+	b argPermutation: #(1).
+	b defaultArgs: #(-5).
+	self assert: b evaluate equals: 5.
+	b commandSpec: 'plus %n and %n'.
+	b selector: #plus:and:.
+	b argPermutation: #(1 2).
+	b defaultArgs: #(3 4).
+	self assert: b evaluate equals: 7
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testEvaluateFunctionWithArgs [
+	| b |
+	b := self newBlock
+		receiver: self newTestScript;
+		yourself.
+	b commandSpec: 'abs %n'.
+	b selector: #abs:.
+	self assert: (b evaluateFunctionWithArgs: #(-5)) equals: 5.
+	b commandSpec: 'plus %n and %n'.
+	b selector: #plus:and:.
+	self
+		assert: (b evaluateFunctionWithArgs: #(1 2))
+		equals: 3
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testEvaluateInfixWithArgs [
+	| b |
+	b := self newBlock
+		receiver: self newTestScript;
+		yourself.
+	b selector: #=.
+	self assert: (b evaluateInfixWithArgs: #('true' true)).
+	self assert: (b evaluateInfixWithArgs: #('false' false)).
+	self assert: (b evaluateInfixWithArgs: #(true 'true')).
+	self assert: (b evaluateInfixWithArgs: #(false 'false')).
+	self deny: (b evaluateInfixWithArgs: #('true' false)).
+	self deny: (b evaluateInfixWithArgs: #('false' true)).
+	self deny: (b evaluateInfixWithArgs: #(false 'true')).
+	self deny: (b evaluateInfixWithArgs: #(true 'false')).
+	b selector: #<.
+	self assert: (b evaluateInfixWithArgs: #(1 2)).
+	self deny: (b evaluateInfixWithArgs: #(1 1)).
+	self assert: (b evaluateInfixWithArgs: #('3' '12')).
+	self deny: (b evaluateInfixWithArgs: #('12' '12')).
+	self assert: (b evaluateInfixWithArgs: #('a' 'b')).
+	self deny: (b evaluateInfixWithArgs: #('a' 'a')).
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testEvaluateWithArgs [
+	| b |
+	b := self newBlock
+		receiver: self newTestScript;
+		yourself.
+	b commandSpec: 'abs %n'.
+	b selector: #abs:.
+	self assert: (b evaluateWithArgs: #(-5)) equals: 5.
+	b commandSpec: 'plus %n and %n'.
+	b selector: #plus:and:.
+	self assert: (b evaluateWithArgs: #(1 2)) equals: 3
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testIsArgSpec [
+	self assert: (CommandBlockMorph isArgSpec: '%a').
+	self assert: (CommandBlockMorph isArgSpec: '%b').
+	self deny: (CommandBlockMorph isArgSpec: '%').
+	self deny: (CommandBlockMorph isArgSpec: 'x')
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testNumberArgFlags [
+	| b |
+	b := self newBlock.
+	b receiver: self newScript.
+	b commandSpec: 'abc %s def %n ghi %e'.
+	self assertCollection: b numberArgFlags equals: #(false true false)
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testOrganizeArgs [
+	| b |
+	b := self newBlock
+		receiver: self newTestScript;
+		yourself.
+	b commandSpec: 'abs %n'.
+	b selector: #abs.
+	self assertCollection: (b organizeArgs: #(1)) equals: #(1).
+	b commandSpec: 'plus %n and %n'.
+	b selector: #plus:and:.
+	self assertCollection: (b organizeArgs: #(2 3)) equals: #(2 3).
+	b commandSpec: 'plus %n and %n'.
+	b selector: #plus:and:.
+	b argPermutation: #(2 1).
+	self assertCollection: (b organizeArgs: #(2 3)) equals: #(3 2).
+	b commandSpec: '%n = %n'.
+	b selector: #=.
+	b argPermutation: #(2 1).
+	self assertCollection: (b organizeArgs: #(2 3)) equals: #(2 3)
+]
+
+{ #category : #test }
+CommandBlockMorphTest >> testParseCommandSpec [
+	self
+		assertCollection: (CommandBlockMorph parseCommandSpec: 'abc %n')
+		equals: #(abc '%n').
+	self
+		assertCollection: (CommandBlockMorph parseCommandSpec: 'abc %n    def %s')
+		equals: #(abc '%n' def '%s').
+	self
+		assertCollection: (CommandBlockMorph parseCommandSpec: 'abc%n1def%s23gh')
+		equals: #(abc '%n1' def '%s23' gh).
+	self
+		assertCollection: (CommandBlockMorph parseCommandSpec: 'abc% def%')
+		equals: #(abc '%' def '%')
+]
