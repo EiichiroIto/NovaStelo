@@ -2,7 +2,7 @@ SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'NovaStelo',
-      #directory : 'filetree',
+      #directory : 'src',
       #platforms : [ #pharo ]
     }
   ]
