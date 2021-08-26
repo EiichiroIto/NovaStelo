@@ -55,7 +55,7 @@ SpStelo class >> screenshotExtent [
 
 { #category : #accessing }
 SpStelo class >> themesURL [
-	^ 'https://github.com/EiichiroIto/NovaStelo/raw/master/src/Themes.zip'
+	^ 'https://github.com/EiichiroIto/NovaStelo/raw/master/misc/Themes.zip'
 ]
 
 { #category : #private }
