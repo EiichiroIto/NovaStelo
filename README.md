@@ -1,7 +1,7 @@
 # NovaStelo
 NovaStelo is a block-style programming environment for multi agent system, based on MIT Scratch.
 
-![Entire Screen](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/NovaStelo.png)
+![Entire Screen](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/NovaStelo.png)
 
 [![Build Status](https://travis-ci.com/EiichiroIto/NovaStelo.svg?branch=master)](https://travis-ci.com/EiichiroIto/NovaStelo)
 
@@ -43,17 +43,17 @@ MIT License
 
 ## Screenshots
 ### Conway's Life Game
-![01-lifegame](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/01-lifegame.png)
+![01-lifegame](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/01-lifegame.png)
 
 ### Resnick's Turtle Ecology
-![02-ecosystem](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/02-ecosystem.png)
+![02-ecosystem](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/02-ecosystem.png)
 
 ### Resnick's Termites
-![03-termites](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/03-termites.png)
+![03-termites](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/03-termites.png)
 
 ### Resnick's Slime Mold
-![04-slimemolds](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/04-slimemolds.png)
+![04-slimemolds](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/04-slimemolds.png)
 
 ## Animations
-![03-termites](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/src/images/03-termites.gif)
+![03-termites](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/03-termites.gif)
 
