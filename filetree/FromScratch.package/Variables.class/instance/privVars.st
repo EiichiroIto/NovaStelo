@@ -1,3 +1,0 @@
-private
-privVars
-	^ vars

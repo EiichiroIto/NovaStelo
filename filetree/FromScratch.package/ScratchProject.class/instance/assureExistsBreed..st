@@ -1,3 +1,0 @@
-accessing
-assureExistsBreed: aString
-	self subclassResponsibility

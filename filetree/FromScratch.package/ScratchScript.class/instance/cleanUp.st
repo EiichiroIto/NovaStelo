@@ -1,3 +1,0 @@
-blocks
-cleanUp
-	blocksBin cleanUp

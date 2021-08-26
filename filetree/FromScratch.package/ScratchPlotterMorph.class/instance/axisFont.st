@@ -1,3 +1,0 @@
-private
-axisFont
-	^ TextStyle defaultFont

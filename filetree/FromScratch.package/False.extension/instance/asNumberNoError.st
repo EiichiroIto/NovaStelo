@@ -1,4 +1,0 @@
-*FromScratch
-asNumberNoError
-
-	^ 0

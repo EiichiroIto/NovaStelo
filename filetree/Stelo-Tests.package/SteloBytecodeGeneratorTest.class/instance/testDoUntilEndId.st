@@ -1,3 +1,0 @@
-test
-testDoUntilEndId
-	self testDoUntilBegin.

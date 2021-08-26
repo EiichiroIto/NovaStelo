@@ -1,3 +1,0 @@
-*FromScratch
-beep
-	"do nothing"

@@ -1,3 +1,0 @@
-*FromScratch
-requestWindowClose
-	^ true

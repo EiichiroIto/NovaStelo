@@ -1,3 +1,0 @@
-test
-testFontAtPut
-	self testFontAt

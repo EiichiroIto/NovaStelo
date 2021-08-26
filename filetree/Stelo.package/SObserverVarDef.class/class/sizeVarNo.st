@@ -1,3 +1,0 @@
-accessing
-sizeVarNo
-	^ 6

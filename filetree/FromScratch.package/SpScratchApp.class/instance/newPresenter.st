@@ -1,3 +1,0 @@
-private
-newPresenter
-	self subclassResponsibility

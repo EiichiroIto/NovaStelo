@@ -1,3 +1,0 @@
-constants
-red
-	^ 15

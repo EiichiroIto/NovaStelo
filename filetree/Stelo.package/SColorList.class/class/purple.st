@@ -1,3 +1,0 @@
-constants
-purple
-	^ 115

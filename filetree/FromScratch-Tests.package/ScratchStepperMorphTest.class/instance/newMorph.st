@@ -1,3 +1,0 @@
-private
-newMorph
-	^ ScratchStepperMorph new

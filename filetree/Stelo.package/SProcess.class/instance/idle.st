@@ -1,3 +1,0 @@
-transitions
-idle
-	"do nothing"

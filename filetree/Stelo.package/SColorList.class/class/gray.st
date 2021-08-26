@@ -1,3 +1,0 @@
-constants
-gray
-	^ 5

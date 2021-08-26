@@ -1,3 +1,0 @@
-private
-defaultOtherButtonName
-	^ '(none)'

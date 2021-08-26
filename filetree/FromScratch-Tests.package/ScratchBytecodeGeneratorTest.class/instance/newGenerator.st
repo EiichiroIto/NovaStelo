@@ -1,3 +1,0 @@
-private
-newGenerator
-	^ ScratchBytecodeGenerator new

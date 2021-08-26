@@ -1,3 +1,0 @@
-testing
-isBlockPalette
-	^ true

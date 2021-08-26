@@ -1,3 +1,0 @@
-private
-appName
-	^ 'abc'

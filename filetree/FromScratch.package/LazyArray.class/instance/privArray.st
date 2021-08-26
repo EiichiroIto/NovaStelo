@@ -1,3 +1,0 @@
-private
-privArray
-	^ array

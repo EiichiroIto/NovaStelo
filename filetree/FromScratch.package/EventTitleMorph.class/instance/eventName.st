@@ -1,4 +1,0 @@
-accessing
-eventName
-
-	^ labelMorph contents

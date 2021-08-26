@@ -1,3 +1,0 @@
-accessing
-updateContents
-	presenter updateContents

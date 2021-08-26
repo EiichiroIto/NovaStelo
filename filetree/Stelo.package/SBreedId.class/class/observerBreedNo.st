@@ -1,3 +1,0 @@
-accessing
-observerBreedNo
-	^ 1

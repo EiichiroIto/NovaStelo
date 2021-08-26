@@ -1,1 +1,0 @@
-A ScratchTranslator2Test is a test class for testing the behavior of ScratchTranslator2

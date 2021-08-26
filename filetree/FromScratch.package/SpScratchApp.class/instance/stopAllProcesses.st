@@ -1,3 +1,0 @@
-processes
-stopAllProcesses
-	self subclassResponsibility

@@ -1,4 +1,0 @@
-other
-acceptsDroppedReporters
-
-	^ true

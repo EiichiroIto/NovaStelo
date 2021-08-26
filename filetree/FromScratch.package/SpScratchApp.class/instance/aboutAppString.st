@@ -1,3 +1,0 @@
-private
-aboutAppString
-	self subclassResponsibility

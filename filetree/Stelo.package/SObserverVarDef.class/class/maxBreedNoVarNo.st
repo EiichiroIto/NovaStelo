@@ -1,3 +1,0 @@
-accessing
-maxBreedNoVarNo
-	^ 3

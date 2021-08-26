@@ -1,3 +1,0 @@
-private
-newExporter
-	^ ScratchExporter new

@@ -1,3 +1,0 @@
-microworld
-ticks
-	^ ticks

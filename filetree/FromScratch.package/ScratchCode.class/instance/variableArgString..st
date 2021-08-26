@@ -1,3 +1,0 @@
-private
-variableArgString: aString
-	self subclassResponsibility

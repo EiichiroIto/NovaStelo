@@ -1,3 +1,0 @@
-private
-errorOccuered
-	self stopAll.

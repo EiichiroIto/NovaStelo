@@ -1,3 +1,0 @@
-private
-display
-	^ stageFrame display

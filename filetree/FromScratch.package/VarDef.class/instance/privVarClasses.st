@@ -1,3 +1,0 @@
-private
-privVarClasses
-	^ varClasses

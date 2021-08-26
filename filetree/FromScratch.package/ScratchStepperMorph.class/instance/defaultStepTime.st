@@ -1,3 +1,0 @@
-private
-defaultStepTime
-	^ 100

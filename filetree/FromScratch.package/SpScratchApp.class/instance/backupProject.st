@@ -1,3 +1,0 @@
-private
-backupProject
-	self subclassResponsibility

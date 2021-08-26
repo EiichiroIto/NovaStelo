@@ -1,3 +1,0 @@
-private
-privStage
-	^ stageFrame

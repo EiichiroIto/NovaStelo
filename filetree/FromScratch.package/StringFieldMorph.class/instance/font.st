@@ -1,4 +1,0 @@
-accessing
-font
-
-	^ stringMorph font

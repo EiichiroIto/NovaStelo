@@ -1,3 +1,0 @@
-test
-testScriptOf
-	self testSetupScripts

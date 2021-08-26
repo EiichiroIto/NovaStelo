@@ -1,3 +1,0 @@
-constants
-computedFloat
-	^ 4

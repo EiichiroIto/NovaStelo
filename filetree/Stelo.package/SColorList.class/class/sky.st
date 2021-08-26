@@ -1,3 +1,0 @@
-constants
-sky
-	^ 95

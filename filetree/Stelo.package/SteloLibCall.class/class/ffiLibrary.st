@@ -1,3 +1,0 @@
-resources
-ffiLibrary
-	^ SteloLibrary

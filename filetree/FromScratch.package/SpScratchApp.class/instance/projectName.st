@@ -1,3 +1,0 @@
-private
-projectName
-	^ presenter projectName

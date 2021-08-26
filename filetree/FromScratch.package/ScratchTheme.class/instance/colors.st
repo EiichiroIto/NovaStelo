@@ -1,3 +1,0 @@
-private
-colors
-	^ colors copy

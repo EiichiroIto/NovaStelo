@@ -1,3 +1,0 @@
-constants
-blue
-	^ 105

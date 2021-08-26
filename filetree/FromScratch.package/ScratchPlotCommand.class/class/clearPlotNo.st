@@ -1,3 +1,0 @@
-private
-clearPlotNo
-	^ 1

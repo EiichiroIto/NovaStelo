@@ -1,3 +1,0 @@
-microworld
-breedsAtPoint: aPoint
-	self subclassResponsibility

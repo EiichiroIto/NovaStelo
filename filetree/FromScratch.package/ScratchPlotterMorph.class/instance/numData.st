@@ -1,3 +1,0 @@
-accessing
-numData
-	^ data size

@@ -1,3 +1,0 @@
-private
-newProject
-	^ SteloProject new

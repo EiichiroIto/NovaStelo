@@ -1,3 +1,0 @@
-evaluation
-evaluate
-	^ labelMorph savedContents

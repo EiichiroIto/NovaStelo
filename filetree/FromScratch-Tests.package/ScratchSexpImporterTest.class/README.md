@@ -1,1 +1,0 @@
-A ScratchSexpImporterTest is a test class for testing the behavior of ScratchSexpImporter

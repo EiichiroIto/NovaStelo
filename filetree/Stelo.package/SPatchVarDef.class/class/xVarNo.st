@@ -1,3 +1,0 @@
-accessing
-xVarNo
-	^ 3

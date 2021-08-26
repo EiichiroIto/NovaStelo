@@ -1,4 +1,0 @@
-drawing
-insetBottom
-
-	^ self bottom

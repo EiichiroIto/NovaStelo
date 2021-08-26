@@ -1,3 +1,0 @@
-microworld
-countAlive
-	^ self size

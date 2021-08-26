@@ -1,3 +1,0 @@
-test
-testDoRepeatEndLabels
-	self testDoRepeatBegin.

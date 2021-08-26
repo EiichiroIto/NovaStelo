@@ -1,3 +1,0 @@
-private
-newBaseId
-	^ BaseId new

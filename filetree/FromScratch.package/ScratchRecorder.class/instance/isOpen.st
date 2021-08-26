@@ -1,3 +1,0 @@
-testing
-isOpen
-	^ writer notNil

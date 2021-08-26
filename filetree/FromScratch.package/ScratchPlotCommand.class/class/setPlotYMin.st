@@ -1,3 +1,0 @@
-private
-setPlotYMin
-	^ 2

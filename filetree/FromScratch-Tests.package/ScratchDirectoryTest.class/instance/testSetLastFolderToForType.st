@@ -1,3 +1,0 @@
-test
-testSetLastFolderToForType
-	self testGetLastFolderForType

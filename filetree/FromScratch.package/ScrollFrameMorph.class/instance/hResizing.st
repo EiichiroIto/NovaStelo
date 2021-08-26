@@ -1,4 +1,0 @@
-layout
-hResizing
-
-	^ #spaceFill

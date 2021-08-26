@@ -1,3 +1,0 @@
-accessing
-appVersion
-	^ 2

@@ -1,3 +1,0 @@
-code generation
-labelId
-	^ labelId

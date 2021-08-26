@@ -1,3 +1,0 @@
-accessing
-scriptForm
-	^ editorPane screenshot

@@ -1,4 +1,0 @@
-accessing
-nestedBlockAt: aPoint
-
-	^ nestedBlock

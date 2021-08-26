@@ -1,3 +1,0 @@
-private
-defaultSWorldMode
-	^ #SMicroWorld

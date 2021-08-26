@@ -1,3 +1,0 @@
-test
-testClearPlots
-	self testReset

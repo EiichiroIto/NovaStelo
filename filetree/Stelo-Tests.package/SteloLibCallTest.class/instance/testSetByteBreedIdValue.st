@@ -1,3 +1,0 @@
-test
-testSetByteBreedIdValue
-	self testGetByteBreedId.

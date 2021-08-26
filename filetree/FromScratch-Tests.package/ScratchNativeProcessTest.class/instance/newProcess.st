@@ -1,3 +1,0 @@
-private
-newProcess
-	^ ScratchNativeProcess new

@@ -1,3 +1,0 @@
-processing
-maxBreedNo
-	^ breeds size

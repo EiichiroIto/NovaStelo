@@ -1,3 +1,0 @@
-accessing
-penDownFlagNo
-	^ 1

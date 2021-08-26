@@ -1,4 +1,0 @@
-entry points
-objects
-
-	^ objects

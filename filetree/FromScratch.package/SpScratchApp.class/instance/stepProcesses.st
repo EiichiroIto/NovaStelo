@@ -1,3 +1,0 @@
-processes
-stepProcesses
-	self subclassResponsibility

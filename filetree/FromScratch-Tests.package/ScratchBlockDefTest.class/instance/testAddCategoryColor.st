@@ -1,3 +1,0 @@
-test
-testAddCategoryColor
-	self testBlockColorFor

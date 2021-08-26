@@ -1,3 +1,0 @@
-*FromScratch
-fieldsVersion
-	^ 1

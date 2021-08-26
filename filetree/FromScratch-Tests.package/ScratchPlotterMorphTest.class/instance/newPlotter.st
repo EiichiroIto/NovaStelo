@@ -1,3 +1,0 @@
-private
-newPlotter
-	^ ScratchPlotterMorph new

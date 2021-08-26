@@ -1,3 +1,0 @@
-private
-topBarHeight
-	self shouldNotImplement

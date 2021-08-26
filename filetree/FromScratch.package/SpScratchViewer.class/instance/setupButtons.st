@@ -1,3 +1,0 @@
-private
-setupButtons
-	self subclassResponsibility

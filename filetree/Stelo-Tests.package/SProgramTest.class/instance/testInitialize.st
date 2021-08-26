@@ -1,3 +1,0 @@
-tests-initialization
-testInitialize
-	self testPrivEntryPoints.

@@ -1,3 +1,0 @@
-private
-newObjStream
-	^ SteloObjStream new

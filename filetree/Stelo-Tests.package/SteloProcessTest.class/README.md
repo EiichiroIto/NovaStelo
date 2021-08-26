@@ -1,1 +1,0 @@
-A SteloProcessTest is a test class for testing the behavior of SteloProcess

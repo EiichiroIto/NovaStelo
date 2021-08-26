@@ -1,3 +1,0 @@
-accessing
-turtles
-	^ turtles

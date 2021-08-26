@@ -1,3 +1,0 @@
-test
-testPrivCodes
-	self testCodes.

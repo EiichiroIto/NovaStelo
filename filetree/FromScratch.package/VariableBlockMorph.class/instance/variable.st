@@ -1,4 +1,0 @@
-accessing
-variable
-
-	^ commandSpec

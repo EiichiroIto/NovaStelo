@@ -1,3 +1,0 @@
-accessing
-yVarNo
-	^ 4

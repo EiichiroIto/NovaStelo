@@ -1,3 +1,0 @@
-accessing
-userDefinedListNames
-	^ varId listNames

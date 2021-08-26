@@ -1,3 +1,0 @@
-constants
-black
-	^ 0

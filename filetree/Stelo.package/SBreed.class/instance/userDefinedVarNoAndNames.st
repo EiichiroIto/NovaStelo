@@ -1,3 +1,0 @@
-accessing
-userDefinedVarNoAndNames
-	^ varId userDefinedVarNoAndNames

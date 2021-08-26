@@ -1,3 +1,0 @@
-accessing
-startupEventNo
-	^ 1

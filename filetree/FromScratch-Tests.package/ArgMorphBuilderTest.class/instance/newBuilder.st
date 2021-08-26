@@ -1,3 +1,0 @@
-private
-newBuilder
-	^ ArgMorphBuilder new

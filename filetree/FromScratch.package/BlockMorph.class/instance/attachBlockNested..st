@@ -1,3 +1,0 @@
-private
-attachBlockNested: aBlockMorph
-	self shouldNotImplement

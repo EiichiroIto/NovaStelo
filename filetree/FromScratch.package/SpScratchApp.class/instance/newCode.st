@@ -1,3 +1,0 @@
-processes
-newCode
-	self subclassResponsibility

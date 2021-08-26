@@ -1,3 +1,0 @@
-private
-newDirectory
-	^ ScratchDirectory new

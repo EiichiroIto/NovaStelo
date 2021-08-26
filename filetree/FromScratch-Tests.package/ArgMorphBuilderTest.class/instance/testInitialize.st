@@ -1,3 +1,0 @@
-test
-testInitialize
-	self testPrivDict

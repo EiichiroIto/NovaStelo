@@ -1,3 +1,0 @@
-constants
-brown
-	^ 35

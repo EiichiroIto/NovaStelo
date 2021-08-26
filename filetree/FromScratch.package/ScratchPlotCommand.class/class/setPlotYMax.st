@@ -1,3 +1,0 @@
-private
-setPlotYMax
-	^ 3

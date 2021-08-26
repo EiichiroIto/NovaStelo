@@ -1,3 +1,0 @@
-private
-newVarDef
-	^ VarDef new

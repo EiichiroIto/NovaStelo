@@ -1,3 +1,0 @@
-private
-workPaneHeight
-	^ 600

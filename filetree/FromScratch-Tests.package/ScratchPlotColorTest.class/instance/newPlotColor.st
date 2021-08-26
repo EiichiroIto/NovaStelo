@@ -1,3 +1,0 @@
-private
-newPlotColor
-	^ ScratchPlotColor new

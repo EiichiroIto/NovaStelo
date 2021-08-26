@@ -1,3 +1,0 @@
-accessing
-flagVarNo
-	^ 2

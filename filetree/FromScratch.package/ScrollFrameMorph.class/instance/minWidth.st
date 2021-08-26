@@ -1,4 +1,0 @@
-layout
-minWidth
-
-	^ 60

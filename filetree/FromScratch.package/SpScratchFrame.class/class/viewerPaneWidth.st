@@ -1,3 +1,0 @@
-private
-viewerPaneWidth
-	^ 214

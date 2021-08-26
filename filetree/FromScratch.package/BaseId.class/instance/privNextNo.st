@@ -1,3 +1,0 @@
-private
-privNextNo
-	^ nextNo

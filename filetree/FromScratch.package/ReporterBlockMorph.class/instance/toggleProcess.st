@@ -1,3 +1,0 @@
-processes
-toggleProcess
-	self showValue

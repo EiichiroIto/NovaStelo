@@ -1,3 +1,0 @@
-accessing
-appVersion
-	self subclassResponsibility

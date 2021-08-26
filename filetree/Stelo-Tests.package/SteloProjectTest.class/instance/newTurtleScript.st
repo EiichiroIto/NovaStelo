@@ -1,3 +1,0 @@
-private
-newTurtleScript
-	^ TurtlesScript new

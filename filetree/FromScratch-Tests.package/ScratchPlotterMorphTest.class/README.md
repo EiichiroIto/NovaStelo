@@ -1,1 +1,0 @@
-A ScratchLinePlotterTest is a test class for testing the behavior of ScratchLinePlotter

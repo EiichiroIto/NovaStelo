@@ -1,3 +1,0 @@
-private
-defaultOrder
-	^ 6

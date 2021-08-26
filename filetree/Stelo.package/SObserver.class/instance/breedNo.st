@@ -1,3 +1,0 @@
-accessing
-breedNo
-	^ SBreedId observerBreedNo

@@ -1,3 +1,0 @@
-constants
-magenta
-	^ 125

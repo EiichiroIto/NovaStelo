@@ -1,3 +1,0 @@
-accessing
-selectedFile
-	^ fileList selectedFile

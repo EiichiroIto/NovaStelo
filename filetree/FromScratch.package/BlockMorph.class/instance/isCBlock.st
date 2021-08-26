@@ -1,3 +1,0 @@
-testing
-isCBlock
-	^ false

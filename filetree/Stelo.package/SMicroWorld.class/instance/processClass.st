@@ -1,3 +1,0 @@
-private
-processClass
-	^ SProcess

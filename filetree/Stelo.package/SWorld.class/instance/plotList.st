@@ -1,3 +1,0 @@
-accessing
-plotList
-	self subclassResponsibility

@@ -1,3 +1,0 @@
-private
-varNames
-	^ varNames ifNil: [ #() ]

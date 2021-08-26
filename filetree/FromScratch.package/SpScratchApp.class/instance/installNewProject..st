@@ -1,3 +1,0 @@
-private
-installNewProject: aProject
-	self subclassResponsibility

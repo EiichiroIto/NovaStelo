@@ -1,3 +1,0 @@
-processes
-isProcessRunning
-	self subclassResponsibility

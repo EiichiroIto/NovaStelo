@@ -1,3 +1,0 @@
-private
-restoreProject
-	self subclassResponsibility

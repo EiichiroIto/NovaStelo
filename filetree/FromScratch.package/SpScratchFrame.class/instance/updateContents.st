@@ -1,3 +1,0 @@
-accessing
-updateContents
-	viewerPane updateContents

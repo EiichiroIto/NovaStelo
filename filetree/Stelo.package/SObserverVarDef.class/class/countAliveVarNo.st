@@ -1,3 +1,0 @@
-accessing
-countAliveVarNo
-	^ 5

@@ -1,3 +1,0 @@
-test
-testCreatePatch
-	self testCountAliveOf.

@@ -1,3 +1,0 @@
-accessing
-eventNoList
-	^ entryPoints keys

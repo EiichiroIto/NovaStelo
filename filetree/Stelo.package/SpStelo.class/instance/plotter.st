@@ -1,3 +1,0 @@
-accessing
-plotter
-	^ presenter plotter

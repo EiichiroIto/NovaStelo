@@ -1,3 +1,0 @@
-accessing
-widthVarNo
-	^ 1

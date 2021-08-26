@@ -1,3 +1,0 @@
-*FromScratch
-isStageMorph
-	^ false

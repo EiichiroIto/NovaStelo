@@ -1,3 +1,0 @@
-private
-privObserverScript
-	^ observerScript

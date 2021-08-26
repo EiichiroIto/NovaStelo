@@ -1,3 +1,0 @@
-test
-testVarListAt
-	self testVarListAtPut

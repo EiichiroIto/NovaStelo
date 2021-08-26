@@ -1,3 +1,0 @@
-test
-testSize
-	self testMax

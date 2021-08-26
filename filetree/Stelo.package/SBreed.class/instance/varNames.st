@@ -1,3 +1,0 @@
-accessing
-varNames
-	^ varId varNames

@@ -1,3 +1,0 @@
-accessing
-stepTime
-	^ stepTime

@@ -1,3 +1,0 @@
-acccessing
-quotedString: aString
-	^ '"' , aString , '"'

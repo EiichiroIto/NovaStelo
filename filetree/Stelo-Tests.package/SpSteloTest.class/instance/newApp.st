@@ -1,3 +1,0 @@
-private
-newApp
-	^ SpStelo new

@@ -1,3 +1,0 @@
-constants
-lime
-	^ 65

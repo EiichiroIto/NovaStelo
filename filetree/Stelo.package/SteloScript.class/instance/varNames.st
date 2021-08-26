@@ -1,3 +1,0 @@
-variables
-varNames
-	^ breed userDefinedVarNames

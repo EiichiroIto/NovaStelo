@@ -1,3 +1,0 @@
-private
-newScript
-	^ ScTestScript new

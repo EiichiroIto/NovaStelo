@@ -1,3 +1,0 @@
-private
-defaultAllocationSize
-	^ 100

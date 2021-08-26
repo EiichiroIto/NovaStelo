@@ -1,4 +1,0 @@
-drawing
-isNumberExpression
-
-	^ isNumber

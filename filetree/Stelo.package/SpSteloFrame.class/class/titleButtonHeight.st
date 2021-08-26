@@ -1,3 +1,0 @@
-private
-titleButtonHeight
-	^ 50

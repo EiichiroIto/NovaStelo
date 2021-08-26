@@ -1,3 +1,0 @@
-accessing
-headingVarNo
-	^ 5

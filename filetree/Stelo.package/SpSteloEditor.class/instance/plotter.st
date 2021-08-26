@@ -1,3 +1,0 @@
-accessing
-plotter
-	^ plotter morph

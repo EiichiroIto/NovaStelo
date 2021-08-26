@@ -1,3 +1,0 @@
-testing
-isValidSubName: aString
-	self subclassResponsibility

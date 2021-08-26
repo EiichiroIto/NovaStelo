@@ -1,3 +1,0 @@
-testing
-isExpressionArg
-	^ true

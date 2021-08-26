@@ -1,3 +1,0 @@
-accessing
-screenVarNo
-	^ 2

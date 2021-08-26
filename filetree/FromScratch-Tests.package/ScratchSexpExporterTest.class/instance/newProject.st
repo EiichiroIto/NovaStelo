@@ -1,3 +1,0 @@
-private
-newProject
-	^ ScratchProject new

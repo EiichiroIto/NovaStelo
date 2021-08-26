@@ -1,3 +1,0 @@
-variables
-variableNameInUse: aString
-	self subclassResponsibility

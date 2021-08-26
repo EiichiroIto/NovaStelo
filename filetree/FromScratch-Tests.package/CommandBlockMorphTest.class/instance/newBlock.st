@@ -1,3 +1,0 @@
-private
-newBlock
-	^ CommandBlockMorph new

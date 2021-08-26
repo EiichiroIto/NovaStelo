@@ -1,3 +1,0 @@
-private
-newProgram
-	^ SProgram new

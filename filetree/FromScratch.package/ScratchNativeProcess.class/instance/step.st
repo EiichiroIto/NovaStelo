@@ -1,3 +1,0 @@
-accessing
-step
-	self subclassResponsibility.

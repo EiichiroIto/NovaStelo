@@ -1,3 +1,0 @@
-accessing
-listName
-	^ dropListNames selectedItem

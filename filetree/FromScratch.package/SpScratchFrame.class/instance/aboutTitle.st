@@ -1,3 +1,0 @@
-private
-aboutTitle
-	^ application appName

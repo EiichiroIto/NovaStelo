@@ -1,3 +1,0 @@
-private
-cell
-	^ cell

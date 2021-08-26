@@ -1,3 +1,0 @@
-accessing
-nestedBlockAt: aPoint
-	^ nil

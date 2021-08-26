@@ -1,3 +1,0 @@
-test
-testPlotList
-	self testPrivPlotList

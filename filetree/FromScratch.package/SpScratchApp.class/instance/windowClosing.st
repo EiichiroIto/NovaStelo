@@ -1,3 +1,0 @@
-private
-windowClosing
-	"do nothing"

@@ -1,3 +1,0 @@
-*FromScratch
-asUnicode
-	^ self

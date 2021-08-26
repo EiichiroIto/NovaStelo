@@ -1,3 +1,0 @@
-testing
-isTurtles
-	^ false

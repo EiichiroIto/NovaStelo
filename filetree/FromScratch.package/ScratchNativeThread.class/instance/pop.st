@@ -1,3 +1,0 @@
-private
-pop
-	^ stack removeLast

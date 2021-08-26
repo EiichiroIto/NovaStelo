@@ -1,3 +1,0 @@
-accessing
-appFolderName
-	self subclassResponsibility

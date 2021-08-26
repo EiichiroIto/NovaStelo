@@ -1,3 +1,0 @@
-accessing
-colorVarNo
-	^ 1

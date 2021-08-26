@@ -1,3 +1,0 @@
-private
-newParser
-	^ SexpParser new

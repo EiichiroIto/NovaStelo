@@ -1,4 +1,0 @@
-stepping
-step
-
-	self updateLabel.

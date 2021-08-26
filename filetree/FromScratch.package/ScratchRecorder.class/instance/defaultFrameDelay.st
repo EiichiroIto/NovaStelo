@@ -1,3 +1,0 @@
-private
-defaultFrameDelay
-	^ 10

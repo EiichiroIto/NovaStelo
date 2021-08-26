@@ -1,4 +1,0 @@
-other
-labelMorph
-
-	^ labelMorph

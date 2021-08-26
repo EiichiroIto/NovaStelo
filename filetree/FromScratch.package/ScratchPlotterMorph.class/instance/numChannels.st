@@ -1,3 +1,0 @@
-accessing
-numChannels
-	^ pens size

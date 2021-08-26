@@ -1,3 +1,0 @@
-constants
-white
-	^ 9

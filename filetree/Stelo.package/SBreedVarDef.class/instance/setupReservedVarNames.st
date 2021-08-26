@@ -1,3 +1,0 @@
-private
-setupReservedVarNames
-	self setupVarNames

@@ -1,3 +1,0 @@
-private
-reservedNo
-	^ reservedVarNames size

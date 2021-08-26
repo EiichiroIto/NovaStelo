@@ -1,3 +1,0 @@
-private
-writeScriptSeparator
-	"do nothing"

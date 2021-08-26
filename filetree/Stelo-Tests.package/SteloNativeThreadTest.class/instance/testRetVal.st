@@ -1,3 +1,0 @@
-test
-testRetVal
-	self testPrivRetVal.

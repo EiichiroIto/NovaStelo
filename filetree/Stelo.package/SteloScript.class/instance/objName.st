@@ -1,3 +1,0 @@
-accessing
-objName
-	^ 'None'

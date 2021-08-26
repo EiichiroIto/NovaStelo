@@ -1,3 +1,0 @@
-accessing
-appVersionTag
-	^ 'SteloV'

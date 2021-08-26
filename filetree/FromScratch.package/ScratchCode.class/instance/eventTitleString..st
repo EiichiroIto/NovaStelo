@@ -1,3 +1,0 @@
-private
-eventTitleString: aString
-	self subclassResponsibility

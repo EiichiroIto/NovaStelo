@@ -1,4 +1,0 @@
-testing
-isSpecialForm
-
-	^isSpecialForm.

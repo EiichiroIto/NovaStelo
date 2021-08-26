@@ -1,3 +1,0 @@
-accessing
-colors
-	self shouldNotImplement.

@@ -1,3 +1,0 @@
-accessing
-plugin
-	^ plugin

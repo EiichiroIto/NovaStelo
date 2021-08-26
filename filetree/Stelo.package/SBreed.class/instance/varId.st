@@ -1,3 +1,0 @@
-accessing
-varId
-	^ varId

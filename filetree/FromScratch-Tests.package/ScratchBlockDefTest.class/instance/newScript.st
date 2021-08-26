@@ -1,3 +1,0 @@
-private
-newScript
-	^ ScratchScript new

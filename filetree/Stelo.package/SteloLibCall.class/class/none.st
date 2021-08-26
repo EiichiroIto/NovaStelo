@@ -1,3 +1,0 @@
-constants
-none
-	^ 0

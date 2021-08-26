@@ -1,3 +1,0 @@
-test
-testAt
-	self testAtPut

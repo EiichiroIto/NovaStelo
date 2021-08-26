@@ -1,1 +1,0 @@
-A SExporterTest is a test class for testing the behavior of SExporter

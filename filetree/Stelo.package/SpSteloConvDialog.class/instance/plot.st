@@ -1,3 +1,0 @@
-accessing
-plot
-	^ dropPlots selectedItem

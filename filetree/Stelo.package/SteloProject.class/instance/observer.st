@@ -1,3 +1,0 @@
-accessing
-observer
-	^ observerScript breed

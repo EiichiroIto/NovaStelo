@@ -1,3 +1,0 @@
-testing
-isLabel
-	^ true
