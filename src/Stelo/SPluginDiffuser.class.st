@@ -36,6 +36,11 @@ SPluginDiffuser >> diffuse8: aFloatArray cols: anInteger rows: anInteger4 percen
 		ensure: [ buf free ]
 ]
 
+{ #category : #accessing }
+SPluginDiffuser >> diffuserName [
+	^ 'plugin diffuser'
+]
+
 { #category : #api }
 SPluginDiffuser >> nsum4: aFloatArray dst: aFloatArray2 cols: anInteger rows: anInteger4 [
 	| src dst |

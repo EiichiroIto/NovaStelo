@@ -104,6 +104,11 @@ SPatches >> diffuse8: anInteger1 varNo: anInteger2 [
 ]
 
 { #category : #accessing }
+SPatches >> diffuserName [
+	^ diffuser diffuserName
+]
+
+{ #category : #accessing }
 SPatches >> extent [
 	^ order @ order
 ]

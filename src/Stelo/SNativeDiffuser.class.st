@@ -60,6 +60,11 @@ SNativeDiffuser >> diffuse: anArray percent: aNumber [
 			dst := dst + 2 ]
 ]
 
+{ #category : #accessing }
+SNativeDiffuser >> diffuserName [
+	^ 'native diffuser'
+]
+
 { #category : #private }
 SNativeDiffuser >> indexOfExtendedX: x y: y [
 	^ x + 2 + ((y + 1) * (order + 2))
