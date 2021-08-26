@@ -52,6 +52,8 @@ extern "C" {
   void nsum8(const float *src, float *dst, int cols, int rows);
   void diffuse4(float *dst, float percent, int cols, int rows);
   void diffuse8(float *dst, float percent, int cols, int rows);
+  u_int8_t scale(float value, float from, float to, u_int8_t color);
+  void scaleColor(const float *src, u_int8_t *dst, int size, float from, float to, u_int8_t baseColor);
 };
 
 char *getError()
@@ -89,3 +91,34 @@ void diffuse8(float *buf, float percent, int cols, int rows)
   debug("diffuse8(percent=%f cols=%d rows=%d)\n", percent, cols, rows);
   diffuser.diffuse8(buf, cols, rows, percent);
 }
+
+/*
+ * ScaleColor
+ */
+const static u_int8_t Black = 0;
+const static u_int8_t White = 9;
+
+u_int8_t scale(float value, float from, float to, u_int8_t color)
+{
+  if (from < to && value < from) {
+    return Black;
+  } else if (from < to && value > to) {
+    return White;
+  } else if (from > to && value > from) {
+    return Black;
+  } else if (from > to && value < to) {
+    return White;
+  }
+  float param = (value - from) / (to - from);
+  return ((color - 5) * (1 - param)) + ((color + 4) * param);
+}
+
+void scaleColor(const float *src, u_int8_t *dst, int size, float from, float to, u_int8_t baseColor)
+{
+  for (int i = 0; i < size; i ++) {
+    float value = *src++;
+    u_int8_t color = scale(value, from, to, baseColor);
+    *dst++ = color;
+  }
+}
+
