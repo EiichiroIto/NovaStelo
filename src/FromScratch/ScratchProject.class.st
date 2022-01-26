@@ -161,6 +161,11 @@ ScratchProject >> findObjName: aString [
 	^ self scripts detect: [ :each | each objName = aString ] ifNone: [ nil ]
 ]
 
+{ #category : #accessing }
+ScratchProject >> fixUnsavedFields [
+	scripts do: #fixUnsavedFields
+]
+
 { #category : #'file read/write' }
 ScratchProject >> getScratchInfoFrom: aFileReference [
 	| result f version buf obj |

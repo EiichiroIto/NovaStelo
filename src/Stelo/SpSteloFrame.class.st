@@ -152,24 +152,41 @@ SpSteloFrame >> exportMenu [
 			item
 				name: 'Export Plots as CSV' localized;
 				action: [ application exportPlots ] ];
+		addItem: [ :item | 
+			item
+				name: 'Export Script image' localized;
+				action: [ application saveScriptsToImage ] ];
+		addItem: [ :item | 
+			item
+				name: 'Export Stage image' localized;
+				action: [ application saveStageAsImage ] ];
 		yourself
 ]
 
 { #category : #private }
 SpSteloFrame >> fileMenu [
-	^ self newMenu
+	| m |
+	m := self newMenu.
+	m
+		addItem: [ :item | 
+			item
+				name: 'New' localized;
+				action: [ application newProject.
+					self plotter clearPlots ] ];
+		addItem: [ :item | 
+			item
+				name: 'Open' localized;
+				action: [ application openProject.
+					self plotter clearPlots ] ].
+	application examplesDirectory isDirectory
+		ifTrue: [ m
+				addItem: [ :item | 
+					item
+						name: 'Examples' localized;
+						subMenu: self examplesMenu ] ].
+	m
 		addGroup: [ :grp | 
 			grp
-				addItem: [ :item | 
-					item
-						name: 'New' localized;
-						action: [ application newProject.
-							self plotter clearPlots ] ];
-				addItem: [ :item | 
-					item
-						name: 'Open' localized;
-						action: [ application openProject.
-							self plotter clearPlots ] ];
 				addItem: [ :item | 
 					item
 						name: 'Project Notes' localized;
@@ -181,7 +198,8 @@ SpSteloFrame >> fileMenu [
 				addItem: [ :item | 
 					item
 						name: 'Save As' localized;
-						action: [ application saveProject ] ] ];
+						action: [ application saveProject ] ] ].
+	m
 		addGroup: [ :grp | 
 			grp
 				addItem: [ :item | 
@@ -191,17 +209,20 @@ SpSteloFrame >> fileMenu [
 				addItem: [ :item | 
 					item
 						name: 'Export ...' localized;
-						subMenu: self exportMenu ] ];
-		addItem: [ :item | 
-			item
-				name: 'Close' localized;
-				action: [ application close ];
-				enabled: [ application class dontClose not ] ];
-		addItem: [ :item | 
-			item
-				name: 'Quit' localized;
-				action: [ application quit ] ];
-		yourself
+						subMenu: self exportMenu ] ].
+	m
+		addGroup: [ :grp | 
+			grp
+				addItem: [ :item | 
+					item
+						name: 'Close' localized;
+						action: [ application close ];
+						enabled: [ application class dontClose not ] ];
+				addItem: [ :item | 
+					item
+						name: 'Quit' localized;
+						action: [ application quit ] ] ].
+	^ m
 ]
 
 { #category : #private }

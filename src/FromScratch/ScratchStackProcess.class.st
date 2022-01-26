@@ -104,6 +104,29 @@ ScratchStackProcess >> callSubroutine [
 ]
 
 { #category : #'special ops' }
+ScratchStackProcess >> doAssert [
+	"Evaluate the current expression (which must be an if)."
+
+	| block arguments argExp |
+	block := stackFrame expression.
+	arguments := stackFrame arguments.
+
+	"Evaluate the arg if we haven't already."
+	arguments isEmpty
+		ifTrue: [ argExp := block argumentAt: 1.
+			^ self pushStackFrame: (ScratchStackFrame new expression: argExp) ].
+
+	"We can pop this expression off the stack either way."
+	self popStackFrame.
+
+	"If the predicate was false, just return."
+	arguments first
+		ifTrue: [ ^ self ].
+
+	self error: 'assertion failed'
+]
+
+{ #category : #'special ops' }
 ScratchStackProcess >> doForever [
 	"Executes one iteration of a forever loop."
 
@@ -546,6 +569,7 @@ ScratchStackProcess >> stop [
 
 { #category : #api }
 ScratchStackProcess >> stopAll [
+	self doReturn.
 	topBlock applicationDo: [ :app | app stopAllProcesses ]
 ]
 

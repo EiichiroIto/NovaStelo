@@ -32,7 +32,6 @@ SpStelo class >> extension [
 { #category : #'class initialization' }
 SpStelo class >> initialize [
 	"self initialize"
-	ScratchDirectory current appName: self appFolderName.
 	ScratchTheme
 		themesURL: self themesURL;
 		setupThemeNamed: self appFolderName
@@ -46,6 +45,11 @@ SpStelo class >> menuCommandOn: aBuilder [
 		target: self;
 		action: [self new open]; 
 		icon: self icon
+]
+
+{ #category : #private }
+SpStelo class >> recodingExtent [
+	^ 400 @ 400
 ]
 
 { #category : #private }
@@ -127,12 +131,11 @@ SpStelo >> clearTurtles [
 
 { #category : #'menu actions' }
 SpStelo >> copyListToPlots [
-	| listNames observerScript plots ret list vno |
+	| listNames plots ret list vno |
 	listNames := project observer userDefinedListNames.
 	listNames isEmpty
 		ifTrue: [ ^ self ].
-	observerScript := project scriptOf: SBreedId observerBreedNo.
-	plots := (1 to: self plotter numPlots + 1) asArray.
+	plots := (1 to: self plotter numChannels + 1) asArray.
 	ret := SpSteloConvDialog listNames: listNames plots: plots.
 	ret ifNil: [ ^ self ].
 	vno := project observer varNoFor: ret first.
@@ -142,12 +145,11 @@ SpStelo >> copyListToPlots [
 
 { #category : #'menu actions' }
 SpStelo >> copyPlotsToList [
-	| listNames observerScript plots ret list vno |
+	| listNames plots ret list vno |
 	listNames := project observer userDefinedListNames.
 	listNames isEmpty
 		ifTrue: [ ^ self ].
-	observerScript := project scriptOf: SBreedId observerBreedNo.
-	plots := (1 to: self plotter numPlots) asArray.
+	plots := (1 to: self plotter numChannels) asArray.
 	ret := SpSteloConvDialog plots: plots listNames: listNames.
 	ret ifNil: [ ^ self ].
 	list := self plotter listOf: ret first.
@@ -336,18 +338,15 @@ SpStelo >> runSetup [
 
 { #category : #'menu actions' }
 SpStelo >> saveStageAsImage [
-	| fName saveForm pngExt |
-	pngExt := self imageExtension.
+	| file saveForm |
 	saveForm := presenter stageShotExtent: self class screenshotExtent.
 	saveForm ifNil: [ ^ self ].
-	fName := self
-		chooseNewFileDefault: self projectName
-		extension: pngExt
-		title: 'Save Patches Snapshot'
-		type: #scriptsSnapshot.
-	fName ifNil: [ ^ self ].
-	fName := fName withExtension: pngExt.
-	saveForm writePNGFileNamed: fName pathString
+	file := UIManager default
+		chooseForSaveFileReference: 'Save Stage' localized
+		extensions: {self imageExtension}
+		path: self projectPath.
+	file ifNil: [ ^ self ].
+	saveForm writePNGFileNamed: file pathString
 ]
 
 { #category : #accessing }
@@ -433,24 +432,16 @@ SpStelo >> startSetup [
 
 { #category : #'menu actions' }
 SpStelo >> startStageRecording [
-	| ext fName |
-	ext := 'gif'.
-	fName := self
-		chooseNewFileDefault: ''
-		extension: ext
-		title: 'Start Stage Recording'
-		type: #snapshot.
-	fName ifNil: [ ^ self ].
-	fName := fName withExtension: ext.
-	fName exists
-		ifTrue: [ (self
-				confirm: 'Are you sure you want to overwrite the file''' , fName basename , '''?')
-				ifFalse: [ ^ self ].
-			fName delete ].
+	| file |
+	file := UIManager default
+		chooseForSaveFileReference: 'Start Stage Recording' localized
+		extensions: {'gif'}
+		path: self projectPath.
+	file ifNil: [ ^ self ].
 	recorder := ScratchRecorder new
-		openFileNamed: fName;
+		openFileNamed: file;
 		model: presenter;
-		extent: 200 @ 200.
+		extent: self class recodingExtent.
 	self updateStatus
 ]
 

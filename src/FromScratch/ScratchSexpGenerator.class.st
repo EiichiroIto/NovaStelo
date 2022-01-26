@@ -99,6 +99,11 @@ ScratchSexpGenerator >> generateEventHeader: aString [
 	self printOpenParen
 ]
 
+{ #category : #'code generator' }
+ScratchSexpGenerator >> generateGlobalVars: aCollection [ 
+	"do nothing"
+]
+
 { #category : #private }
 ScratchSexpGenerator >> generateIndent: anInteger [ 
 	"do nothing"
@@ -172,7 +177,7 @@ ScratchSexpGenerator >> literalStringFrom: anObject [
 	self error.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'arg generator' }
 ScratchSexpGenerator >> localVarArgString: aString [ 
 	^ aString
 ]

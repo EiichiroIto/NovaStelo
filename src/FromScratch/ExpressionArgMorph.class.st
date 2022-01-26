@@ -139,6 +139,11 @@ ExpressionArgMorph >> isNumberExpression [
 ]
 
 { #category : #accessing }
+ExpressionArgMorph >> loseKeyboardFocus [
+	labelMorph keyboardFocusChange: false
+]
+
+{ #category : #accessing }
 ExpressionArgMorph >> numExpression: aNumber [
 	isNumber := true.
 	labelMorph isNumeric: true.

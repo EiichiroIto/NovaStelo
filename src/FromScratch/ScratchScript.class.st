@@ -596,6 +596,15 @@ ScratchScript >> fieldsVersion [
 	^ 1
 ]
 
+{ #category : #accessing }
+ScratchScript >> fixUnsavedFields [
+	blocksBin allMorphs
+		do: [ :each | 
+			each isArgMorph
+				and: [ each isExpressionArg
+						ifTrue: [ each loseKeyboardFocus ] ] ]
+]
+
 { #category : #evaluation }
 ScratchScript >> getVar: aString [
 	^ self evaluator getVar: aString

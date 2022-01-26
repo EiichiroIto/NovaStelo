@@ -119,6 +119,20 @@ SpScratchFrame >> display [
 ]
 
 { #category : #private }
+SpScratchFrame >> examplesMenu [
+	| m |
+	m := self newMenu.
+	application exampleFiles
+		do: [ :each | 
+			m
+				addItem: [ :item | 
+					item
+						name: each basename;
+						action: [ application loadExample: each ] ] ].
+	^ m
+]
+
+{ #category : #private }
 SpScratchFrame >> formFrom: aMorph extent: size [
 	| canvas thumbForm bounds |
 	bounds := aMorph modelBounds.
@@ -187,17 +201,22 @@ SpScratchFrame >> scriptMenuFor: aScript [
 
 { #category : #private }
 SpScratchFrame >> selectSetting: aSymbol [
-	| list choice appClass |
+	| list choice appClass ret |
 	appClass := self application class.
 	list := appClass optionsFor: aSymbol.
-	list isEmpty
-		ifTrue: [ ^ self ].
-	choice := UIManager default
-		chooseFrom: list
-		title: 'Select options for ' localized , aSymbol.
-	choice = 0
-		ifTrue: [ ^ self ].
-	appClass perform: (aSymbol , ':') asSymbol with: (list at: choice).
+	list = #string
+		ifTrue: [ ret := UIManager default
+				textEntry: 'Enter for ' localized , aSymbol.
+			ret ifNil: [ ^ self ] ]
+		ifFalse: [ list isEmpty
+				ifTrue: [ ^ self ].
+			choice := UIManager default
+				chooseFrom: list
+				title: 'Select an option for ' localized , aSymbol.
+			choice = 0
+				ifTrue: [ ^ self ].
+			ret := list at: choice ].
+	appClass perform: (aSymbol , ':') asSymbol with: ret.
 	aSymbol = #dontClose
 		ifTrue: [ self updateDontCloseSetting ]
 ]

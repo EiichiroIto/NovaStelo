@@ -5,18 +5,15 @@ Trait {
 
 { #category : #'menu actions' }
 TScratchPlotterMenu >> savePlotImage: aPlotter [
-	| fName saveForm pngExt |
-	pngExt := 'png'.
+	| file saveForm |
 	saveForm := self formFrom: aPlotter extent: 400 @ 400.
 	saveForm ifNil: [ ^ self ].
-	fName := self application
-		chooseNewFileDefault: ''
-		extension: pngExt
-		title: 'Save Plots Snapshot' localized
-		type: #scriptsSnapshot.
-	fName ifNil: [ ^ self ].
-	fName := fName withExtension: pngExt.
-	saveForm writePNGFileNamed: fName pathString
+	file := UIManager default
+		chooseForSaveFileReference: 'Save Plots Snapshot' localized
+		extensions: {'png'}
+		path: self application projectPath.
+	file ifNil: [ ^ self ].
+	saveForm writePNGFileNamed: file pathString
 ]
 
 { #category : #'menu actions' }
