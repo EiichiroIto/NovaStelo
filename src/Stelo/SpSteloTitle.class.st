@@ -29,11 +29,11 @@ SpSteloTitle class >> defaultSpec [
 				add: #clearTurtleButton;
 				add: #clearPatchesButton;
 				add: #setupButton;
-				add: #stepButton;
-				add: #stopButton;
-				add: #eventButton;
-				add: #loopSlowButton;
 				add: #loopButton;
+				add: #stopButton;
+				add: #stepButton;
+				add: #loopSlowButton;
+				add: #eventButton;
 				yourself);
 		yourself
 ]
