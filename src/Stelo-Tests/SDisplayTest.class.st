@@ -33,23 +33,24 @@ SDisplayTest >> testCell [
 ]
 
 { #category : #test }
-SDisplayTest >> testDefaultExtent [
-	| d |
-	d := self newDisplay.
-	self assert: d defaultExtent isPoint
-]
-
-{ #category : #test }
-SDisplayTest >> testDoDoubleClickAt [
-	| d x |
+SDisplayTest >> testClick [
+	| d x ev |
 	d := self newDisplay.
 	d
 		cell: 1 @ 1;
 		offset: 0 @ 0;
 		modelExtent: 100 @ 100;
-		whenDoubleClickDo: [ :p | x := p ].
-	d doDoubleClickAt: 0 @ 0.
+		whenClickDo: [ :p | x := p ].
+	ev := MouseEvent new setPosition: 0 @ 0.
+	d click: ev.
 	self assert: x equals: -50 @ 49
+]
+
+{ #category : #test }
+SDisplayTest >> testDefaultExtent [
+	| d |
+	d := self newDisplay.
+	self assert: d defaultExtent isPoint
 ]
 
 { #category : #test }
@@ -185,13 +186,13 @@ SDisplayTest >> testWantsSteps [
 ]
 
 { #category : #test }
-SDisplayTest >> testWhenDoubleClickDo [
+SDisplayTest >> testWhenClickDo [
 	| d x |
 	d := self newDisplay.
-	self assert: d whenDoubleClickDo isNil.
+	self assert: d whenClickDo isNil.
 	x := 0.
-	d whenDoubleClickDo: [ x := 3 ].
-	self assert: d whenDoubleClickDo isBlock
+	d whenClickDo: [ x := 3 ].
+	self assert: d whenClickDo isBlock
 ]
 
 { #category : #test }

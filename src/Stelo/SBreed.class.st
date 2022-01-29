@@ -25,6 +25,11 @@ SBreed >> addVariable: aString [
 ]
 
 { #category : #accessing }
+SBreed >> aliveAt: anInteger [
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
 SBreed >> breedName [
 	self subclassResponsibility
 ]

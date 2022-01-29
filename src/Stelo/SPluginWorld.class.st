@@ -33,6 +33,21 @@ SPluginWorld >> addVariablesFor: aBreed [
 		do: [ :each | plugin addVariable: each first breed: bno ].
 ]
 
+{ #category : #testing }
+SPluginWorld >> aliveBreed: bno at: id [
+	| size v b |
+	bno = SBreedId observerBreedNo
+		ifTrue: [ ^ id = 1 ].
+	size := self sizeOf: bno.
+	(id between: 1 and: size)
+		ifFalse: [ ^ false ].
+	bno = SBreedId patchBreedNo
+		ifTrue: [ ^ true ].
+	v := self var: STurtleVarDef flagVarNo breed: bno at: id.
+	b := 1 << STurtleVarDef aliveFlagNo.
+	^ (v bitAnd: b) > 0
+]
+
 { #category : #accessing }
 SPluginWorld >> backupBreeds: aCollection [
 	aCollection do: [ :each | self getAllVariables: each ].
@@ -255,6 +270,13 @@ SPluginWorld >> sizeOf: bno [
 		getFloat: SObserverVarDef sizeVarNo
 		breed: SBreedId observerBreedNo
 		id: bno) truncated
+]
+
+{ #category : #command }
+SPluginWorld >> turtle: anInteger x: anInteger2 y: anInteger3 exceptBreed: anInteger4 index: anInteger5 [ 
+	anInteger = SBreedId observerBreedNo
+		ifTrue: [ ^ 1 ].
+	self shouldBeImplemented.
 ]
 
 { #category : #accessing }

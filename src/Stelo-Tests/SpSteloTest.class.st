@@ -64,3 +64,38 @@ SpSteloTest >> testDeleteTurtles [
 		assert: (app sworld privBreeds count: [ :each | each notNil ])
 		equals: 3.
 ]
+
+{ #category : #test }
+SpSteloTest >> testIsRecording [
+	| a |
+	a := self newApp.
+	self deny: a isRecording.
+	a privRecoreder: true.
+	self assert: a isRecording.
+	a privRecoreder: nil.
+	self deny: a isRecording
+]
+
+{ #category : #test }
+SpSteloTest >> testPrivRecoreder [
+	self testIsRecording
+]
+
+{ #category : #test }
+SpSteloTest >> testStringOfTicksFpsCount [
+	| a r |
+	a := self newApp.
+	r := a stringOfTicks: 123 fps: 456 count: 789.
+	self assert: r equals: '123 ticks, 456 fps, 789 turtles'
+]
+
+{ #category : #test }
+SpSteloTest >> testStringOfWorldName [
+	| a r |
+	a := self newApp.
+	r := a stringOfWorldName: 'test'.
+	self assert: r equals: ' (test)'.
+	a privRecoreder: true.
+	r := a stringOfWorldName: 'abc'.
+	self assert: r equals: ' (abc) (Recording)'
+]

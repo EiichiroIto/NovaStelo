@@ -11,6 +11,8 @@ Class {
 
 { #category : #'accessing variable' }
 STurtles >> aliveAt: index [
+	(index between: 1 and: self size)
+		ifFalse: [ ^ false ].
 	^ self flag: varId class aliveFlagNo at: index
 ]
 

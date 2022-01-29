@@ -52,6 +52,17 @@ SMicroWorld >> aimHighPatchVar: vid breed: bid id: id [
 	^ self patches aimHighVarNo: vid atPoint: x @ y direction: heading
 ]
 
+{ #category : #testing }
+SMicroWorld >> aliveBreed: bno at: id [
+	| breed |
+	bno = SBreedId observerBreedNo
+		ifTrue: [ ^ id = 1 ].
+	breed := breeds at: bno.
+	(id between: 1 and: breed size)
+		ifFalse: [ ^ false ].
+	^ breed aliveAt: id
+]
+
 { #category : #accessing }
 SMicroWorld >> backupBreeds: aCollection [
 	"do nothing"

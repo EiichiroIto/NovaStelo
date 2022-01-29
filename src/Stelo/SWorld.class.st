@@ -19,6 +19,11 @@ SWorld >> addVariable: aString var: vno breed: bno [
 	self subclassResponsibility.
 ]
 
+{ #category : #testing }
+SWorld >> aliveBreed: bno at: id [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 SWorld >> backupBreeds: aCollection [
 	self subclassResponsibility.
@@ -57,6 +62,11 @@ SWorld >> deleteBreed: aBreed [
 { #category : #accessing }
 SWorld >> extent [
 	self subclassResponsibility.
+]
+
+{ #category : #command }
+SWorld >> kill: bid at: anInteger [
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
@@ -103,6 +113,11 @@ SWorld >> sizeOf: bno [
 { #category : #accessing }
 SWorld >> ticks [
 	^ self var: SObserverVarDef ticksVarNo breed: SBreedId observerBreedNo at: 1
+]
+
+{ #category : #command }
+SWorld >> turtle: bno x: x y: y exceptBreed: myBno index: myIndex [
+	self subclassResponsibility
 ]
 
 { #category : #accessing }

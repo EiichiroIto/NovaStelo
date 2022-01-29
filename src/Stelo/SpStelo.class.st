@@ -8,8 +8,7 @@ Class {
 		'lastTicks',
 		'sworldMode',
 		'recorder',
-		'process',
-		'updateInfoCount'
+		'process'
 	],
 	#category : #'Stelo-Spec2'
 }
@@ -214,11 +213,10 @@ SpStelo >> importSexpCode [
 { #category : #initialization }
 SpStelo >> initialize [
 	super initialize.
-	lastMSec := nil.
+	lastMSec := 0.
 	lastTicks := 0.
 	sworldMode := self defaultSWorldMode.
-	presenter sworldMode: sworldMode.
-	updateInfoCount := 0
+	presenter sworldMode: sworldMode
 ]
 
 { #category : #private }
@@ -309,6 +307,11 @@ SpStelo >> plotsExtension [
 { #category : #accessing }
 SpStelo >> plotter [
 	^ presenter plotter
+]
+
+{ #category : #private }
+SpStelo >> privRecoreder: anObject [
+	recorder := anObject
 ]
 
 { #category : #private }
@@ -456,18 +459,10 @@ SpStelo >> stepLoop [
 
 { #category : #processes }
 SpStelo >> stepProcesses [
-	| list |
 	process ifNotNil: [ process step ].
-	updateInfoCount := updateInfoCount + 1.
-	updateInfoCount > self maxUpdateInfoCount
-		ifTrue: [ updateInfoCount := 0.
-			self updateInfo ].
+	project ifNotNil: [ self updateStatus ].
 	presenter updateDisplay.
-	recorder ifNotNil: [ recorder writeForced: false ].
-	list := sworld plotList.
-	list isEmpty
-		ifTrue: [ ^ self ].
-	presenter addPlots: list
+	recorder ifNotNil: [ recorder writeForced: false ]
 ]
 
 { #category : #'button actions' }
@@ -491,6 +486,33 @@ SpStelo >> stopStageRecording [
 	self updateStatus
 ]
 
+{ #category : #private }
+SpStelo >> stringOfTicks: ticks fps: fps count: count [
+	| stream |
+	stream := String new writeStream.
+	stream
+		nextPutAll: ticks truncated asString;
+		nextPutAll: ' ticks, ';
+		nextPutAll: fps asString;
+		nextPutAll: ' fps, ';
+		nextPutAll: count asString;
+		nextPutAll: ' turtles'.
+	^ stream contents
+]
+
+{ #category : #private }
+SpStelo >> stringOfWorldName: aString [
+	| stream |
+	stream := String new writeStream.
+	stream
+		nextPutAll: ' (';
+		nextPutAll: aString;
+		nextPut: $).
+	self isRecording
+		ifTrue: [ stream nextPutAll: ' (Recording)' ].
+	^ stream contents
+]
+
 { #category : #accessing }
 SpStelo >> sworld [
 	^ sworld
@@ -501,8 +523,7 @@ SpStelo >> sworld: aWorld [
 	sworld ifNotNil: [ self backupProject ].
 	sworld := aWorld.
 	project ifNotNil: [ self restoreProject ].
-	presenter sworld: aWorld.
-	self updateStatus
+	presenter sworld: aWorld
 ]
 
 { #category : #'menu actions' }
@@ -510,8 +531,7 @@ SpStelo >> toggleSWorld [
 	sworldMode = #SMicroWorld
 		ifTrue: [ self changePluginWorld ]
 		ifFalse: [ self changeMicroWorld ].
-	presenter sworldMode: sworldMode.
-	self updateStatus
+	presenter sworldMode: sworldMode
 ]
 
 { #category : #'menu actions' }
@@ -531,36 +551,20 @@ SpStelo >> turtlesScripts [
 	^ project scriptsForMenu
 ]
 
-{ #category : #processes }
-SpStelo >> updateInfo [
-	| msec ticks fps info |
-	self updateStatus.
-	msec := Time millisecondClockValue.
-	ticks := sworld ticks.
-	lastMSec
-		ifNotNil: [ fps := ((ticks - lastTicks) * 1000 / (msec - lastMSec)) truncated.
-			info := String new writeStream
-				in: [ :stream | 
-					stream
-						nextPutAll: 'ticks=';
-						nextPutAll: ticks truncated asString;
-						nextPutAll: ' (';
-						nextPutAll: fps asString;
-						nextPutAll: 'fps)';
-						nextPutAll: ', ';
-						nextPutAll: (sworld countAliveOf: SBreedId turtleBreedNo) asString;
-						nextPutAll: ' turtles'.
-					stream contents ].
-			presenter info: info ].
-	lastMSec := msec.
-	lastTicks := ticks
-]
-
 { #category : #private }
 SpStelo >> updateStatus [
-	| str |
-	str := ' (', sworld worldName, ')'.
-	self isRecording
-		ifTrue: [ str := str, ' (Recording)' ].
-	presenter status: str
+	| msec str ticks fps count |
+	msec := Time millisecondClockValue.
+	msec < (lastMSec + 1000)
+		ifTrue: [ ^ self ].
+	str := self stringOfWorldName: sworld worldName.
+	presenter status: str.
+	ticks := sworld ticks.
+	fps := ((ticks - lastTicks) * 1000 / (msec - lastMSec)) truncated.
+	count := (sworld countAliveOf: SBreedId turtleBreedNo) asString.
+	str := self stringOfTicks: ticks fps: fps count: count.
+	presenter info: str.
+	sworld plotList ifNotEmpty: [ :list | presenter addPlots: list ].
+	lastTicks := ticks.
+	lastMSec := msec
 ]

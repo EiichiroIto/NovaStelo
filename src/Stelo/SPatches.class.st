@@ -33,6 +33,11 @@ SPatches >> aimHighVarNo: vid atPoint: aPoint direction: heading [
 ]
 
 { #category : #accessing }
+SPatches >> aliveAt: index [
+	^ index between: 1 and: self size
+]
+
+{ #category : #accessing }
 SPatches >> breedName [
 	^ 'Patch'
 ]

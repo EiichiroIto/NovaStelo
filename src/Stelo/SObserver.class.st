@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #accessing }
+SObserver >> aliveAt: index [
+	^ index = 1
+]
+
+{ #category : #accessing }
 SObserver >> breedId [
 	^ breedId
 ]

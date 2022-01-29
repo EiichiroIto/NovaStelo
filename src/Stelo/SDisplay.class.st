@@ -10,7 +10,7 @@ Class {
 		'info',
 		'stepTime',
 		'whenStepsDo',
-		'whenDoubleClickDo'
+		'whenClickDo'
 	],
 	#category : #'Stelo-Morphic'
 }
@@ -38,30 +38,12 @@ SDisplay >> click: evt [
 	| p |
 	p := evt cursorPoint - self topLeft.
 	p := self pointOf: p.
-	self showBalloon: p asString
+	whenClickDo ifNotNil: [ whenClickDo cull: p ]
 ]
 
 { #category : #private }
 SDisplay >> defaultExtent [
 	^ 220 @ 220
-]
-
-{ #category : #private }
-SDisplay >> doDoubleClickAt: aPoint [
-	| pos |
-	aPoint >= offset
-		ifFalse: [ ^ self ].
-	aPoint < (offset + (cell * modelExtent))
-		ifFalse: [ ^ self ].
-	pos := self pointOf: aPoint.
-	whenDoubleClickDo ifNotNil: [ whenDoubleClickDo cull: pos ]
-]
-
-{ #category : #'event handling' }
-SDisplay >> doubleClick: evt [
-	| p |
-	p := evt cursorPoint - self topLeft.
-	self doDoubleClickAt: p
 ]
 
 { #category : #drawing }
@@ -223,13 +205,13 @@ SDisplay >> wantsSteps [
 ]
 
 { #category : #accessing }
-SDisplay >> whenDoubleClickDo [
-	^ whenDoubleClickDo
+SDisplay >> whenClickDo [
+	^ whenClickDo
 ]
 
 { #category : #accessing }
-SDisplay >> whenDoubleClickDo: aBlock [
-	whenDoubleClickDo := aBlock
+SDisplay >> whenClickDo: aBlock [
+	whenClickDo := aBlock
 ]
 
 { #category : #accessing }
