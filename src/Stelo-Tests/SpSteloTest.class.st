@@ -70,14 +70,14 @@ SpSteloTest >> testIsRecording [
 	| a |
 	a := self newApp.
 	self deny: a isRecording.
-	a privRecoreder: true.
+	a privRecorder: true.
 	self assert: a isRecording.
-	a privRecoreder: nil.
+	a privRecorder: nil.
 	self deny: a isRecording
 ]
 
 { #category : #test }
-SpSteloTest >> testPrivRecoreder [
+SpSteloTest >> testPrivRecorder [
 	self testIsRecording
 ]
 
@@ -95,7 +95,7 @@ SpSteloTest >> testStringOfWorldName [
 	a := self newApp.
 	r := a stringOfWorldName: 'test'.
 	self assert: r equals: ' (test)'.
-	a privRecoreder: true.
+	a privRecorder: true.
 	r := a stringOfWorldName: 'abc'.
 	self assert: r equals: ' (abc) (Recording)'
 ]

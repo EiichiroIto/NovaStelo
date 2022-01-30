@@ -104,12 +104,10 @@ SpSteloFrame >> changeNumberVar: vno breed: bno at: id [
 { #category : #inspecting }
 SpSteloFrame >> changeValue: anArray [
 	| var vno bno id |
-	bno := self currentBreedNo.
 	inspectorTarget = 0
-		ifTrue: [ bno = SBreedId observerBreedNo
-				ifFalse: [ self findObject: '' ].
-			^ self ].
+		ifTrue: [ ^ self findObject: '' ].
 	anArray ifNil: [ ^ self ].
+	bno := self currentBreedNo.
 	id := inspectorTarget.
 	var := anArray first.
 	var = 'id'
@@ -144,7 +142,6 @@ SpSteloFrame >> connectPresenters [
 	self updateThumbnail.
 	stageFrame display whenClickDo: [ :pos | self showBreedView: pos ].
 	inspectorPane
-		whenRefreshDo: [ self updateInspector ];
 		whenEditDo: [ :obj | self changeValue: obj ];
 		whenDeleteDo: [ self deleteObject ]
 ]
@@ -190,12 +187,8 @@ SpSteloFrame >> defaultExtent [
 
 { #category : #inspecting }
 SpSteloFrame >> deleteObject [
-	| bno |
 	inspectorTarget = 0 ifTrue: [ ^ self ].
-	bno := self currentBreedNo.
-	(bno = SBreedId observerBreedNo or: [ bno = SBreedId patchBreedNo ])
-		ifTrue: [ ^ self ].
-	self sworld kill: bno at: inspectorTarget.
+	self sworld kill: self currentBreedNo at: inspectorTarget.
 	self clearInspector
 ]
 
@@ -305,6 +298,8 @@ SpSteloFrame >> fileMenu [
 SpSteloFrame >> findObject: aString [
 	| bno ret id |
 	bno := self currentBreedNo.
+	bno = SBreedId observerBreedNo
+		ifTrue: [ ^ self ].
 	ret := UIManager default
 		request: 'Enter id' localized
 		initialAnswer: aString asString.

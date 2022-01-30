@@ -165,6 +165,13 @@ SPluginWorld >> initialize [
 	plugin := SteloLibCall new.
 ]
 
+{ #category : #command }
+SPluginWorld >> kill: bid at: anInteger [
+	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchBreedNo ])
+		ifTrue: [ ^ self ].
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 SPluginWorld >> patchIndexAtX: x y: y [
 	^ plugin patchIndexAtX: x y: y

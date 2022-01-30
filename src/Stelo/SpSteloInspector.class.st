@@ -3,7 +3,6 @@ Class {
 	#superclass : #SpPresenter,
 	#instVars : [
 		'tableVars',
-		'buttonRefresh',
 		'buttonEdit',
 		'buttonDelete'
 	],
@@ -18,7 +17,6 @@ SpSteloInspector class >> defaultSpec [
 		add:
 			(SpBoxLayout newHorizontal
 				spacing: 4;
-				add: #buttonRefresh;
 				add: #buttonEdit;
 				add: #buttonDelete;
 				yourself)
@@ -29,7 +27,6 @@ SpSteloInspector class >> defaultSpec [
 { #category : #initialization }
 SpSteloInspector >> initializePresenters [
 	tableVars := self newTable.
-	buttonRefresh := self newButton.
 	buttonEdit := self newButton.
 	buttonDelete := self newButton.
 	tableVars
@@ -42,9 +39,6 @@ SpSteloInspector >> initializePresenters [
 			(SpStringTableColumn
 				title: 'Value' localized
 				evaluated: [ :o | o second asString ]).
-	buttonRefresh
-		label: 'Refresh' localized;
-		icon: (self iconNamed: #refresh).
 	buttonEdit
 		label: 'Edit' localized;
 		icon: (self iconNamed: #edit).
@@ -53,7 +47,6 @@ SpSteloInspector >> initializePresenters [
 		icon: (self iconNamed: #delete).
 	self focusOrder
 		add: tableVars;
-		add: buttonRefresh;
 		add: buttonEdit;
 		add: buttonDelete
 ]
@@ -63,7 +56,7 @@ SpSteloInspector >> items: aCollection [
 	tableVars items: aCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpSteloInspector >> selectedIndex: anInteger [
 	tableVars selectIndex: anInteger
 ]
@@ -81,9 +74,4 @@ SpSteloInspector >> whenDeleteDo: aBlock [
 { #category : #accessing }
 SpSteloInspector >> whenEditDo: aBlock [
 	buttonEdit action: [ aBlock cull: tableVars selection selectedItem ]
-]
-
-{ #category : #accessing }
-SpSteloInspector >> whenRefreshDo: aBlock [
-	buttonRefresh action: aBlock
 ]

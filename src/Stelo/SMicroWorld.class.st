@@ -55,8 +55,6 @@ SMicroWorld >> aimHighPatchVar: vid breed: bid id: id [
 { #category : #testing }
 SMicroWorld >> aliveBreed: bno at: id [
 	| breed |
-	bno = SBreedId observerBreedNo
-		ifTrue: [ ^ id = 1 ].
 	breed := breeds at: bno.
 	(id between: 1 and: breed size)
 		ifFalse: [ ^ false ].
@@ -211,7 +209,9 @@ SMicroWorld >> initialize [
 
 { #category : #command }
 SMicroWorld >> kill: bid at: anInteger [
-	(breeds at: bid) killAt: anInteger.
+	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchBreedNo ])
+		ifTrue: [ ^ self ].
+	(breeds at: bid) killAt: anInteger
 ]
 
 { #category : #processing }

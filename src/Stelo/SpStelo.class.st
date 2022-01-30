@@ -310,7 +310,7 @@ SpStelo >> plotter [
 ]
 
 { #category : #private }
-SpStelo >> privRecoreder: anObject [
+SpStelo >> privRecorder: anObject [
 	recorder := anObject
 ]
 
@@ -509,7 +509,7 @@ SpStelo >> stringOfWorldName: aString [
 		nextPutAll: aString;
 		nextPut: $).
 	self isRecording
-		ifTrue: [ stream nextPutAll: ' (Recording)' ].
+		ifTrue: [ stream nextPutAll: ' (Recording)' localized ].
 	^ stream contents
 ]
 
@@ -557,6 +557,7 @@ SpStelo >> updateStatus [
 	msec := Time millisecondClockValue.
 	msec < (lastMSec + 1000)
 		ifTrue: [ ^ self ].
+	presenter updateInspector.
 	str := self stringOfWorldName: sworld worldName.
 	presenter status: str.
 	ticks := sworld ticks.
