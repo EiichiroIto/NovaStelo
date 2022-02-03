@@ -99,3 +99,16 @@ SpSteloTest >> testStringOfWorldName [
 	r := a stringOfWorldName: 'abc'.
 	self assert: r equals: ' (abc) (Recording)'
 ]
+
+{ #category : #test }
+SpSteloTest >> testVarsAt [
+	| app proj s r |
+	app := self newApp.
+	proj := self newProject.
+	app installNewProject: proj.
+	s := app addTurtles.
+	app target: s.
+	r := app varsAt: 1.
+	self assert: r isArray.
+	self assert: r size equals: 6
+]

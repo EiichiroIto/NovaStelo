@@ -340,12 +340,27 @@ SpStelo >> runSetup [
 ]
 
 { #category : #'menu actions' }
+SpStelo >> saveScriptsToImage [
+	"Take a snapshot of all scripts for a sprite and save as a GIF file"
+
+	| file saveForm |
+	saveForm := presenter scriptForm.
+	saveForm ifNil: [ ^ self ].
+	file := UIManager default
+		chooseForSaveFileReference: 'Export ...' localized
+		extensions: {self imageExtension}
+		path: self projectPath.
+	file ifNil: [ ^ self ].
+	saveForm writePNGFileNamed: file pathString
+]
+
+{ #category : #'menu actions' }
 SpStelo >> saveStageAsImage [
 	| file saveForm |
 	saveForm := presenter stageShotExtent: self class screenshotExtent.
 	saveForm ifNil: [ ^ self ].
 	file := UIManager default
-		chooseForSaveFileReference: 'Save Stage' localized
+		chooseForSaveFileReference: 'Export ...' localized
 		extensions: {self imageExtension}
 		path: self projectPath.
 	file ifNil: [ ^ self ].
@@ -526,6 +541,11 @@ SpStelo >> sworld: aWorld [
 	presenter sworld: aWorld
 ]
 
+{ #category : #accessing }
+SpStelo >> target: aScript [
+	presenter target: aScript
+]
+
 { #category : #'menu actions' }
 SpStelo >> toggleSWorld [
 	sworldMode = #SMicroWorld
@@ -539,11 +559,6 @@ SpStelo >> toggleStageRecording [
 	self isRecording
 		ifTrue: [ self stopStageRecording ]
 		ifFalse: [ self startStageRecording ]
-]
-
-{ #category : #accessing }
-SpStelo >> turtlesScript: bno [
-	^ project scriptOf: bno
 ]
 
 { #category : #accessing }
@@ -568,4 +583,25 @@ SpStelo >> updateStatus [
 	sworld plotList ifNotEmpty: [ :list | presenter addPlots: list ].
 	lastTicks := ticks.
 	lastMSec := msec
+]
+
+{ #category : #variables }
+SpStelo >> varsAt: anInteger [
+	| stream breed v bno vno |
+	stream := WriteStream on: Array new.
+	stream
+		nextPut:
+			{'id'.
+			anInteger}.
+	breed := presenter target breed.
+	bno := breed breedNo.
+	breed varNames
+		do: [ :each | 
+			vno := breed varNoFor: each.
+			v := self sworld var: vno breed: bno at: anInteger.
+			stream
+				nextPut:
+					{each.
+					v} ].
+	^ stream contents
 ]

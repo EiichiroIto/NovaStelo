@@ -101,7 +101,7 @@ SMicroWorld >> colors [
 	| colors x y c index |
 	colors := self patches colors copy.
 	self
-		turtlesDo: [ :ts :id | 
+		turtlesDo: [ :id :ts | 
 			x := ts xAt: id.
 			y := ts yAt: id.
 			c := ts colorAt: id.
@@ -158,7 +158,7 @@ SMicroWorld >> flag: anInteger breed: bid at: id put: aNumber [
 
 { #category : #command }
 SMicroWorld >> forward: aNumber breed: bid id: anInteger [
-	| c x y delta dx dy penDown rest h d ps ts |
+	| c x y delta dx dy penDown rest h d ps ts distance |
 	ps := breeds at: SBreedId patchBreedNo.
 	ts := breeds at: bid.
 	penDown := ts penDownAt: anInteger.
@@ -166,10 +166,14 @@ SMicroWorld >> forward: aNumber breed: bid id: anInteger [
 	x := ts xAt: anInteger.
 	y := ts yAt: anInteger.
 	h := ts headingAt: anInteger.
+	distance := aNumber.
+	distance < 0
+		ifTrue: [ distance := distance negated.
+			h := (h + 180) \\ 360 ].
 	delta := Point r: 1.0 degrees: h.
 	dx := delta x.
 	dy := delta y.
-	aNumber truncated
+	distance truncated
 		timesRepeat: [ penDown
 				ifTrue: [ ps colorAtPoint: x @ y put: c ].
 			x := x + dx.
@@ -178,7 +182,7 @@ SMicroWorld >> forward: aNumber breed: bid id: anInteger [
 			y := ps normalize: y ].
 	penDown
 		ifTrue: [ ps colorAtPoint: x @ y put: c ].
-	rest := aNumber - aNumber truncated.
+	rest := distance - distance truncated.
 	(rest closeTo: 0.0)
 		ifFalse: [ d := Point r: rest degrees: h.
 			x := x + d x.
@@ -353,17 +357,6 @@ SMicroWorld >> sizeOf: bno [
 	^ (self breedOf: bno) size
 ]
 
-{ #category : #command }
-SMicroWorld >> turtle: bno x: x y: y exceptBreed: myBno index: myIndex [
-	| list |
-	list := (self breedOf: bno) breedsAtPoint: x @ y.
-	bno = myBno
-		ifTrue: [ list remove: myIndex ifAbsent: [  ] ].
-	^ list isEmpty
-		ifTrue: [ 0 ]
-		ifFalse: [ list anyOne ].
-]
-
 { #category : #private }
 SMicroWorld >> turtleBreedsDo: aBlock [
 	SBreedId defaultUserNo to: breeds size do: [ :each | 
@@ -381,9 +374,23 @@ SMicroWorld >> turtleVarNames [
 ]
 
 { #category : #private }
-SMicroWorld >> turtlesDo: aBlock [
+SMicroWorld >> turtles: bno at: pos [
+	| list x y p |
+	list := OrderedCollection new.
 	self
-		turtleBreedsDo: [ :ts | ts livingOnesDo: [ :index | aBlock value: ts value: index ] ].
+		livingBreed: bno
+		do: [ :tid :breed | 
+			x := breed xAt: tid.
+			y := breed yAt: tid.
+			p := self patches indexAtPoint: x @ y.
+			p = pos
+				ifTrue: [ list add: tid ] ].
+	^ list
+]
+
+{ #category : #private }
+SMicroWorld >> turtlesDo: aBlock [
+	self turtleBreedsDo: [ :ts | ts livingOnesDo: aBlock ]
 ]
 
 { #category : #'accessing variable' }
@@ -449,26 +456,6 @@ SMicroWorld >> var: anInteger breed: bid putAll: anObject [
 	bid = SBreedId observerBreedNo
 		ifTrue: [ self error: 'cannot set variables to observer' ]
 		ifFalse: [ (breeds at: bid) var: anInteger putAll: anObject ]
-]
-
-{ #category : #'accessing variable' }
-SMicroWorld >> varsBreed: bno at: id [
-	| stream breed v vno |
-	stream := WriteStream on: Array new.
-	stream
-		nextPut:
-			{'id'.
-			id}.
-	breed := self breedOf: bno.
-	breed varNames
-		do: [ :each | 
-			vno := breed varNoFor: each.
-			v := self var: vno breed: bno at: id.
-			stream
-				nextPut:
-					{each.
-					v} ].
-	^ stream contents
 ]
 
 { #category : #accessing }

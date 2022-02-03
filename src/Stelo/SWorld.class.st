@@ -116,7 +116,18 @@ SWorld >> ticks [
 ]
 
 { #category : #command }
-SWorld >> turtle: bno x: x y: y exceptBreed: myBno index: myIndex [
+SWorld >> turtle: bno at: pos exceptBreed: myBno index: myIndex [
+	| list |
+	list := self turtles: bno at: pos.
+	bno = myBno
+		ifTrue: [ list remove: myIndex ifAbsent: [  ] ].
+	^ list isEmpty
+		ifTrue: [ 0 ]
+		ifFalse: [ list anyOne ]
+]
+
+{ #category : #private }
+SWorld >> turtles: bno at: pno [
 	self subclassResponsibility
 ]
 

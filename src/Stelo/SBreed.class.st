@@ -45,11 +45,6 @@ SBreed >> breedNo: anInteger [
 ]
 
 { #category : #microworld }
-SBreed >> breedsAtPoint: aPoint [
-	self subclassResponsibility
-]
-
-{ #category : #microworld }
 SBreed >> clear [
 	"clear means clear all variable values with keeping its definition"
 	variables ifNil: [ ^ self ].

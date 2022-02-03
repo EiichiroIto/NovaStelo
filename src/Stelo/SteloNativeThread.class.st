@@ -451,13 +451,15 @@ SteloNativeThread >> setY [
 
 { #category : #'turtle ops' }
 SteloNativeThread >> turtleAt [
-	| x y ret bid pno |
+	| ret bid pno |
 	bid := self pop.
 	pno := self pop.
-	x := world patches xAt: pno.
-	y := world patches yAt: pno.
-	ret := world turtle: bid x: x y: y exceptBreed: breedId index: id.
-	self push: ret.
+	ret := world
+		turtle: bid
+		at: pno
+		exceptBreed: breedId
+		index: id.
+	self push: ret
 ]
 
 { #category : #'patch ops' }

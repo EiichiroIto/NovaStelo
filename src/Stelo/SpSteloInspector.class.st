@@ -57,6 +57,11 @@ SpSteloInspector >> items: aCollection [
 ]
 
 { #category : #accessing }
+SpSteloInspector >> selectedIndex [
+	^ tableVars selection selectedIndex
+]
+
+{ #category : #accessing }
 SpSteloInspector >> selectedIndex: anInteger [
 	tableVars selectIndex: anInteger
 ]

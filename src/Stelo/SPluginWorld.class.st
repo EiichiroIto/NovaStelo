@@ -93,7 +93,7 @@ SPluginWorld >> extent [
 { #category : #private }
 SPluginWorld >> getAllVariable: vno breed: bno [
 	| type |
-	bno = SBreedId observerBreedNo ifTrue: [ ^ nil ].
+	"bno = SBreedId observerBreedNo ifTrue: [ ^ nil ]."
 	type := plugin getType: vno breed: bno.
 	"type = SteloLibCall word
 		ifTrue: [ ^ self getWordAll: vno breed: bno ]."
@@ -279,11 +279,20 @@ SPluginWorld >> sizeOf: bno [
 		id: bno) truncated
 ]
 
-{ #category : #command }
-SPluginWorld >> turtle: anInteger x: anInteger2 y: anInteger3 exceptBreed: anInteger4 index: anInteger5 [ 
-	anInteger = SBreedId observerBreedNo
-		ifTrue: [ ^ 1 ].
-	self shouldBeImplemented.
+{ #category : #private }
+SPluginWorld >> turtles: bno at: pos [
+	| xs ys flags mask list p |
+	xs := self getAllVariable: STurtleVarDef xVarNo breed: bno.
+	ys := self getAllVariable: STurtleVarDef yVarNo breed: bno.
+	flags := self getAllVariable: STurtleVarDef flagVarNo breed: bno.
+	mask := 1 << STurtleVarDef aliveFlagNo.
+	list := OrderedCollection new.
+	flags
+		withIndexDo: [ :each :index | 
+			p := self patchIndexAtX: (xs at: index) y: (ys at: index).
+			((each bitAnd: mask) > 0 and: [ p = pos ])
+				ifTrue: [ list add: index ] ].
+	^ list
 ]
 
 { #category : #accessing }

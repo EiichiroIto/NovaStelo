@@ -53,11 +53,6 @@ SPatches >> breedNo: anInteger [
 ]
 
 { #category : #microworld }
-SPatches >> breedsAtPoint: aPoint [
-	^ { self indexAtPoint: aPoint }
-]
-
-{ #category : #microworld }
 SPatches >> clear [
 	super clear.
 	variables forceSize: self size.

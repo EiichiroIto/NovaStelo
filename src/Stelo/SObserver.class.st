@@ -34,11 +34,6 @@ SObserver >> breedNo: anInteger [
 ]
 
 { #category : #microworld }
-SObserver >> breedsAtPoint: aPoint [
-	^ {1}
-]
-
-{ #category : #microworld }
 SObserver >> clearTicks [
 	ticks := 0.
 ]

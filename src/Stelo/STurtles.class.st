@@ -37,19 +37,6 @@ STurtles >> breedNo: anInteger [
 ]
 
 { #category : #microworld }
-STurtles >> breedsAtPoint: aPoint [
-	| list x y |
-	x := aPoint x truncated.
-	y := aPoint y truncated.
-	list := OrderedCollection new.
-	self
-		livingOnesDo: [ :index | 
-			((self xAt: index) truncated = x and: [ (self yAt: index) truncated = y ])
-				ifTrue: [ list add: index ] ].
-	^ list
-]
-
-{ #category : #microworld }
 STurtles >> copyTurtleFrom: anInteger1 to: anInteger2 [
 	variables copyElementFrom: anInteger1 to: anInteger2
 ]
@@ -137,7 +124,7 @@ STurtles >> killAt: anIndex [
 STurtles >> livingOnesDo: aBlock [
 	1 to: self size do: [ :each | 
 		(self flag: varId class aliveFlagNo at: each)
-			ifTrue: [ aBlock value: each ] ]
+			ifTrue: [ aBlock cull: each cull: self ] ]
 ]
 
 { #category : #'accessing variable' }

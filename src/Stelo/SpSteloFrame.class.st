@@ -77,6 +77,22 @@ SpSteloFrame >> addTurtles [
 		updateTurtles
 ]
 
+{ #category : #private }
+SpSteloFrame >> breedAt: aPoint [
+	| bno pos |
+	bno := self currentBreedNo.
+	bno = SBreedId observerBreedNo
+		ifTrue: [ ^ 1 ].
+	pos := application project patches indexAtPoint: aPoint.
+	bno = SBreedId patchBreedNo
+		ifTrue: [ ^ pos ].
+	^ self sworld
+		turtle: bno
+		at: pos
+		exceptBreed: 0
+		index: 0
+]
+
 { #category : #inspecting }
 SpSteloFrame >> changeColor: vno breed: bno at: id [
 	| dialog cno |
@@ -156,10 +172,6 @@ SpSteloFrame >> dataMenu [
 	^ self newMenu
 		addGroup: [ :grp | 
 			grp
-				addItem: [ :item | 
-					item
-						name: 'Save Stage as PNG' localized;
-						action: [ application saveStageAsImage ] ];
 				addItem: [ :item | 
 					item
 						name: [ application isRecording
@@ -436,16 +448,8 @@ SpSteloFrame >> setupTopPane [
 
 { #category : #inspecting }
 SpSteloFrame >> showBreedView: aPoint [
-	| bno id |
-	bno := self currentBreedNo.
-	id := aPoint
-		ifNil: [ 0 ]
-		ifNotNil: [ self sworld
-				turtle: bno
-				x: aPoint x
-				y: aPoint y
-				exceptBreed: 0
-				index: 0 ].
+	| id |
+	id := aPoint ifNil: [ 0 ] ifNotNil: [ self breedAt: aPoint ].
 	id = 0
 		ifTrue: [ self clearInspector ]
 		ifFalse: [ inspectorTarget := id.
@@ -506,13 +510,16 @@ SpSteloFrame >> turtlesSelected: bno [
 
 { #category : #inspecting }
 SpSteloFrame >> updateInspector [
-	inspectorTarget = 0 ifTrue: [ ^ self ].
+	| list index |
+	inspectorTarget = 0
+		ifTrue: [ ^ self ].
+	list := application varsAt: inspectorTarget.
+	index := inspectorPane selectedIndex.
+	index > list size
+		ifTrue: [ index := 0 ].
 	inspectorPane
-		items:
-			(self sworld
-				varsBreed: self currentBreedNo
-				at: inspectorTarget);
-		selectedIndex: 0
+		items: list;
+		selectedIndex: index
 ]
 
 { #category : #private }
