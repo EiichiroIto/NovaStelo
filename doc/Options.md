@@ -26,6 +26,7 @@ Once you have created the settings.ston file, you can change the options from th
 - language
 - stickyWindow
 - useErrorCatcher
+- projectDir
 
 ## dontClose
 The dontClose option disables the window close button.
@@ -53,3 +54,9 @@ Possible options are true or false.
 The useErrorCatcher option suppresses the display of debug dialogs.
 
 Possible options are true or false.
+
+## projectDir
+The projectDir option specifies the directory name to open/save projects.
+
+Possible option is a string of the directory.
+It can be included '{documents}' for system's documents directory.
