@@ -15,7 +15,7 @@ The settings.ston file should be placed in the same folder as the Scratch apps i
 Multiple options must be separated by commas like this:
 
 ```
-{#useStdDialog:true,#useErrorCatcher:false}
+{#projectDir:'{documents}/stelo',#useErrorCatcher:false}
 ```
 
 Once you have created the settings.ston file, you can change the options from the Help-Settings menu.
