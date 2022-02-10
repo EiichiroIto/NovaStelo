@@ -153,6 +153,11 @@ SpScratchApp class >> optionsFor: aSymbol [
 ]
 
 { #category : #accessing }
+SpScratchApp class >> projectClass [
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
 SpScratchApp class >> projectDir [
 	| file dict |
 	file := self settings
@@ -330,7 +335,7 @@ SpScratchApp >> copyBlock: aBlockMorph [
 
 { #category : #private }
 SpScratchApp >> createProject [
-	self subclassResponsibility
+	^ self class projectClass new
 ]
 
 { #category : #'menu actions' }
@@ -578,7 +583,8 @@ SpScratchApp >> openProject [
 	file := UIManager default
 		chooseExistingFileReference: 'Open Project' localized
 		extensions: {self class extension}
-		path: self projectDirectory.
+		path: self projectDirectory
+		preview: self class projectClass.
 	file ifNil: [ ^ self ].
 	newProj := self createProject readProjectFrom: file.
 	newProj ifNil: [ ^ self ].

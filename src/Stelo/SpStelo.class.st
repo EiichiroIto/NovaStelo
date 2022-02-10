@@ -46,6 +46,11 @@ SpStelo class >> menuCommandOn: aBuilder [
 		icon: self icon
 ]
 
+{ #category : #accessing }
+SpStelo class >> projectClass [
+	^ SteloProject
+]
+
 { #category : #private }
 SpStelo class >> recodingExtent [
 	^ 400 @ 400
@@ -158,11 +163,6 @@ SpStelo >> copyPlotsToList [
 		breed: SBreedId observerBreedNo
 		list: 1
 		set: list
-]
-
-{ #category : #private }
-SpStelo >> createProject [
-	^ SteloProject new
 ]
 
 { #category : #private }

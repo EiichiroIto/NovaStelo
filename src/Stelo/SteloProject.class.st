@@ -18,6 +18,11 @@ SteloProject class >> appVersionTag [
 	^ 'SteloV'
 ]
 
+{ #category : #accessing }
+SteloProject class >> objStreamClass [
+	^ SteloObjStream
+]
+
 { #category : #variables }
 SteloProject >> addList: aString var: vno breed: bno [
 	application addList: aString var: vno breed: bno
@@ -96,11 +101,6 @@ SteloProject >> initFieldsFrom: anObjStream version: classVersion [
 	self
 		initFieldsNamed: #(observerScript patchesScript)
 		from: anObjStream
-]
-
-{ #category : #private }
-SteloProject >> newObjStream [
-	^ SteloObjStream new
 ]
 
 { #category : #private }
