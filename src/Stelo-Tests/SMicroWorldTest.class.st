@@ -267,6 +267,11 @@ SMicroWorldTest >> testForwardBreedId [
 		closeTo: -49
 ]
 
+{ #category : #test }
+SMicroWorldTest >> testIsPluginWorld [
+	self deny: SMicroWorld new isPluginWorld
+]
+
 { #category : #'tests-accessing' }
 SMicroWorldTest >> testMaxBreedNo [
 	| w |

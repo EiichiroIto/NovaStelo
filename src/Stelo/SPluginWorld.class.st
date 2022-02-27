@@ -165,6 +165,11 @@ SPluginWorld >> initialize [
 	plugin := SteloLibCall new.
 ]
 
+{ #category : #testing }
+SPluginWorld >> isPluginWorld [
+	^ true
+]
+
 { #category : #command }
 SPluginWorld >> kill: bid at: anInteger [
 	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchBreedNo ])

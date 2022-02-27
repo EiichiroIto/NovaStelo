@@ -7,6 +7,11 @@ Class {
 	#category : #'Stelo-Tests'
 }
 
+{ #category : #private }
+SPatchesTest >> newBreed [
+	^ SPatches new
+]
+
 { #category : #'tests-command' }
 SPatchesTest >> testAimHighVarNoAtPointDirection [
 	| ps v ret |
@@ -271,6 +276,11 @@ SPatchesTest >> testInitialize [
 	self assert: ps size equals: 10000.
 ]
 
+{ #category : #test }
+SPatchesTest >> testIsPluginDiffuser [
+	self testUsePluginDiffuser
+]
+
 { #category : #'tests-enumerating' }
 SPatchesTest >> testLivingOnesDo [
 	| ps count |
@@ -411,30 +421,6 @@ SPatchesTest >> testOrder [
 	self assert: ps order equals: 120.
 ]
 
-{ #category : #'tests-private' }
-SPatchesTest >> testPointOfRowCol [
-	| ps pos |
-	ps := SPatches new.
-	ps create: 5.
-	pos := ps pointOfRow: 1 col: 1.
-	self assert: pos equals: -2 @ -2.
-	pos := ps pointOfRow: 5 col: 1.
-	self assert: pos equals: 2 @ -2.
-	pos := ps pointOfRow: 3 col: 3.
-	self assert: pos equals: 0 @ 0.
-	pos := ps pointOfRow: 5 col: 5.
-	self assert: pos equals: 2 @ 2.
-	ps create: 6.
-	pos := ps pointOfRow: 1 col: 1.
-	self assert: pos equals: -3 @ -3.
-	pos := ps pointOfRow: 6 col: 1.
-	self assert: pos equals: 2 @ -3.
-	pos := ps pointOfRow: 4 col: 4.
-	self assert: pos equals: 0 @ 0.
-	pos := ps pointOfRow: 6 col: 6.
-	self assert: pos equals: 2 @ 2.
-]
-
 { #category : #'tests-printing' }
 SPatchesTest >> testPrintOn [
 	| ps |
@@ -458,6 +444,24 @@ SPatchesTest >> testRows [
 	self assert: ps rows equals: ps defaultOrder.
 	ps create: 120.
 	self assert: ps rows equals: 120.
+]
+
+{ #category : #test }
+SPatchesTest >> testUseNativeDiffuser [
+	| p |
+	p := self newBreed.
+	self deny: p isPluginDiffuser.
+	p useNativeDiffuser.
+	self deny: p isPluginDiffuser
+]
+
+{ #category : #test }
+SPatchesTest >> testUsePluginDiffuser [
+	| p |
+	p := self newBreed.
+	self deny: p isPluginDiffuser.
+	p usePluginDiffuser.
+	self assert: p isPluginDiffuser
 ]
 
 { #category : #'tests-accessing variable' }
@@ -489,7 +493,7 @@ SPatchesTest >> testVarAtPut [
 	self assert: (ps var: SPatchVarDef screenVarNo at: 1) equals: 2.
 	self assert: (ps var: SPatchVarDef screenVarNo at: 2) equals: 5.
 	self assert: (ps colorAt: 1) equals: 100.
-	self assert: (ps colorAt: 2) equals: (SColorList default normalize: 200).
+	self assert: (ps colorAt: 2) equals: 200.
 ]
 
 { #category : #'tests-accessing' }

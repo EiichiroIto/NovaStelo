@@ -25,7 +25,7 @@ SpColorList >> colorMorphFor: aString [
 	cno := SColorList colorOf: aString asSymbol.
 	^ Morph new
 		extent: 20 @ 20;
-		color: (SColorList colorAt: cno);
+		color: (SColorList default realColorAt: cno);
 		yourself
 ]
 

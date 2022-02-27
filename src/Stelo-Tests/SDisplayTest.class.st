@@ -92,6 +92,17 @@ SDisplayTest >> testInitialize [
 ]
 
 { #category : #test }
+SDisplayTest >> testIsGrayscale [
+	| d |
+	d := self newDisplay.
+	self deny: d isGrayscale.
+	d isGrayscale: true.
+	self assert: d isGrayscale.
+	d isGrayscale: false.
+	self deny: d isGrayscale
+]
+
+{ #category : #test }
 SDisplayTest >> testModelBounds [
 	| d |
 	d := self newDisplay.
@@ -161,6 +172,17 @@ SDisplayTest >> testSworld [
 	w := self newWorld.
 	d sworld: w.
 	self assert: d sworld equals: w
+]
+
+{ #category : #test }
+SDisplayTest >> testToggleGrayscale [
+	| d |
+	d := self newDisplay.
+	self deny: d isGrayscale.
+	d toggleGrayscale.
+	self assert: d isGrayscale.
+	d toggleGrayscale.
+	self deny: d isGrayscale
 ]
 
 { #category : #test }

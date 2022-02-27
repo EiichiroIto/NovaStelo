@@ -6,24 +6,23 @@ Class {
 		'events',
 		'lastMSec',
 		'lastTicks',
-		'sworldMode',
 		'recorder',
 		'process'
 	],
 	#category : #'Stelo-Spec2'
 }
 
-{ #category : #accessing }
+{ #category : #settings }
 SpStelo class >> appFolderName [
 	^ 'stelo'
 ]
 
-{ #category : #accessing }
+{ #category : #settings }
 SpStelo class >> appName [
 	^ 'NovaStelo'
 ]
 
-{ #category : #accessing }
+{ #category : #settings }
 SpStelo class >> extension [
 	^ 'sl'
 ]
@@ -46,7 +45,12 @@ SpStelo class >> menuCommandOn: aBuilder [
 		icon: self icon
 ]
 
-{ #category : #accessing }
+{ #category : #settings }
+SpStelo class >> previewClass [
+	^ self projectClass
+]
+
+{ #category : #settings }
 SpStelo class >> projectClass [
 	^ SteloProject
 ]
@@ -107,18 +111,16 @@ SpStelo >> backupProject [
 
 { #category : #private }
 SpStelo >> changeMicroWorld [
-	sworldMode = #SMicroWorld
+	(sworld notNil and: [ self isPluginWorld not ])
 		ifTrue: [ ^ self ].
-	sworldMode := #SMicroWorld.
-	self sworld: self newWorld
+	self sworld: SMicroWorld new
 ]
 
 { #category : #private }
 SpStelo >> changePluginWorld [
-	sworldMode = #SPluginWorld
+	self isPluginWorld
 		ifTrue: [ ^ self ].
-	sworldMode := #SPluginWorld.
-	self sworld: self newWorld
+	self sworld: SPluginWorld new
 ]
 
 { #category : #'button actions' }
@@ -214,15 +216,15 @@ SpStelo >> importSexpCode [
 SpStelo >> initialize [
 	super initialize.
 	lastMSec := 0.
-	lastTicks := 0.
-	sworldMode := self defaultSWorldMode.
-	presenter sworldMode: sworldMode
+	lastTicks := 0
 ]
 
 { #category : #private }
 SpStelo >> installNewProject: aProject [
 	self stopAllProcesses.
-	self sworld: self newWorld.
+	(sworld isNil or: [ sworld isPluginWorld not ])
+		ifTrue: [ self changeMicroWorld ]
+		ifFalse: [ self changePluginWorld ].
 	project := aProject.
 	project application: self.
 	project setupScripts.
@@ -232,6 +234,16 @@ SpStelo >> installNewProject: aProject [
 	self setupView.
 	presenter updateTurtles.
 	Smalltalk garbageCollect
+]
+
+{ #category : #testing }
+SpStelo >> isPluginDiffuser [
+	^ sworld ifNil: [ false ] ifNotNil: [ sworld isPluginDiffuser ]
+]
+
+{ #category : #testing }
+SpStelo >> isPluginWorld [
+	^ sworld ifNil: [ false ] ifNotNil: [ sworld isPluginWorld ]
 ]
 
 { #category : #processes }
@@ -282,11 +294,6 @@ SpStelo >> newProgram [
 { #category : #private }
 SpStelo >> newTurtles [
 	^ sworld newBreed
-]
-
-{ #category : #private }
-SpStelo >> newWorld [
-	^ (Smalltalk at: sworldMode) new
 ]
 
 { #category : #accessing }
@@ -547,11 +554,17 @@ SpStelo >> target: aScript [
 ]
 
 { #category : #'menu actions' }
+SpStelo >> toggleDiffuser [
+	self isPluginWorld
+		ifTrue: [ ^ self ].
+	sworld toggleDiffuser
+]
+
+{ #category : #'menu actions' }
 SpStelo >> toggleSWorld [
-	sworldMode = #SMicroWorld
-		ifTrue: [ self changePluginWorld ]
-		ifFalse: [ self changeMicroWorld ].
-	presenter sworldMode: sworldMode
+	self isPluginWorld
+		ifTrue: [ self changeMicroWorld ]
+		ifFalse: [ self changePluginWorld ]
 ]
 
 { #category : #'menu actions' }
@@ -569,6 +582,7 @@ SpStelo >> turtlesScripts [
 { #category : #private }
 SpStelo >> updateStatus [
 	| msec str ticks fps count |
+	sworld ifNil: [ ^ self ].
 	msec := Time millisecondClockValue.
 	msec < (lastMSec + 1000)
 		ifTrue: [ ^ self ].

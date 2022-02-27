@@ -13,12 +13,12 @@ Class {
 	#category : #'FromScratch-Spec2'
 }
 
-{ #category : #accessing }
+{ #category : #settings }
 SpScratchApp class >> appFolderName [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : #settings }
 SpScratchApp class >> appName [
 	self subclassResponsibility
 ]
@@ -69,7 +69,7 @@ SpScratchApp class >> dontClose: aBoolean [
 	self settings at: #dontClose put: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : #settings }
 SpScratchApp class >> extension [
 	self subclassResponsibility
 ]
@@ -152,7 +152,13 @@ SpScratchApp class >> optionsFor: aSymbol [
 	^ #()
 ]
 
-{ #category : #accessing }
+{ #category : #settings }
+SpScratchApp class >> previewClass [
+	"self projectClass if use preview"
+	^ nil
+]
+
+{ #category : #settings }
 SpScratchApp class >> projectClass [
 	self subclassResponsibility
 ]
@@ -584,7 +590,7 @@ SpScratchApp >> openProject [
 		chooseExistingFileReference: 'Open Project' localized
 		extensions: {self class extension}
 		path: self projectDirectory
-		preview: self class projectClass.
+		preview: self class previewClass.
 	file ifNil: [ ^ self ].
 	newProj := self createProject readProjectFrom: file.
 	newProj ifNil: [ ^ self ].

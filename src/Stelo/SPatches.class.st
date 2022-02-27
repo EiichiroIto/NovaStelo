@@ -151,8 +151,13 @@ SPatches >> initFieldsFrom: anObjStream version: classVersion [
 { #category : #initialization }
 SPatches >> initialize [
 	super initialize.
-	diffuser := SDiffuser pluginOrNativeClass new.
-	self create: self defaultOrder.
+	self useNativeDiffuser.
+	self create: self defaultOrder
+]
+
+{ #category : #testing }
+SPatches >> isPluginDiffuser [
+	^ diffuser isPluginDiffuser
 ]
 
 { #category : #microworld }
@@ -194,11 +199,6 @@ SPatches >> nsum8: anInteger1 to: anInteger2 [
 { #category : #accessing }
 SPatches >> order [
 	^ order
-]
-
-{ #category : #private }
-SPatches >> pointOfRow: r col: c [
-	^ (r - 1 - (order // 2)) @ (c - 1 - (order // 2))
 ]
 
 { #category : #printing }
@@ -247,6 +247,16 @@ SPatches >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(order) on: anObjStream.
 ]
 
+{ #category : #accessing }
+SPatches >> useNativeDiffuser [
+	diffuser := SNativeDiffuser2 new
+]
+
+{ #category : #accessing }
+SPatches >> usePluginDiffuser [
+	diffuser := SPluginDiffuser new
+]
+
 { #category : #'accessing variable' }
 SPatches >> var: anInteger1 at: anInteger2 [
 	anInteger1 = varId class xVarNo
@@ -254,15 +264,6 @@ SPatches >> var: anInteger1 at: anInteger2 [
 	anInteger1 = varId class yVarNo
 		ifTrue: [ ^ self yAt: anInteger2 ].
 	^ super var: anInteger1 at: anInteger2
-]
-
-{ #category : #'accessing variable' }
-SPatches >> var: anInteger at: id put: aNumber [
-	| data |
-	data := aNumber.
-	anInteger = varId class colorVarNo
-		ifTrue: [ data := SColorList default normalize: data ].
-	super var: anInteger at: id put: data.
 ]
 
 { #category : #'accessing variable' }

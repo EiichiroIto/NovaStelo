@@ -10,7 +10,8 @@ Class {
 		'info',
 		'stepTime',
 		'whenStepsDo',
-		'whenClickDo'
+		'whenClickDo',
+		'isGrayscale'
 	],
 	#category : #'Stelo-Morphic'
 }
@@ -53,7 +54,7 @@ SDisplay >> drawInfoOn: aCanvas [
 		drawString: info
 		at: self topLeft + offset + (5 @ 5)
 		font: nil
-		color: Color white
+		color: self borderColor
 ]
 
 { #category : #drawing }
@@ -70,19 +71,23 @@ SDisplay >> drawOn: aCanvas [
 
 { #category : #drawing }
 SDisplay >> drawWorldOn: aCanvas [
-	| x0 x y colors index tc |
-	colors := sworld colors.
+	| x0 x y colors index block |
+	block := isGrayscale
+		ifTrue: [ [ :each | Color gray: each / 255.0 ] ]
+		ifFalse: [ [ :each | SColorList default realColorAt: each ] ].
+	colors := sworld colors asArray collect: block.
 	x0 := self left + offset x.
 	y := self top + offset y + (cell y * (modelExtent y - 1)).
 	index := 1.
 	modelExtent y
 		timesRepeat: [ x := x0.
 			modelExtent x
-				timesRepeat: [ tc := SColorList colorAt: (colors at: index).
-					aCanvas fillRectangle: (x @ y extent: cell) color: tc.
+				timesRepeat: [ aCanvas
+						fillRectangle: (x @ y extent: cell)
+						color: (colors at: index).
 					index := index + 1.
 					x := x + cell x ].
-			y := y - cell y ].
+			y := y - cell y ]
 ]
 
 { #category : #geometry }
@@ -115,10 +120,22 @@ SDisplay >> info: aString [
 SDisplay >> initialize [
 	super initialize.
 	self extent: self defaultExtent.
-	self color: Color darkGray.
+	self color: self theme backgroundColor.
+	self borderColor: self theme textColor.
 	forceModelChanged := true.
 	info := ''.
+	isGrayscale := false.
 	self stepTime: 1000
+]
+
+{ #category : #accessing }
+SDisplay >> isGrayscale [
+	^ isGrayscale
+]
+
+{ #category : #accessing }
+SDisplay >> isGrayscale: aBoolean [
+	isGrayscale := aBoolean
 ]
 
 { #category : #accessing }
@@ -188,6 +205,12 @@ SDisplay >> sworld [
 { #category : #accessing }
 SDisplay >> sworld: aWorld [
 	sworld := aWorld.
+]
+
+{ #category : #accessing }
+SDisplay >> toggleGrayscale [
+	isGrayscale := isGrayscale not.
+	self changed
 ]
 
 { #category : #private }

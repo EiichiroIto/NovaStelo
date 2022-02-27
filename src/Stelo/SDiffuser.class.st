@@ -35,13 +35,6 @@ SDiffuser class >> benchmarkNsum [
 						rows: 100 ] ]
 ]
 
-{ #category : #accessing }
-SDiffuser class >> pluginOrNativeClass [
-	^ SteloPlugin2 isAvailable
-		ifTrue: [ SPluginDiffuser ]
-		ifFalse: [ SNativeDiffuser ]
-]
-
 { #category : #api }
 SDiffuser >> diffuse4: anArray cols: anInteger2 rows: anInteger3 percent: aNumber [
 	self subclassResponsibility
@@ -54,6 +47,11 @@ SDiffuser >> diffuse8: anArray cols: anInteger2 rows: anInteger3 percent: aNumbe
 
 { #category : #accessing }
 SDiffuser >> diffuserName [
+	self subclassResponsibility
+]
+
+{ #category : #testing }
+SDiffuser >> isPluginDiffuser [
 	self subclassResponsibility
 ]
 

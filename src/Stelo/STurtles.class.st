@@ -110,7 +110,7 @@ STurtles >> initFieldsFrom: anObjStream version: classVersion [
 { #category : #initialization }
 STurtles >> initialize [
 	super initialize.
-	defaultColor := SColorList atRandom.
+	defaultColor := SColorList default random.
 	defaultPosition := 0 @ 0.
 	self clear.
 ]

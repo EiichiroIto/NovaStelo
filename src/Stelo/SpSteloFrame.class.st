@@ -4,7 +4,6 @@ Class {
 	#traits : 'TScratchPlotterMenu',
 	#classTraits : 'TScratchPlotterMenu classTrait',
 	#instVars : [
-		'menuChangeWorld',
 		'buttonOpen',
 		'buttonSave',
 		'logo',
@@ -129,7 +128,7 @@ SpSteloFrame >> changeValue: anArray [
 	var = 'id'
 		ifTrue: [ ^ self findObject: id ].
 	vno := self application project varNoFor: var breed: bno.
-	var = 'color'
+	(var = 'color' and: [ stageFrame morph isGrayscale not ])
 		ifTrue: [ self changeColor: vno breed: bno at: id ]
 		ifFalse: [ self changeNumberVar: vno breed: bno at: id ].
 	self updateInspector
@@ -156,7 +155,7 @@ SpSteloFrame >> connectPresenters [
 	editorPane
 		whenPlotterClicked: [ :plotter :event | self showMenuForPlotter: plotter event: event ].
 	self updateThumbnail.
-	stageFrame display whenClickDo: [ :pos | self showBreedView: pos ].
+	stageFrame morph whenClickDo: [ :pos | self showBreedView: pos ].
 	inspectorPane
 		whenEditDo: [ :obj | self changeValue: obj ];
 		whenDeleteDo: [ self deleteObject ]
@@ -167,7 +166,7 @@ SpSteloFrame >> currentBreedNo [
 	^ self target breedNo
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpSteloFrame >> dataMenu [
 	^ self newMenu
 		addGroup: [ :grp | 
@@ -204,6 +203,11 @@ SpSteloFrame >> deleteObject [
 	self clearInspector
 ]
 
+{ #category : #private }
+SpSteloFrame >> display [
+	^ stageFrame morph
+]
+
 { #category : #accessing }
 SpSteloFrame >> eventMenuFrom: aDictionary whenSelected: aBlock [
 	| m list |
@@ -222,7 +226,7 @@ SpSteloFrame >> eventMenuFrom: aDictionary whenSelected: aBlock [
 	^ m
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpSteloFrame >> exportMenu [
 	^ self newMenu
 		addItem: [ :item | 
@@ -244,7 +248,7 @@ SpSteloFrame >> exportMenu [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpSteloFrame >> fileMenu [
 	| m |
 	m := self newMenu.
@@ -323,36 +327,62 @@ SpSteloFrame >> findObject: aString [
 	self updateInspector
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpSteloFrame >> helpMenu [
-	^ self newMenu
+	| checked unchecked m |
+	checked := Smalltalk ui iconNamed: #smallOk.
+	unchecked := Smalltalk ui iconNamed: #blank.
+	m := self newMenu.
+	m
 		addItem: [ :item | 
 			item
-				name: ('About ' , application appName)  localized;
+				name: ('About ' , application appName) localized;
 				action: [ owner window showAbout ] ];
 		addItem: [ :item | 
 			item
 				name: 'Restart' localized;
-				action: [ stageFrame startStepping ] ];
+				action: [ stageFrame morph startStepping ] ];
 		addItem: [ :item | 
 			item
 				name: 'Inspect' localized;
 				action: [ application inspect ] ];
 		addItem: [ :item | 
-			menuChangeWorld := item.
-			item
-				name: 'Change world' localized;
-				action: [ application toggleSWorld ];
-				enabled: [ self isPluginAvailable ];
-				autoRefresh: true ];
-		addItem: [ :item | 
 			item
 				name: 'Settings' localized;
-				subMenu: self settingsMenu ];
-		yourself
+				subMenu: self settingsMenu ].
+	m
+		addGroup: [ :grp | 
+			grp
+				addItem: [ :item | 
+					item
+						name: 'Use Plugin Diffuser';
+						icon: [ application isPluginDiffuser
+								ifTrue: [ checked ]
+								ifFalse: [ unchecked ] ];
+						autoRefresh: true;
+						enabled: [ SteloPlugin2 isAvailable and: [ application isPluginWorld not ] ];
+						action: [ application toggleDiffuser ] ];
+				addItem: [ :item | 
+					item
+						name: 'Use Plugin World';
+						icon: [ application isPluginWorld
+								ifTrue: [ checked ]
+								ifFalse: [ unchecked ] ];
+						autoRefresh: true;
+						enabled: [ self isPluginAvailable ];
+						action: [ application toggleSWorld ] ];
+				addItem: [ :item | 
+					item
+						name: 'Display in grayscale';
+						icon: [ stageFrame morph isGrayscale
+								ifTrue: [ checked ]
+								ifFalse: [ unchecked ] ];
+						autoRefresh: true;
+						action: [ stageFrame morph toggleGrayscale ] ] ].
+	^ m
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpSteloFrame >> importMenu [
 	^ self newMenu
 		addItem: [ :item | 
@@ -377,7 +407,8 @@ SpSteloFrame >> initializePresenters [
 	inspectorPane := self instantiate: SpSteloInspector.
 	editorPane := self instantiate: SpSteloEditor.
 	titlePane := self instantiate: SpSteloTitle.
-	stageFrame := self instantiate: SpSteloStage.
+	stageFrame := self newMorph.
+	stageFrame morph: SDisplay new.
 	libraryPane := self instantiate: SpSteloLibrary.
 	self setupTopPane.
 	self setupTitlePane.
@@ -385,7 +416,7 @@ SpSteloFrame >> initializePresenters [
 		add: editorPane
 ]
 
-{ #category : #private }
+{ #category : #testing }
 SpSteloFrame >> isPluginAvailable [
 	[ SteloLibCall new getErrorMessage ] ifError: [ ^ false ].
 	^ true
@@ -463,24 +494,15 @@ SpSteloFrame >> status: aString [
 
 { #category : #accessing }
 SpSteloFrame >> sworld [
-	^ self display sworld
+	^ stageFrame morph sworld
 ]
 
 { #category : #accessing }
 SpSteloFrame >> sworld: aWorld [
-	self display
+	stageFrame morph
 		sworld: aWorld;
 		changed.
 	self clearInspector
-]
-
-{ #category : #accessing }
-SpSteloFrame >> sworldMode: aSymbol [
-	menuChangeWorld
-		name:
-			(aSymbol = #SMicroWorld
-				ifTrue: [ 'Change to Pluginworld' localized ]
-				ifFalse: [ 'Change to Microworld' localized ])
 ]
 
 { #category : #accessing }
@@ -530,5 +552,5 @@ SpSteloFrame >> updateThumbnail [
 { #category : #private }
 SpSteloFrame >> updateTurtles [
 	libraryPane turtles: application turtlesScripts.
-	self display changed
+	stageFrame morph changed
 ]

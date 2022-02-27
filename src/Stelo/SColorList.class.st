@@ -10,11 +10,6 @@ Class {
 	#category : #'Stelo-Model'
 }
 
-{ #category : #accessing }
-SColorList class >> atRandom [
-	^ self default random
-]
-
 { #category : #constants }
 SColorList class >> black [
 	^ 0
@@ -35,11 +30,6 @@ SColorList class >> clear [
 	"SColorList clear."
 
 	DefaultList := nil.
-]
-
-{ #category : #accessing }
-SColorList class >> colorAt: anInteger [
-	^ self default colorAt: anInteger
 ]
 
 { #category : #accessing }
@@ -214,13 +204,6 @@ SColorList class >> yellow [
 	^ 45
 ]
 
-{ #category : #accessing }
-SColorList >> colorAt: anInteger [
-	| index |
-	index := self normalize: anInteger.
-	^ colors at: index + 1
-]
-
 { #category : #private }
 SColorList >> generateSource [
 	| w |
@@ -254,6 +237,13 @@ SColorList >> normalize: aNumber [
 { #category : #accessing }
 SColorList >> random [
 	^ colors size atRandom - 2 + 1
+]
+
+{ #category : #accessing }
+SColorList >> realColorAt: anInteger [
+	| index |
+	index := self normalize: anInteger.
+	^ colors at: index + 1
 ]
 
 { #category : #accessing }

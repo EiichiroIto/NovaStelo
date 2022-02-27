@@ -103,6 +103,11 @@ SPluginWorldTest >> testGetFloatAllBreed [
 ]
 
 { #category : #test }
+SPluginWorldTest >> testIsPluginWorld [
+	self assert: SPluginWorld new isPluginWorld
+]
+
+{ #category : #test }
 SPluginWorldTest >> testSetByteAllBreedFrom [
 	| w t arr r |
 	w := SPluginWorld new.

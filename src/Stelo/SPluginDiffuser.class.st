@@ -41,6 +41,11 @@ SPluginDiffuser >> diffuserName [
 	^ 'plugin diffuser'
 ]
 
+{ #category : #testing }
+SPluginDiffuser >> isPluginDiffuser [
+	^ true
+]
+
 { #category : #api }
 SPluginDiffuser >> nsum4: aFloatArray dst: aFloatArray2 cols: anInteger rows: anInteger4 [
 	| src dst |

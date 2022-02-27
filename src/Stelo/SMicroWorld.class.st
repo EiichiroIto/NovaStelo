@@ -211,6 +211,11 @@ SMicroWorld >> initialize [
 	self reset
 ]
 
+{ #category : #testing }
+SMicroWorld >> isPluginDiffuser [
+	^ self patches isPluginDiffuser
+]
+
 { #category : #command }
 SMicroWorld >> kill: bid at: anInteger [
 	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchBreedNo ])
@@ -254,7 +259,7 @@ SMicroWorld >> patches [
 { #category : #accessing }
 SMicroWorld >> plot: anInteger color: color [
 	| c |
-	c := SColorList colorAt: color.
+	c := SColorList default realColorAt: color.
 	plotList add: (ScratchPlot channel: anInteger color: c)
 ]
 
@@ -355,6 +360,15 @@ SMicroWorld >> setPlotYMin: aNumber [
 { #category : #accessing }
 SMicroWorld >> sizeOf: bno [
 	^ (self breedOf: bno) size
+]
+
+{ #category : #accessing }
+SMicroWorld >> toggleDiffuser [
+	self isPluginDiffuser
+		ifTrue: [ ^ self patches useNativeDiffuser ].
+	SteloPlugin2 isAvailable
+		ifFalse: [ ^ self ].
+	self patches usePluginDiffuser
 ]
 
 { #category : #private }

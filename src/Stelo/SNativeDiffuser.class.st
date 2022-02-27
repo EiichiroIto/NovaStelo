@@ -81,6 +81,11 @@ SNativeDiffuser >> initialize [
 	neighborSize := 0.
 ]
 
+{ #category : #testing }
+SNativeDiffuser >> isPluginDiffuser [
+	^ false
+]
+
 { #category : #api }
 SNativeDiffuser >> nsum4: anArray1 dst: anArray2 cols: anInteger3 rows: anInteger4 [
 	self assert: [ anInteger3 = anInteger4 ].

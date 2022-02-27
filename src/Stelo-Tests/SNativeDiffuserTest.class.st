@@ -7,6 +7,11 @@ Class {
 	#category : #'Stelo-Tests'
 }
 
+{ #category : #private }
+SNativeDiffuserTest >> newDiffuser [
+	^ SNativeDiffuser new
+]
+
 { #category : #'tests-private' }
 SNativeDiffuserTest >> testAllocateExtended [
 	| d x |
@@ -234,6 +239,13 @@ SNativeDiffuserTest >> testInitialize [
 	d := SNativeDiffuser new.
 	self assert: d privOrder equals: 0.
 	self assert: d privNeighborSize equals: 0.
+]
+
+{ #category : #test }
+SNativeDiffuserTest >> testIsPluginDiffuser [
+	| d |
+	d := self newDiffuser.
+	self deny: d isPluginDiffuser
 ]
 
 { #category : #'tests-private' }

@@ -64,6 +64,16 @@ SWorld >> extent [
 	self subclassResponsibility.
 ]
 
+{ #category : #testing }
+SWorld >> isPluginDiffuser [
+	^ false
+]
+
+{ #category : #testing }
+SWorld >> isPluginWorld [
+	^ false
+]
+
 { #category : #command }
 SWorld >> kill: bid at: anInteger [
 	self subclassResponsibility
