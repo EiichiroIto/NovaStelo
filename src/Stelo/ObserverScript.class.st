@@ -31,9 +31,13 @@ ObserverScript >> blocks [
 			('clear graphics'		-	clearGraphics)
 			('clear turtles'			-	clearTurtles)
 			('clear turtle %m'		-	clearTurtle: '')
+			-
+			('set random seed %n'					-	setRandomSeed: 0)
 		'patch'
-			('scale patch''s %p color %c from %n to %n'  - scalePatch:color:from:to: '' 15 1 100)
+			('set patch''s %p to %p'			- copyPatchVar:to: '' '')
+			('change patch''s %p by %n'		- changePatchVar:by: '' 0.1)
 			('multiply patch''s %p by %n'	- multiplyVar:by: '' 0.9)
+			('scale patch''s %p color %c from %n to %n'  - scalePatch:color:from:to: '' 15 1 100)
 			-
 			('diffuse patch''s %p %n'			- diffuseVar:percentage: '' 20)
 			('diffuse4 patch''s %p %n'		- diffuse4Var:percentage: '' 20)

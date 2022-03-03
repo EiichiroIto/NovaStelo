@@ -19,6 +19,14 @@ SteloBytecodeGenerator >> broadcast: anInteger [
 	self unaryCommand: #broadcast arg: anInteger.
 ]
 
+{ #category : #'observer ops' }
+SteloBytecodeGenerator >> changeBreed: bid var: v by: aNumber [
+	self appendValue: aNumber.
+	self appendValue: v.
+	self appendValue: bid.
+	self appendSymbol: #changeBreedVarBy
+]
+
 { #category : #'patch ops' }
 SteloBytecodeGenerator >> changeObserverVar: v by: aNumber [
 	self appendValue: 1.
@@ -102,6 +110,14 @@ SteloBytecodeGenerator >> clearTurtle: bno [
 { #category : #'observer ops' }
 SteloBytecodeGenerator >> clearTurtles [
 	self nullaryCommand: #clearTurtles.
+]
+
+{ #category : #'observer ops' }
+SteloBytecodeGenerator >> copyBreed: bid var: var to: var2 [
+	self appendValue: var2.
+	self appendValue: var.
+	self appendValue: bid.
+	self appendSymbol: #copyBreedVarTo
 ]
 
 { #category : #'observer ops' }
@@ -304,8 +320,11 @@ SteloBytecodeGenerator >> list: vno contains: anInteger [
 ]
 
 { #category : #'observer ops' }
-SteloBytecodeGenerator >> multiplyVar: v by: aNumber [
-	self binaryCommand: #multiplyBy arg1: v arg2: aNumber.
+SteloBytecodeGenerator >> multiplyBreed: bid var: v by: aNumber [
+	self appendValue: aNumber.
+	self appendValue: v.
+	self appendValue: bid.
+	self appendSymbol: #multiplyBreedVarBy
 ]
 
 { #category : #'observer ops' }
@@ -424,6 +443,11 @@ SteloBytecodeGenerator >> setPlotYMax: aNumber [
 { #category : #'misc ops' }
 SteloBytecodeGenerator >> setPlotYMin: aNumber [
 	self unaryCommand: #setPlotYMin arg: aNumber
+]
+
+{ #category : #'misc ops' }
+SteloBytecodeGenerator >> setRandomSeed: num [
+	self unaryCommand: #setRandomSeed arg: num
 ]
 
 { #category : #'variable ops' }

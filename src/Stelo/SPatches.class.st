@@ -53,6 +53,11 @@ SPatches >> breedNo: anInteger [
 ]
 
 { #category : #microworld }
+SPatches >> change: anInteger by: aNumber [
+	variables change: anInteger by: aNumber
+]
+
+{ #category : #microworld }
 SPatches >> clear [
 	super clear.
 	variables forceSize: self size.
@@ -166,7 +171,7 @@ SPatches >> livingOnesDo: aBlock [
 ]
 
 { #category : #microworld }
-SPatches >> multiplyBy: aNumber varNo: anInteger [
+SPatches >> multiply: anInteger by: aNumber [
 	variables multiply: anInteger by: aNumber
 ]
 

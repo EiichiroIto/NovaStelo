@@ -128,13 +128,3 @@ SObserver >> var: anInteger at: id sworld: aWorld [
 		ifTrue: [ ^ varId size ].
 	^ self var: anInteger at: id
 ]
-
-{ #category : #'accessing variable' }
-SObserver >> varArrayNamed: aString [
-	^ nil
-]
-
-{ #category : #'accessing variable' }
-SObserver >> varArrayNamed: aString put: aCollection [
-	"do nothing"
-]

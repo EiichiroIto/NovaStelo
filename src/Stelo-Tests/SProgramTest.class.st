@@ -50,7 +50,7 @@ SProgramTest >> testBytecode [
 	p privCodes: #(1 2 3).
 	self assertCollection: p bytecode equals: #(1 2 3).
 	p privCodes: #(1 2 div mod 3).
-	self assertCollection: p bytecode equals: #(1 2 25 54 3).
+	self assertCollection: p bytecode equals: #(1 2 27 56 3).
 ]
 
 { #category : #test }

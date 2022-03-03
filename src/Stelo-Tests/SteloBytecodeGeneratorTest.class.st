@@ -1709,13 +1709,13 @@ SteloBytecodeGeneratorTest >> testMultiplyAnd [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testMultiplyVarBy [
+SteloBytecodeGeneratorTest >> testMultiplyBreedVarBy [
 	| w v b t |
 	w := self newWorld.
 	w createPatch: 3.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b multiplyVar: v by: 2.
+	b multiplyBreed: SBreedId patchBreedNo var: v by: 2.
 	w patches var: v at: 1 put: 1.
 	w patches var: v at: 5 put: 2.
 	w patches var: v at: 7 put: 3.
@@ -2330,6 +2330,22 @@ SteloBytecodeGeneratorTest >> testSetPatchVarAtTo [
 	t execute: 1.
 	self assert: (w patches var: vid at: 2) equals: 5.
 	self assert: (w patches var: vid at: 5) equals: 5
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testSetRandomSeed [
+	| w b t r |
+	w := self newWorld.
+	r := w random.
+	w createPatch: 3.
+	b := self newGenerator.
+	b setRandomSeed: 1234.
+	self assert: w random identicalTo: r.
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+	self deny: w random identicalTo: r
 ]
 
 { #category : #test }

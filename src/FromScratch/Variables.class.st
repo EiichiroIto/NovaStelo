@@ -9,6 +9,13 @@ Class {
 }
 
 { #category : #accessing }
+Variables >> change: vno by: aNumber [
+	vno = 0
+		ifTrue: [ ^ self ].
+	^ (self varAt: vno) changeBy: aNumber
+]
+
+{ #category : #accessing }
 Variables >> clear [
 	vars ifNil: [ ^ self ].
 	vars do: [ :each | each ifNotNil: #reset ].
@@ -22,6 +29,14 @@ Variables >> clearVarNo: anInteger [
 { #category : #accessing }
 Variables >> copyElementFrom: anInteger1 to: anInteger2 [
 	vars do: [ :each | each at: anInteger2 put: (each at: anInteger1) ].
+]
+
+{ #category : #accessing }
+Variables >> copyVar: var to: var2 [
+	| v v2 |
+	v := self varAt: var.
+	v2 := self varAt: var2.
+	v2 setArray: v array
 ]
 
 { #category : #'object i/o' }

@@ -3,7 +3,6 @@ Class {
 	#superclass : #SpPresenter,
 	#instVars : [
 		'viewerPane',
-		'libraryPane',
 		'stageFrame',
 		'titlePane',
 		'editorPane'
@@ -272,8 +271,7 @@ SpScratchFrame >> target [
 { #category : #accessing }
 SpScratchFrame >> target: aScript [
 	viewerPane target: aScript.
-	editorPane target: aScript.
-	libraryPane selectButton: aScript objName
+	editorPane target: aScript
 ]
 
 { #category : #accessing }

@@ -52,6 +52,11 @@ SDisplay >> drawInfoOn: aCanvas [
 	info ifNil: [ ^ self ].
 	aCanvas
 		drawString: info
+		at: self topLeft + offset + (6 @ 6)
+		font: nil
+		color: self theme backgroundColor.
+	aCanvas
+		drawString: info
 		at: self topLeft + offset + (5 @ 5)
 		font: nil
 		color: self borderColor

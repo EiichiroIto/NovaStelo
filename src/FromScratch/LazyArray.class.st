@@ -81,6 +81,13 @@ LazyArray >> at: anInteger put: aValue [
 ]
 
 { #category : #accessing }
+LazyArray >> changeBy: aNumber [
+	array
+		ifNil: [ defaultValue ifNotNil: [ defaultValue := defaultValue + aNumber ] ]
+		ifNotNil: [ array += aNumber ]
+]
+
+{ #category : #accessing }
 LazyArray >> className [
 	^ className
 ]

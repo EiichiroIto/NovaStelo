@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'breeds',
 		'raisedEvents',
-		'plotList'
+		'plotList',
+		'random'
 	],
 	#category : #'Stelo-Model'
 }
@@ -71,6 +72,11 @@ SMicroWorld >> breedOf: bid [
 	^ breeds at: bid
 ]
 
+{ #category : #command }
+SMicroWorld >> changeBreed: bid var: var by: aNumber [
+	(self breedOf: bid) change: var by: aNumber
+]
+
 { #category : #accessing }
 SMicroWorld >> clearBreed: bno [
 	(self breedOf: bno) clear.
@@ -108,6 +114,11 @@ SMicroWorld >> colors [
 			index := self patches indexAtPoint: x @ y.
 			colors at: index put: c ].
 	^ colors
+]
+
+{ #category : #command }
+SMicroWorld >> copyBreed: bid var: var to: var2 [
+	(self breedOf: bid) copyVar: var to: var2
 ]
 
 { #category : #accessing }
@@ -208,6 +219,7 @@ SMicroWorld >> incrementTicks [
 { #category : #initialization }
 SMicroWorld >> initialize [
 	super initialize.
+	random := SharedRandom globalGenerator.
 	self reset
 ]
 
@@ -231,6 +243,11 @@ SMicroWorld >> livingBreed: bno do: aBlock [
 { #category : #processing }
 SMicroWorld >> maxBreedNo [
 	^ breeds size
+]
+
+{ #category : #command }
+SMicroWorld >> multiplyBreed: bid var: var by: aNumber [
+	(self breedOf: bid) multiply: var by: aNumber
 ]
 
 { #category : #private }
@@ -320,6 +337,16 @@ SMicroWorld >> raisedEvents [
 ]
 
 { #category : #accessing }
+SMicroWorld >> random [
+	^ random
+]
+
+{ #category : #accessing }
+SMicroWorld >> randomFrom: aNumber to: aNumber2 [
+	^ (aNumber to: aNumber2) atRandom: random
+]
+
+{ #category : #accessing }
 SMicroWorld >> reset [
 	raisedEvents := Set new.
 	breeds := Array new.
@@ -355,6 +382,15 @@ SMicroWorld >> setPlotYMax: aNumber [
 { #category : #accessing }
 SMicroWorld >> setPlotYMin: aNumber [
 	plotList add: (ScratchPlot setPlotYMin: aNumber)
+]
+
+{ #category : #command }
+SMicroWorld >> setRandomSeed: aNumber [
+	| seed |
+	seed := aNumber asInteger.
+	random := seed = 0
+		ifTrue: [ SharedRandom globalGenerator ]
+		ifFalse: [ Random seed: seed ]
 ]
 
 { #category : #accessing }

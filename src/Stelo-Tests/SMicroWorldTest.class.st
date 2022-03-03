@@ -395,3 +395,44 @@ SMicroWorldTest >> testRaisedEvents [
 	self assert: (w raisedEvents includes: #a).
 	self assert: (w raisedEvents includes: #b).
 ]
+
+{ #category : #test }
+SMicroWorldTest >> testRandom [
+	| w |
+	w := self newWorld.
+	self assert: w random identicalTo: SharedRandom globalGenerator
+]
+
+{ #category : #test }
+SMicroWorldTest >> testRandomFromTo [
+	| w a b r |
+	w := self newWorld.
+	self assert: (w random isKindOf: SharedRandom).
+	w setRandomSeed: 1234.
+	r := Random seed: 1234.
+	a := w randomFrom: 1 to: 10.
+	b := (1 to: 10) atRandom: r.
+	self assert: a equals: b.
+	a := w randomFrom: 1 to: 10.
+	b := (1 to: 10) atRandom: r.
+	self assert: a equals: b
+]
+
+{ #category : #test }
+SMicroWorldTest >> testSetRandomSeed [
+	| w a b r |
+	w := self newWorld.
+	self assert: w random identicalTo: SharedRandom globalGenerator.
+	w setRandomSeed: 1234.
+	self deny: (w random isKindOf: SharedRandom).
+	self assert: (w random isKindOf: Random).
+	r := Random seed: 1234.
+	a := (1 to: 10) atRandom: r.
+	b := (1 to: 10) atRandom: w random.
+	self assert: a equals: b.
+	a := (1 to: 10) atRandom: r.
+	b := (1 to: 10) atRandom: w random.
+	self assert: a equals: b.
+	w setRandomSeed: 0.
+	self assert: w random identicalTo: SharedRandom globalGenerator
+]

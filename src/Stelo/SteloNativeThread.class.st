@@ -76,6 +76,15 @@ SteloNativeThread >> broadcast [
 ]
 
 { #category : #'observer ops' }
+SteloNativeThread >> changeBreedVarBy [
+	| var p bid |
+	bid := self pop.
+	var := self pop.
+	p := self pop.
+	world changeBreed: bid var: var by: p
+]
+
+{ #category : #'observer ops' }
 SteloNativeThread >> clearBreed [
 	| bno |
 	bno := self pop.
@@ -101,6 +110,15 @@ SteloNativeThread >> clearPlots [
 { #category : #'observer ops' }
 SteloNativeThread >> clearTurtles [
 	world clearTurtles.
+]
+
+{ #category : #'observer ops' }
+SteloNativeThread >> copyBreedVarTo [
+	| bid var var2 |
+	bid := self pop.
+	var := self pop.
+	var2 := self pop.
+	world copyBreed: bid var: var to: var2
 ]
 
 { #category : #'observer ops' }
@@ -275,11 +293,12 @@ SteloNativeThread >> listContains [
 ]
 
 { #category : #'observer ops' }
-SteloNativeThread >> multiplyBy [
-	| v p |
+SteloNativeThread >> multiplyBreedVarBy [
+	| var p bid |
+	bid := self pop.
+	var := self pop.
 	p := self pop.
-	v := self pop.
-	world patches multiplyBy: p varNo: v.
+	world multiplyBreed: bid var: var by: p
 ]
 
 { #category : #'observer ops' }
@@ -341,6 +360,15 @@ SteloNativeThread >> privSWorld [
 { #category : #private }
 SteloNativeThread >> privSWorld: anObject [
 	world := anObject
+]
+
+{ #category : #'misc ops' }
+SteloNativeThread >> randomFromTo [
+	| to from result |
+	to := self pop.
+	from := self pop.
+	result := world randomFrom: from to: to.
+	self push: result.
 ]
 
 { #category : #'variable ops' }
@@ -417,6 +445,13 @@ SteloNativeThread >> setPlotYMin [
 	| n |
 	n := self pop.
 	world setPlotYMin: n
+]
+
+{ #category : #'observer ops' }
+SteloNativeThread >> setRandomSeed [
+	| num |
+	num := self pop.
+	world setRandomSeed: num asInteger
 ]
 
 { #category : #'variable ops' }

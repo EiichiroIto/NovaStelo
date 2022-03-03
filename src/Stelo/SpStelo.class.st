@@ -398,6 +398,13 @@ SpStelo >> sexpExtension [
 	^ 'sts'
 ]
 
+{ #category : #'menu actions' }
+SpStelo >> showBytecode: topBlock [
+	| code |
+	code := self newCode parse: topBlock target: presenter target.
+	code inspect
+]
+
 { #category : #'button actions' }
 SpStelo >> startEvent [
 	| program menu eno |
@@ -481,10 +488,16 @@ SpStelo >> stepLoop [
 
 { #category : #processes }
 SpStelo >> stepProcesses [
-	process ifNotNil: [ process step ].
+	| oldRunning |
+	oldRunning := self isProcessRunning.
+	oldRunning
+		ifTrue: [ process step ].
 	project ifNotNil: [ self updateStatus ].
+	(oldRunning or: [ self isProcessRunning ])
+		ifFalse: [ ^ self ].
 	presenter updateDisplay.
-	recorder ifNotNil: [ recorder writeForced: false ]
+	recorder ifNil: [ ^ self ].
+	recorder writeForced: false
 ]
 
 { #category : #'button actions' }

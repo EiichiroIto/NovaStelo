@@ -9,7 +9,8 @@ Class {
 		'logo',
 		'menu',
 		'inspectorPane',
-		'inspectorTarget'
+		'inspectorTarget',
+		'libraryPane'
 	],
 	#category : #'Stelo-Spec2'
 }
@@ -64,6 +65,18 @@ SpSteloFrame class >> titleButtonHeight [
 	^ 50
 ]
 
+{ #category : #private }
+SpSteloFrame >> addBlockMenu: aMenu for: aBlockMorph [
+	super addBlockMenu: aMenu for: aBlockMorph.
+	aMenu
+		addGroup: [ :grp | 
+			grp
+				addItem: [ :item | 
+					item
+						name: 'bytecode' localized;
+						action: [ application showBytecode: aBlockMorph ] ] ]
+]
+
 { #category : #accessing }
 SpSteloFrame >> addPlots: aCollection [
 	editorPane addPlots: aCollection
@@ -76,40 +89,25 @@ SpSteloFrame >> addTurtles [
 		updateTurtles
 ]
 
-{ #category : #private }
-SpSteloFrame >> breedAt: aPoint [
-	| bno pos |
-	bno := self currentBreedNo.
-	bno = SBreedId observerBreedNo
-		ifTrue: [ ^ 1 ].
-	pos := application project patches indexAtPoint: aPoint.
-	bno = SBreedId patchBreedNo
-		ifTrue: [ ^ pos ].
-	^ self sworld
-		turtle: bno
-		at: pos
-		exceptBreed: 0
-		index: 0
-]
-
 { #category : #inspecting }
 SpSteloFrame >> changeColor: vno breed: bno at: id [
 	| dialog cno |
 	dialog := self instantiate: SpColorList.
 	dialog openModalWithSpec cancelled ifTrue: [ ^ self ].
 	cno := dialog selectedColor.
-	self sworld var: vno breed: bno at: id put: cno
+	application sworld var: vno breed: bno at: id put: cno.
+	self updateDisplay
 ]
 
 { #category : #inspecting }
 SpSteloFrame >> changeNumberVar: vno breed: bno at: id [
 	| val ret |
-	val := self sworld var: vno breed: bno at: id.
+	val := application sworld var: vno breed: bno at: id.
 	ret := UIManager default
 		request: 'Enter number' localized
 		initialAnswer: val asString.
 	ret ifNil: [ ^ self ].
-	self sworld
+	application sworld
 		var: vno
 		breed: bno
 		at: id
@@ -199,7 +197,8 @@ SpSteloFrame >> defaultExtent [
 { #category : #inspecting }
 SpSteloFrame >> deleteObject [
 	inspectorTarget = 0 ifTrue: [ ^ self ].
-	self sworld kill: self currentBreedNo at: inspectorTarget.
+	application sworld kill: self currentBreedNo at: inspectorTarget.
+	self updateDisplay.
 	self clearInspector
 ]
 
@@ -321,7 +320,7 @@ SpSteloFrame >> findObject: aString [
 		initialAnswer: aString asString.
 	ret ifNil: [ ^ self ].
 	id := ret asNumberNoError.
-	(self sworld aliveBreed: bno at: id)
+	(application sworld aliveBreed: bno at: id)
 		ifFalse: [ ^ self clearInspector ].
 	inspectorTarget := id.
 	self updateInspector
@@ -422,6 +421,22 @@ SpSteloFrame >> isPluginAvailable [
 	^ true
 ]
 
+{ #category : #inspecting }
+SpSteloFrame >> objectAt: aPoint [
+	| bno pos |
+	bno := self currentBreedNo.
+	bno = SBreedId observerBreedNo
+		ifTrue: [ ^ 1 ].
+	pos := application project patches indexAtPoint: aPoint.
+	bno = SBreedId patchBreedNo
+		ifTrue: [ ^ pos ].
+	^ application sworld
+		turtle: bno
+		at: pos
+		exceptBreed: 0
+		index: 0
+]
+
 { #category : #private }
 SpSteloFrame >> observerSelected [
 	self target: application observerScript.
@@ -480,7 +495,7 @@ SpSteloFrame >> setupTopPane [
 { #category : #inspecting }
 SpSteloFrame >> showBreedView: aPoint [
 	| id |
-	id := aPoint ifNil: [ 0 ] ifNotNil: [ self breedAt: aPoint ].
+	id := aPoint ifNil: [ 0 ] ifNotNil: [ self objectAt: aPoint ].
 	id = 0
 		ifTrue: [ self clearInspector ]
 		ifFalse: [ inspectorTarget := id.
@@ -490,11 +505,6 @@ SpSteloFrame >> showBreedView: aPoint [
 { #category : #accessing }
 SpSteloFrame >> status: aString [
 	editorPane status: aString
-]
-
-{ #category : #accessing }
-SpSteloFrame >> sworld [
-	^ stageFrame morph sworld
 ]
 
 { #category : #accessing }
@@ -508,6 +518,7 @@ SpSteloFrame >> sworld: aWorld [
 { #category : #accessing }
 SpSteloFrame >> target: anObject [
 	super target: anObject.
+	libraryPane selectButton: anObject objName.
 	self updateThumbnail.
 	self clearInspector
 ]

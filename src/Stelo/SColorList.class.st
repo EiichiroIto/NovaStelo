@@ -171,7 +171,27 @@ SColorList class >> red [
 ]
 
 { #category : #accessing }
+SColorList class >> scaleGrayscale: v from: aNumber1 to: aNumber2 [
+	aNumber1 = aNumber2
+		ifTrue: [ ^ 0 ].
+	(aNumber1 < aNumber2 and: [ v < aNumber1 ])
+		ifTrue: [ ^ 0 ].
+	(aNumber1 < aNumber2 and: [ v > aNumber2 ])
+		ifTrue: [ ^ 255 ].
+	(aNumber1 > aNumber2 and: [ v > aNumber1 ])
+		ifTrue: [ ^ 0 ].
+	(aNumber1 > aNumber2 and: [ v < aNumber2 ])
+		ifTrue: [ ^ 255 ].
+	^ (0 interpolateTo: 255 at: (v - aNumber1) / (aNumber2 - aNumber1))
+		truncated
+]
+
+{ #category : #accessing }
 SColorList class >> scaleValue: v color: anInteger from: aNumber1 to: aNumber2 [
+	anInteger < 5
+		ifTrue: [ ^ self scaleGrayscale: v from: aNumber1 to: aNumber2 ].
+	aNumber1 = aNumber2
+		ifTrue: [ ^ self black ].
 	(aNumber1 < aNumber2 and: [ v < aNumber1 ])
 		ifTrue: [ ^ self black ].
 	(aNumber1 < aNumber2 and: [ v > aNumber2 ])
@@ -180,8 +200,9 @@ SColorList class >> scaleValue: v color: anInteger from: aNumber1 to: aNumber2 [
 		ifTrue: [ ^ self black ].
 	(aNumber1 > aNumber2 and: [ v < aNumber2 ])
 		ifTrue: [ ^ self white ].
-	^ (anInteger - 5 interpolateTo: anInteger + 4 at: (v - aNumber1) / (aNumber2 - aNumber1))
-		truncated
+	^ (anInteger - 5
+		interpolateTo: anInteger + 4
+		at: (v - aNumber1) / (aNumber2 - aNumber1)) truncated
 ]
 
 { #category : #constants }

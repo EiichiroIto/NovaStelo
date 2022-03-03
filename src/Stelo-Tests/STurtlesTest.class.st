@@ -250,7 +250,7 @@ STurtlesTest >> testVarAtPut [
 	self assert: (ts headingAt: 1) equals: 200.
 	self assert: (ts headingAt: 2) equals: 40.
 	self assert: (ts colorAt: 1) equals: 100.
-	self assert: (ts colorAt: 2) equals: 200 \\ SColorList colors size.
+	self assert: (ts colorAt: 2) equals: 200
 ]
 
 { #category : #'tests-accessing variable' }

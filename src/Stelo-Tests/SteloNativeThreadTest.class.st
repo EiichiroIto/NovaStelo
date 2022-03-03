@@ -1617,6 +1617,25 @@ SteloNativeThreadTest >> testSetPatchColorTo [
 ]
 
 { #category : #test }
+SteloNativeThreadTest >> testSetRandomSeed [
+	| w t r a b |
+	w := self newWorld.
+	t := self newThread: w.
+	t forObserver.
+	self assert: t stack size equals: 0.
+	t push: 1234.
+	t setRandomSeed.
+	self assert: t stack size equals: 0.
+	r := Random seed: 1234.
+	a := w randomFrom: 1 to: 10.
+	b := (1 to: 10) atRandom: r.
+	self assert: a equals: b.
+	a := w randomFrom: 1 to: 10.
+	b := (1 to: 10) atRandom: r.
+	self assert: a equals: b
+]
+
+{ #category : #test }
 SteloNativeThreadTest >> testSetVarTo [
 	| w t v1 v2 |
 	w := self newWorld.

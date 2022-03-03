@@ -68,6 +68,11 @@ SBreed >> colors [
 	^ variables realArrayAt: varId class colorVarNo
 ]
 
+{ #category : #'accessing variable' }
+SBreed >> copyVar: var to: var2 [
+	variables copyVar: var to: var2
+]
+
 { #category : #microworld }
 SBreed >> countAlive [
 	^ self size

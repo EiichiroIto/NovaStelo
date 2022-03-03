@@ -84,9 +84,10 @@ SBenchmark >> diffuseAndMultiply: anInteger [
 			{v.
 			20.
 			#diffuse.
-			v.
 			0.95.
-			#multiplyBy}.
+			v.
+			SBreedId patchBreedNo.
+			#multiplyBreedVarBy}.
 	pr
 		addEntryPoint: 1
 		eventNo: EventId loopEventNo

@@ -66,6 +66,13 @@ SpSteloTest >> testDeleteTurtles [
 ]
 
 { #category : #test }
+SpSteloTest >> testIsProcessRunning [
+	| app |
+	app := self newApp.
+	self deny: app isProcessRunning
+]
+
+{ #category : #test }
 SpSteloTest >> testIsRecording [
 	| a |
 	a := self newApp.

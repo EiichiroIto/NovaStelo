@@ -59,6 +59,14 @@ SteloCode >> changePatchVar: var at: pno by: num [
 		by: [ num argString: parser ].
 ]
 
+{ #category : #'patch ops' }
+SteloCode >> changePatchVar: var by: num [
+	generator
+		changeBreed: SBreedId patchBreedNo
+		var: (script patchVarId varNoFor: var choice)
+		by: [ num argString: parser ]
+]
+
 { #category : #'variable ops' }
 SteloCode >> changeVar: var by: num [
 	| v |
@@ -202,6 +210,14 @@ SteloCode >> colorWhite [
 { #category : #'color ops' }
 SteloCode >> colorYellow [
 	^ self colorOf: #yellow
+]
+
+{ #category : #'patch ops' }
+SteloCode >> copyPatchVar: var to: var2 [
+	generator
+		copyBreed: SBreedId patchBreedNo
+		var: (script patchVarId varNoFor: var choice)
+		to: (script patchVarId varNoFor: var2 choice)
 ]
 
 { #category : #'basic ops' }
@@ -391,7 +407,8 @@ SteloCode >> list: aList contains: anInteger [
 { #category : #'patch ops' }
 SteloCode >> multiplyVar: var by: num [
 	generator
-		multiplyVar: (script patchVarId varNoFor: var choice)
+		multiplyBreed: SBreedId patchBreedNo
+		var: (script patchVarId varNoFor: var choice)
 		by: [ num argString: parser ]
 ]
 
@@ -537,6 +554,11 @@ SteloCode >> setPlotYMax: aNumber [
 { #category : #'pen ops' }
 SteloCode >> setPlotYMin: aNumber [
 	generator setPlotYMin: [ aNumber argString: parser ]
+]
+
+{ #category : #'basic ops' }
+SteloCode >> setRandomSeed: num [
+	generator setRandomSeed: [ num argString: parser ]
 ]
 
 { #category : #'variable ops' }

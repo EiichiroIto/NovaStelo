@@ -71,6 +71,25 @@ SPatchesTest >> testBreedNo [
 	self assert: o breedNo equals: SBreedId patchBreedNo.
 ]
 
+{ #category : #test }
+SPatchesTest >> testChangeBy [
+	| ps v |
+	ps := self newBreed.
+	ps create: 3.
+	v := ps addVariable: 'a'.
+	ps var: v at: 3 put: 2.
+	ps var: v at: 4 put: 3.
+	ps var: v at: 5 put: 5.
+	ps var: v at: 8 put: 11.
+	self
+		assertCollection: (ps privVariables realArrayAt: v)
+		equals: #(0 0 2 3 5 0 0 11 0) asFloatArray.
+	ps change: v by: 7.
+	self
+		assertCollection: (ps privVariables realArrayAt: v)
+		equals: #(7 7 9 10 12 7 7 18 7) asFloatArray
+]
+
 { #category : #'tests-command' }
 SPatchesTest >> testClear [
 	| ps cs v |
@@ -292,7 +311,7 @@ SPatchesTest >> testLivingOnesDo [
 ]
 
 { #category : #'tests-command' }
-SPatchesTest >> testMultiplyByVarNo [
+SPatchesTest >> testMultiplyBy [
 	| ps v |
 	ps := SPatches new.
 	ps create: 3.
@@ -304,7 +323,7 @@ SPatchesTest >> testMultiplyByVarNo [
 	self
 		assertCollection: (ps privVariables realArrayAt: v)
 		equals: #(0 0 2 3 5 0 0 11 0) asFloatArray.
-	ps multiplyBy: 7 varNo: v.
+	ps multiply: v by: 7.
 	self
 		assertCollection: (ps privVariables realArrayAt: v)
 		equals: #(0 0 14 21 35 0 0 77 0) asFloatArray
