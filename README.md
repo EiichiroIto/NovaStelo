@@ -54,6 +54,10 @@ MIT License
 ### Resnick's Slime Mold
 ![04-slimemolds](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/04-slimemolds.png)
 
+### Gray-Scott's model (amrophous f=0.04, k=0.06)
+![09-grayscott](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/09-grayscott.png)
+
+
 ## Animations
 ![03-termites](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/03-termites.gif)
 
