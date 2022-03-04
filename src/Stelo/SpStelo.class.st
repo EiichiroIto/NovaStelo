@@ -346,6 +346,12 @@ SpStelo >> runSetup [
 	^ process
 ]
 
+{ #category : #private }
+SpStelo >> saveProjectAs: aFileReference [
+	self backupProject.
+	^ super saveProjectAs: aFileReference
+]
+
 { #category : #'menu actions' }
 SpStelo >> saveScriptsToImage [
 	"Take a snapshot of all scripts for a sprite and save as a GIF file"

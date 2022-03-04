@@ -21,7 +21,15 @@ SWorld >> addVariable: aString var: vno breed: bno [
 
 { #category : #testing }
 SWorld >> aliveBreed: bno at: id [
-	self subclassResponsibility
+	| size |
+	bno = SBreedId observerBreedNo
+		ifTrue: [ ^ id = 1 ].
+	size := self sizeOf: bno.
+	(id between: 1 and: size)
+		ifFalse: [ ^ false ].
+	bno = SBreedId patchBreedNo
+		ifTrue: [ ^ true ].
+	^ self flag: STurtleVarDef aliveFlagNo breed: bno at: id
 ]
 
 { #category : #accessing }
@@ -64,6 +72,25 @@ SWorld >> extent [
 	self subclassResponsibility.
 ]
 
+{ #category : #command }
+SWorld >> flag: anInteger breed: bno at: id [
+	| v b |
+	v := self var: STurtleVarDef flagVarNo breed: bno at: id.
+	b := 1 << anInteger.
+	^ (v bitAnd: b) > 0
+]
+
+{ #category : #command }
+SWorld >> flag: anInteger breed: bno at: id put: aBoolean [
+	| v b |
+	v := self var: STurtleVarDef flagVarNo breed: bno at: id.
+	b := 1 << anInteger.
+	v := aBoolean
+		ifTrue: [ v bitOr: b ]
+		ifFalse: [ v bitClear: b ].
+	self var: STurtleVarDef flagVarNo breed: bno at: id put: v
+]
+
 { #category : #testing }
 SWorld >> isPluginDiffuser [
 	^ false
@@ -76,7 +103,9 @@ SWorld >> isPluginWorld [
 
 { #category : #command }
 SWorld >> kill: bid at: anInteger [
-	self subclassResponsibility
+	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchBreedNo ])
+		ifTrue: [ ^ self ].
+	self flag: STurtleVarDef aliveFlagNo breed: bid at: anInteger put: false
 ]
 
 { #category : #accessing }

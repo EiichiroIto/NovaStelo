@@ -116,11 +116,6 @@ STurtles >> initialize [
 ]
 
 { #category : #microworld }
-STurtles >> killAt: anIndex [
-	self aliveAt: anIndex put: false.
-]
-
-{ #category : #microworld }
 STurtles >> livingOnesDo: aBlock [
 	1 to: self size do: [ :each | 
 		(self flag: varId class aliveFlagNo at: each)

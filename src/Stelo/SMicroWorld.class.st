@@ -53,15 +53,6 @@ SMicroWorld >> aimHighPatchVar: vid breed: bid id: id [
 	^ self patches aimHighVarNo: vid atPoint: x @ y direction: heading
 ]
 
-{ #category : #testing }
-SMicroWorld >> aliveBreed: bno at: id [
-	| breed |
-	breed := breeds at: bno.
-	(id between: 1 and: breed size)
-		ifFalse: [ ^ false ].
-	^ breed aliveAt: id
-]
-
 { #category : #accessing }
 SMicroWorld >> backupBreeds: aCollection [
 	"do nothing"
@@ -226,13 +217,6 @@ SMicroWorld >> initialize [
 { #category : #testing }
 SMicroWorld >> isPluginDiffuser [
 	^ self patches isPluginDiffuser
-]
-
-{ #category : #command }
-SMicroWorld >> kill: bid at: anInteger [
-	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchBreedNo ])
-		ifTrue: [ ^ self ].
-	(breeds at: bid) killAt: anInteger
 ]
 
 { #category : #processing }
