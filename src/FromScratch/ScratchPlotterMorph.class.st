@@ -48,9 +48,10 @@ ScratchPlotterMorph >> axisFont [
 
 { #category : #api }
 ScratchPlotterMorph >> clearPlots [
-	self
-		reset;
-		updateDisplay
+	data := OrderedCollection new.
+	last := nil.
+	cache := nil.
+	self updateDisplay
 ]
 
 { #category : #'event handling' }
@@ -159,7 +160,8 @@ ScratchPlotterMorph >> initialize [
 	self color: ScratchTheme plotterPaneColor.
 	self reset.
 	self ensurePenExists: 1.
-	lastUpdateTime := Time now
+	lastUpdateTime := Time now.
+	updatePeriod := 1000
 ]
 
 { #category : #accessing }
@@ -411,7 +413,7 @@ ScratchPlotterMorph >> updateCache [
 { #category : #accessing }
 ScratchPlotterMorph >> updateDisplay [
 	(Time now asDuration - lastUpdateTime asDuration) totalSeconds
-		< (self updatePeriod / 1000)
+		< (updatePeriod / 1000)
 		ifTrue: [ ^ self ].
 	lastUpdateTime := Time now.
 	self
@@ -421,7 +423,7 @@ ScratchPlotterMorph >> updateDisplay [
 
 { #category : #accessing }
 ScratchPlotterMorph >> updatePeriod [
-	^ updatePeriod ifNil: [ 1000 ]
+	^ updatePeriod
 ]
 
 { #category : #accessing }

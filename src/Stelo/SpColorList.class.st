@@ -7,8 +7,8 @@ Class {
 	#category : #'Stelo-Spec2'
 }
 
-{ #category : #specs }
-SpColorList class >> defaultSpec [
+{ #category : #layout }
+SpColorList class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		add: #tableColors;
 		yourself

@@ -253,6 +253,11 @@ ScratchCode >> generateCode: aSymbol morph: aMorph [
 ]
 
 { #category : #'code generator' }
+ScratchCode >> generateEmptySubBody [
+	"do nothing"
+]
+
+{ #category : #'code generator' }
 ScratchCode >> generateEnd: aSymbol morph: aMorph [
 	| selector |
 	selector := aSymbol copyWithout: $:.

@@ -12,17 +12,33 @@ Class {
 	#category : #'Stelo-Spec2'
 }
 
-{ #category : #settings }
+{ #category : #constants }
+SpStelo class >> aboutAppString [
+	^ self appName
+		,
+			'
+Copyright © 2019 Eiichiro Ito (ghc02331@nifty.com)
+All rights reserved.
+
+Based on Scratch from the MIT Media Lab, v' , self basedVersion
+		,
+			'
+Copyright © 2009 Massachusetts Institute of Technology.
+All rights reserved.
+'
+]
+
+{ #category : #constants }
 SpStelo class >> appFolderName [
 	^ 'stelo'
 ]
 
-{ #category : #settings }
+{ #category : #constants }
 SpStelo class >> appName [
 	^ 'NovaStelo'
 ]
 
-{ #category : #settings }
+{ #category : #constants }
 SpStelo class >> extension [
 	^ 'sl'
 ]
@@ -45,12 +61,17 @@ SpStelo class >> menuCommandOn: aBuilder [
 		icon: self icon
 ]
 
-{ #category : #settings }
+{ #category : #constants }
+SpStelo class >> presentationClass [
+	^ SpSteloFrame
+]
+
+{ #category : #constants }
 SpStelo class >> previewClass [
 	^ self projectClass
 ]
 
-{ #category : #settings }
+{ #category : #constants }
 SpStelo class >> projectClass [
 	^ SteloProject
 ]
@@ -65,25 +86,9 @@ SpStelo class >> screenshotExtent [
 	^ 400 @ 400
 ]
 
-{ #category : #accessing }
+{ #category : #constants }
 SpStelo class >> themesURL [
 	^ 'https://github.com/EiichiroIto/NovaStelo/raw/master/misc/Themes.zip'
-]
-
-{ #category : #private }
-SpStelo >> aboutAppString [
-	^ self appName
-		,
-			'
-Copyright © 2019 Eiichiro Ito (ghc02331@nifty.com)
-All rights reserved.
-
-Based on Scratch from the MIT Media Lab, v' , self basedVersion
-		,
-			'
-Copyright © 2009 Massachusetts Institute of Technology.
-All rights reserved.
-'
 ]
 
 { #category : #variables }
@@ -132,6 +137,7 @@ SpStelo >> clearPatches [
 { #category : #'button actions' }
 SpStelo >> clearTurtles [
 	project turtleBreeds do: [ :each | sworld clearBreed: each breedNo ].
+	self updateStatusForced: true.
 	presenter updateDisplay
 ]
 
@@ -480,7 +486,7 @@ SpStelo >> startStageRecording [
 		openFileNamed: file;
 		model: presenter;
 		extent: self class recodingExtent.
-	self updateStatus
+	self updateStatusForced: true
 ]
 
 { #category : #'button actions' }
@@ -498,7 +504,7 @@ SpStelo >> stepProcesses [
 	oldRunning := self isProcessRunning.
 	oldRunning
 		ifTrue: [ process step ].
-	project ifNotNil: [ self updateStatus ].
+	project ifNotNil: [ self updateStatusForced: false ].
 	(oldRunning or: [ self isProcessRunning ])
 		ifFalse: [ ^ self ].
 	presenter updateDisplay.
@@ -524,7 +530,7 @@ SpStelo >> stopStageRecording [
 	recorder ifNil: [ ^ self ].
 	recorder close.
 	recorder := nil.
-	self updateStatus
+	self updateStatusForced: true
 ]
 
 { #category : #private }
@@ -599,11 +605,11 @@ SpStelo >> turtlesScripts [
 ]
 
 { #category : #private }
-SpStelo >> updateStatus [
+SpStelo >> updateStatusForced: aBoolean [
 	| msec str ticks fps count |
 	sworld ifNil: [ ^ self ].
 	msec := Time millisecondClockValue.
-	msec < (lastMSec + 1000)
+	(msec < (lastMSec + 1000) and: [ aBoolean not ])
 		ifTrue: [ ^ self ].
 	presenter updateInspector.
 	str := self stringOfWorldName: sworld worldName.

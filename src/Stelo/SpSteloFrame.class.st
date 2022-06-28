@@ -20,49 +20,39 @@ SpSteloFrame class >> buttonWidth [
 	^ (ScratchTheme formAt: #saveButton) width + 10
 ]
 
-{ #category : #specs }
-SpSteloFrame class >> defaultSpec [
-	^ SpBoxLayout newVertical
-		add:
-			(SpBoxLayout newHorizontal
-				spacing: 4;
-				add: #logo withConstraints: [ :c | c width: 200 ];
-				add: #buttonOpen
-					withConstraints: [ :c | c width: self buttonWidth ];
-				add: #buttonSave
-					withConstraints: [ :c | c width: self buttonWidth ];
-				add: #menu;
-				yourself)
-			withConstraints: [ :c | c height: self toolbarHeight ];
-		add:
-			(SpBoxLayout newHorizontal
-				spacing: 4;
-				add: #viewerPane
-					withConstraints: [ :c | c width: self viewerPaneWidth ];
-				add:
-					(SpPanedLayout newHorizontal
-						add:
-							(SpPanedLayout newVertical
-								position: 20 percent;
-								add: #inspectorPane;
-								add: #editorPane;
-								yourself);
-						add:
-							(SpBoxLayout newVertical
-								add: #titlePane
-									withConstraints: [ :c | c height: self titleButtonHeight ];
-								add: #stageFrame;
-								add: #libraryPane
-									withConstraints: [ :c | c height: self libraryPaneHeight ];
-								yourself);
-						yourself);
-				yourself);
-		yourself
-]
+{ #category : #layout }
+SpSteloFrame class >> defaultLayout [
 
-{ #category : #private }
-SpSteloFrame class >> titleButtonHeight [
-	^ 50
+	^ SpBoxLayout newVertical
+		  add: (SpBoxLayout newHorizontal
+				   spacing: 4;
+				   add: #logo withConstraints: [ :c | c width: 200 ];
+				   add: #buttonOpen
+				   withConstraints: [ :c | c width: self buttonWidth ];
+				   add: #buttonSave
+				   withConstraints: [ :c | c width: self buttonWidth ];
+				   add: #menu;
+				   yourself)
+		  withConstraints: [ :c | c height: self toolbarHeight ];
+		  add: (SpBoxLayout newHorizontal
+				   spacing: 4;
+				   add: #viewerPane
+				   withConstraints: [ :c | c width: self viewerPaneWidth ];
+				   add: (SpPanedLayout newHorizontal
+						    add: (SpPanedLayout newVertical
+								     positionOfSlider: 20 percent;
+								     add: #inspectorPane;
+								     add: #editorPane;
+								     yourself);
+						    add: (SpBoxLayout newVertical
+								     add: #titlePane withConstraints: [ :c | c expand: false ] ;
+								     add: #stageFrame;
+								     add: #libraryPane
+								     withConstraints: [ :c | c height: self libraryPaneHeight ];
+								     yourself);
+						    yourself);
+				   yourself);
+		  yourself
 ]
 
 { #category : #private }
@@ -91,21 +81,27 @@ SpSteloFrame >> addTurtles [
 
 { #category : #inspecting }
 SpSteloFrame >> changeColor: vno breed: bno at: id [
+
 	| dialog cno |
 	dialog := self instantiate: SpColorList.
-	dialog openModalWithSpec cancelled ifTrue: [ ^ self ].
+	dialog openModal cancelled ifTrue: [ ^ self ].
 	cno := dialog selectedColor.
-	application sworld var: vno breed: bno at: id put: cno.
+	application sworld
+		var: vno
+		breed: bno
+		at: id
+		put: cno.
 	self updateDisplay
 ]
 
 { #category : #inspecting }
 SpSteloFrame >> changeNumberVar: vno breed: bno at: id [
+
 	| val ret |
 	val := application sworld var: vno breed: bno at: id.
-	ret := UIManager default
-		request: 'Enter number' localized
-		initialAnswer: val asString.
+	ret := application
+		       request: 'Enter number' localized
+		       initialAnswer: val asString.
 	ret ifNil: [ ^ self ].
 	application sworld
 		var: vno
@@ -166,27 +162,30 @@ SpSteloFrame >> currentBreedNo [
 
 { #category : #'menu building' }
 SpSteloFrame >> dataMenu [
+
 	^ self newMenu
-		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: [ application isRecording
-								ifTrue: [ 'Stop Stage Recording' localized ]
-								ifFalse: [ 'Start Stage Recording' localized ] ];
-						autoRefresh: true;
-						action: [ application toggleStageRecording ] ] ];
-		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: 'Plots Data to Observer List' localized;
-						action: [ application copyPlotsToList ] ];
-				addItem: [ :item | 
-					item
-						name: 'Observer List to Plots Data' localized;
-						action: [ application copyListToPlots ] ] ];
-		yourself
+		  addGroup: [ :grp | 
+			  grp addItem: [ :item | 
+					  item
+						  name: (application isRecording
+								   ifTrue: [ 'Stop Stage Recording' localized ]
+								   ifFalse: [ 'Start Stage Recording' localized ]);
+						  action: [ 
+							  application toggleStageRecording.
+							  item name: (application isRecording
+										   ifTrue: [ 'Stop Stage Recording' localized ]
+										   ifFalse: [ 'Start Stage Recording' localized ]) ] ] ];
+		  addGroup: [ :grp | 
+			  grp
+				  addItem: [ :item | 
+					  item
+						  name: 'Plots Data to Observer List' localized;
+						  action: [ application copyPlotsToList ] ];
+				  addItem: [ :item | 
+					  item
+						  name: 'Observer List to Plots Data' localized;
+						  action: [ application copyListToPlots ] ] ];
+		  yourself
 ]
 
 { #category : #private }
@@ -249,85 +248,85 @@ SpSteloFrame >> exportMenu [
 
 { #category : #'menu building' }
 SpSteloFrame >> fileMenu [
+
 	| m |
 	m := self newMenu.
 	m
 		addItem: [ :item | 
 			item
 				name: 'New' localized;
-				action: [ application newProject.
+				action: [ 
+					application newProject.
 					self plotter clearPlots ] ];
 		addItem: [ :item | 
 			item
 				name: 'Open' localized;
-				action: [ application openProject.
+				action: [ 
+					application openProject.
 					self plotter clearPlots ] ].
-	application examplesDirectory isDirectory
-		ifTrue: [ m
-				addItem: [ :item | 
-					item
-						name: 'Examples' localized;
-						subMenu: self examplesMenu ] ].
-	m
-		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: 'Project Notes' localized;
-						action: [ application editNotes ] ];
-				addItem: [ :item | 
-					item
-						name: 'Save' localized;
-						action: [ application saveProjectNoDialog ] ];
-				addItem: [ :item | 
-					item
-						name: 'Save As' localized;
-						action: [ application saveProject ] ] ].
-	m
-		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: 'Import ...' localized;
-						subMenu: self importMenu ];
-				addItem: [ :item | 
-					item
-						name: 'Export ...' localized;
-						subMenu: self exportMenu ] ].
-	m
-		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: 'Close' localized;
-						action: [ application close ];
-						enabled: [ application class dontClose not ] ];
-				addItem: [ :item | 
-					item
-						name: 'Quit' localized;
-						action: [ application quit ] ] ].
+	application examplesDirectory isDirectory ifTrue: [ 
+		m addItem: [ :item | 
+			item
+				name: 'Examples' localized;
+				subMenu: self examplesMenu ] ].
+	m addGroup: [ :grp | 
+		grp
+			addItem: [ :item | 
+				item
+					name: 'Project Notes' localized;
+					action: [ application editNotes ] ];
+			addItem: [ :item | 
+				item
+					name: 'Save' localized;
+					action: [ application saveProjectNoDialog ] ];
+			addItem: [ :item | 
+				item
+					name: 'Save As' localized;
+					action: [ application saveProject ] ] ].
+	m addGroup: [ :grp | 
+		grp
+			addItem: [ :item | 
+				item
+					name: 'Import ...' localized;
+					subMenu: self importMenu ];
+			addItem: [ :item | 
+				item
+					name: 'Export ...' localized;
+					subMenu: self exportMenu ] ].
+	m addGroup: [ :grp | 
+		grp
+			addItem: [ :item | 
+				item
+					name: 'Close' localized;
+					action: [ application closeAllWindows ];
+					enabled: [ application class dontClose not ] ];
+			addItem: [ :item | 
+				item
+					name: 'Quit' localized;
+					action: [ application quit ] ] ].
 	^ m
 ]
 
 { #category : #inspecting }
 SpSteloFrame >> findObject: aString [
+
 	| bno ret id |
 	bno := self currentBreedNo.
-	bno = SBreedId observerBreedNo
-		ifTrue: [ ^ self ].
-	ret := UIManager default
-		request: 'Enter id' localized
-		initialAnswer: aString asString.
+	bno = SBreedId observerBreedNo ifTrue: [ ^ self ].
+	ret := application
+		       request: 'Enter id' localized
+		       initialAnswer: aString asString.
 	ret ifNil: [ ^ self ].
 	id := ret asNumberNoError.
-	(application sworld aliveBreed: bno at: id)
-		ifFalse: [ ^ self clearInspector ].
+	(application sworld aliveBreed: bno at: id) ifFalse: [ 
+		^ self clearInspector ].
 	inspectorTarget := id.
 	self updateInspector
 ]
 
 { #category : #'menu building' }
 SpSteloFrame >> helpMenu [
+
 	| checked unchecked m |
 	checked := Smalltalk ui iconNamed: #smallOk.
 	unchecked := Smalltalk ui iconNamed: #blank.
@@ -344,40 +343,51 @@ SpSteloFrame >> helpMenu [
 		addItem: [ :item | 
 			item
 				name: 'Inspect' localized;
+				enabled: [ application class hideDebugMenu not ];
 				action: [ application inspect ] ];
 		addItem: [ :item | 
 			item
 				name: 'Settings' localized;
+				enabled: [ application class hideDebugMenu not ];
 				subMenu: self settingsMenu ].
-	m
-		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: 'Use Plugin Diffuser';
-						icon: [ application isPluginDiffuser
-								ifTrue: [ checked ]
-								ifFalse: [ unchecked ] ];
-						autoRefresh: true;
-						enabled: [ SteloPlugin2 isAvailable and: [ application isPluginWorld not ] ];
-						action: [ application toggleDiffuser ] ];
-				addItem: [ :item | 
-					item
-						name: 'Use Plugin World';
-						icon: [ application isPluginWorld
-								ifTrue: [ checked ]
-								ifFalse: [ unchecked ] ];
-						autoRefresh: true;
-						enabled: [ self isPluginAvailable ];
-						action: [ application toggleSWorld ] ];
-				addItem: [ :item | 
-					item
-						name: 'Display in grayscale';
-						icon: [ stageFrame morph isGrayscale
-								ifTrue: [ checked ]
-								ifFalse: [ unchecked ] ];
-						autoRefresh: true;
-						action: [ stageFrame morph toggleGrayscale ] ] ].
+	m addGroup: [ :grp | 
+		grp
+			addItem: [ :item | 
+				item
+					name: 'Use Plugin Diffuser';
+					icon: (application isPluginDiffuser
+							 ifTrue: [ checked ]
+							 ifFalse: [ unchecked ]);
+					enabled: [ 
+						SteloPlugin2 isAvailable and: [ application isPluginWorld not ] ];
+					action: [ 
+						application toggleDiffuser.
+						item icon: (application isPluginDiffuser
+									 ifTrue: [ checked ]
+									 ifFalse: [ unchecked ]) ] ];
+			addItem: [ :item | 
+				item
+					name: 'Use Plugin World';
+					icon: (application isPluginWorld
+							 ifTrue: [ checked ]
+							 ifFalse: [ unchecked ]);
+					enabled: [ self isPluginAvailable ];
+					action: [ 
+						application toggleSWorld.
+						item icon: (application isPluginWorld
+									 ifTrue: [ checked ]
+									 ifFalse: [ unchecked ]) ] ];
+			addItem: [ :item | 
+				item
+					name: 'Display in grayscale';
+					icon: (stageFrame morph isGrayscale
+							 ifTrue: [ checked ]
+							 ifFalse: [ unchecked ]);
+					action: [ 
+						stageFrame morph toggleGrayscale.
+						item icon: (stageFrame morph isGrayscale
+									 ifTrue: [ checked ]
+									 ifFalse: [ unchecked ]) ] ] ].
 	^ m
 ]
 
@@ -417,7 +427,7 @@ SpSteloFrame >> initializePresenters [
 
 { #category : #testing }
 SpSteloFrame >> isPluginAvailable [
-	[ SteloLibCall new getErrorMessage ] ifError: [ ^ false ].
+	[ SteloLibCall new getErrorMessage ] on: Error do: [ ^ false ].
 	^ true
 ]
 
@@ -488,8 +498,7 @@ SpSteloFrame >> setupTopPane [
 		addItem: [ :item | 
 			item
 				name: 'Help' localized;
-				subMenu: self helpMenu ].
-	menu applyTo: self
+				subMenu: self helpMenu ]
 ]
 
 { #category : #inspecting }

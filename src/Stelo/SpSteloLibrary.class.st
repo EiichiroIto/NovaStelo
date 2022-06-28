@@ -15,8 +15,8 @@ Class {
 	#category : #'Stelo-Spec2'
 }
 
-{ #category : #specs }
-SpSteloLibrary class >> defaultSpec [
+{ #category : #layout }
+SpSteloLibrary class >> defaultLayout [
 	^ SpBoxLayout newHorizontal
 		add: #buttonObserver;
 		add: #buttonPatches;

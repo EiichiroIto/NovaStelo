@@ -15,13 +15,8 @@ Class {
 	#category : #'Stelo-Spec2'
 }
 
-{ #category : #private }
-SpSteloTitle class >> buttonWidth [
-	^ 28 + 5
-]
-
-{ #category : #specs }
-SpSteloTitle class >> defaultSpec [
+{ #category : #layout }
+SpSteloTitle class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		add: #labelName;
 		add:

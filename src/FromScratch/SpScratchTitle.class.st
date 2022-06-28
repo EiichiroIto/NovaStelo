@@ -8,8 +8,8 @@ Class {
 	#category : #'FromScratch-Spec2'
 }
 
-{ #category : #specs }
-SpScratchTitle class >> defaultSpec [
+{ #category : #layout }
+SpScratchTitle class >> defaultLayout [
 	^ SpBoxLayout newHorizontal
 		add: #labelName;
 		add: #toolBar;
@@ -25,7 +25,7 @@ SpScratchTitle >> buttonNamed: aString [
 SpScratchTitle >> initializePresenters [
 	labelName := self newLabel.
 	labelName label: 'new project'.
-	toolBar := self newToolBar.
+	toolBar := self newToolbar.
 	self setupButtons.
 	self focusOrder add: toolBar
 ]

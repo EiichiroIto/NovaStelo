@@ -40,7 +40,7 @@ SpScratchFrame >> aboutTitle [
 	^ application appName
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpScratchFrame >> addBlockMenu: aMenu for: aBlockMorph [
 	aMenu
 		addGroup: [ :grp | 
@@ -65,7 +65,7 @@ SpScratchFrame >> addBlockMenu: aMenu for: aBlockMorph [
 						action: [ application duplicateBlock: aBlockMorph ] ] ]
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpScratchFrame >> addScriptMenu: aMenu for: aScript [
 	SpScratchApp clipboard isString
 		ifTrue: [ aMenu
@@ -79,7 +79,7 @@ SpScratchFrame >> addScriptMenu: aMenu for: aScript [
 				addItem: [ :item | 
 					item
 						name: 'add sub block' localized;
-						action: [ application addSubBlock: ActiveHand cursorPoint script: aScript ] ] ];
+						action: [ application addSubBlock: World cursorPoint script: aScript ] ] ];
 		addGroup: [ :grp | 
 			grp
 				addItem: [ :item | 
@@ -113,7 +113,7 @@ SpScratchFrame >> display [
 	^ stageFrame display
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpScratchFrame >> examplesMenu [
 	| m |
 	m := self newMenu.
@@ -145,6 +145,31 @@ SpScratchFrame >> formFrom: aMorph extent: size [
 	^ thumbForm
 ]
 
+{ #category : #'menu building' }
+SpScratchFrame >> helpMenu [
+
+	^ self newMenu
+		  addItem: [ :item | 
+			  item
+				  name: 'About ' , application appName;
+				  action: [ owner window showAbout ] ];
+		  addItem: [ :item | 
+			  item
+				  name: 'Restart';
+				  action: [ stageFrame startStepping ] ];
+		  addItem: [ :item | 
+			  item
+				  name: 'Inspect';
+				  enabled: [ application class hideDebugMenu not ];
+				  action: [ application inspect ] ];
+		  addItem: [ :item | 
+			  item
+				  name: 'Settings';
+				  enabled: [ application class hideDebugMenu not ];
+				  subMenu: self settingsMenu ];
+		  yourself
+]
+
 { #category : #accessing }
 SpScratchFrame >> info: aString [
 	self display info: aString
@@ -154,11 +179,8 @@ SpScratchFrame >> info: aString [
 SpScratchFrame >> initializeWindow: aWindow [
 	aWindow
 		initialExtent: self defaultExtent;
-		aboutText: application aboutAppString;
-		whenClosedDo: [ application windowClosing ].
-	application class stickyWindow
-		ifTrue: [ aWindow window beSticky ].
-	self updateDontCloseSetting
+		aboutText: application class aboutAppString;
+		whenClosedDo: [ application windowClosing ]
 ]
 
 { #category : #private }
@@ -194,50 +216,50 @@ SpScratchFrame >> scriptMenuFor: aScript [
 	^ menu
 ]
 
-{ #category : #private }
+{ #category : #'menu actions' }
 SpScratchFrame >> selectSetting: aSymbol [
-	| list choice appClass ret |
-	appClass := self application class.
+
+	| list appClass ret |
+	application closeMediaEditorsAndDialogs.
+	appClass := application class.
 	list := appClass optionsFor: aSymbol.
-	list = #string
-		ifTrue: [ ret := UIManager default
-				textEntry: 'Enter for ' localized , aSymbol.
-			ret ifNil: [ ^ self ] ]
-		ifFalse: [ list isEmpty
-				ifTrue: [ ^ self ].
-			choice := UIManager default
-				chooseFrom: list
-				title: 'Select an option for ' localized , aSymbol.
-			choice = 0
-				ifTrue: [ ^ self ].
-			ret := list at: choice ].
+	ret := list = #string
+		       ifTrue: [ 
+			       application
+				       request: 'Enter for ' localized , aSymbol
+				       initialAnswer: (appClass perform: aSymbol) ]
+		       ifFalse: [ 
+			       list isEmpty ifTrue: [ ^ self ].
+			       application
+				       select: 'Select an option for ' localized , aSymbol
+				       chooseFrom: list ].
+	ret ifNil: [ ^ self ].
 	appClass perform: (aSymbol , ':') asSymbol with: ret.
-	aSymbol = #dontClose
-		ifTrue: [ self updateDontCloseSetting ]
+	self updateWindowSettings
 ]
 
-{ #category : #private }
+{ #category : #'menu building' }
 SpScratchFrame >> settingsMenu [
+
 	| m |
 	m := self newMenu.
-	m
-		addGroup: [ :grp | 
-			self application class settingKeys
-				do: [ :key | 
-					grp
-						addItem: [ :item | 
-							item
-								name:
-										[ key , ' = ' , (self application class settingValueFor: key) asString ];
-								autoRefresh: true;
-								action: [ self selectSetting: key ] ] ] ].
-	m
-		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: 'Save settings' localized;
-						action: [ self application class saveSettings ] ] ].
+	m addGroup: [ :grp | 
+		self application class settingKeys do: [ :key | 
+			grp addItem: [ :item | 
+				item
+					name:
+						key , ' = '
+						, (self application class settingValueFor: key) asString;
+					action: [ 
+						self selectSetting: key.
+						item name:
+								key , ' = '
+								, (self application class settingValueFor: key) asString ] ] ] ].
+	m addGroup: [ :grp | 
+		grp addItem: [ :item | 
+			item
+				name: 'Save settings' localized;
+				action: [ self application class saveSettings ] ] ].
 	^ m
 ]
 
@@ -285,12 +307,15 @@ SpScratchFrame >> updateDisplay [
 ]
 
 { #category : #private }
-SpScratchFrame >> updateDontCloseSetting [
+SpScratchFrame >> updateWindowSettings [
 	| win |
 	win := 	self window window.
 	self application class dontClose
 		ifTrue: [ win makeUnclosable ]
-		ifFalse: [ win makeClosable ]
+		ifFalse: [ win makeClosable ].
+	self application class stickyWindow
+		ifTrue: [ win beSticky ]
+		ifFalse: [ win beUnsticky ]
 ]
 
 { #category : #stepping }

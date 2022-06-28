@@ -9,8 +9,8 @@ Class {
 	#category : #'FromScratch-Spec2'
 }
 
-{ #category : #specs }
-SpScratchListViewer class >> defaultSpec [
+{ #category : #layout }
+SpScratchListViewer class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		add: #categories height: 200;
 		add: #pageViewer;
@@ -26,7 +26,7 @@ SpScratchListViewer >> categories: aCollection [
 SpScratchListViewer >> connectPresenters [
 	categories
 		display: [ :each | each asString localized ];
-		icons: [ :each | self markerFormFor: each ];
+		displayIcon: [ :each | self markerFormFor: each ];
 		whenSelectionChangedDo: [ :each | self updateContents ]
 ]
 

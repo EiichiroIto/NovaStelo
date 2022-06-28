@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #specs }
-SpFileList class >> defaultSpec [
+SpFileList class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		spacing: 4;
 		add:
@@ -137,13 +137,14 @@ SpFileList >> listHierarchyContents: aCollection [
 
 { #category : #private }
 SpFileList >> newFolder [
+
 	| name |
-	name := UIManager default request: 'New folder name:' localized.
-	(name isNil or: [ name isEmpty ])
-		ifTrue: [ ^ self ].
+	name := SpScratchApp request: 'New folder name:' localized.
+	(name isNil or: [ name isEmpty ]) ifTrue: [ ^ self ].
 	[ (directory / name) createDirectory ]
-		ifError:
-			[ :err :rcvr | ^ UIManager default alert: 'Could not create folder!' localized ].
+		on: Error
+		do: [ :err :rcvr | 
+			^ SpScratchApp alert: 'Could not create folder!' localized ].
 	self directory: directory / name
 ]
 

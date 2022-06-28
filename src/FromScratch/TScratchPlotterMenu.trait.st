@@ -1,6 +1,6 @@
 Trait {
 	#name : #TScratchPlotterMenu,
-	#category : #'FromScratch-Spec2'
+	#category : #'FromScratch-Plotter'
 }
 
 { #category : #'menu actions' }
@@ -18,51 +18,54 @@ TScratchPlotterMenu >> savePlotImage: aPlotter [
 
 { #category : #'menu actions' }
 TScratchPlotterMenu >> setMaxPlotSize: aPlotter [
+
 	| ret |
-	ret := UIManager default
-		request: 'number of max plots?' localized
-		initialAnswer: (aPlotter maxSize ifNil: [ '' ]) asString.
+	ret := SpScratchApp
+		       request: 'number of max plots?' localized
+		       initialAnswer: (aPlotter maxSize ifNil: [ '' ]) asString.
 	ret ifNil: [ ^ self ].
 	ret := ret isEmpty
-		ifTrue: [ nil ]
-		ifFalse: [ ret asNumberNoError ].
+		       ifTrue: [ nil ]
+		       ifFalse: [ ret asNumberNoError ].
 	aPlotter maxSize: ret
 ]
 
 { #category : #'menu actions' }
 TScratchPlotterMenu >> setMaxValue: aPlotter [
+
 	| ret |
-	ret := UIManager default
-		request: 'maximum plot value?' localized
-		initialAnswer: (aPlotter max ifNil: [ '' ]) asString.
+	ret := SpScratchApp
+		       request: 'maximum plot value?' localized
+		       initialAnswer: (aPlotter max ifNil: [ '' ]) asString.
 	ret ifNil: [ ^ self ].
 	ret := ret isEmpty
-		ifTrue: [ nil ]
-		ifFalse: [ ret asNumberNoError ].
+		       ifTrue: [ nil ]
+		       ifFalse: [ ret asNumberNoError ].
 	aPlotter max: ret
 ]
 
 { #category : #'menu actions' }
 TScratchPlotterMenu >> setMinValue: aPlotter [
+
 	| ret |
-	ret := UIManager default
-		request: 'minimum plot value?' localized
-		initialAnswer: (aPlotter min ifNil: [ '' ]) asString.
+	ret := SpScratchApp
+		       request: 'minimum plot value?' localized
+		       initialAnswer: (aPlotter min ifNil: [ '' ]) asString.
 	ret ifNil: [ ^ self ].
 	ret := ret isEmpty
-		ifTrue: [ nil ]
-		ifFalse: [ ret asNumberNoError ].
+		       ifTrue: [ nil ]
+		       ifFalse: [ ret asNumberNoError ].
 	aPlotter min: ret
 ]
 
 { #category : #'menu actions' }
 TScratchPlotterMenu >> setPlotPeriod: aPlotter [
+
 	| ret |
-	ret := UIManager default
-		request: 'update plot period? (in milliseconds)' localized
-		initialAnswer: (aPlotter updatePeriod ifNil: [ '' ]) asString.
-	(ret isNil or: [ ret isEmpty ])
-		ifTrue: [ ^ self ].
+	ret := SpScratchApp
+		       request: 'update plot period? (in milliseconds)' localized
+		       initialAnswer: (aPlotter updatePeriod ifNil: [ '' ]) asString.
+	(ret isNil or: [ ret isEmpty ]) ifTrue: [ ^ self ].
 	ret := ret asNumberNoError.
 	aPlotter updatePeriod: ret
 ]
