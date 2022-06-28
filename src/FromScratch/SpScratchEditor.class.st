@@ -11,8 +11,8 @@ Class {
 	#category : #'FromScratch-Spec2'
 }
 
-{ #category : #specs }
-SpScratchEditor class >> defaultSpec [
+{ #category : #layout }
+SpScratchEditor class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		add:
 			(SpBoxLayout newHorizontal
@@ -22,11 +22,6 @@ SpScratchEditor class >> defaultSpec [
 			withConstraints: [ :c | c expand: false ];
 		add: #notebook;
 		yourself
-]
-
-{ #category : #accessing }
-SpScratchEditor >> cleanUp [
-	^ self editorContents cleanUp
 ]
 
 { #category : #private }

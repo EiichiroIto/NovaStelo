@@ -20,7 +20,7 @@ SteloPlugin2 class >> ffiLibrary [
 { #category : #testing }
 SteloPlugin2 class >> isAvailable [
 	^ [ self default getErrorMessage.
-	true ] ifError: [ false ]
+	true ] on: Error do: [ false ]
 ]
 
 { #category : #accessing }

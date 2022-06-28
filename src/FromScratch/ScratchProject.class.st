@@ -10,18 +10,18 @@ Class {
 	#category : #'FromScratch-Project'
 }
 
-{ #category : #accessing }
-ScratchProject class >> appVersion [
+{ #category : #constants }
+ScratchProject class >> fileVersion [
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-ScratchProject class >> appVersionString [
-	^ self appVersionTag , self appVersion asTwoCharacterString
+ScratchProject class >> fileVersionString [
+	^ self fileVersionTag , self fileVersion asTwoCharacterString
 ]
 
-{ #category : #accessing }
-ScratchProject class >> appVersionTag [
+{ #category : #constants }
+ScratchProject class >> fileVersionTag [
 	self subclassResponsibility
 ]
 
@@ -29,7 +29,7 @@ ScratchProject class >> appVersionTag [
 ScratchProject class >> formFromStream: aStream [
 	| version info |
 	version := self objStreamClass fileVersion: self from: aStream.
-	version = self appVersion
+	version = self fileVersion
 		ifFalse: [ ^ nil ].
 	aStream skip: 4.
 	info := self objStreamClass new
@@ -38,7 +38,7 @@ ScratchProject class >> formFromStream: aStream [
 	^ info at: 'thumbnail'
 ]
 
-{ #category : #accessing }
+{ #category : #constants }
 ScratchProject class >> objStreamClass [
 	self subclassResponsibility
 ]
@@ -70,11 +70,6 @@ ScratchProject >> allSubNames [
 	result := Set new.
 	self scripts do: [ :each | result addAll: each subNames ].
 	^ result asArray sort
-]
-
-{ #category : #accessing }
-ScratchProject >> appVersion [
-	^ self class appVersion
 ]
 
 { #category : #accessing }
@@ -141,8 +136,8 @@ ScratchProject >> extractInfoFrom: aByteArray [
 	obj := self newObjStream.
 	s := ReadStream on: aByteArray.
 	version := obj class fileVersion: self class from: s.
-	version = self class appVersion
-		ifFalse: [ ^ self inform: 'Invalid app version!' localized ].
+	version = self class fileVersion
+		ifFalse: [ ^ self inform: 'Invalid file version!' localized ].
 	s skip: 4.
 	info := obj readObjFrom: s showProgress: false
 ]
@@ -153,10 +148,11 @@ ScratchProject >> extractProjectFrom: aByteArray [
 	obj := self newObjStream.
 	s := ReadStream on: aByteArray.
 	version := obj class fileVersion: self class from: s.
-	version = self class appVersion
-		ifFalse: [ ^ self inform: 'Invalid app version!' localized ].
+	version = self class fileVersion
+		ifFalse: [ ^ self inform: 'Invalid file version!' localized ].
 	s skip: s uint32.
 	proj := obj readObjFrom: s showProgress: true.
+	self handOverTo: proj.
 	proj isProject
 		ifFalse: [ ^ self error: 'Invalid project format:' localized , proj class asString ].
 	proj scripts
@@ -172,6 +168,11 @@ ScratchProject >> extractProjectFrom: aByteArray [
 { #category : #'object i/o' }
 ScratchProject >> fieldsVersion [
 	^ 1
+]
+
+{ #category : #accessing }
+ScratchProject >> fileVersion [
+	^ self class fileVersion
 ]
 
 { #category : #accessing }
@@ -192,14 +193,20 @@ ScratchProject >> getScratchInfoFrom: aFileReference [
 	SpScratchApp
 		try: [ f := aFileReference binaryReadStream.
 			version := obj class fileVersion: self class from: f.
-			version = self class appVersion
-				ifFalse: [ self inform: 'Invalid app version!' localized.
+			version = self class fileVersion
+				ifFalse: [ self inform: 'Invalid file version!' localized.
 					^ nil ].
 			buf := f next: f uint32.
 			result := obj readObjFrom: (ReadStream on: buf).
 			f close ]
 		onFailure: [ ^ nil ].
 	^ result
+]
+
+{ #category : #accessing }
+ScratchProject >> handOverTo: aProject [
+
+	"self subclassResponsibility"
 ]
 
 { #category : #accessing }
@@ -253,21 +260,20 @@ ScratchProject >> newObjStream [
 
 { #category : #'file read/write' }
 ScratchProject >> readProjectFrom: aFileReference [
+
 	| f projData newProj |
 	f := aFileReference binaryReadStream.
-	f
-		ifNil: [ UIManager default
-				alert: 'Could not read file: ' localized , aFileReference pathString
-				title: 'Load failed' localized.
-			^ nil ].
+	f ifNil: [ 
+		SpScratchApp alert:
+			'Could not read file: ' localized , aFileReference pathString.
+		^ nil ].
 	SpScratchApp
-		try: [ projData := f contents.
+		try: [ 
+			projData := f contents.
 			newProj := self extractProjectFrom: projData.
 			newProj extractInfoFrom: projData ]
 		onFailure: [ :err :rcvr | 
-			UIManager default
-				alert: err
-				title: 'Could not read project; file may be damaged' localized.
+			SpScratchApp alert: err.
 			^ nil ].
 	self modified: false.
 	^ newProj
@@ -316,41 +322,46 @@ ScratchProject >> unusedNameStartingWith: prefix in: aFileReference [
 
 { #category : #'file read/write' }
 ScratchProject >> writeProjectAs: aFileReference [
+
 	| saveError out tmpFile |
 	"self scripts setupBlockDef."
-	self scripts
-		do: [ :m | 
-			m blocksBin
-				allMorphsDo: [ :b | 
-					b isBlockMorph
-						ifTrue: [ b stopProcess ] ].
-			m convertStacksToTuples ].
+	self scripts do: [ :m | 
+		m blocksBin allMorphsDo: [ :b | 
+			b isBlockMorph ifTrue: [ b stopProcess ] ].
+		m convertStacksToTuples ].
 	saveError := nil.
 	tmpFile := (self
-		unusedNameStartingWith: 'tmp'
-		in: aFileReference parent) asFileReference.
+		            unusedNameStartingWith: 'tmp'
+		            in: aFileReference parent) asFileReference.
 	SpScratchApp
-		try: [ out := tmpFile binaryWriteStream.
+		try: [ 
+			out := tmpFile binaryWriteStream.
 			out
-				ifNil: [ saveError := 'Folder may be locked or read-only' localized ]
-				ifNotNil: [ out nextPutAll: self class appVersionString asByteArray.
+				ifNil: [ 
+				saveError := 'Folder may be locked or read-only' localized ]
+				ifNotNil: [ 
+					out nextPutAll: self class fileVersionString asByteArray.
 					self storeProjectInfoOn: out.
 					self newObjStream storeObj: self on: out.
 					out close ] ]
 		onFailure: [ :err :rcvr | 
-			out
-				ifNotNil: [ [ out close.
-					tmpFile delete ] ifError: [  ] ].
+			out ifNotNil: [ 
+				[ 
+				out close.
+				tmpFile delete ]
+					on: Error
+					do: [  ] ].
 			saveError := err ].
 	self scripts do: [ :m | m convertTuplesToStacks ].
-	saveError
-		ifNotNil: [ UIManager default alert: saveError title: 'Save failed' localized.
-			^ false ].
+	saveError ifNotNil: [ 
+		SpScratchApp alert: saveError title: 'Save failed' localized.
+		^ false ].
 	aFileReference deleteIfAbsent: [  ].
 	[ tmpFile renameTo: aFileReference basename ]
-		ifError: [ UIManager default
-				alert: 'Is the folder read-only?' localized
-				title: 'Save failed' localized.
+		on: Error
+		do: [ 
+			SpScratchApp alert:
+				'Save failed. The folder may be read-only.' localized.
 			^ false ].
 	self modified: false.
 	^ true

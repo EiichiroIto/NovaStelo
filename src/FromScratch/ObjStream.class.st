@@ -60,11 +60,11 @@ ObjStream class >> fileVersion: anAppClass from: aStream [
 	"Answer the Scratch file version number from the given string. If the string is of the form: 'ScratchVxx', were xx is a two-digit integer, answer the value of xx. Otherwise, answer 0."
 
 	| str |
-	str := (aStream next: anAppClass appVersionString size) asString.
-	(str beginsWith: anAppClass appVersionTag)
+	str := (aStream next: anAppClass fileVersionString size) asString.
+	(str beginsWith: anAppClass fileVersionTag)
 		ifFalse: [ ^ 0 ].
 	^ (str
-		copyFrom: anAppClass appVersionTag size + 1
+		copyFrom: anAppClass fileVersionTag size + 1
 		to: str size) asNumberNoError
 ]
 
@@ -207,8 +207,8 @@ ObjStream >> classSymbolForID: classID [
 ]
 
 { #category : #private }
-ObjStream >> convertFromUTF8: aString [
-	^ UTF8TextConverter new convertFromSystemString: aString asString asByteString
+ObjStream >> convertFromUTF8: aByteArray [
+	^ ZnUTF8Encoder default decodeBytes: aByteArray
 ]
 
 { #category : #'private-reading' }

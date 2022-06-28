@@ -9,12 +9,12 @@ Class {
 }
 
 { #category : #accessing }
-SteloProject class >> appVersion [
+SteloProject class >> fileVersion [
 	^ 2
 ]
 
 { #category : #accessing }
-SteloProject class >> appVersionTag [
+SteloProject class >> fileVersionTag [
 	^ 'SteloV'
 ]
 

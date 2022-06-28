@@ -67,7 +67,7 @@ LazyArray >> assureExistsIndex: anInteger1 and: anInteger2 [
 LazyArray >> at: anInteger [
 	anInteger > self size
 		ifTrue: [ ^ self defaultValue ].
-	^ array at: anInteger
+	^ array at: anInteger asInteger
 ]
 
 { #category : #accessing }
@@ -77,7 +77,7 @@ LazyArray >> at: anInteger put: aValue [
 				ifTrue: [ ^ self ].
 			self assureExistsIndex: anInteger.
 			self assert: anInteger <= self size ].
-	array at: anInteger put: aValue
+	array at: anInteger asInteger put: aValue
 ]
 
 { #category : #accessing }

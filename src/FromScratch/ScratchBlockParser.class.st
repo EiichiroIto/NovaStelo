@@ -37,6 +37,7 @@ ScratchBlockParser class >> buildOperatorDict [
 	OperatorDict at: #> put: #more:than:.
 	OperatorDict at: #& put: #and:with:.
 	OperatorDict at: #| put: #or:with:.
+	OperatorDict at: #// put: #div:by:.
 	OperatorDict at: #\\ put: #mod:by:.
 	InvOperatorDict := Dictionary new.
 	OperatorDict
@@ -193,13 +194,18 @@ ScratchBlockParser >> emitPassIndent: indent [
 
 { #category : #'code generator' }
 ScratchBlockParser >> emitSubHatBlock: aMorph indent: indent [
+
 	| str i2 |
 	str := aMorph subName.
-	str isEmpty
-		ifTrue: [ ^ self ].
+	str isEmpty ifTrue: [ ^ self ].
 	codeGenerator generateSubHeader: str.
+	i2 := indent + (codeGenerator indentLevelFor: str).
 	aMorph nextBlock
-		ifNotNil: [ i2 := indent + (codeGenerator indentLevelFor: str).
+		ifNil: [ 
+			codeGenerator
+				generateIndent: i2;
+				generateEmptySubBody ]
+		ifNotNil: [ 
 			self emitGlobalVars: aMorph varNames indent: i2.
 			self emitCode: aMorph nextBlock indent: i2 ].
 	codeGenerator generateSubFooter: str

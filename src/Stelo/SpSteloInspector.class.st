@@ -9,8 +9,8 @@ Class {
 	#category : #'Stelo-Spec2'
 }
 
-{ #category : #specs }
-SpSteloInspector class >> defaultSpec [
+{ #category : #layout }
+SpSteloInspector class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		spacing: 4;
 		add: #tableVars;

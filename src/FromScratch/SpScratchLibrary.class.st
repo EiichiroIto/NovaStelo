@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #specs }
-SpScratchLibrary class >> defaultSpec [
+SpScratchLibrary class >> defaultLayout [
 	^ SpBoxLayout newHorizontal
 		add: #buttonMain;
 		add: #buttonOther;

@@ -32,10 +32,9 @@ Metacello new
 * To recovery the file, select "File - Import - Import Scripts"
 
 ## Examples
-1. Select Open from File menu.
-2. Click Examples button on the file open dialog.
-3. Select file and press OK.
-4. Click Setup button on right side pane to setup the program.
+1. Click File menu.
+2. Select a example from Examples submenu.
+4. Click Setup button to setup the program.
 5. Click Loop button to start.
 
 ## License
@@ -54,7 +53,7 @@ MIT License
 ### Resnick's Slime Mold
 ![04-slimemolds](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/04-slimemolds.png)
 
-### Gray-Scott's model (amrophous f=0.04, k=0.06)
+### Gray-Scott's model (amorphous f=0.04, k=0.06)
 ![09-grayscott](https://raw.githubusercontent.com/EiichiroIto/NovaStelo/master/misc/images/09-grayscott.png)
 
 
