@@ -4,6 +4,9 @@ A SteloLibCallTest is a test class for testing the behavior of SteloLibCall
 Class {
 	#name : #SteloLibCallTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'pluginExists'
+	],
 	#category : #'Stelo-Tests'
 }
 
@@ -19,19 +22,27 @@ SteloLibCallTest >> defaultPatchSize [
 
 { #category : #running }
 SteloLibCallTest >> setUp [
+
 	super setUp.
-	SteloLibCall new reset.
+	pluginExists := true.
+	[ SteloLibCall new reset ]
+		on: Error
+		do: [ pluginExists := false ]
 ]
 
 { #category : #running }
 SteloLibCallTest >> tearDown [
+
 	super tearDown.
-	SteloLibCall new reset.
+	[ SteloLibCall new reset ]
+		on: Error
+		do: [  ]
 ]
 
 { #category : #test }
 SteloLibCallTest >> testAddVariableNameBreedNo [
 	| c x |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	x := c addVariable: 10 breed: SBreedId patchBreedNo.
 	self assert: x.
@@ -42,6 +53,7 @@ SteloLibCallTest >> testAddVariableNameBreedNo [
 { #category : #test }
 SteloLibCallTest >> testGetByteBreedId [
 	| c x |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c setupBreed: 3.
 	c create: 3 turtles: 1.
@@ -57,6 +69,7 @@ SteloLibCallTest >> testGetByteBreedId [
 { #category : #test }
 SteloLibCallTest >> testGetFloatBreedId [
 	| c x |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c createPatch: 10.
 	x := c getFloat: SObserverVarDef widthVarNo breed: SBreedId observerBreedNo id: 1.
@@ -66,6 +79,7 @@ SteloLibCallTest >> testGetFloatBreedId [
 { #category : #test }
 SteloLibCallTest >> testGetTypeBreed [
 	| c t |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c setupBreed: SBreedId turtleBreedNo.
 	t := c getType: STurtleVarDef colorVarNo breed: SBreedId turtleBreedNo.
@@ -91,6 +105,7 @@ SteloLibCallTest >> testGetTypeBreed [
 { #category : #test }
 SteloLibCallTest >> testGetWordBreedId [
 	| c x |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c setupBreed: 3.
 	x := c getByte: STurtleVarDef flagVarNo breed: 3 id: 1.
@@ -111,6 +126,7 @@ SteloLibCallTest >> testGetWordBreedId [
 { #category : #test }
 SteloLibCallTest >> testIsRunning [
 	| c |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	self deny: c isRunning.
 
@@ -119,6 +135,7 @@ SteloLibCallTest >> testIsRunning [
 { #category : #test }
 SteloLibCallTest >> testPatchIndexAtXY [
 	| c r |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c createPatch: 10.
 	r := c patchIndexAtX: -5 y: -5.
@@ -134,6 +151,7 @@ SteloLibCallTest >> testPatchIndexAtXY [
 { #category : #test }
 SteloLibCallTest >> testSetByteAllBreedExtArraySize [
 	| c ext x |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c setupBreed: 3.
 	c create: 3 turtles: 3.
@@ -159,6 +177,7 @@ SteloLibCallTest >> testSetByteBreedIdValue [
 { #category : #test }
 SteloLibCallTest >> testSetFloatAllBreedExtArraySize [
 	| c ext x |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c setupBreed: 3.
 	c create: 3 turtles: 3.
@@ -179,6 +198,7 @@ SteloLibCallTest >> testSetFloatAllBreedExtArraySize [
 { #category : #test }
 SteloLibCallTest >> testSetFloatBreedIdValue [
 	| c x |
+	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c setupBreed: 3.
 	c create: 3 turtles: 1.

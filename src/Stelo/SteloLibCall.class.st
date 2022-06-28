@@ -136,7 +136,7 @@ SteloLibCall >> patchIndexAtX: x y: y [
 { #category : #'stelo funcs' }
 SteloLibCall >> reset [
 	self ffiCall: #(void reset()).
-	self primitiveFailed.
+	self error: 'primitive not found'
 ]
 
 { #category : #'stelo funcs' }

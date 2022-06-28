@@ -1,24 +1,35 @@
 Class {
 	#name : #SPluginWorldTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'pluginExists'
+	],
 	#category : #'Stelo-Tests'
 }
 
 { #category : #running }
 SPluginWorldTest >> setUp [
+
 	super setUp.
-	SteloLibCall new reset.
+	pluginExists := true.
+	[ SteloLibCall new reset ]
+		on: Error
+		do: [ pluginExists := false ]
 ]
 
 { #category : #running }
 SPluginWorldTest >> tearDown [
+
 	super tearDown.
-	SteloLibCall new reset.
+	[ SteloLibCall new reset ]
+		on: Error
+		do: [  ]
 ]
 
 { #category : #test }
 SPluginWorldTest >> testClearBreed [
 	| c x t |
+	pluginExists ifFalse: [ ^ self ].
 	c := SPluginWorld new.
 	c createPatch: 10.
 	x := c var: SPatchVarDef colorVarNo breed: SBreedId patchBreedNo at: 1.
@@ -44,6 +55,7 @@ SPluginWorldTest >> testClearBreed [
 { #category : #test }
 SPluginWorldTest >> testCountAliveOf [
 	| c t |
+	pluginExists ifFalse: [ ^ self ].
 	c := SPluginWorld new.
 	c createPatch: 10.
 	self assert: (c countAliveOf: 2) equals: 100.
@@ -70,6 +82,7 @@ SPluginWorldTest >> testCreateTurtles [
 { #category : #test }
 SPluginWorldTest >> testGetByteAllBreed [
 	| w t arr |
+	pluginExists ifFalse: [ ^ self ].
 	w := SPluginWorld new.
 	t := STurtles new breedNo: 3.
 	t create: 2.
@@ -84,6 +97,7 @@ SPluginWorldTest >> testGetByteAllBreed [
 { #category : #test }
 SPluginWorldTest >> testGetFloatAllBreed [
 	| w t arr |
+	pluginExists ifFalse: [ ^ self ].
 	w := SPluginWorld new.
 	t := STurtles new breedNo: 3.
 	t create: 5.
@@ -104,12 +118,14 @@ SPluginWorldTest >> testGetFloatAllBreed [
 
 { #category : #test }
 SPluginWorldTest >> testIsPluginWorld [
+	pluginExists ifFalse: [ ^ self ].
 	self assert: SPluginWorld new isPluginWorld
 ]
 
 { #category : #test }
 SPluginWorldTest >> testSetByteAllBreedFrom [
 	| w t arr r |
+	pluginExists ifFalse: [ ^ self ].
 	w := SPluginWorld new.
 	t := STurtles new breedNo: 3.
 	t create: 50.
@@ -123,6 +139,7 @@ SPluginWorldTest >> testSetByteAllBreedFrom [
 { #category : #test }
 SPluginWorldTest >> testSizeOf [
 	| c t |
+	pluginExists ifFalse: [ ^ self ].
 	c := SPluginWorld new.
 	c createPatch: 11.
 	self assert: (c sizeOf: 2) equals: 121.

@@ -9,7 +9,11 @@ Class {
 
 { #category : #private }
 SpSteloTest >> newApp [
-	^ SpStelo new
+
+	| app |
+	app := SpStelo new.
+	app presenter: app newPresenter.
+	^ app
 ]
 
 { #category : #private }
