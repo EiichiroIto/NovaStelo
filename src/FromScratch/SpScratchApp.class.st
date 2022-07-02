@@ -743,6 +743,18 @@ SpScratchApp >> prepareForOpening [
 ]
 
 { #category : #accessing }
+SpScratchApp >> presenter [
+
+	^ presenter
+]
+
+{ #category : #accessing }
+SpScratchApp >> presenter: anObject [
+
+	presenter := anObject
+]
+
+{ #category : #accessing }
 SpScratchApp >> project [
 	^ project
 ]

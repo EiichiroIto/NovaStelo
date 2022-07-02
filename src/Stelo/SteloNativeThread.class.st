@@ -211,7 +211,7 @@ SteloNativeThread >> getBreedVar [
 	| var index bno ret |
 	bno := self pop.
 	var := self pop.
-	index := self pop.
+	index := self pop asInteger.
 	ret := world var: var breed: bno at: index.
 	self push: ret.
 ]
@@ -387,7 +387,7 @@ SteloNativeThread >> setBreedVarTo [
 	bno := self pop.
 	var := self pop.
 	val := self pop.
-	index := self pop.
+	index := self pop asInteger.
 	world
 		var: var
 		breed: bno
