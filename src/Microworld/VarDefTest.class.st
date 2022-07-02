@@ -4,7 +4,7 @@ A SVarIdTest is a test class for testing the behavior of SVarId
 Class {
 	#name : #VarDefTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #private }

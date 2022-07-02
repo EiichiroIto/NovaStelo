@@ -4,7 +4,7 @@ A SEventIdTest is a test class for testing the behavior of SEventId
 Class {
 	#name : #EventIdTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #test }

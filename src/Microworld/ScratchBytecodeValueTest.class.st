@@ -4,7 +4,7 @@ A SCodeValueTest is a test class for testing the behavior of SCodeValue
 Class {
 	#name : #ScratchBytecodeValueTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #private }

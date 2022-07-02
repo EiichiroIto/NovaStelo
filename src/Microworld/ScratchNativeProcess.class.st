@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'program'
 	],
-	#category : #'FromScratch-Process'
+	#category : #'Microworld-Process'
 }
 
 { #category : #testing }

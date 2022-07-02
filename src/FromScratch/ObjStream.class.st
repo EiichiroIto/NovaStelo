@@ -155,11 +155,11 @@ ObjStream class >> userClasses [
 		(108		SimpleButtonMorph)
 		(110		ImageMorph)
 		"111-129 for subclass"
-		(130 	EventId)
+		"(130 	EventId)
 		(131		Variables)
 		(132		VarDef)
 		(133 	LazyArray)
-		(134 	StringArray)
+		(134 	StringArray)"
 
 		"(140		ChoiceArgMorph)
 		(141		ColorArgMorph)

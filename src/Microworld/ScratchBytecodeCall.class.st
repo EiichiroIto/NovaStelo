@@ -5,7 +5,7 @@ Class {
 		'subName',
 		'address'
 	],
-	#category : #'FromScratch-Bytecode'
+	#category : #'Microworld-Bytecode'
 }
 
 { #category : #'instance creation' }

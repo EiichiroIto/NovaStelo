@@ -4,7 +4,7 @@ A SCodeSymbolWithJumpTest is a test class for testing the behavior of SCodeSymbo
 Class {
 	#name : #ScratchBytecodeSymbolWithJumpTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #private }

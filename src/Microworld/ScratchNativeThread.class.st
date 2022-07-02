@@ -16,7 +16,7 @@ Class {
 	#classInstVars : [
 		'cachedSymbols'
 	],
-	#category : #'FromScratch-Process'
+	#category : #'Microworld-Process'
 }
 
 { #category : #private }

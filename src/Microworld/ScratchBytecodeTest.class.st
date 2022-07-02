@@ -4,7 +4,7 @@ A SCodeTest is a test class for testing the behavior of SCode
 Class {
 	#name : #ScratchBytecodeTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #private }

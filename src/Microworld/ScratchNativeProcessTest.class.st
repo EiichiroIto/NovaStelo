@@ -4,7 +4,7 @@ A SteloProcessTest is a test class for testing the behavior of SteloProcess
 Class {
 	#name : #ScratchNativeProcessTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #private }

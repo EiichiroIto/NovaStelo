@@ -5,7 +5,7 @@ Class {
 		'vars',
 		'varNames'
 	],
-	#category : #'FromScratch-Core'
+	#category : #'Microworld-Core'
 }
 
 { #category : #accessing }

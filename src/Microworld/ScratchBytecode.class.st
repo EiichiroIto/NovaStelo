@@ -1,7 +1,7 @@
 Class {
 	#name : #ScratchBytecode,
 	#superclass : #Object,
-	#category : #'FromScratch-Bytecode'
+	#category : #'Microworld-Bytecode'
 }
 
 { #category : #'instance creation' }

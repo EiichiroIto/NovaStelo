@@ -1,7 +1,7 @@
 Class {
 	#name : #ScratchBytecodeGeneratorTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #private }

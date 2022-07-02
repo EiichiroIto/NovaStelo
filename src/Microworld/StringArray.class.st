@@ -8,7 +8,7 @@ Class {
 		'nextId',
 		'invLiterals'
 	],
-	#category : #'FromScratch-Core'
+	#category : #'Microworld-Core'
 }
 
 { #category : #'instance creation' }

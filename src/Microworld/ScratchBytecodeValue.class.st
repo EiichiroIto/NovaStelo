@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'data'
 	],
-	#category : #'FromScratch-Bytecode'
+	#category : #'Microworld-Bytecode'
 }
 
 { #category : #'instance creation' }

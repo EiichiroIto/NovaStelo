@@ -1,7 +1,7 @@
 Class {
 	#name : #EventId,
 	#superclass : #BaseId,
-	#category : #'FromScratch-Core'
+	#category : #'Microworld-Core'
 }
 
 { #category : #accessing }

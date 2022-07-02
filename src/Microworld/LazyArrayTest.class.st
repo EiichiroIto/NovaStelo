@@ -4,7 +4,7 @@ A LasyArrayTest is a test class for testing the behavior of LasyArray
 Class {
 	#name : #LazyArrayTest,
 	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#category : #'Microworld-Tests'
 }
 
 { #category : #'instance creation' }

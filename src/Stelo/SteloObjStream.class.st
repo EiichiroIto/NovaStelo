@@ -29,5 +29,10 @@ SteloObjStream class >> userClasses [
 		(123 	STurtleVarDef)
 		(124 	SDisplay)
 		(125 	SBreedId)
+		(130 	EventId)
+		(131		Variables)
+		(132		VarDef)
+		(133 	LazyArray)
+		(134 	StringArray)
 	)
 ]

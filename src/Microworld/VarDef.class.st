@@ -6,7 +6,7 @@ Class {
 		'reservedVarNames',
 		'varClasses'
 	],
-	#category : #'FromScratch-Core'
+	#category : #'Microworld-Core'
 }
 
 { #category : #private }

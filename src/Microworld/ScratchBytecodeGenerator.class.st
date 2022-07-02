@@ -7,7 +7,7 @@ Class {
 		'address',
 		'subTable'
 	],
-	#category : #'FromScratch-Bytecode'
+	#category : #'Microworld-Bytecode'
 }
 
 { #category : #accessing }

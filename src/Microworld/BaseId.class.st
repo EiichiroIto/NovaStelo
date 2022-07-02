@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'nextNo'
 	],
-	#category : #'FromScratch-Core'
+	#category : #'Microworld-Core'
 }
 
 { #category : #private }
