@@ -88,7 +88,7 @@ SpScratchFrame >> addScriptMenu: aMenu for: aScript [
 						action: [ aScript cleanUp ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #'menu building' }
 SpScratchFrame >> blockMenuFor: aBlockMorph inScriptEditor: aBoolean [
 	| menu |
 	aBoolean
@@ -160,12 +160,12 @@ SpScratchFrame >> helpMenu [
 		  addItem: [ :item | 
 			  item
 				  name: 'Inspect';
-				  enabled: [ application class hideDebugMenu not ];
+				  enabled: [ self settings hideDebugMenu not ];
 				  action: [ application inspect ] ];
 		  addItem: [ :item | 
 			  item
 				  name: 'Settings';
-				  enabled: [ application class hideDebugMenu not ];
+				  enabled: [ self settings hideDebugMenu not ];
 				  subMenu: self settingsMenu ];
 		  yourself
 ]
@@ -208,7 +208,7 @@ SpScratchFrame >> scriptForm [
 	^ editorPane screenshot
 ]
 
-{ #category : #accessing }
+{ #category : #'menu building' }
 SpScratchFrame >> scriptMenuFor: aScript [
 	| menu |
 	menu := self newMenu.
@@ -216,26 +216,10 @@ SpScratchFrame >> scriptMenuFor: aScript [
 	^ menu
 ]
 
-{ #category : #'menu actions' }
-SpScratchFrame >> selectSetting: aSymbol [
+{ #category : #accessing }
+SpScratchFrame >> settings [
 
-	| list appClass ret |
-	application closeMediaEditorsAndDialogs.
-	appClass := application class.
-	list := appClass optionsFor: aSymbol.
-	ret := list = #string
-		       ifTrue: [ 
-			       application
-				       request: 'Enter for ' localized , aSymbol
-				       initialAnswer: (appClass perform: aSymbol) ]
-		       ifFalse: [ 
-			       list isEmpty ifTrue: [ ^ self ].
-			       application
-				       select: 'Select an option for ' localized , aSymbol
-				       chooseFrom: list ].
-	ret ifNil: [ ^ self ].
-	appClass perform: (aSymbol , ':') asSymbol with: ret.
-	self updateWindowSettings
+	^ self application settings
 ]
 
 { #category : #'menu building' }
@@ -244,22 +228,19 @@ SpScratchFrame >> settingsMenu [
 	| m |
 	m := self newMenu.
 	m addGroup: [ :grp | 
-		self application class settingKeys do: [ :key | 
+		self application settingKeys do: [ :key | 
 			grp addItem: [ :item | 
 				item
-					name:
-						key , ' = '
-						, (self application class settingValueFor: key) asString;
+					name: key , ' = ' , (application settingAt: key) asString;
 					action: [ 
-						self selectSetting: key.
-						item name:
-								key , ' = '
-								, (self application class settingValueFor: key) asString ] ] ] ].
+						application selectSetting: key.
+						self updateWindowSettings.
+						item name: key , ' = ' , (application settingAt: key) asString ] ] ] ].
 	m addGroup: [ :grp | 
 		grp addItem: [ :item | 
 			item
 				name: 'Save settings' localized;
-				action: [ self application class saveSettings ] ] ].
+				action: [ application saveSettings ] ] ].
 	^ m
 ]
 
@@ -308,14 +289,27 @@ SpScratchFrame >> updateDisplay [
 
 { #category : #private }
 SpScratchFrame >> updateWindowSettings [
+
 	| win |
-	win := 	self window window.
-	self application class dontClose
+	Display isFullscreen
+		ifTrue: [ 
+		self settings fullscreen ifFalse: [ Display fullscreenOff ] ]
+		ifFalse: [ 
+		self settings fullscreen ifTrue: [ Display fullscreenOn ] ].
+	win := self window window.
+	self settings dontClose
 		ifTrue: [ win makeUnclosable ]
 		ifFalse: [ win makeClosable ].
-	self application class stickyWindow
+	self settings stickyWindow
 		ifTrue: [ win beSticky ]
-		ifFalse: [ win beUnsticky ]
+		ifFalse: [ win beUnsticky ].
+	self settings resizable
+		ifTrue: [ 
+			self window beResizable.
+			self window withDecorations ]
+		ifFalse: [ 
+			self window beNotResizable.
+			self window withoutDecorations ]
 ]
 
 { #category : #stepping }

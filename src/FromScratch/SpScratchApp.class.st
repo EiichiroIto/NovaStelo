@@ -4,11 +4,12 @@ Class {
 	#instVars : [
 		'presenter',
 		'project',
-		'projectDirectory'
+		'projectDirectory',
+		'settings'
 	],
 	#classVars : [
 		'Clipboard',
-		'Settings'
+		'UseErrorCatcher'
 	],
 	#category : #'FromScratch-Spec2'
 }
@@ -24,6 +25,7 @@ SpScratchApp class >> alert: aString [
 	SpInformDialog new
 		title: 'alert!' localized;
 		label: aString;
+		acceptLabel: 'Close' localized;
 		openModal
 ]
 
@@ -58,6 +60,8 @@ SpScratchApp class >> confirm: aString [
 	^ SpConfirmDialog new
 		  title: 'Important confirmation' localized;
 		  label: aString;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
 		  openModal
 ]
 
@@ -87,29 +91,9 @@ SpScratchApp class >> deploySystem [
 	Smalltalk snapshot: true andQuit: true
 ]
 
-{ #category : #settings }
-SpScratchApp class >> dontClose [
-	^ self settings at: #dontClose ifAbsentPut: [ false ]
-]
-
-{ #category : #settings }
-SpScratchApp class >> dontClose: aBoolean [
-	self settings at: #dontClose put: aBoolean
-]
-
 { #category : #constants }
 SpScratchApp class >> extension [
 	self subclassResponsibility
-]
-
-{ #category : #settings }
-SpScratchApp class >> hideDebugMenu [
-	^ self settings at: #hideDebugMenu ifAbsentPut: [ false ]
-]
-
-{ #category : #settings }
-SpScratchApp class >> hideDebugMenu: aBoolean [
-	self settings at: #hideDebugMenu put: aBoolean
 ]
 
 { #category : #constants }
@@ -124,53 +108,7 @@ SpScratchApp class >> icon [
 { #category : #'class initialization' }
 SpScratchApp class >> initialize [
 	Clipboard := nil.
-	Settings := nil
-]
-
-{ #category : #settings }
-SpScratchApp class >> keepMaximize [
-	^ self settings at: #keepMaximize ifAbsentPut: [ false ]
-]
-
-{ #category : #settings }
-SpScratchApp class >> keepMaximize: aBoolean [
-	self settings at: #keepMaximize put: aBoolean
-]
-
-{ #category : #settings }
-SpScratchApp class >> language [
-	^ self settings at: #language ifAbsent: [ '' ]
-]
-
-{ #category : #settings }
-SpScratchApp class >> language: aString [
-	| old |
-	old := self language.
-	(ScratchTranslator setLocale: aString)
-		ifFalse: [ ^ self ].
-	self settings at: #language put: aString.
-	old = aString
-		ifTrue: [ ^ self ].
-	(self confirm: 'Language settings has changed. Restart application?')
-		ifFalse: [ ^ self ].
-	self saveSettings.
-	Smalltalk snapshot: false andQuit: true
-]
-
-{ #category : #settings }
-SpScratchApp class >> loadSettings [
-	| fr dict |
-	fr := FileSystem workingDirectory / self settingsFilename.
-	fr isFile
-		ifFalse: [ ^ self ].
-	dict := STON fromString: fr contents.
-	dict isDictionary
-		ifFalse: [ ^ self ].
-	dict keys
-		do: [ :each | 
-			(self respondsTo: each asSymbol)
-				ifFalse: [ dict removeKey: each ] ].
-	Settings := dict
+	UseErrorCatcher := false
 ]
 
 { #category : #utilities }
@@ -180,6 +118,8 @@ SpScratchApp class >> multiLineRequest: aString initialAnswer: aString2 [
 		  title: 'Information request' localized;
 		  label: aString;
 		  text: aString2;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
 		  openModal
 ]
 
@@ -192,24 +132,9 @@ SpScratchApp class >> multiSelect: aString chooseFrom: aCollection selectedItems
 		  items: aCollection;
 		  selectedItems: aCollection2;
 		  display: [ :each | each ];
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
 		  openModal
-]
-
-{ #category : #settings }
-SpScratchApp class >> optionsFor: aSymbol [
-	aSymbol = #stickyWindow
-		ifTrue: [ ^ {true . false} ].
-	aSymbol = #useErrorCatcher
-		ifTrue: [ ^ {true . false} ].
-	aSymbol = #dontClose
-		ifTrue: [ ^ {true . false} ].
-	aSymbol = #keepMaximize
-		ifTrue: [ ^ {true . false} ].
-	aSymbol = #language
-		ifTrue: [ ^ ScratchTranslator availableLocales ].
-	aSymbol = #projectDir
-		ifTrue: [ ^ #string ].
-	^ #()
 ]
 
 { #category : #constants }
@@ -228,33 +153,14 @@ SpScratchApp class >> projectClass [
 	self subclassResponsibility
 ]
 
-{ #category : #settings }
-SpScratchApp class >> projectDir [
-	| file dict |
-	file := self settings
-		at: #projectDir
-		ifAbsent: [ ^ FileSystem workingDirectory pathString ].
-	dict := Dictionary new.
-	dict at: #documents put: FileLocator documents pathString.
-	file := (file trimBoth format: dict) asFileReference.
-	file isDirectory
-		ifFalse: [ [ file createDirectory ]
-				on: Error
-				do: [ file := FileSystem workingDirectory ] ].
-	^ file pathString
-]
-
-{ #category : #settings }
-SpScratchApp class >> projectDir: aString [
-	self settings at: #projectDir put: aString
-]
-
 { #category : #utilities }
 SpScratchApp class >> request: aString [
 
 	^ SpRequestDialog new
 		  title: 'Information request' localized;
 		  label: aString;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
 		  openModal
 ]
 
@@ -265,18 +171,9 @@ SpScratchApp class >> request: aString initialAnswer: aString2 [
 		  title: 'Information request' localized;
 		  label: aString;
 		  text: aString2;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
 		  openModal
-]
-
-{ #category : #settings }
-SpScratchApp class >> saveSettings [
-	| fr stream |
-	fr := FileSystem workingDirectory / self settingsFilename.
-	fr isFile
-		ifTrue: [ fr delete ].
-	stream := fr writeStream.
-	STON put: self settings onStream: stream.
-	stream close
 ]
 
 { #category : #utilities }
@@ -285,47 +182,19 @@ SpScratchApp class >> select: aString chooseFrom: aCollection [
 	^ SpSelectDialog new
 		  title: aString;
 		  items: aCollection;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
 		  openModal
 ]
 
-{ #category : #settings }
-SpScratchApp class >> settingKeys [
-	^ self settings keys sorted
+{ #category : #constants }
+SpScratchApp class >> settingsClass [
+	^ ScratchSettings
 ]
 
-{ #category : #settings }
-SpScratchApp class >> settingValueFor: aSymbol [
-	^ self perform: aSymbol
-]
-
-{ #category : #settings }
-SpScratchApp class >> settings [
-	^ Settings ifNil: [ Settings := Dictionary new ]
-]
-
-{ #category : #settings }
+{ #category : #constants }
 SpScratchApp class >> settingsFilename [
 	^ 'settings.ston'
-]
-
-{ #category : #settings }
-SpScratchApp class >> setupOptions [
-
-	self dontClose: false.
-	self keepMaximize: false.
-	self projectDir: ''.
-	self stickyWindow: false.
-	self useErrorCatcher: false
-]
-
-{ #category : #settings }
-SpScratchApp class >> stickyWindow [
-	^ self settings at: #stickyWindow ifAbsent: [ false ]
-]
-
-{ #category : #settings }
-SpScratchApp class >> stickyWindow: aBoolean [
-	self settings at: #stickyWindow put: aBoolean
 ]
 
 { #category : #private }
@@ -335,21 +204,17 @@ SpScratchApp class >> thumbnailExtent [
 
 { #category : #accessing }
 SpScratchApp class >> try: aBlock onFailure: anErrorBlock [
-	^ self useErrorCatcher
+	^ UseErrorCatcher
 		ifTrue: [ aBlock
 				on: Error
 				do: anErrorBlock ]
 		ifFalse: [ aBlock value ]
 ]
 
-{ #category : #settings }
-SpScratchApp class >> useErrorCatcher [
-	^ self settings at: #useErrorCatcher ifAbsent: [ false ]
-]
-
-{ #category : #settings }
+{ #category : #accessing }
 SpScratchApp class >> useErrorCatcher: aBoolean [
-	self settings at: #useErrorCatcher put: aBoolean
+
+	UseErrorCatcher := aBoolean
 ]
 
 { #category : #'button actions' }
@@ -499,7 +364,7 @@ SpScratchApp >> deserializeFrom: aString [
 
 { #category : #'change reporting' }
 SpScratchApp >> displayExtentChanged [
-	self class keepMaximize
+	settings keepMaximize
 		ifFalse: [ ^ self ].
 	presenter window window fullscreen
 ]
@@ -633,8 +498,10 @@ SpScratchApp >> importFileWithExtension: aString isBinary: aBoolean [
 
 { #category : #initialization }
 SpScratchApp >> initialize [
-	self class loadSettings.
-	ScratchTranslator setLocale: self class language.
+
+	settings := self class settingsClass new.
+	self loadSettings.
+	ScratchTranslator setLocale: settings language.
 	super initialize
 ]
 
@@ -648,6 +515,20 @@ SpScratchApp >> isProcessRunning [
 	self subclassResponsibility
 ]
 
+{ #category : #settings }
+SpScratchApp >> language: aString [
+
+	| old |
+	old := settings language.
+	(ScratchTranslator setLocale: aString) ifFalse: [ ^ self ].
+	settings language: aString.
+	old = aString ifTrue: [ ^ self ].
+	(self confirm: 'Language settings has changed. Restart application?') 
+		ifFalse: [ ^ self ].
+	self saveSettings.
+	Smalltalk snapshot: false andQuit: true
+]
+
 { #category : #'menu actions' }
 SpScratchApp >> loadExample: aFileReference [
 	| newProj |
@@ -656,6 +537,19 @@ SpScratchApp >> loadExample: aFileReference [
 	self projectDirectory: nil.
 	self projectName: aFileReference base.
 	self installNewProject: newProj
+]
+
+{ #category : #settings }
+SpScratchApp >> loadSettings [
+
+	| fr dict |
+	fr := FileSystem workingDirectory / self class settingsFilename.
+	fr isFile ifFalse: [ ^ self ].
+	dict := STON fromString: fr contents.
+	dict isDictionary ifFalse: [ ^ self ].
+	dict keysDo: [ :each | 
+		(settings respondsTo: each asSymbol) ifFalse: [ dict removeKey: each ] ].
+	settings dictionary: dict
 ]
 
 { #category : #utilities }
@@ -761,8 +655,18 @@ SpScratchApp >> project [
 
 { #category : #accessing }
 SpScratchApp >> projectDirectory [
-	^ projectDirectory
-		ifNil: [ self class projectDir asFileReference ]
+
+	| file dict |
+	projectDirectory ifNotNil: [ ^ projectDirectory ].
+	file := settings projectDir.
+	dict := Dictionary new.
+	dict at: #documents put: FileLocator documents pathString.
+	file := (file trimBoth format: dict) asFileReference.
+	file isDirectory ifFalse: [ 
+		[ file createDirectory ]
+			on: Error
+			do: [ file := FileSystem workingDirectory ] ].
+	^ file pathString asFileReference
 ]
 
 { #category : #accessing }
@@ -863,10 +767,41 @@ SpScratchApp >> saveScratchFileFor: aProject [
 		path: self projectPath
 ]
 
+{ #category : #settings }
+SpScratchApp >> saveSettings [
+
+	| fr stream |
+	fr := FileSystem workingDirectory / self class settingsFilename.
+	fr isFile ifTrue: [ fr delete ].
+	stream := fr writeStream.
+	STON put: settings dictionary onStream: stream.
+	stream close
+]
+
 { #category : #utilities }
 SpScratchApp >> select: aString chooseFrom: aCollection [
 
 	^ self class select: aString chooseFrom: aCollection
+]
+
+{ #category : #settings }
+SpScratchApp >> selectSetting: aSymbol [
+
+	| list ret |
+	self closeMediaEditorsAndDialogs.
+	list := settings optionsFor: aSymbol.
+	ret := list = #string
+		       ifTrue: [ 
+			       self
+				       request: 'Enter for ' localized , aSymbol
+				       initialAnswer: (self settingAt: aSymbol) ]
+		       ifFalse: [ 
+			       list isEmpty ifTrue: [ ^ self ].
+			       self
+				       select: 'Select an option for ' localized , aSymbol
+				       chooseFrom: list ].
+	ret ifNil: [ ^ self ].
+	self settingAt: aSymbol put: ret
 ]
 
 { #category : #private }
@@ -876,6 +811,36 @@ SpScratchApp >> serializeBlocks: aTopBlock [
 	aTopBlock isHatBlock
 		ifFalse: [ code := '(' , code , ')' ].
 	^ code
+]
+
+{ #category : #settings }
+SpScratchApp >> settingAt: aSymbol [
+
+	^ settings at: aSymbol
+]
+
+{ #category : #settings }
+SpScratchApp >> settingAt: aSymbol put: anObject [
+
+	settings at: aSymbol put: anObject
+]
+
+{ #category : #settings }
+SpScratchApp >> settingKeys [
+
+	^ settings keys
+]
+
+{ #category : #accessing }
+SpScratchApp >> settings [
+
+	^ settings
+]
+
+{ #category : #accessing }
+SpScratchApp >> settings: anObject [
+
+	settings := anObject
 ]
 
 { #category : #private }

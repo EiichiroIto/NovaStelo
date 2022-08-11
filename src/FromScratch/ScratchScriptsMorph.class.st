@@ -19,7 +19,7 @@ ScratchScriptsMorph >> cleanUp [
 
 	| sortedBlocks y |
 	y := 20.
-	(owner isKindOf: ScrollFrameMorph2)
+	(owner isKindOf: ScrollFrameMorph)
 		ifTrue: [ owner hScrollPixels: 0.
 			owner vScrollPixels: 0 ].
 	sortedBlocks := (submorphs select: #isBlockMorph)

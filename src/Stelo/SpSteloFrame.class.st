@@ -299,7 +299,7 @@ SpSteloFrame >> fileMenu [
 				item
 					name: 'Close' localized;
 					action: [ application closeAllWindows ];
-					enabled: [ application class dontClose not ] ];
+					enabled: [ self settings dontClose not ] ];
 			addItem: [ :item | 
 				item
 					name: 'Quit' localized;
@@ -343,12 +343,12 @@ SpSteloFrame >> helpMenu [
 		addItem: [ :item | 
 			item
 				name: 'Inspect' localized;
-				enabled: [ application class hideDebugMenu not ];
+				enabled: [ self settings hideDebugMenu not ];
 				action: [ application inspect ] ];
 		addItem: [ :item | 
 			item
 				name: 'Settings' localized;
-				enabled: [ application class hideDebugMenu not ];
+				enabled: [ self settings hideDebugMenu not ];
 				subMenu: self settingsMenu ].
 	m addGroup: [ :grp | 
 		grp

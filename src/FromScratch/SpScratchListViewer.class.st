@@ -44,7 +44,7 @@ SpScratchListViewer >> currentCategory: aString [
 { #category : #initialization }
 SpScratchListViewer >> initializePresenters [
 	pageViewer := self newMorph.
-	pageViewer morph: (ScrollFrameMorph2 new growthFraction: 0.1).
+	pageViewer morph: (ScrollFrameMorph new growthFraction: 0.1).
 	categories := self newList
 		beSingleSelection;
 		yourself
