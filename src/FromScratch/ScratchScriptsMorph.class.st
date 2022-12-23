@@ -4,11 +4,10 @@ I hold the scripts and partially assembled scripts for a ScriptableScratchMorph.
 "
 Class {
 	#name : #ScratchScriptsMorph,
-	#superclass : #PasteUpMorph,
+	#superclass : #BlockPlateMorph,
 	#instVars : [
 		'feedbackMorph',
-		'screenshooting',
-		'project'
+		'screenshooting'
 	],
 	#category : #'FromScratch-Blocks'
 }
@@ -55,20 +54,12 @@ ScratchScriptsMorph >> drawOn: aCanvas [
 			y := y + patchF height ]
 ]
 
-{ #category : #'event handling' }
-ScratchScriptsMorph >> handlesMouseDown: evt [
-	
-	^ true
-]
-
 { #category : #initialization }
 ScratchScriptsMorph >> initialize [
 
 	super initialize.
 	color := Color white.
-	borderWidth := 0.
-	self enableDragNDrop: true.
-
+	self enableDragNDrop: true
 ]
 
 { #category : #screenshot }
@@ -83,48 +74,28 @@ ScratchScriptsMorph >> isScriptEditor [
 	^ true
 ]
 
-{ #category : #'event handling' }
-ScratchScriptsMorph >> mouseDown: evt [
-	evt hand newKeyboardFocus: nil.
-	evt hand waitForClicksOrDrag: self event: evt
-]
-
-{ #category : #accessing }
-ScratchScriptsMorph >> project [
-	^ project
-]
-
-{ #category : #accessing }
-ScratchScriptsMorph >> project: aProject [
-	project := aProject
-]
-
 { #category : #screenshot }
 ScratchScriptsMorph >> screenshot [
+
 	"answer a Form of myself apt for exporting"
 
 	| saveForm leftX topY rightX bottomY |
+	submorphs isEmpty ifTrue: [ ^ nil ].
 	screenshooting := true.
 	self changed.
 	saveForm := self imageForm.
-
 	"clip"
-	submorphs isEmpty
-		ifTrue: [ ^ nil ].
 	leftX := submorphs anyOne left.
 	topY := submorphs anyOne top.
 	rightX := submorphs anyOne right.
 	bottomY := submorphs anyOne bottom.
-	(self allMorphs select: [ :m | m ~= self ])
-		do: [ :m | 
-			leftX := leftX min: m left.
-			topY := topY min: m top.
-			rightX := rightX max: m right.
-			bottomY := bottomY max: m bottom ].
-	saveForm := saveForm
-		copy:
-			(leftX @ topY - self position
-				rectangle: rightX @ bottomY - self position).
+	(self allMorphs select: [ :m | m ~= self ]) do: [ :m | 
+		leftX := leftX min: m left.
+		topY := topY min: m top.
+		rightX := rightX max: m right.
+		bottomY := bottomY max: m bottom ].
+	saveForm := saveForm copy: (leftX @ topY - self position rectangle:
+			             rightX @ bottomY - self position).
 	screenshooting := false.
 	self changed.
 	^ saveForm
@@ -218,11 +189,6 @@ ScratchScriptsMorph >> topArgMorphAt: aRectangle exclude: aMorph [
 							and: [ argM acceptsDroppedReporters ])
 							ifTrue: [ ^ argM ] ] ] ].
 	^ nil
-]
-
-{ #category : #'dropping/grabbing' }
-ScratchScriptsMorph >> wantsDroppedMorph: aMorph event: evt [
-	^ aMorph isBlockMorph
 ]
 
 { #category : #stepping }

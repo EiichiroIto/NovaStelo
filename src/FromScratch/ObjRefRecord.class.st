@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'objectID'
 	],
-	#category : #'FromScratch-Project'
+	#category : #'FromScratch-Converter'
 }
 
 { #category : #accessing }

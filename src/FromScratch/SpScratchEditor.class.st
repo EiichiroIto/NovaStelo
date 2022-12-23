@@ -63,7 +63,7 @@ SpScratchEditor >> screenshot [
 
 { #category : #private }
 SpScratchEditor >> scriptsLabel [
-	^ 'Scripts'
+	^ 'Scripts' localized
 ]
 
 { #category : #accessing }

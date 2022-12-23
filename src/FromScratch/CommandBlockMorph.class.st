@@ -457,7 +457,7 @@ CommandBlockMorph >> isForever [
 
 { #category : #testing }
 CommandBlockMorph >> isStop [
-	^ #(stopThread stopAll return: break continue doReturn) includes: selector
+	^ receiver stopBlocks includes: selector
 ]
 
 { #category : #testing }

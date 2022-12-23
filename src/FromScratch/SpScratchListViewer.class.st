@@ -63,11 +63,6 @@ SpScratchListViewer >> markerFormFor: aString [
 	^ canvas form
 ]
 
-{ #category : #private }
-SpScratchListViewer >> pageViewerContents: aMorph [
-	pageViewer morph contents: aMorph
-]
-
 { #category : #accessing }
 SpScratchListViewer >> target [
 	^ target

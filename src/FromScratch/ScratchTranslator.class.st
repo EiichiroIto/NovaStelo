@@ -14,6 +14,34 @@ Class {
 	#category : #'FromScratch-Translation'
 }
 
+{ #category : #utilities }
+ScratchTranslator class >> addBlockDefs: aCollection to: aSet [
+
+	aCollection do: [ :each | 
+		aSet addAll: each blockCategories.
+		each blocks do: [ :each2 | 
+			each2 = '-' ifFalse: [ 
+				each2 isString
+					ifTrue: [ aSet add: each2 ]
+					ifFalse: [ 
+						(each2 isArray and: [ each2 size > 2 ]) ifTrue: [ 
+							aSet add: each2 first ] ] ] ] ]
+]
+
+{ #category : #utilities }
+ScratchTranslator class >> addLocalizedTextsTo: aSet [
+
+	| list list3 |
+	list := #localized senders.
+	list do: [ :each | 
+		list3 := each sendNodes select: [ :each2 | 
+			         each2 selector = #localized and: [ 
+				         each2 receiver isLiteralNode and: [ 
+					         each2 receiver isLiteralArray not ] ] ].
+		list3 := list3 collect: [ :each2 | each2 receiver value ].
+		aSet addAll: list3 ]
+]
+
 { #category : #accessing }
 ScratchTranslator class >> argFont [
 	^ self fontAt: #Arg
@@ -21,7 +49,11 @@ ScratchTranslator class >> argFont [
 
 { #category : #accessing }
 ScratchTranslator class >> availableLocaleFiles [
-	^ 'locale' asFileReference filesMatching: '*.po'
+
+	| fr |
+	fr := 'locale' asFileReference.
+	fr isDirectory ifFalse: [ ^ #(  ) ].
+	^ fr filesMatching: '*.po'
 ]
 
 { #category : #accessing }
@@ -85,6 +117,19 @@ ScratchTranslator class >> ellipsesSuffix [
 { #category : #private }
 ScratchTranslator class >> fontAt: aSymbol [
 	^ self current fontAt: aSymbol
+]
+
+{ #category : #utilities }
+ScratchTranslator class >> generatePOTFile [
+
+	"ScratchTranslator generatePOTFile"
+
+	| list strings |
+	strings := Set new.
+	list := ScratchScript allSubclasses collect: [ :each | each new ].
+	self addBlockDefs: list to: strings.
+	self addLocalizedTextsTo: strings.
+	self writePOT: strings fileNamed: 'app.pot'
 ]
 
 { #category : #'class initialization' }
@@ -198,6 +243,24 @@ ScratchTranslator class >> verticalTrimForFont: aStrikeFont [
 	^ extra
 
 
+]
+
+{ #category : #utilities }
+ScratchTranslator class >> writePOT: aCollection fileNamed: aString [
+
+	| file |
+	file := FileSystem workingDirectory / aString.
+	file isFile ifTrue: [ file delete ].
+	file writeStreamDo: [ :stream | 
+		aCollection asSortedCollection do: [ :each | 
+			stream
+				nextPutAll: 'msgid "';
+				nextPutAll: each;
+				nextPut: $";
+				nextPutAll: String crlf;
+				nextPutAll: 'msgstr ""';
+				nextPutAll: String crlf;
+				nextPutAll: String crlf ] ]
 ]
 
 { #category : #private }

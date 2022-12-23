@@ -42,7 +42,7 @@ Class {
 		'NameToClassEntry',
 		'ObjectReferenceID'
 	],
-	#category : #'FromScratch-Project'
+	#category : #'FromScratch-Converter'
 }
 
 { #category : #accessing }
@@ -53,19 +53,6 @@ ObjStream class >> arrayFor: id size: size [
 	classSymbol = #FloatArray ifTrue: [ ^ FloatArray new: size ].
 	classSymbol = #IntegerArray ifTrue: [ ^ IntegerArray new: size ].
 	self error: 'Invalid Array'
-]
-
-{ #category : #accessing }
-ObjStream class >> fileVersion: anAppClass from: aStream [
-	"Answer the Scratch file version number from the given string. If the string is of the form: 'ScratchVxx', were xx is a two-digit integer, answer the value of xx. Otherwise, answer 0."
-
-	| str |
-	str := (aStream next: anAppClass fileVersionString size) asString.
-	(str beginsWith: anAppClass fileVersionTag)
-		ifFalse: [ ^ 0 ].
-	^ (str
-		copyFrom: anAppClass fileVersionTag size + 1
-		to: str size) asNumberNoError
 ]
 
 { #category : #private }

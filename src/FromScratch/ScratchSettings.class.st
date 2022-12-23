@@ -102,6 +102,18 @@ ScratchSettings >> language: aString [
 	dictionary at: #language put: aString
 ]
 
+{ #category : #api }
+ScratchSettings >> loadFile: aFileReference [
+
+	| dict |
+	aFileReference isFile ifFalse: [ ^ self ].
+	dict := STON fromString: aFileReference contents.
+	dict isDictionary ifFalse: [ ^ self ].
+	dict keysDo: [ :each | 
+		(self respondsTo: each asSymbol) ifFalse: [ dict removeKey: each ] ].
+	dictionary := dict
+]
+
 { #category : #accessing }
 ScratchSettings >> optionsFor: aSymbol [
 	aSymbol = #stickyWindow
@@ -128,9 +140,7 @@ ScratchSettings >> optionsFor: aSymbol [
 { #category : #accessing }
 ScratchSettings >> projectDir [
 
-	^ dictionary
-		  at: #projectDir
-		  ifAbsent: [ ^ FileSystem workingDirectory pathString ]
+	^ dictionary at: #projectDir ifAbsent: [ ^ '' ]
 ]
 
 { #category : #accessing }
@@ -146,6 +156,16 @@ ScratchSettings >> resizable [
 { #category : #accessing }
 ScratchSettings >> resizable: aBoolean [
 	dictionary at: #resizable put: aBoolean
+]
+
+{ #category : #api }
+ScratchSettings >> saveFile: aFileReference [
+
+	| stream |
+	aFileReference isFile ifTrue: [ aFileReference delete ].
+	stream := aFileReference writeStream.
+	STON put: dictionary onStream: stream.
+	stream close
 ]
 
 { #category : #accessing }

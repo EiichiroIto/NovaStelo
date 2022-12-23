@@ -5,7 +5,8 @@ Class {
 		'presenter',
 		'project',
 		'projectDirectory',
-		'settings'
+		'settings',
+		'extraDirectory'
 	],
 	#classVars : [
 		'Clipboard',
@@ -137,6 +138,25 @@ SpScratchApp class >> multiSelect: aString chooseFrom: aCollection selectedItems
 		  openModal
 ]
 
+{ #category : #'instance creation' }
+SpScratchApp class >> open [
+
+	| settings |
+	settings := self settingsClass new.
+	settings loadFile:
+		FileSystem workingDirectory / self settingsFilename.
+	self openWithSettings: settings
+]
+
+{ #category : #'instance creation' }
+SpScratchApp class >> openWithSettings: aSettings [
+
+	ScratchTranslator setLocale: aSettings language.
+	self new
+		settings: aSettings;
+		open
+]
+
 { #category : #constants }
 SpScratchApp class >> presentationClass [
 	self subclassResponsibility
@@ -151,6 +171,13 @@ SpScratchApp class >> previewClass [
 { #category : #constants }
 SpScratchApp class >> projectClass [
 	self subclassResponsibility
+]
+
+{ #category : #'menu actions' }
+SpScratchApp class >> quit [
+
+	(self confirm: 'Quit Application?' localized) ifFalse: [ ^ self ].
+	Smalltalk snapshot: false andQuit: true
 ]
 
 { #category : #utilities }
@@ -176,6 +203,11 @@ SpScratchApp class >> request: aString initialAnswer: aString2 [
 		  openModal
 ]
 
+{ #category : #constants }
+SpScratchApp class >> screenshotExtent [
+	^ 400 @ 400
+]
+
 { #category : #utilities }
 SpScratchApp class >> select: aString chooseFrom: aCollection [
 
@@ -197,7 +229,7 @@ SpScratchApp class >> settingsFilename [
 	^ 'settings.ston'
 ]
 
-{ #category : #private }
+{ #category : #constants }
 SpScratchApp class >> thumbnailExtent [
 	^ 120 @ 120
 ]
@@ -404,6 +436,8 @@ SpScratchApp >> examplesDirectory [
 
 { #category : #private }
 SpScratchApp >> export: anExporter extension: aString [
+
+	self flag: #ToBeRemoved.
 	self export: anExporter extension: aString isBinary: false
 ]
 
@@ -419,6 +453,36 @@ SpScratchApp >> export: anExporter extension: aString isBinary: aBoolean [
 	self exportString: str extension: aString isBinary: aBoolean
 ]
 
+{ #category : #'menu actions' }
+SpScratchApp >> exportScriptImage [
+
+	| file saveForm |
+	saveForm := presenter scriptForm.
+	saveForm ifNil: [ ^ self ].
+	file := UIManager default
+		        chooseForSaveFileReference: 'Export ...' localized
+		        extensions: { self imageExtension }
+		        path: self extraPath.
+	file ifNil: [ ^ self ].
+	self extraDirectory: file parent.
+	saveForm writePNGFileNamed: file pathString
+]
+
+{ #category : #'menu actions' }
+SpScratchApp >> exportStageImage [
+
+	| file saveForm |
+	saveForm := presenter stageShotExtent: self class screenshotExtent.
+	saveForm ifNil: [ ^ self ].
+	file := UIManager default
+		        chooseForSaveFileReference: 'Export ...' localized
+		        extensions: { self imageExtension }
+		        path: self extraPath.
+	file ifNil: [ ^ self ].
+	self extraDirectory: file parent.
+	saveForm writePNGFileNamed: file pathString
+]
+
 { #category : #private }
 SpScratchApp >> exportString: aContentsString extension: aString isBinary: aBoolean [
 
@@ -428,8 +492,9 @@ SpScratchApp >> exportString: aContentsString extension: aString isBinary: aBool
 	file := UIManager default
 		        chooseForSaveFileReference: 'Export ...' localized
 		        extensions: { aString }
-		        path: self projectPath.
+		        path: self extraPath.
 	file ifNil: [ ^ self ].
+	self extraDirectory: file parent.
 	f := nil.
 	self class
 		try: [ 
@@ -449,12 +514,37 @@ SpScratchApp >> extension [
 ]
 
 { #category : #accessing }
+SpScratchApp >> extraDirectory [
+
+	extraDirectory ifNotNil: [ ^ extraDirectory ].
+	^ self projectDirectory
+]
+
+{ #category : #accessing }
+SpScratchApp >> extraDirectory: anObject [
+
+	extraDirectory := anObject
+]
+
+{ #category : #accessing }
+SpScratchApp >> extraPath [
+	^ self extraDirectory / self projectName
+]
+
+{ #category : #accessing }
 SpScratchApp >> fixUnsavedFields [
 	project ifNotNil: #fixUnsavedFields
 ]
 
 { #category : #private }
+SpScratchApp >> imageExtension [
+	^ 'png'
+]
+
+{ #category : #private }
 SpScratchApp >> import: anImporter extension: aString [
+
+	self flag: #ToBeRemoved.
 	self import: anImporter extension: aString isBinary: false
 ]
 
@@ -477,9 +567,10 @@ SpScratchApp >> importFileWithExtension: aString isBinary: aBoolean [
 	file := UIManager default
 		        chooseExistingFileReference: 'Import ...' localized
 		        extensions: { aString }
-		        path: self projectDirectory.
+		        path: self extraDirectory.
 	file ifNil: [ ^ nil ].
 	file isFile ifFalse: [ ^ nil ].
+	self extraDirectory: file parent.
 	f := aBoolean
 		     ifTrue: [ file binaryReadStream ]
 		     ifFalse: [ file readStream ].
@@ -496,15 +587,6 @@ SpScratchApp >> importFileWithExtension: aString isBinary: aBoolean [
 			  nil ]
 ]
 
-{ #category : #initialization }
-SpScratchApp >> initialize [
-
-	settings := self class settingsClass new.
-	self loadSettings.
-	ScratchTranslator setLocale: settings language.
-	super initialize
-]
-
 { #category : #private }
 SpScratchApp >> installNewProject: aProject [
 	self subclassResponsibility
@@ -515,41 +597,16 @@ SpScratchApp >> isProcessRunning [
 	self subclassResponsibility
 ]
 
-{ #category : #settings }
-SpScratchApp >> language: aString [
-
-	| old |
-	old := settings language.
-	(ScratchTranslator setLocale: aString) ifFalse: [ ^ self ].
-	settings language: aString.
-	old = aString ifTrue: [ ^ self ].
-	(self confirm: 'Language settings has changed. Restart application?') 
-		ifFalse: [ ^ self ].
-	self saveSettings.
-	Smalltalk snapshot: false andQuit: true
-]
-
 { #category : #'menu actions' }
 SpScratchApp >> loadExample: aFileReference [
+
 	| newProj |
-	newProj := self createProject readProjectFrom: aFileReference.
+	self confirmForNewProject ifFalse: [ ^ self ].
+	newProj := self readProjectFrom: aFileReference.
 	newProj ifNil: [ ^ self ].
 	self projectDirectory: nil.
 	self projectName: aFileReference base.
 	self installNewProject: newProj
-]
-
-{ #category : #settings }
-SpScratchApp >> loadSettings [
-
-	| fr dict |
-	fr := FileSystem workingDirectory / self class settingsFilename.
-	fr isFile ifFalse: [ ^ self ].
-	dict := STON fromString: fr contents.
-	dict isDictionary ifFalse: [ ^ self ].
-	dict keysDo: [ :each | 
-		(settings respondsTo: each asSymbol) ifFalse: [ dict removeKey: each ] ].
-	settings dictionary: dict
 ]
 
 { #category : #utilities }
@@ -615,7 +672,8 @@ SpScratchApp >> openProject [
 		path: self projectDirectory
 		preview: self class previewClass.
 	file ifNil: [ ^ self ].
-	newProj := self createProject readProjectFrom: file.
+	file isFile ifFalse: [ ^ self ].
+	newProj := self readProjectFrom: file.
 	newProj ifNil: [ ^ self ].
 	self projectDirectory: file parent.
 	self projectName: file base.
@@ -658,15 +716,17 @@ SpScratchApp >> projectDirectory [
 
 	| file dict |
 	projectDirectory ifNotNil: [ ^ projectDirectory ].
-	file := settings projectDir.
+	file := settings projectDir trimBoth.
+	file isEmpty ifTrue: [ ^ FileSystem workingDirectory ].
 	dict := Dictionary new.
 	dict at: #documents put: FileLocator documents pathString.
-	file := (file trimBoth format: dict) asFileReference.
+	dict at: #app put: self appFolderName.
+	file := (file format: dict) asFileReference.
 	file isDirectory ifFalse: [ 
 		[ file createDirectory ]
 			on: Error
 			do: [ file := FileSystem workingDirectory ] ].
-	^ file pathString asFileReference
+	^ file
 ]
 
 { #category : #accessing }
@@ -701,11 +761,25 @@ SpScratchApp >> projectPath [
 	^ self projectDirectory / self projectName
 ]
 
-{ #category : #'menu actions' }
-SpScratchApp >> quit [
-	(self confirm: 'Quit Application?' localized)
-		ifFalse: [ ^ self ].
-	Smalltalk snapshot: false andQuit: true
+{ #category : #'file read/write' }
+SpScratchApp >> readProjectFrom: aFileReference [
+
+	| f projData newProj reader |
+	reader := project newProjectReadWriter.
+	f := aFileReference binaryReadStream.
+	f ifNil: [ 
+		self alert:
+			'Could not read file: ' localized , aFileReference pathString.
+		^ nil ].
+	^ self class
+		  try: [ 
+			  projData := f contents.
+			  newProj := reader extractProjectFrom: projData.
+			  newProj info: (reader extractInfoFrom: projData).
+			  newProj ]
+		  onFailure: [ :err | 
+			  self alert: err messageText.
+			  nil ]
 ]
 
 { #category : #utilities }
@@ -741,7 +815,7 @@ SpScratchApp >> saveProjectAs: aFileReference [
 	targetName := presenter target objName.
 	project
 		thumbnailForm: (presenter stageShotExtent: self class thumbnailExtent).
-	(project writeProjectAs: aFileReference)
+	(self writeProjectAs: aFileReference)
 		ifFalse: [ ^ false ].
 	self projectName: aFileReference base.
 	self projectDirectory: aFileReference parent.
@@ -770,12 +844,8 @@ SpScratchApp >> saveScratchFileFor: aProject [
 { #category : #settings }
 SpScratchApp >> saveSettings [
 
-	| fr stream |
-	fr := FileSystem workingDirectory / self class settingsFilename.
-	fr isFile ifTrue: [ fr delete ].
-	stream := fr writeStream.
-	STON put: settings dictionary onStream: stream.
-	stream close
+	settings saveFile:
+		FileSystem workingDirectory / self class settingsFilename
 ]
 
 { #category : #utilities }
@@ -787,7 +857,7 @@ SpScratchApp >> select: aString chooseFrom: aCollection [
 { #category : #settings }
 SpScratchApp >> selectSetting: aSymbol [
 
-	| list ret |
+	| list ret old |
 	self closeMediaEditorsAndDialogs.
 	list := settings optionsFor: aSymbol.
 	ret := list = #string
@@ -801,7 +871,17 @@ SpScratchApp >> selectSetting: aSymbol [
 				       select: 'Select an option for ' localized , aSymbol
 				       chooseFrom: list ].
 	ret ifNil: [ ^ self ].
-	self settingAt: aSymbol put: ret
+	ret = (self settingAt: aSymbol) ifTrue: [ ^ self ].
+	self settingAt: aSymbol put: ret.
+	aSymbol = #language ifFalse: [ ^ self ].
+	(self confirm: 'Language settings has changed. Restart application?') 
+		ifFalse: [ ^ self ].
+	old := self settingAt: #dontClose.
+	self settingAt: #dontClose put: false.
+	presenter updateWindowSettings.
+	self closeAllWindows.
+	self settingAt: #dontClose put: old.
+	self class openWithSettings: settings
 ]
 
 { #category : #private }
@@ -890,6 +970,18 @@ SpScratchApp >> target [
 	^ presenter target
 ]
 
+{ #category : #'file read/write' }
+SpScratchApp >> unusedNameStartingWith: prefix in: aFileReference [
+	| usedNames i result |
+	usedNames := (aFileReference entries
+		collect: [ :each | each basename ]) asSet.
+	i := 0.
+	result := prefix , '0'.
+	[ usedNames includes: result ]
+		whileTrue: [ result := prefix , (i := i + 1) printString ].
+	^ aFileReference / result
+]
+
 { #category : #accessing }
 SpScratchApp >> updateContents [
 	presenter updateContents
@@ -898,4 +990,44 @@ SpScratchApp >> updateContents [
 { #category : #private }
 SpScratchApp >> windowClosing [
 	"do nothing"
+]
+
+{ #category : #'file read/write' }
+SpScratchApp >> writeProjectAs: aFileReference [
+
+	| saveError out tmpFile writer |
+	writer := project newProjectReadWriter.
+	saveError := nil.
+	tmpFile := (self
+		            unusedNameStartingWith: 'tmp'
+		            in: aFileReference parent) asFileReference.
+	self class
+		try: [ 
+			out := tmpFile binaryWriteStream.
+			out
+				ifNil: [ 
+				saveError := 'Folder may be locked or read-only' localized ]
+				ifNotNil: [ 
+					writer writeProject: project to: out.
+					out close ] ]
+		onFailure: [ :err | 
+			out ifNotNil: [ 
+				[ 
+				out close.
+				tmpFile delete ]
+					on: Error
+					do: [  ] ].
+			saveError := err ].
+	saveError ifNotNil: [ 
+		self alert: saveError.
+		^ false ].
+	aFileReference deleteIfAbsent: [  ].
+	[ tmpFile renameTo: aFileReference basename ]
+		on: Error
+		do: [ 
+			self alert:
+				'Save failed. The folder may be read-only.' localized.
+			^ false ].
+	project modified: false.
+	^ true
 ]

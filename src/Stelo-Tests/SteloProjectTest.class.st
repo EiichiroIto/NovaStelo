@@ -12,6 +12,7 @@ SteloProjectTest >> newApp [
 
 	| app |
 	app := SpStelo new.
+	app settings: SpStelo settingsClass new.
 	app presenter: app newPresenter.
 	^ app
 ]

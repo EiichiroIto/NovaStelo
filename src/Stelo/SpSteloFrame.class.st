@@ -238,11 +238,11 @@ SpSteloFrame >> exportMenu [
 		addItem: [ :item | 
 			item
 				name: 'Export Script image' localized;
-				action: [ application saveScriptsToImage ] ];
+				action: [ application exportScriptImage ] ];
 		addItem: [ :item | 
 			item
 				name: 'Export Stage image' localized;
-				action: [ application saveStageAsImage ] ];
+				action: [ application exportStageImage ] ];
 		yourself
 ]
 

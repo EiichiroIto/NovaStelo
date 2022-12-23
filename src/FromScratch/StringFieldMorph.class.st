@@ -20,62 +20,43 @@ Class {
 	#superclass : #BorderedMorph,
 	#instVars : [
 		'stringMorph',
-		'frame',
-		'client',
-		'insetX',
 		'insetY',
-		'heightPadding',
-		'doResizing',
 		'isNumeric',
-		'acceptWhenFocusLost',
 		'isKeyboardFocus',
-		'selectionColor',
 		'selectionStart',
 		'selectionEnd',
 		'dragStartIndex',
-		'undoState',
 		'blinkState',
 		'lastContents'
 	],
 	#category : #'FromScratch-Morphic'
 }
 
-{ #category : #private }
-StringFieldMorph >> acceptEdits [
-	"Tell the client to accept edits."
-
-	client ifNil: [^ self].
-	(client respondsTo: #accept) ifTrue: [client accept].
-	(client respondsTo: #acceptContents) ifTrue: [client acceptContents].
-	(client respondsTo: #yes) ifTrue: [client yes].
-
-]
-
 { #category : #'text editing' }
 StringFieldMorph >> backspace [
+
 	"Delete the current selection. If there is no selection, delete the character before the cursor."
 
 	| str newStr |
-	(self rightSelection - self leftSelection) > 0 ifTrue: [^ self removeSelection].
-	self leftSelection < 1 ifTrue: [^ self].
-	self recordUndoState.
+	self rightSelection - self leftSelection > 0 ifTrue: [ 
+		^ self removeSelection ].
+	self leftSelection < 1 ifTrue: [ ^ self ].
 	str := stringMorph contents.
-	newStr :=
-		(str copyFrom: 1 to: self leftSelection - 1),
-		(str copyFrom: self leftSelection + 1 to: str size).
+	newStr := (str copyFrom: 1 to: self leftSelection - 1)
+	          , (str copyFrom: self leftSelection + 1 to: str size).
 	stringMorph contentsClipped: newStr.
-	selectionEnd := selectionStart := (self leftSelection - 1) max: 0.
-	self stringChanged.
-
+	selectionEnd := selectionStart := self leftSelection - 1 max: 0.
+	self stringChanged
 ]
 
 { #category : #accessing }
 StringFieldMorph >> borderWidth: aNumber [
+
 	"Adjust the position of my stringMorph to the new border size."
 
 	super borderWidth: (aNumber asInteger max: 0).
-	stringMorph position: self position + borderWidth + (insetX@insetY).
-
+	stringMorph position:
+		self position + borderWidth + (self insetX @ insetY)
 ]
 
 { #category : #private }
@@ -86,7 +67,7 @@ StringFieldMorph >> characterOffsetForXOffset: screenX [
 	stringMorph contents size = 0 ifTrue: [^ 0].
 
 	x := screenX - stringMorph leftMargin.  "x offset within the string"
-	xRanges := stringMorph xRangesFor: stringMorph stringToDisplay.
+	xRanges := stringMorph xRangesFor: stringMorph contents.
 
 	1 to: xRanges size do: [:i |
 		p := xRanges at: i.
@@ -116,6 +97,14 @@ StringFieldMorph >> characterOffsetForXOffset: screenX [
 
 ]
 
+{ #category : #'text editing' }
+StringFieldMorph >> clear [
+
+	stringMorph contents: ''.
+	selectionEnd := selectionStart := 0.
+	self stringChanged
+]
+
 { #category : #'event handling' }
 StringFieldMorph >> click: evt [
 
@@ -133,21 +122,11 @@ StringFieldMorph >> click: evt [
 ]
 
 { #category : #accessing }
-StringFieldMorph >> client: aMorphOrNil [
-
-	client := aMorphOrNil.
-
-]
-
-{ #category : #accessing }
 StringFieldMorph >> color [
 
-	frame ifNotNil: [^ frame color].
 	^ color = Color transparent
-		ifTrue: [owner color]
-		ifFalse: [color]
-
-
+		  ifTrue: [ owner color ]
+		  ifFalse: [ color ]
 ]
 
 { #category : #accessing }
@@ -160,12 +139,8 @@ StringFieldMorph >> contents [
 { #category : #accessing }
 StringFieldMorph >> contents: aString [
 
-	doResizing
-		ifTrue: [stringMorph contents: aString "asUTF32"]
-		ifFalse: [stringMorph contentsClipped: aString "asUTF32"].
-
-	self stringChanged.
-
+	stringMorph contents: aString.
+	self stringChanged
 ]
 
 { #category : #'text editing' }
@@ -188,7 +163,7 @@ StringFieldMorph >> currsorOffsetFor: characterOffset [
 	| s xRanges xPairChar0 xPairCharLast startsOnLeft r xPairCharOffset |
 	stringMorph contents size = 0 ifTrue: [^ 0].
 
-	s := stringMorph stringToDisplay.
+	s := stringMorph contents.
 	xRanges := stringMorph xRangesFor: s.
 	xPairChar0 := xRanges at: 1.
 	xPairCharLast := xRanges last.
@@ -226,28 +201,19 @@ StringFieldMorph >> cutSelection [
 
 { #category : #'text editing' }
 StringFieldMorph >> deleteSelection [
+
 	"Delete the current selection. If there is no selection, delete the character after the cursor."
 
 	| str newStr |
 	str := stringMorph contents.
-	(self rightSelection - self leftSelection) > 0 ifTrue: [^ self removeSelection].
-	(self rightSelection >= str size) ifTrue: [^ self].
-	self recordUndoState.
-	newStr :=
-		(str copyFrom: 1 to: self leftSelection),
-		(str copyFrom: self leftSelection + 2 to: str size).
+	self rightSelection - self leftSelection > 0 ifTrue: [ 
+		^ self removeSelection ].
+	self rightSelection >= str size ifTrue: [ ^ self ].
+	newStr := (str copyFrom: 1 to: self leftSelection)
+	          , (str copyFrom: self leftSelection + 2 to: str size).
 	stringMorph contentsClipped: newStr.
 	selectionEnd := selectionStart := self leftSelection max: 0.
-	self stringChanged.
-
-]
-
-{ #category : #accessing }
-StringFieldMorph >> doResizing: aBoolean [
-	"If true, resize myself to the size of the string."
-
-	doResizing := aBoolean.
-
+	self stringChanged
 ]
 
 { #category : #'event handling' }
@@ -265,67 +231,63 @@ StringFieldMorph >> doubleClick: evt [
 
 { #category : #drawing }
 StringFieldMorph >> drawOn: aCanvas [
+
 	"Draw the background then the selection."
 
-	frame
-		ifNil: [
-			super drawOn: aCanvas]
-		ifNotNil: [
-			frame position: self topLeft; extent: self extent.
-			frame drawOn: aCanvas].
-
-	isKeyboardFocus ifTrue: [self drawSelectionOn: aCanvas].
-
+	super drawOn: aCanvas.
+	isKeyboardFocus ifTrue: [ self drawSelectionOn: aCanvas ]
 ]
 
 { #category : #drawing }
 StringFieldMorph >> drawSelectionOn: aCanvas [
 
- 	| xRanges clipC vInset offset selectionH rect pair start end |
-	xRanges := stringMorph xRangesFor: stringMorph stringToDisplay.
+	| xRanges clipC vInset offset selectionH rect start end |
+	xRanges := stringMorph xRangesFor: stringMorph contents.
 	clipC := aCanvas copyClipRect: self innerBounds.
 	vInset := borderWidth + 2.
-	offset := stringMorph leftMargin@(self top + vInset).
+	offset := stringMorph leftMargin @ (self top + vInset).
 	selectionH := self height - (2 * vInset).
 
-	selectionStart = selectionEnd ifTrue: [
-		blinkState ifNil: [blinkState := true].
-		blinkState ifTrue: [
-			rect := ((self currsorOffsetFor: selectionStart) - 1)@0 extent: 2@selectionH.
-			clipC fillRectangle: (rect translateBy: offset) color: selectionColor].
-		^ self].
+	selectionStart = selectionEnd ifTrue: [ 
+		blinkState ifTrue: [ 
+			rect := (self currsorOffsetFor: selectionStart) - 1 @ 0 extent:
+				        2 @ selectionH.
+			clipC
+				fillRectangle: (rect translateBy: offset)
+				color: self selectionColor ].
+		^ self ].
 
 	selectionStart < selectionEnd
-		ifTrue: [
+		ifTrue: [ 
 			start := selectionStart + 1.
-			end := selectionEnd]
-		ifFalse: [
+			end := selectionEnd ]
+		ifFalse: [ 
 			start := selectionEnd + 1.
-			end := selectionStart].
+			end := selectionStart ].
+	start := start max: 1.
+	end := end min: xRanges size.
 
-	start to: end do: [:i |
-		(i between: 1 and: xRanges size) ifTrue: [
-			pair := xRanges at: i.
-			rect := (pair first @ 0) corner: (pair second @ selectionH).
-			clipC fillRectangle: (rect translateBy: offset) color: selectionColor]].
-
+	rect := (xRanges at: start) first @ 0 corner:
+		        (xRanges at: end) second @ selectionH.
+	clipC
+		fillRectangle: (rect translateBy: offset)
+		color: self selectionColor
 ]
 
 { #category : #drawing }
 StringFieldMorph >> drawSubmorphsOn: aCanvas [
+
 	"Clip submorph drawing to my bounds."
 
-	"stringMorph suppressAntiAliasing: isKeyboardFocus."
-	super drawSubmorphsOn: (aCanvas copyClipRect: self innerBounds).
-
+	super drawSubmorphsOn: (aCanvas copyClipRect: self innerBounds)
 ]
 
 { #category : #geometry }
 StringFieldMorph >> extent: aPoint [
 
 	super extent: aPoint.
-	stringMorph width: ((self width - (2 * borderWidth) - insetX) max: 0).
-
+	stringMorph width:
+		(self width - (2 * borderWidth) - self insetX max: 0)
 ]
 
 { #category : #accessing }
@@ -339,22 +301,14 @@ StringFieldMorph >> font [
 StringFieldMorph >> font: aFont [
 
 	stringMorph font: aFont.
-	stringMorph height: (stringMorph stringHeight: ScratchTranslator renderHintString).
-	self height: stringMorph height + (2 * borderWidth) + heightPadding.
-	insetY := (self height // 2) - borderWidth - (ScratchTranslator centerOffsetForButtonWithFont: aFont).
+	stringMorph height:
+		(stringMorph stringHeight: ScratchTranslator renderHintString).
+	self height:
+		stringMorph height + (2 * borderWidth) + self heightPadding.
+	insetY := self height // 2 - borderWidth
+	          - (ScratchTranslator centerOffsetForButtonWithFont: aFont).
 	insetY := insetY max: 1.
-	self borderWidth: borderWidth.  "re-position string"
-
-]
-
-{ #category : #initialization }
-StringFieldMorph >> forExpressionArg [
-	frame := nil.
-	borderColor := Color transparent.
-	borderWidth := 0.
-	insetX := 0.
-	heightPadding := 2.
-	self font: ScratchTranslator argFont
+	self borderWidth: borderWidth "re-position string"
 ]
 
 { #category : #geometry }
@@ -377,52 +331,63 @@ StringFieldMorph >> handlesMouseDown: evt [
 	^ true
 ]
 
+{ #category : #private }
+StringFieldMorph >> heightPadding [
+
+	^ 3
+]
+
 { #category : #initialization }
 StringFieldMorph >> initialize [
 
 	super initialize.
 
 	stringMorph := StringMorph new
-		contents: '';
-		font: (StrikeFont familyName: 'Verdana' size: 12).
+		               contents: '';
+		               font: (StrikeFont familyName: 'Verdana' size: 12).
 	self addMorph: stringMorph.
 
 	self color: Color red.
 	self textColor: ScratchTheme dialogBoxTextColor.
-	doResizing := false.
+	blinkState := true.
 	isNumeric := false.
 	isKeyboardFocus := false.
-	acceptWhenFocusLost := false.
 	self keyboardFocusChange: false.
-	selectionColor := ScratchTheme textSelectionColor.
 	selectionStart := selectionEnd := 0.
-	self recordUndoState.
-
-	self borderInset; useNoFrame.
+	self borderInset.
+	borderWidth := 2.
+	self font: stringMorph font.
 	self width: 100.
+	borderColor := Color transparent.
+	borderWidth := 0.
+	"insetX := 0."
+	"heightPadding := 2."
+	self font: ScratchTranslator argFont
 ]
 
 { #category : #'text editing' }
 StringFieldMorph >> insertCharacter: unicodeChar [
+
 	"Insert the given character at the cursor position."
 
 	| str newStr insertion |
-	isNumeric ifTrue: [
-		('-0123456789.,' asByteArray includes: unicodeChar)
-			ifFalse: [^ self beep]].
-
-	self recordUndoState.
+	isNumeric ifTrue: [ 
+		('-0123456789.,' asByteArray includes: unicodeChar) ifFalse: [ 
+			^ self beep ] ].
 	str := stringMorph contents.
 	"insertion := UTF32 with: unicodeChar."
 	insertion := (Unicode charFromUnicode: unicodeChar) asString.
-	newStr :=
-		(str copyFrom: 1 to: self leftSelection),
-		insertion,
-		(str copyFrom: (self rightSelection + 1) to: str size).
+	newStr := (str copyFrom: 1 to: self leftSelection) , insertion
+	          , (str copyFrom: self rightSelection + 1 to: str size).
 	selectionEnd := selectionStart := self leftSelection + 1.
 	stringMorph contentsClipped: newStr.
-	self stringChanged.
+	self stringChanged
+]
 
+{ #category : #private }
+StringFieldMorph >> insetX [
+
+	^ 2
 ]
 
 { #category : #private }
@@ -456,15 +421,36 @@ StringFieldMorph >> keyDown: evt [
 		(m := self meOrOwnerThatIsA: CommandBlockMorph) ifNotNil: [ 
 			m tabToNextField: evt ].
 		^ self ].
-
 	ch = Character cr | (ch = Character lf) ifTrue: [ 
 		evt hand newKeyboardFocus: nil.
 		^ self ].
 
-	ch = Character escape ifTrue: [ ^ self ].
+	ch = Character escape ifTrue: [ self clear ].
+	ch = Character backspace ifTrue: [ self backspace ].
+	ch = Character delete ifTrue: [ self deleteSelection ].
 
-	ch = Character backspace ifTrue: [ ^ self backspace ].
-	ch = Character delete ifTrue: [ ^ self deleteSelection ]
+	ch = Character arrowLeft ifTrue: [ 
+		evt shiftPressed
+			ifTrue: [ self moveCursorLeftAndSelect ]
+			ifFalse: [ self moveCursorLeft ] ].
+	ch = Character arrowRight ifTrue: [ 
+		evt shiftPressed
+			ifTrue: [ self moveCursorRightAndSelect ]
+			ifFalse: [ self moveCursorRight ] ].
+	(ch = Character home or: [ ch = Character arrowUp ]) ifTrue: [ 
+		evt shiftPressed
+			ifTrue: [ self moveCursorHomeAndSelect ]
+			ifFalse: [ self moveCursorHome ] ].
+	(ch = Character end or: [ ch = Character arrowDown ]) ifTrue: [ 
+		evt shiftPressed
+			ifTrue: [ self moveCursorEndAndSelect ]
+			ifFalse: [ self moveCursorEnd ] ].
+	evt controlKeyPressed ifTrue: [ 
+		ch = $a ifTrue: [ self selectAll ].
+		ch = $c ifTrue: [ self copySelection ].
+		ch = $v ifTrue: [ self paste ].
+		ch = $x ifTrue: [ self cutSelection ] ].
+	self stringChanged
 ]
 
 { #category : #'event handling' }
@@ -472,52 +458,28 @@ StringFieldMorph >> keyStroke: evt [
 
 	| ch |
 	ch := evt keyCharacter asUnicode.
-	ch = 0 ifTrue: [ch := evt keyValue].
-
-	evt buttons = 64 ifTrue: [ch := ch \\ 32].  "command (alt) key pressed; map to a control key"
-	(ch = 3) & (evt buttons = 0) ifTrue: [ch := 13].  "map enter key to cr"
-
-	(evt buttons = 64) | (evt buttons = 16) ifTrue: [	"ctrl (or alt) is pressed"
-		ch = 1 ifTrue: [self selectAll].		"ctrl-a"
-		ch = 3 ifTrue: [self copySelection]. 	"ctrl-c"
-		ch = 22 ifTrue: [self paste].			"ctrl-v"
-		ch = 24 ifTrue: [self cutSelection].	"ctrl-x"
-		ch = 26 ifTrue: [self undo]].			"ctrl-z"
-
-	evt buttons = 8 ifTrue: [ "shift is pressed"
-		ch = 28 ifTrue: [self moveCursorLeftAndSelect].  	"shift-left"
-		ch = 29 ifTrue: [self moveCursorRightAndSelect].	"shift-right"
-		ch = 1 ifTrue: [self moveCursorHomeAndSelect].	"home"
-		ch = 4 ifTrue: [self moveCursorEndAndSelect]].	"end"
-
-	evt buttons = 0 ifTrue: [
-		ch = 1 ifTrue: [self moveCursorHome].	"home"
-		ch = 4 ifTrue: [self moveCursorEnd].		"end"
-		ch = 28 ifTrue: [self moveCursorLeft].	"left"
-		ch = 29 ifTrue: [self moveCursorRight].	"right"
-		blinkState := true].
-
-	ch >= 32 ifTrue: [self insertCharacter: ch].
-
+	ch >= 32 ifTrue: [ self insertCharacter: ch ]
 ]
 
 { #category : #'event handling' }
 StringFieldMorph >> keyboardFocusChange: amGettingFocus [
+
 	"Set my color to show whether I have focus."
 
-	(amGettingFocus and: [isKeyboardFocus not]) ifTrue: [
-		lastContents := stringMorph contents].
+	(amGettingFocus and: [ isKeyboardFocus not ]) ifTrue: [ 
+		lastContents := stringMorph contents ].
 
-	(isKeyboardFocus and: [amGettingFocus not]) ifTrue: [
+	(isKeyboardFocus and: [ amGettingFocus not ]) ifTrue: [ 
 		lastContents := nil.
-		isNumeric ifTrue: [
-			self contents: stringMorph contents asNumberNoError printString].
-		acceptWhenFocusLost ifTrue: [self acceptEdits]].
+		isNumeric ifTrue: [ 
+			self contents: stringMorph contents asNumberNoError printString ] ].
 
 	isKeyboardFocus := amGettingFocus.
-	isKeyboardFocus ifTrue: [selectionStart := 0. selectionEnd := stringMorph contents size].
-	self changed.
-
+	isKeyboardFocus ifTrue: [ 
+		selectionStart := 0.
+		selectionEnd := stringMorph contents size.
+		blinkState := true ].
+	self stringChanged
 ]
 
 { #category : #private }
@@ -558,12 +520,11 @@ StringFieldMorph >> moveCursorEnd [
 
 { #category : #'text editing' }
 StringFieldMorph >> moveCursorEndAndSelect [
+
 	"Move the cursor (selectionStart), and select contents, to the end of the current line."
 
-	self recordUndoState.
 	selectionStart := stringMorph contents size.
-	self changed.
-
+	self changed
 ]
 
 { #category : #'text editing' }
@@ -578,12 +539,11 @@ StringFieldMorph >> moveCursorHome [
 
 { #category : #'text editing' }
 StringFieldMorph >> moveCursorHomeAndSelect [
+
 	"Move the cursor (selectionStart), and select contents, to the beginning of the current line."
 
-	self recordUndoState.
 	selectionStart := 0.
-	self changed.
-
+	self changed
 ]
 
 { #category : #'text editing' }
@@ -598,32 +558,30 @@ StringFieldMorph >> moveCursorLeft [
 
 { #category : #'text editing' }
 StringFieldMorph >> moveCursorLeftAndSelect [
+
 	"Move the cursor (selectionStart), and select, left by one character."
 
-	self recordUndoState.
-	selectionStart := (selectionStart - 1) max: 0.
-	self changed.
-
+	selectionStart := selectionStart - 1 max: 0.
+	self changed
 ]
 
 { #category : #'text editing' }
 StringFieldMorph >> moveCursorRight [
+
 	"Move the cursor (selectionStart) right by one character."
 
-	self moveCursorRightAndSelect.
+	selectionStart := selectionEnd + 1 min: stringMorph contents size.
 	selectionEnd := selectionStart.
-	self changed.
-
+	self changed
 ]
 
 { #category : #'text editing' }
 StringFieldMorph >> moveCursorRightAndSelect [
+
 	"Move the cursor (selectionStart), and select, right by one character."
 
-	self recordUndoState.
-	selectionStart := (selectionStart + 1) min: stringMorph contents size.
-	self changed.
-
+	selectionStart := selectionStart + 1 min: stringMorph contents size.
+	self changed
 ]
 
 { #category : #accessing }
@@ -635,49 +593,33 @@ StringFieldMorph >> passwordMode: aBoolean [
 
 { #category : #'text editing' }
 StringFieldMorph >> paste [
+
 	"Paste the last cut or copy over the current selection."
 
 	| strToInsert str newStr |
 	strToInsert := ScratchTranslator unicodeClipboard.
-	strToInsert isEmpty ifTrue: [^ self].
-
-	self recordUndoState.
+	strToInsert isEmpty ifTrue: [ ^ self ].
 	str := stringMorph contents.
-	newStr :=
-		(str copyFrom: 1 to: self leftSelection),
-		strToInsert,
-		(str copyFrom: (self rightSelection + 1) to: str size).
-	selectionEnd := selectionStart := self leftSelection + strToInsert size.
+	newStr := (str copyFrom: 1 to: self leftSelection) , strToInsert
+	          , (str copyFrom: self rightSelection + 1 to: str size).
+	selectionEnd := selectionStart := self leftSelection
+	                                  + strToInsert size.
 	stringMorph contentsClipped: newStr.
-	self stringChanged.
-
-]
-
-{ #category : #'text editing' }
-StringFieldMorph >> recordUndoState [
-	"Remember the current contents and selection to allow undo."
-
-	undoState := Array
-		with: stringMorph contents
-		with: selectionStart
-		with: selectionEnd.
-
+	self stringChanged
 ]
 
 { #category : #'text editing' }
 StringFieldMorph >> removeSelection [
+
 	"Cut the current selection."
 
 	| str newStr |
-	self recordUndoState.
 	str := stringMorph contents.
-	newStr := 
-		(str copyFrom: 1 to: self leftSelection), 
-		(str copyFrom: self rightSelection + 1 to: str size).
+	newStr := (str copyFrom: 1 to: self leftSelection)
+	          , (str copyFrom: self rightSelection + 1 to: str size).
 	stringMorph contentsClipped: newStr.
 	selectionEnd := selectionStart := self leftSelection.
-	self stringChanged.
-
+	self stringChanged
 ]
 
 { #category : #private }
@@ -697,13 +639,12 @@ StringFieldMorph >> savedContents [
 
 { #category : #'text editing' }
 StringFieldMorph >> selectAll [
+
 	"Select my entire contents."
 
-	self recordUndoState.
 	selectionStart := 0.
 	selectionEnd := stringMorph contents size.
-	self changed.
-
+	self changed
 ]
 
 { #category : #'text editing' }
@@ -711,22 +652,25 @@ StringFieldMorph >> selectWordOrAll: index [
 
 	| str wordStart wordEnd |
 	str := stringMorph contents.
-	(index < 1) | (index > str size) ifTrue: [^ self selectAll].  "off end, select all"
-	(str at: index) isSeparator ifTrue: [^ self].  "on separator; do nothing"
-
-	self recordUndoState.
+	index < 1 | (index > str size) ifTrue: [ ^ self selectAll ]. "off end, select all"
+	(str at: index) isSeparator ifTrue: [ ^ self ]. "on separator; do nothing"
 	wordStart := index.
-	[(wordStart >= 1) and: [(str at: wordStart) isSeparator not]]
-		whileTrue: [wordStart := wordStart - 1].
+	[ wordStart >= 1 and: [ (str at: wordStart) isSeparator not ] ] 
+		whileTrue: [ wordStart := wordStart - 1 ].
 	wordEnd := index.
-	[(wordEnd < str size) and: [(str at: wordEnd) isSeparator not]]
-		whileTrue: [wordEnd := wordEnd + 1].
-	(str at: wordEnd) isSeparator ifTrue: [wordEnd := wordEnd - 1].
+	[ wordEnd < str size and: [ (str at: wordEnd) isSeparator not ] ] 
+		whileTrue: [ wordEnd := wordEnd + 1 ].
+	(str at: wordEnd) isSeparator ifTrue: [ wordEnd := wordEnd - 1 ].
 
 	selectionStart := wordStart.
 	selectionEnd := wordEnd.
-	self changed.
+	self stringChanged
+]
 
+{ #category : #private }
+StringFieldMorph >> selectionColor [
+
+	^ ScratchTheme textSelectionColor
 ]
 
 { #category : #'event handling' }
@@ -746,7 +690,6 @@ StringFieldMorph >> startDrag: evt [
 StringFieldMorph >> step [
 
 	isKeyboardFocus ifFalse: [^ self].
-	blinkState ifNil: [blinkState := false].
 	blinkState := blinkState not.
 	selectionStart = selectionEnd ifTrue: [self changed].
 
@@ -761,14 +704,13 @@ StringFieldMorph >> stepTime [
 
 { #category : #private }
 StringFieldMorph >> stringChanged [
+
 	"My string has changed. Resize myself if necessary and report the change."
 
-	doResizing ifTrue: [
-		stringMorph fitContents.
-		self width: (stringMorph right - self left) + borderWidth + 3].
-	(owner respondsTo: #fixArgLayout) ifTrue: [owner fixArgLayout].
-	self changed.
-
+	stringMorph fitContents.
+	self width: stringMorph right - self left + borderWidth + 3.
+	(owner respondsTo: #fixArgLayout) ifTrue: [ owner fixArgLayout ].
+	self changed
 ]
 
 { #category : #accessing }
@@ -776,30 +718,5 @@ StringFieldMorph >> textColor: aColor [
 	"Set the color of my text."
 
 	stringMorph color: aColor.
-
-]
-
-{ #category : #'text editing' }
-StringFieldMorph >> undo [
-	"Swap the undo buffer witht the current state. Doing this a second time will undo the undo operation."
-
-	| oldUndoState |
-	oldUndoState := undoState.
-	self recordUndoState.
-	stringMorph contentsClipped: (oldUndoState at: 1).
-	selectionStart := (oldUndoState at: 2).
-	selectionEnd := (oldUndoState at: 3).
-	self stringChanged.
-
-]
-
-{ #category : #initialization }
-StringFieldMorph >> useNoFrame [
-
-	frame := nil.
-	borderWidth := 2.
-	insetX := 2.
-	heightPadding := 3.
-	self font: stringMorph font.
 
 ]

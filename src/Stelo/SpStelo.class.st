@@ -57,7 +57,7 @@ SpStelo class >> menuCommandOn: aBuilder [
 	(aBuilder item: #NovaStelo)
 		order: 0.5;
 		target: self;
-		action: [self new open]; 
+		action: [self open]; 
 		icon: self icon
 ]
 
@@ -76,13 +76,8 @@ SpStelo class >> projectClass [
 	^ SteloProject
 ]
 
-{ #category : #private }
+{ #category : #constants }
 SpStelo class >> recodingExtent [
-	^ 400 @ 400
-]
-
-{ #category : #private }
-SpStelo class >> screenshotExtent [
 	^ 400 @ 400
 ]
 
@@ -200,11 +195,6 @@ SpStelo >> exportPlots [
 { #category : #'menu actions' }
 SpStelo >> exportSexpCode [
 	self export: (ScratchSexpExporter appName: self appName) extension: self sexpExtension
-]
-
-{ #category : #private }
-SpStelo >> imageExtension [
-	^ 'png'
 ]
 
 { #category : #'menu actions' }
@@ -358,34 +348,6 @@ SpStelo >> saveProjectAs: aFileReference [
 	^ super saveProjectAs: aFileReference
 ]
 
-{ #category : #'menu actions' }
-SpStelo >> saveScriptsToImage [
-	"Take a snapshot of all scripts for a sprite and save as a GIF file"
-
-	| file saveForm |
-	saveForm := presenter scriptForm.
-	saveForm ifNil: [ ^ self ].
-	file := UIManager default
-		chooseForSaveFileReference: 'Export ...' localized
-		extensions: {self imageExtension}
-		path: self projectPath.
-	file ifNil: [ ^ self ].
-	saveForm writePNGFileNamed: file pathString
-]
-
-{ #category : #'menu actions' }
-SpStelo >> saveStageAsImage [
-	| file saveForm |
-	saveForm := presenter stageShotExtent: self class screenshotExtent.
-	saveForm ifNil: [ ^ self ].
-	file := UIManager default
-		chooseForSaveFileReference: 'Export ...' localized
-		extensions: {self imageExtension}
-		path: self projectPath.
-	file ifNil: [ ^ self ].
-	saveForm writePNGFileNamed: file pathString
-]
-
 { #category : #accessing }
 SpStelo >> scriptOf: anInteger [
 	^ project scriptOf: anInteger
@@ -428,7 +390,7 @@ SpStelo >> startEvent [
 		eventMenuFrom: events
 		whenSelected: [ :v | eno := v ].
 	menu ifNil: [ ^ self ].
-	menu openWithSpecAt: ActiveWorld cursorPoint.
+	menu openWithSpecAt: World cursorPoint.
 	eno = 0 ifTrue: [ ^ self ].
 	program := project programOf: events.
 	process := sworld newProcess program: program.
@@ -606,17 +568,17 @@ SpStelo >> turtlesScripts [
 
 { #category : #private }
 SpStelo >> updateStatusForced: aBoolean [
+
 	| msec str ticks fps count |
 	sworld ifNil: [ ^ self ].
 	msec := Time millisecondClockValue.
-	(msec < (lastMSec + 1000) and: [ aBoolean not ])
-		ifTrue: [ ^ self ].
+	(msec < (lastMSec + 1000) and: [ aBoolean not ]) ifTrue: [ ^ self ].
 	presenter updateInspector.
 	str := self stringOfWorldName: sworld worldName.
 	presenter status: str.
 	ticks := sworld ticks.
-	fps := ((ticks - lastTicks) * 1000 / (msec - lastMSec)) truncated.
-	count := (sworld countAliveOf: SBreedId turtleBreedNo) asString.
+	fps := (ticks - lastTicks * 1000 / (msec - lastMSec)) truncated.
+	count := (sworld countAliveOf: self target breedNo) asString.
 	str := self stringOfTicks: ticks fps: fps count: count.
 	presenter info: str.
 	sworld plotList ifNotEmpty: [ :list | presenter addPlots: list ].

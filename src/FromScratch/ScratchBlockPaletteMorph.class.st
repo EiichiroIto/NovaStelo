@@ -4,11 +4,7 @@ I am used as a scrollable blocks palette morph in a ScratchViewerMorph.
 "
 Class {
 	#name : #ScratchBlockPaletteMorph,
-	#superclass : #BorderedMorph,
-	#instVars : [
-		'project',
-		'isForScript'
-	],
+	#superclass : #BlockPlateMorph,
 	#category : #'FromScratch-Blocks'
 }
 
@@ -26,54 +22,21 @@ ScratchBlockPaletteMorph >> fixLayout [
 	self width: (r width max: owner width)
 ]
 
-{ #category : #initialization }
-ScratchBlockPaletteMorph >> initialize [
-	super initialize.
-	borderWidth := 0.
-	isForScript := false
-]
-
 { #category : #testing }
 ScratchBlockPaletteMorph >> isBlockPalette [
 	^ true
 ]
 
-{ #category : #testing }
-ScratchBlockPaletteMorph >> isForScript [
-	^ isForScript
-]
-
-{ #category : #testing }
-ScratchBlockPaletteMorph >> isForScript: aBoolean [
-	isForScript := aBoolean
-]
-
-{ #category : #acessing }
-ScratchBlockPaletteMorph >> project [
-	^ project
-]
-
-{ #category : #acessing }
-ScratchBlockPaletteMorph >> project: aProject [
-	project := aProject
-]
-
 { #category : #'dropping/grabbing' }
 ScratchBlockPaletteMorph >> rootForGrabOf: aMorph [
+
 	"I act like a parts bin; answer a new copy of the morph being extracted."
 
 	| root |
 	root := aMorph.
-	(root isKindOf: BlockMorph) ifFalse: [^ nil].
-	[root = self] whileFalse: [
-		root owner == self ifTrue: [^ root fullCopy].
-		root := root owner].
-
+	root isBlockMorph ifFalse: [ ^ nil ].
+	[ root = self ] whileFalse: [ 
+		root owner == self ifTrue: [ ^ root fullCopy ].
+		root := root owner ].
 	^ super rootForGrabOf: aMorph
-
-]
-
-{ #category : #'dropping/grabbing' }
-ScratchBlockPaletteMorph >> wantsDroppedMorph: aMorph event: evt [
-	^ aMorph isBlockMorph
 ]
