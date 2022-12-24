@@ -196,6 +196,12 @@ SteloScript >> isTurtles [
 	^ false
 ]
 
+{ #category : #testing }
+SteloScript >> isValidSubName: aString [
+
+	^ aString allSatisfy: [ :each | each isAlphaNumeric ]
+]
+
 { #category : #'argument menus' }
 SteloScript >> listVarNames [
 	^ breed userDefinedListNames sort

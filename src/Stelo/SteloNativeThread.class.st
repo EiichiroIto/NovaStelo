@@ -259,8 +259,6 @@ SteloNativeThread >> hatch [
 { #category : #'turtle ops' }
 SteloNativeThread >> kill [
 	| tid bid |
-	breedId <= SBreedId patchBreedNo
-		ifTrue: [ ^ self ].
 	tid := self pop.
 	bid := self pop.
 	world kill: bid at: tid.

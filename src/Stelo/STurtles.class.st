@@ -148,6 +148,7 @@ STurtles >> reset [
 
 { #category : #microworld }
 STurtles >> setupAt: index [
+	self clearAt: index.
 	self colorAt: index put: self defaultColor.
 	self aliveAt: index put: true.
 	self xAt: index put: self defaultPosition x.

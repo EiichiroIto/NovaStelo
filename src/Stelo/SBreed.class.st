@@ -53,6 +53,18 @@ SBreed >> clear [
 	variables updateVarDef: varId"
 ]
 
+{ #category : #accessing }
+SBreed >> clearAt: id [
+
+	| varNo |
+	self userDefinedVarNames do: [ :each | 
+		varNo := self varNoFor: each.
+		self var: varNo at: id put: 0 ].
+	self userDefinedListNames do: [ :each | 
+		varNo := self varNoFor: each.
+		self var: varNo list: id set: #(  ) ]
+]
+
 { #category : #'accessing variable' }
 SBreed >> colorAt: anInteger [
 	^ variables var: varId class colorVarNo at: anInteger

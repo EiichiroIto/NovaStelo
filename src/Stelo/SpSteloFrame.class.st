@@ -82,10 +82,24 @@ SpSteloFrame >> addTurtles [
 { #category : #inspecting }
 SpSteloFrame >> changeColor: vno breed: bno at: id [
 
-	| dialog cno |
-	dialog := self instantiate: SpColorList.
-	dialog openModal cancelled ifTrue: [ ^ self ].
-	cno := dialog selectedColor.
+	| selection cno |
+	selection := SpSelectDialog new
+		             title: 'Color selection' localized;
+		             label: 'Select a color' localized;
+		             acceptLabel: 'OK' localized;
+		             cancelLabel: 'Cancel' localized;
+		             items: SColorList colorNames;
+		             display: [ :each | each ];
+		             displayIcon: [ :each | 
+			             Morph new
+				             extent: 20 @ 20;
+				             color:
+					             (SColorList default realColorAt:
+							              (SColorList colorOf: each asSymbol));
+				             yourself ];
+		             openModal.
+	selection ifNil: [ ^ self ].
+	cno := SColorList colorOf: selection.
 	application sworld
 		var: vno
 		breed: bno
@@ -303,7 +317,7 @@ SpSteloFrame >> fileMenu [
 			addItem: [ :item | 
 				item
 					name: 'Quit' localized;
-					action: [ application quit ] ] ].
+					action: [ application class quit ] ] ].
 	^ m
 ]
 
