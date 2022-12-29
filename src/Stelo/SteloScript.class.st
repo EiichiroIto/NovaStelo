@@ -121,7 +121,7 @@ SteloScript >> colorBlocks [
 
 { #category : #'argument menus' }
 SteloScript >> colorMenu [
-	^ SColorList colorNames collect: [ :each | Array with: each with: (SColorList perform: each) ].
+	^ ColorList colorNames collect: [ :each | Array with: each with: (ColorList perform: each) ].
 ]
 
 { #category : #blocks }

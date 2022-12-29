@@ -88,18 +88,18 @@ SpSteloFrame >> changeColor: vno breed: bno at: id [
 		             label: 'Select a color' localized;
 		             acceptLabel: 'OK' localized;
 		             cancelLabel: 'Cancel' localized;
-		             items: SColorList colorNames;
+		             items: ColorList colorNames;
 		             display: [ :each | each ];
 		             displayIcon: [ :each | 
 			             Morph new
 				             extent: 20 @ 20;
 				             color:
-					             (SColorList default realColorAt:
-							              (SColorList colorOf: each asSymbol));
+					             (ColorList default colorAt:
+							              (ColorList colorOf: each asSymbol));
 				             yourself ];
 		             openModal.
 	selection ifNil: [ ^ self ].
-	cno := SColorList colorOf: selection.
+	cno := ColorList colorOf: selection.
 	application sworld
 		var: vno
 		breed: bno

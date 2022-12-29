@@ -260,7 +260,7 @@ SMicroWorld >> patches [
 { #category : #accessing }
 SMicroWorld >> plot: anInteger color: color [
 	| c |
-	c := SColorList default realColorAt: color.
+	c := ColorList default colorAt: color.
 	plotList add: (ScratchPlot channel: anInteger color: c)
 ]
 

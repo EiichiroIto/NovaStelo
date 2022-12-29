@@ -301,8 +301,8 @@ SMicroWorldTest >> testPlotColor [
 	w := self newWorld.
 	self assert: w plotList isCollection.
 	self assert: w plotList isEmpty.
-	w plot: 1 color: SColorList red.
-	w plot: 3 color: SColorList blue.
+	w plot: 1 color: ColorList red.
+	w plot: 3 color: ColorList blue.
 	ret := w plotList.
 	self assert: ret size equals: 2.
 	self assertCollection: ret first channel equals: 1.

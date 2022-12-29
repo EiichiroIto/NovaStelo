@@ -1,16 +1,32 @@
 "
-A SColorListTest is a test class for testing the behavior of SColorList
+A ColorListTest is a test class for testing the behavior of ColorList
 "
 Class {
-	#name : #SColorListTest,
+	#name : #ColorListTest,
 	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#category : #'Microworld-Tests'
 }
 
-{ #category : #tests }
-SColorListTest >> testScaleGrayscaleFromTo [
+{ #category : #'instance creation' }
+ColorListTest >> newColorList [
+	^ ColorList default
+]
+
+{ #category : #test }
+ColorListTest >> testNearestColor [
+	| c |
+	c := self newColorList.
+	self assert: (c nearestColor: Color black) equals: ColorList black.
+	self assert: (c nearestColor: Color white) equals: ColorList white.
+	self assert: (c nearestColor: Color red) equals: ColorList red.
+	self assert: (c nearestColor: Color green) equals: ColorList green.
+	self assert: (c nearestColor: Color blue) equals: ColorList blue.
+]
+
+{ #category : #test }
+ColorListTest >> testScaleGrayscaleFromTo [
 	| br c |
-	br := SColorList.
+	br := ColorList.
 	c := br scaleGrayscale: 0 from: 0 to: 0.
 	self assert: c equals: 0.
 	c := br scaleGrayscale: 0 from: 0 to: 100.
@@ -29,16 +45,16 @@ SColorListTest >> testScaleGrayscaleFromTo [
 	self assert: c equals: 0
 ]
 
-{ #category : #tests }
-SColorListTest >> testScaleValueColorFromTo [
+{ #category : #test }
+ColorListTest >> testScaleValueColorFromTo [
 	| br c |
-	br := SColorList.
+	br := ColorList.
 	c := br scaleValue: 0 color: 35 from: 0 to: 0.
-	self assert: c equals: SColorList black.
+	self assert: c equals: ColorList black.
 	c := br scaleValue: 0 color: 35 from: 1 to: 9.
-	self assert: c equals: SColorList black.
+	self assert: c equals: ColorList black.
 	c := br scaleValue: 10 color: 35 from: 1 to: 9.
-	self assert: c equals: SColorList white.
+	self assert: c equals: ColorList white.
 	c := br scaleValue: 5 color: 35 from: 1 to: 9.
 	self assert: c equals: 34.
 	c := br scaleValue: 1 color: 35 from: 1 to: 9.
@@ -47,9 +63,9 @@ SColorListTest >> testScaleValueColorFromTo [
 	self assert: c equals: 39.
 
 	c := br scaleValue: 10 color: 35 from: 9 to: 1.
-	self assert: c equals: SColorList black.
+	self assert: c equals: ColorList black.
 	c := br scaleValue: 0 color: 35 from: 9 to: 1.
-	self assert: c equals: SColorList white.
+	self assert: c equals: ColorList white.
 	c := br scaleValue: 5 color: 35 from: 9 to: 1.
 	self assert: c equals: 34.
 	c := br scaleValue: 1 color: 35 from: 9 to: 1.

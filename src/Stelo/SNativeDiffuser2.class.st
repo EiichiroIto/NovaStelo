@@ -189,7 +189,7 @@ SNativeDiffuser2 >> scale: aFloatArray dst: aByteArray color: baseColor from: an
 	| c |
 	aFloatArray
 		withIndexDo: [ :each :index | 
-			c := SColorList
+			c := ColorList
 				scaleValue: each
 				color: baseColor
 				from: anInteger

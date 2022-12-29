@@ -79,7 +79,7 @@ SDisplay >> drawWorldOn: aCanvas [
 	| x0 x y colors index block |
 	block := isGrayscale
 		ifTrue: [ [ :each | Color gray: each / 255.0 ] ]
-		ifFalse: [ [ :each | SColorList default realColorAt: each ] ].
+		ifFalse: [ [ :each | ColorList default colorAt: each ] ].
 	colors := sworld colors asArray collect: block.
 	x0 := self left + offset x.
 	y := self top + offset y + (cell y * (modelExtent y - 1)).

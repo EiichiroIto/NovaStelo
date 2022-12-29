@@ -164,7 +164,7 @@ SBreed >> reset [
 SBreed >> scaleVarNo: vid color: anInteger from: aNumber1 to: aNumber2 index: id [
 	| v c |
 	v := variables var: vid at: id.
-	c := SColorList
+	c := ColorList
 		scaleValue: v
 		color: anInteger
 		from: aNumber1

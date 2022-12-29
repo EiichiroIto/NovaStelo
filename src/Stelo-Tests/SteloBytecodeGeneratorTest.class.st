@@ -1107,22 +1107,22 @@ SteloBytecodeGeneratorTest >> testGetColor [
 		var: STurtleVarDef colorVarNo
 		breed: 3
 		at: 1
-		put: SColorList red.
+		put: ColorList red.
 	w
 		var: STurtleVarDef colorVarNo
 		breed: 3
 		at: 2
-		put: SColorList yellow.
+		put: ColorList yellow.
 	w
 		var: SPatchVarDef colorVarNo
 		breed: 2
 		at: 1
-		put: SColorList green.
+		put: ColorList green.
 	w
 		var: SPatchVarDef colorVarNo
 		breed: 2
 		at: 2
-		put: SColorList blue.
+		put: ColorList blue.
 	b := self newGenerator.
 	ret := b getColor.
 	self assert: ret isNil.
@@ -1130,12 +1130,12 @@ SteloBytecodeGeneratorTest >> testGetColor [
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	ret := t evaluate: 1.
-	self assert: ret equals: SColorList red.
+	self assert: ret equals: ColorList red.
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
 	ret := t evaluate: 1.
-	self assert: ret equals: SColorList blue
+	self assert: ret equals: ColorList blue
 ]
 
 { #category : #test }
@@ -1196,27 +1196,27 @@ SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 		var: SPatchVarDef colorVarNo
 		breed: 2
 		at: 3
-		put: SColorList green.
+		put: ColorList green.
 	w
 		var: SPatchVarDef colorVarNo
 		breed: 2
 		at: 5
-		put: SColorList blue.
+		put: ColorList blue.
 	w
 		var: SPatchVarDef colorVarNo
 		breed: 2
 		at: 6
-		put: SColorList yellow.
+		put: ColorList yellow.
 	w
 		var: SPatchVarDef colorVarNo
 		breed: 2
 		at: 7
-		put: SColorList red.
+		put: ColorList red.
 	w
 		var: SPatchVarDef colorVarNo
 		breed: 2
 		at: 9
-		put: SColorList lime.
+		put: ColorList lime.
 	b := self newGenerator.
 	pno := w patchIndexAtX: 1 y: 2.
 	ret := b getPatchColorAt: pno.
@@ -1225,14 +1225,14 @@ SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	ret := t evaluate: 1.
-	self assert: ret equals: SColorList green.
+	self assert: ret equals: ColorList green.
 	b := self newGenerator.
 	ret := b getPatchColorAt: 9.
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
 	ret := t evaluate: 1.
-	self assert: ret equals: SColorList lime
+	self assert: ret equals: ColorList lime
 ]
 
 { #category : #test }
@@ -2157,34 +2157,34 @@ SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
 	t execute: 1.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 1)
-		equals: SColorList black.
+		equals: ColorList black.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 6)
-		equals: SColorList red - 1.
+		equals: ColorList red - 1.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 7)
-		equals: SColorList red.
+		equals: ColorList red.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 8)
-		equals: SColorList red + 1.
+		equals: ColorList red + 1.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 11)
-		equals: SColorList white.
+		equals: ColorList white.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 12)
-		equals: SColorList black.
+		equals: ColorList black.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 13)
-		equals: SColorList black.
+		equals: ColorList black.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 14)
-		equals: SColorList black.
+		equals: ColorList black.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 15)
-		equals: SColorList black.
+		equals: ColorList black.
 	self
 		assert: (w patches var: SPatchVarDef colorVarNo at: 16)
-		equals: SColorList black
+		equals: ColorList black
 ]
 
 { #category : #test }
@@ -2197,46 +2197,46 @@ SteloBytecodeGeneratorTest >> testSetColorTo [
 		var: STurtleVarDef colorVarNo
 		breed: 3
 		at: 1
-		put: SColorList red.
+		put: ColorList red.
 	w
 		var: STurtleVarDef colorVarNo
 		breed: 3
 		at: 2
-		put: SColorList red.
+		put: ColorList red.
 	self
 		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
-		equals: SColorList red.
+		equals: ColorList red.
 	self
 		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
-		equals: SColorList red.
+		equals: ColorList red.
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
-		equals: SColorList black.
+		equals: ColorList black.
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 2)
-		equals: SColorList black.
+		equals: ColorList black.
 	b := self newGenerator.
-	b setColorTo: SColorList yellow.
+	b setColorTo: ColorList yellow.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
 	self
 		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
-		equals: SColorList yellow.
+		equals: ColorList yellow.
 	self
 		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
-		equals: SColorList red.
+		equals: ColorList red.
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
 	t execute: 1.
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
-		equals: SColorList black.
+		equals: ColorList black.
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 2)
-		equals: SColorList yellow
+		equals: ColorList yellow
 ]
 
 { #category : #test }
@@ -2281,26 +2281,26 @@ SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 	w create: 3 turtles: 1.
 	b := self newGenerator.
 	pno := w patchIndexAtX: 1 y: 2.
-	b setPatchColorAt: pno to: SColorList red.
+	b setPatchColorAt: pno to: ColorList red.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 3)
-		equals: SColorList red.
+		equals: ColorList red.
 	b := self newGenerator.
-	b setPatchColorAt: 9 to: SColorList red.
+	b setPatchColorAt: 9 to: ColorList red.
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
 	t execute: 1.
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 9)
-		equals: SColorList red.
+		equals: ColorList red.
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
-		equals: SColorList black
+		equals: ColorList black
 ]
 
 { #category : #test }

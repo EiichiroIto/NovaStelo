@@ -164,7 +164,7 @@ SteloCode >> colorMagenta [
 
 { #category : #private }
 SteloCode >> colorOf: aSymbol [
-	^ SColorList colorOf: aSymbol
+	^ ColorList colorOf: aSymbol
 ]
 
 { #category : #'color ops' }
@@ -184,7 +184,7 @@ SteloCode >> colorPurple [
 
 { #category : #'color ops' }
 SteloCode >> colorRandom [
-	^ generator randomFrom: 1 to: SColorList default size - 1
+	^ generator randomFrom: 1 to: ColorList default size - 1
 ]
 
 { #category : #'color ops' }

@@ -118,7 +118,7 @@ SBreedTest >> testScaleVarNoColorFromToIndex [
 		from: 1
 		to: 9
 		index: 1.
-	self assert: (br colorAt: 1) equals: SColorList black.
+	self assert: (br colorAt: 1) equals: ColorList black.
 	br var: a at: 1 put: 10.
 	br
 		scaleVarNo: a
@@ -126,7 +126,7 @@ SBreedTest >> testScaleVarNoColorFromToIndex [
 		from: 1
 		to: 9
 		index: 1.
-	self assert: (br colorAt: 1) equals: SColorList white.
+	self assert: (br colorAt: 1) equals: ColorList white.
 	br var: a at: 1 put: 5.
 	br
 		scaleVarNo: a
@@ -158,7 +158,7 @@ SBreedTest >> testScaleVarNoColorFromToIndex [
 		from: 9
 		to: 1
 		index: 1.
-	self assert: (br colorAt: 1) equals: SColorList black.
+	self assert: (br colorAt: 1) equals: ColorList black.
 	br var: a at: 1 put: 0.
 	br
 		scaleVarNo: a
@@ -166,7 +166,7 @@ SBreedTest >> testScaleVarNoColorFromToIndex [
 		from: 9
 		to: 1
 		index: 1.
-	self assert: (br colorAt: 1) equals: SColorList white.
+	self assert: (br colorAt: 1) equals: ColorList white.
 	br var: a at: 1 put: 5.
 	br
 		scaleVarNo: a
