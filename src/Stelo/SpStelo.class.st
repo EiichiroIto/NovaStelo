@@ -14,15 +14,12 @@ Class {
 
 { #category : #constants }
 SpStelo class >> aboutAppString [
-	^ self appName
-		,
-			'
+
+	^ self appName , ' v' , self appVersion , '
 Copyright © 2019 Eiichiro Ito (ghc02331@nifty.com)
 All rights reserved.
 
-Based on Scratch from the MIT Media Lab, v' , self basedVersion
-		,
-			'
+Based on Scratch from the MIT Media Lab, v' , self basedVersion , '
 Copyright © 2009 Massachusetts Institute of Technology.
 All rights reserved.
 '
@@ -36,6 +33,12 @@ SpStelo class >> appFolderName [
 { #category : #constants }
 SpStelo class >> appName [
 	^ 'NovaStelo'
+]
+
+{ #category : #constants }
+SpStelo class >> appVersion [
+
+	^ '1.2.6'
 ]
 
 { #category : #constants }
