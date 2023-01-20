@@ -6,11 +6,17 @@ Class {
 	#instVars : [
 		'buttonOpen',
 		'buttonSave',
-		'logo',
-		'menu',
 		'inspectorPane',
 		'inspectorTarget',
-		'libraryPane'
+		'libraryPane',
+		'setupButton',
+		'stopButton',
+		'stepButton',
+		'eventButton',
+		'loopSlowButton',
+		'loopButton',
+		'clearPatchesButton',
+		'clearTurtlesButton'
 	],
 	#category : #'Stelo-Spec2'
 }
@@ -45,7 +51,23 @@ SpSteloFrame class >> defaultLayout [
 								     add: #editorPane;
 								     yourself);
 						    add: (SpBoxLayout newVertical
-								     add: #titlePane withConstraints: [ :c | c expand: false ] ;
+								     add: (SpBoxLayout newHorizontal
+										      add: #modifiedProjectLabel
+										      withConstraints: [ :c | c expand: false ];
+										      add: #projectNameLabel;
+										      yourself)
+								     withConstraints: [ :c | c expand: false ];
+								     add: (SpBoxLayout newHorizontal
+										      add: #clearTurtlesButton;
+										      add: #clearPatchesButton;
+										      add: #setupButton;
+										      add: #loopButton;
+										      add: #stopButton;
+										      add: #stepButton;
+										      add: #loopSlowButton;
+										      add: #eventButton;
+										      yourself)
+								     withConstraints: [ :c | c expand: false ];
 								     add: #stageFrame;
 								     add: #libraryPane
 								     withConstraints: [ :c | c height: self libraryPaneHeight ];
@@ -152,6 +174,7 @@ SpSteloFrame >> clearInspector [
 
 { #category : #initialization }
 SpSteloFrame >> connectPresenters [
+
 	buttonSave action: [ application saveProjectNoDialog ].
 	buttonOpen action: [ application openProject ].
 	libraryPane
@@ -160,13 +183,21 @@ SpSteloFrame >> connectPresenters [
 		whenTurtlesSelectedDo: [ :bno | self turtlesSelected: bno ];
 		whenTurtlesAddedDo: [ self addTurtles ];
 		whenTurtlesDeletedDo: [ :bno | self turtlesDeleted: bno ].
-	editorPane
-		whenPlotterClicked: [ :plotter :event | self showMenuForPlotter: plotter event: event ].
+	editorPane whenPlotterClicked: [ :plotter :event | 
+		self showMenuForPlotter: plotter event: event ].
 	self updateThumbnail.
 	stageFrame morph whenClickDo: [ :pos | self showBreedView: pos ].
 	inspectorPane
 		whenEditDo: [ :obj | self changeValue: obj ];
-		whenDeleteDo: [ self deleteObject ]
+		whenDeleteDo: [ self deleteObject ].
+	clearTurtlesButton action: [ application clearTurtles ].
+	clearPatchesButton action: [ application clearPatches ].
+	setupButton action: [ application startSetup ].
+	stopButton action: [ application stopAll ].
+	stepButton action: [ application stepLoop ].
+	loopSlowButton action: [ application startLoopSlow ].
+	loopButton action: [ application startLoop ].
+	eventButton action: [ application startEvent ]
 ]
 
 { #category : #private }
@@ -421,28 +452,55 @@ SpSteloFrame >> importMenu [
 
 { #category : #initialization }
 SpSteloFrame >> initializePresenters [
+
+	super initializePresenters.
 	inspectorTarget := 0.
-	logo := self newImage.
+	inspectorPane := self newInspector.
+	libraryPane := self newLibrary.
 	buttonSave := self newButton.
 	buttonOpen := self newButton.
-	menu := self newMenuBar.
-	viewerPane := self instantiate: SpScratchListViewer.
-	inspectorPane := self instantiate: SpSteloInspector.
-	editorPane := self instantiate: SpSteloEditor.
-	titlePane := self instantiate: SpSteloTitle.
-	stageFrame := self newMorph.
-	stageFrame morph: SDisplay new.
-	libraryPane := self instantiate: SpSteloLibrary.
-	self setupTopPane.
-	self setupTitlePane.
-	self focusOrder
-		add: editorPane
+	clearTurtlesButton := self newButton.
+	clearPatchesButton := self newButton.
+	setupButton := self newButton.
+	stopButton := self newButton.
+	stepButton := self newButton.
+	eventButton := self newButton.
+	loopSlowButton := self newButton.
+	loopButton := self newButton.
+	self setupButtons.
+	self focusOrder add: editorPane
 ]
 
 { #category : #testing }
 SpSteloFrame >> isPluginAvailable [
 	[ SteloLibCall new getErrorMessage ] on: Error do: [ ^ false ].
 	^ true
+]
+
+{ #category : #initialization }
+SpSteloFrame >> newEditor [
+
+	^ self instantiate: SpSteloEditor
+]
+
+{ #category : #initialization }
+SpSteloFrame >> newInspector [
+
+	^ self instantiate: SpSteloInspector
+]
+
+{ #category : #initialization }
+SpSteloFrame >> newLibrary [
+
+	^ self instantiate: SpSteloLibrary
+]
+
+{ #category : #initialization }
+SpSteloFrame >> newStage [
+
+	^ self newMorph
+		  morph: SDisplay new;
+		  yourself
 ]
 
 { #category : #inspecting }
@@ -477,29 +535,64 @@ SpSteloFrame >> plotter [
 	^ editorPane plotter
 ]
 
-{ #category : #initialization }
-SpSteloFrame >> setupTitlePane [
-	titlePane
-		projectName: 'New Project';
-		clearTurtlesAction: [ application clearTurtles ];
-		clearPatchesAction: [ application clearPatches ];
-		startSetupAction: [ application startSetup ];
-		stopAllAction: [ application stopAll ];
-		stepLoopAction: [ application stepLoop ];
-		startLoopSlowAction: [ application startLoopSlow ];
-		startLoopAction: [ application startLoop ];
-		startEventAction: [ application startEvent ]
+{ #category : #accessing }
+SpSteloFrame >> projectName [
+
+	^ projectNameLabel label asString
+]
+
+{ #category : #accessing }
+SpSteloFrame >> projectName: aString [
+
+	projectNameLabel ifNotNil: [ projectNameLabel label: aString ]
 ]
 
 { #category : #initialization }
-SpSteloFrame >> setupTopPane [
-	logo image: (ScratchTheme formAt: #scratchLogo).
+SpSteloFrame >> setupButtons [
+
 	buttonOpen
 		icon: (ScratchTheme formAt: #openButton);
 		help: 'Open project'.
 	buttonSave
 		icon: (ScratchTheme formAt: #saveButton);
 		help: 'Save this project'.
+	clearTurtlesButton
+		label: 'ClearT';
+		icon: (ScratchTheme formAt: #clearTurtlesButtonGray);
+		help: 'Clear turtles' localized.
+	clearPatchesButton
+		label: 'ClearP';
+		icon: (ScratchTheme formAt: #clearGraphicsButtonGray);
+		help: 'Clear patches' localized.
+	setupButton
+		label: 'Setup';
+		icon: (ScratchTheme formAt: #setupButtonGray);
+		help: 'Setup' localized.
+	stopButton
+		label: 'Stop';
+		icon: (ScratchTheme formAt: #stopButtonGray);
+		help: 'Stop' localized.
+	stepButton
+		label: 'Step';
+		icon: (ScratchTheme formAt: #stepButtonGray);
+		help: 'Step' localized.
+	eventButton
+		label: 'Event';
+		icon: (ScratchTheme formAt: #eventButtonGray);
+		help: 'Event' localized.
+	loopSlowButton
+		label: 'Slowly';
+		icon: (ScratchTheme formAt: #loopSlowButtonGray);
+		help: 'Loop slowly' localized.
+	loopButton
+		label: 'Loop';
+		icon: (ScratchTheme formAt: #loopButtonGray);
+		help: 'Loop' localized
+]
+
+{ #category : #initialization }
+SpSteloFrame >> setupMenu [
+
 	menu
 		addItem: [ :item | 
 			item

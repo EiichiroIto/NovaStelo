@@ -739,6 +739,15 @@ SpScratchApp >> projectIsEmpty [
 	^ true
 ]
 
+{ #category : #'change reporting' }
+SpScratchApp >> projectModified [
+
+	presenter ifNil: [ ^ self ].
+	presenter modifiedText: (project modified
+			 ifTrue: [ '[modified]' localized ]
+			 ifFalse: [ '' ])
+]
+
 { #category : #private }
 SpScratchApp >> projectName [
 	^ presenter projectName

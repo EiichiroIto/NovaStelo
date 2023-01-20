@@ -180,7 +180,10 @@ ScratchProject >> modified [
 
 { #category : #accessing }
 ScratchProject >> modified: aBoolean [
-	modified := aBoolean
+
+	modified = aBoolean ifTrue: [ ^ self ].
+	modified := aBoolean.
+	application ifNotNil: [ application projectModified ]
 ]
 
 { #category : #accessing }

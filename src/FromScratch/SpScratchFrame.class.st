@@ -4,8 +4,11 @@ Class {
 	#instVars : [
 		'viewerPane',
 		'stageFrame',
-		'titlePane',
-		'editorPane'
+		'editorPane',
+		'projectNameLabel',
+		'modifiedProjectLabel',
+		'logo',
+		'menu'
 	],
 	#category : #'FromScratch-Spec2'
 }
@@ -176,11 +179,73 @@ SpScratchFrame >> info: aString [
 ]
 
 { #category : #initialization }
+SpScratchFrame >> initializePresenters [
+
+	logo := self newLogo.
+	menu := self newMenuBar.
+	viewerPane := self newViewer.
+	editorPane := self newEditor.
+	projectNameLabel := self newLabel.
+	stageFrame := self newStage.
+	modifiedProjectLabel := self newLabel.
+	self setupMenu
+]
+
+{ #category : #initialization }
 SpScratchFrame >> initializeWindow: aWindow [
 	aWindow
 		initialExtent: self defaultExtent;
 		aboutText: application class aboutAppString;
 		whenClosedDo: [ application windowClosing ]
+]
+
+{ #category : #accessing }
+SpScratchFrame >> modifiedText [
+
+	^ modifiedProjectLabel label
+]
+
+{ #category : #accessing }
+SpScratchFrame >> modifiedText: aString [
+
+	modifiedProjectLabel label: aString
+]
+
+{ #category : #initialization }
+SpScratchFrame >> newEditor [
+
+	^ self newMorph
+		  morph: self newEditorMorph;
+		  yourself
+]
+
+{ #category : #initialization }
+SpScratchFrame >> newEditorMorph [
+
+	^ ScrollFrameMorph new
+		  growthFraction: 0.1;
+		  color: ScratchTheme scriptsPaneColor;
+		  yourself
+]
+
+{ #category : #initialization }
+SpScratchFrame >> newLogo [
+
+	^ self newImage
+		  image: (ScratchTheme formAt: #logo);
+		  yourself
+]
+
+{ #category : #initialization }
+SpScratchFrame >> newStage [
+
+	self subclassResponsibility
+]
+
+{ #category : #initialization }
+SpScratchFrame >> newViewer [
+
+	^ self instantiate: SpScratchListViewer
 ]
 
 { #category : #private }
@@ -195,12 +260,14 @@ SpScratchFrame >> privStage [
 
 { #category : #accessing }
 SpScratchFrame >> projectName [
-	^ titlePane ifNotNil: [ titlePane projectName ]
+
+	^ projectNameLabel label
 ]
 
 { #category : #accessing }
 SpScratchFrame >> projectName: aString [
-	titlePane ifNotNil: [ titlePane projectName: aString ]
+
+	projectNameLabel label: aString
 ]
 
 { #category : #accessing }
@@ -242,6 +309,12 @@ SpScratchFrame >> settingsMenu [
 				name: 'Save settings' localized;
 				action: [ application saveSettings ] ] ].
 	^ m
+]
+
+{ #category : #initialization }
+SpScratchFrame >> setupMenu [
+
+	self subclassResponsibility
 ]
 
 { #category : #private }
