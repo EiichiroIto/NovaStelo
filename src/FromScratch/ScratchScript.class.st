@@ -17,10 +17,15 @@ ScratchScript class >> stonAllInstVarNames [
 
 { #category : #'argument menus' }
 ScratchScript >> addArgBuilder [
+
 	argBuilder
 		addBooleanArg: $b;
 		addEventTitleArg: $e;
-		addChoiceArg: $f selector: #mathFunctionNames initialChoice: 'sqrt';
+		addChoiceArg: $f
+		options:
+			#( 'abs' 'sqrt' 'sin' 'cos' 'tan' 'asin' 'acos' 'atan' 'ln' 'log'
+			   'e ^' '10 ^' )
+		initialChoice: 'sqrt';
 		addLocalVarArg: $l;
 		addChoiceArg: $L selector: #listVarNames;
 		addSpriteArg: $m;
@@ -713,11 +718,6 @@ ScratchScript >> localVarBlockFromTuple: tuple receiver: scriptOwner [
 	^ LocalVarBlockMorph new
 		commandSpec: varName;
 		receiver: rcvr
-]
-
-{ #category : #'argument menus' }
-ScratchScript >> mathFunctionNames [
-	^ #('abs' 'sqrt' 'sin' 'cos' 'tan' 'asin' 'acos' 'atan' 'ln' 'log' 'e ^' '10 ^')
 ]
 
 { #category : #accessing }

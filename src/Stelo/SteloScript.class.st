@@ -36,14 +36,14 @@ SteloScript >> addArgBuilder [
 SteloScript >> addList: aString [
 	| vno |
 	vno := breed addList: aString.
-	self project addList: aString var: vno breed: breed breedNo
+	project addList: aString var: vno breed: breed breedNo
 ]
 
 { #category : #variables }
 SteloScript >> addVariable: aString [
 	| vno |
 	vno := breed addVariable: aString.
-	self project addVariable: aString var: vno breed: breed breedNo
+	project addVariable: aString var: vno breed: breed breedNo
 ]
 
 { #category : #'block specs' }
@@ -129,7 +129,7 @@ SteloScript >> defaultArgsFor: blockSpec [
 	| sel turtles lists args |
 	sel := (blockSpec at: 3) asSymbol.
 	args := blockSpec copyFrom: 4 to: blockSpec size.
-	turtles := self project scriptsForMenu.
+	turtles := project scriptsForMenu.
 	turtles notEmpty
 		ifTrue: [ (#(turtlesCount: clearTurtle:) includes: sel)
 				ifTrue: [ ^ args
@@ -217,27 +217,29 @@ SteloScript >> observerBlocks [
 	^ #(
 		'sensing'
 			('observer''s %o'					r	getObserverVar: '')
+		'basic'
+			('change observer''s %o by %n'				-	changeObserverVar:by: '' 1)
 	)
 ]
 
 { #category : #accessing }
 SteloScript >> observerVarId [
-	^ self project observer varId
+	^ project observer varId
 ]
 
 { #category : #'argument menus' }
 SteloScript >> observerVarNamesMenu [
-	^ self project observerVarNamesMenu
+	^ project observerVarNamesMenu
 ]
 
 { #category : #accessing }
 SteloScript >> patchVarId [
-	^ self project patches varId
+	^ project patches varId
 ]
 
 { #category : #'argument menus' }
 SteloScript >> patchVarNamesMenu [
-	^ self project patchVarNamesMenu
+	^ project patchVarNamesMenu
 ]
 
 { #category : #'block specs' }
@@ -291,7 +293,7 @@ SteloScript >> toggleWatcher: aToggleButton for: aBlockMorph [
 
 { #category : #'argument menus' }
 SteloScript >> turtleVarNamesMenu [
-	^ self project turtleVarNamesMenu
+	^ project turtleVarNamesMenu
 ]
 
 { #category : #private }

@@ -424,7 +424,7 @@ SpSteloFrame >> helpMenu [
 									 ifFalse: [ unchecked ]) ] ];
 			addItem: [ :item | 
 				item
-					name: 'Display in grayscale';
+					name: 'Display in grayscale' localized;
 					icon: (stageFrame morph isGrayscale
 							 ifTrue: [ checked ]
 							 ifFalse: [ unchecked ]);

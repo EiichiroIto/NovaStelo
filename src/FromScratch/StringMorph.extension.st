@@ -22,6 +22,18 @@ StringMorph >> initFieldsFrom: anObjStream version: classVersion [
 ]
 
 { #category : #'*FromScratch' }
+StringMorph >> isChoiceArg [
+
+	^ false
+]
+
+{ #category : #'*FromScratch' }
+StringMorph >> isSquareArg [
+
+	^ true
+]
+
+{ #category : #'*FromScratch' }
 StringMorph >> leftMargin [
 	"Answer the left edge of this StringMorph. For a left-justified string, this the left edge of its bounding box, but for a right-justified string it may be inset."
 

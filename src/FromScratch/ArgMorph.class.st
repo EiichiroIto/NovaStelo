@@ -93,6 +93,12 @@ ArgMorph >> isArgMorph [
 ]
 
 { #category : #testing }
+ArgMorph >> isChoiceArg [
+
+	^ false
+]
+
+{ #category : #testing }
 ArgMorph >> isExpressionArg [
 	^ false
 ]
@@ -108,6 +114,12 @@ ArgMorph >> isReporter [
 
 	^ true
 
+]
+
+{ #category : #testing }
+ArgMorph >> isSquareArg [
+
+	^ false
 ]
 
 { #category : #other }

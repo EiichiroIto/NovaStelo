@@ -27,9 +27,9 @@ PatchesScript >> blocks [
 			('id'									r	getId)
 			('x position'						r	getXpos)
 			('y position'						r	getYpos)
-			('one of %m at %n'				r	turtle:at: '' 'where')
-			('distance to %n'				r	distanceTo: 'where')
-			('direction to %n'				r	directionTo: 'where')
+			('one of %m at %n'				r	turtle:at: '' 0)
+			('distance to %n'				r	distanceTo: 0)
+			('direction to %n'				r	directionTo: 0)
 			-
 			('here'								r	here)
 			('x %n y %n from here'	r	relativeToX:y:		0 0)
@@ -37,8 +37,8 @@ PatchesScript >> blocks [
 		'control'
 			('when setup'						S	-)
 		'patch'
-			('patch color at %n' 			r 	getPatchColorAt: 'where')
-			('set patch color at %n to %c'			- setPatchColorAt:to: 'where' 15)
+			('patch color at %n' 			r 	getPatchColorAt: 0)
+			('set patch color at %n to %c'			- setPatchColorAt:to: 0 15)
 	).
 
 	^ blocks, self colorBlocks, self variablesBlocks, super blocks, self observerBlocks

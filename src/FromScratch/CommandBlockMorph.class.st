@@ -177,11 +177,9 @@ CommandBlockMorph >> addLabel [
 			self addMorphBack: m ].
 	self isReporter
 		ifFalse: [ ^ self ].
-	m := submorphs first.
-	(m isKindOf: ChoiceArgMorph) | (m isKindOf: SpriteArgMorph)
+	submorphs first isSquareArg
 		ifTrue: [ self addMorphFront: self newSpacer ].
-	m := submorphs last.
-	(m isKindOf: ChoiceArgMorph) | (m isKindOf: SpriteArgMorph)
+	submorphs last isSquareArg
 		ifTrue: [ self addMorphBack: self newSpacer ]
 ]
 

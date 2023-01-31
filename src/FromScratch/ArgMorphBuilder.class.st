@@ -20,6 +20,15 @@ ArgMorphBuilder >> addBooleanArg: aCharacter [
 ]
 
 { #category : #accessing }
+ArgMorphBuilder >> addChoiceArg: aCharacter options: aCollection initialChoice: aString [
+
+	self add: aCharacter builder: [ 
+		StaticChoiceArgMorph new
+			options: aCollection;
+			choice: aString ]
+]
+
+{ #category : #accessing }
 ArgMorphBuilder >> addChoiceArg: aCharacter selector: aSymbol [
 	self
 		add: aCharacter

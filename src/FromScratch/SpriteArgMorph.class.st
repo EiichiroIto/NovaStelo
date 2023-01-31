@@ -99,6 +99,12 @@ SpriteArgMorph >> initialize [
 	self updateLabel
 ]
 
+{ #category : #testing }
+SpriteArgMorph >> isChoiceArg [
+
+	^ true
+]
+
 { #category : #'event handling' }
 SpriteArgMorph >> mouseDown: evt [
 

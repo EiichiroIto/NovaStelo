@@ -52,9 +52,9 @@ TurtlesScript >> blocks [
 			('dy'					r	dy)
 			('breed id'			r	getBreedId)
 			-
-			('one of %m at %n'				r	turtle:at: '' 'where')
-			('distance to %n'				r	distanceTo: 'where')
-			('direction to %n'				r	directionTo: 'where')
+			('one of %m at %n'				r	turtle:at: '' 0)
+			('distance to %n'				r	distanceTo: 0)
+			('direction to %n'				r	directionTo: 0)
 			('aim high %p'			r	aimHigh: '')
 			-
 			('%n of %m ''s %t'	r	getTurtle:breed:var:		0 '' '')
@@ -66,14 +66,12 @@ TurtlesScript >> blocks [
 		'control'
 			('when setup'		S	-)
 		'patch'
-			('patch color at %n' 			r 	getPatchColorAt: 'where')
-			('set patch color at %n to %c'			- setPatchColorAt:to: 'where' 15)
+			('patch color at %n' 			r 	getPatchColorAt: 0)
+			('set patch color at %n to %c'			- setPatchColorAt:to: 0 15)
 			-
-			('patch''s %p at %n'							r 	getPatchVar:at: 	'' 'where')
-			('set patch''s %p at %n to %n'			-	setPatchVar:at:to: '' 'where' 0)
-			('change patch''s %p at %n by %n'		-	changePatchVar:at:by: '' 'where' 1)
-			-
-			('change observer''s %o by %n'				-	changeObserverVar:by: '' 1)
+			('patch''s %p at %n'							r 	getPatchVar:at: 	'' 0)
+			('set patch''s %p at %n to %n'			-	setPatchVar:at:to: '' 0 0)
+			('change patch''s %p at %n by %n'		-	changePatchVar:at:by: '' 0 1)
 	).
 
 	^ blocks, self colorBlocks, self variablesBlocks, super blocks, self observerBlocks

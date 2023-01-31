@@ -119,19 +119,6 @@ ScratchTranslator class >> fontAt: aSymbol [
 	^ self current fontAt: aSymbol
 ]
 
-{ #category : #utilities }
-ScratchTranslator class >> generatePOTFile [
-
-	"ScratchTranslator generatePOTFile"
-
-	| list strings |
-	strings := Set new.
-	list := ScratchScript allSubclasses collect: [ :each | each new ].
-	self addBlockDefs: list to: strings.
-	self addLocalizedTextsTo: strings.
-	self writePOT: strings fileNamed: 'app.pot'
-]
-
 { #category : #'class initialization' }
 ScratchTranslator class >> initialize [
 	"ScratchTranslator initialize"
@@ -246,12 +233,10 @@ ScratchTranslator class >> verticalTrimForFont: aStrikeFont [
 ]
 
 { #category : #utilities }
-ScratchTranslator class >> writePOT: aCollection fileNamed: aString [
+ScratchTranslator class >> writePOT: aCollection file: aFileReference [
 
-	| file |
-	file := FileSystem workingDirectory / aString.
-	file isFile ifTrue: [ file delete ].
-	file writeStreamDo: [ :stream | 
+	aFileReference isFile ifTrue: [ aFileReference delete ].
+	aFileReference writeStreamDo: [ :stream | 
 		aCollection asSortedCollection do: [ :each | 
 			stream
 				nextPutAll: 'msgid "';

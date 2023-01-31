@@ -16,6 +16,15 @@ Class {
 	#category : #'FromScratch-Blocks'
 }
 
+{ #category : #private }
+ChoiceArgMorph >> argList [
+
+	| list |
+	list := self options.
+	(list isEmpty or: [ self isVarNames ]) ifTrue: [ ^ list ].
+	^ list collect: #localized
+]
+
 { #category : #'code generation' }
 ChoiceArgMorph >> argOf: aParser [
 	^ aParser choiceArgString: self
@@ -30,25 +39,21 @@ ChoiceArgMorph >> choice [
 
 { #category : #accessing }
 ChoiceArgMorph >> choice: aSymbol [
+
 	"Update the toggle button when an argument is changed within a block."
 
-	| block label |
+	| block |
 	choice := aSymbol.
-	label := aSymbol asString.
-	labelMorph
-		contents:
-			((#(varNames) includes: getOptionsSelector)
-				ifTrue: [ label ]
-				ifFalse: [ label localized ]).
+	self labelMorphContents: aSymbol asString.
 	labelMorph
 		position: self position + borderWidth + (3 @ -1);
 		layoutChanged;
 		changed.
 	self extent: labelMorph extent + (16 @ 2) + borderWidth.
-	menuIconMorph
-		position: (self right - borderWidth - 10) @ (self top + borderWidth + 4).
-	(block := self meOrOwnerThatIsA: HatBlockMorph)
-		ifNotNil: [ block fixBlockLayout ]
+	menuIconMorph position:
+		self right - borderWidth - 10 @ (self top + borderWidth + 4).
+	(block := self meOrOwnerThatIsA: HatBlockMorph) ifNotNil: [ 
+		block fixBlockLayout ]
 ]
 
 { #category : #accessing }
@@ -124,6 +129,32 @@ ChoiceArgMorph >> initialize [
 	self choice: #a
 ]
 
+{ #category : #testing }
+ChoiceArgMorph >> isChoiceArg [
+
+	^ true
+]
+
+{ #category : #testing }
+ChoiceArgMorph >> isSquareArg [
+
+	^ true
+]
+
+{ #category : #testing }
+ChoiceArgMorph >> isVarNames [
+
+	^ #( varNames ) includes: getOptionsSelector
+]
+
+{ #category : #accessing }
+ChoiceArgMorph >> labelMorphContents: aString [
+
+	labelMorph contents: (self isVarNames
+			 ifTrue: [ aString ]
+			 ifFalse: [ aString localized ])
+]
+
 { #category : #'event handling' }
 ChoiceArgMorph >> mouseDown: evt [
 
@@ -133,12 +164,15 @@ ChoiceArgMorph >> mouseDown: evt [
 
 { #category : #private }
 ChoiceArgMorph >> options [
+
 	"Answer my set of options. If getOptionsSelector is not nil and I'm in a CommandBlock with a non-nil receiver, fetch my set of options by sending getOptionsSelector to that receiver."
 
-	^ self getOptionsSelector
-		ifNil: [ #() ]
-		ifNotNil:
-			[ :selector | (self getOptionsTarget ifNil: [ owner receiver ]) perform: selector ]
+	| target list |
+	target := getOptionsTarget ifNil: [ owner receiver ].
+	(getOptionsSelector isNil or: [ target isNil ]) ifTrue: [ ^ #(  ) ].
+	list := target perform: getOptionsSelector.
+	list := list reject: [ :each | each = '-' ].
+	^ list
 ]
 
 { #category : #private }
@@ -147,13 +181,9 @@ ChoiceArgMorph >> presentMenu [
 	"Pop up a menu of choices."
 
 	| list ret |
-	list := self options reject: [ :each | each = '-' ].
+	list := self argList.
 	list isEmpty ifTrue: [ ^ self ].
-	ret := SpScratchApp
-		       select: 'Select one' localized
-		       chooseFrom: ((#( varNames ) includes: getOptionsSelector)
-				        ifTrue: [ list ]
-				        ifFalse: [ list collect: #localized ]).
+	ret := SpScratchApp select: 'Select one' localized chooseFrom: list.
 	ret ifNil: [ ^ self ].
 	self choice: ret
 ]

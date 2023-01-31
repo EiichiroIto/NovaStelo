@@ -136,6 +136,12 @@ ExpressionArgMorph >> isNumberExpression [
 
 ]
 
+{ #category : #testing }
+ExpressionArgMorph >> isSquareArg [
+
+	^ isNumber not
+]
+
 { #category : #accessing }
 ExpressionArgMorph >> loseKeyboardFocus [
 	labelMorph keyboardFocusChange: false

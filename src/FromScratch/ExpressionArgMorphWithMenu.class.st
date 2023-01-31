@@ -29,6 +29,14 @@ ExpressionArgMorphWithMenu class >> initialize [
 
 ]
 
+{ #category : #private }
+ExpressionArgMorphWithMenu >> addMenuMorph [
+
+	menuMorph := ImageMorph new form: DropDownMenuForm.
+	self addMorphFront: menuMorph.
+	self fixArgLayout
+]
+
 { #category : #'code generation' }
 ExpressionArgMorphWithMenu >> argString: aGenerator [
 	^ aGenerator expressionArgWithMenuString: self.
@@ -54,15 +62,15 @@ ExpressionArgMorphWithMenu >> evaluate [
 ExpressionArgMorphWithMenu >> fixArgLayout [
 
 	| dx |
-	dx := 9.
 	super fixArgLayout.
-	menuMorph ifNil: [^ self].
+	menuMorph ifNil: [ ^ self ].
+	dx := 9.
 	self width: self width + dx.
-	menuMorph position: (self right - dx - 2)@(self top + (self height // 3)).
+	menuMorph position:
+		self right - dx - 2 @ (self top + (self height // 3)).
 	(thisContext sender receiver isKindOf: StringFieldMorph) ifTrue: [
-		"clear only when user edit my label, but not on other arg layout changes"
-		specialValue := nil].
-
+		"clear only when user edit my label, but not on other arg layout changes" 
+		specialValue := nil ]
 ]
 
 { #category : #accessing }
@@ -75,13 +83,11 @@ ExpressionArgMorphWithMenu >> getOptionsSelector [
 
 { #category : #accessing }
 ExpressionArgMorphWithMenu >> getOptionsSelector: menuSelector [
+
 	"Add a drop-down menu button with the given selector. The selector should result in a menu whose action items are values that can be put into this type argument, typically numbers or strings."
 
-	menuMorph := ImageMorph new form: DropDownMenuForm.
 	getOptionsSelector := menuSelector.
-	self addMorphFront: menuMorph.
-	self fixArgLayout.
-
+	self addMenuMorph
 ]
 
 { #category : #accessing }
@@ -101,18 +107,21 @@ ExpressionArgMorphWithMenu >> handlesMouseDown: evt [
 
 ]
 
+{ #category : #testing }
+ExpressionArgMorphWithMenu >> isListVarNames [
+
+	^ #( listIndexNames listIndexForDeleteNames ) includes:
+		  getOptionsSelector
+]
+
 { #category : #'event handling' }
 ExpressionArgMorphWithMenu >> mouseDown: evt [
 
-	| rcvr list choice ret |
+	| list choice ret |
 	menuMorph ifNil: [ ^ super mouseDown: evt ].
 	evt cursorPoint x < (menuMorph left - 1) ifTrue: [ 
 		^ super mouseDown: evt ].
-	rcvr := self getOptionsTarget.
-	rcvr ifNil: [ rcvr := owner receiver ].
-	(self getOptionsSelector isNil or: [ rcvr isNil ]) ifTrue: [ 
-		^ self beep ].
-	list := rcvr perform: self getOptionsSelector.
+	list := self options.
 	list isEmpty ifTrue: [ ^ self ].
 	ret := SpSelectDialog new
 		       label: 'Select one' localized;
@@ -122,11 +131,23 @@ ExpressionArgMorphWithMenu >> mouseDown: evt [
 	ret ifNil: [ ^ self ].
 	choice := ret second.
 	evt hand newKeyboardFocus: nil.
-	(#( listIndexNames listIndexForDeleteNames ) includes:
-		 getOptionsSelector) ifTrue: [ ^ self specialValue: choice ].
+	self isListVarNames ifTrue: [ ^ self specialValue: choice ].
 	isNumber
 		ifTrue: [ self numExpression: choice ]
 		ifFalse: [ self stringExpression: choice ]
+]
+
+{ #category : #private }
+ExpressionArgMorphWithMenu >> options [
+
+	"Answer my set of options. If getOptionsSelector is not nil and I'm in a CommandBlock with a non-nil receiver, fetch my set of options by sending getOptionsSelector to that receiver."
+
+	| target list |
+	target := getOptionsTarget ifNil: [ owner receiver ].
+	(getOptionsSelector isNil or: [ target isNil ]) ifTrue: [ ^ #(  ) ].
+	list := target perform: getOptionsSelector.
+	list := list reject: [ :each | each = '-' ].
+	^ list
 ]
 
 { #category : #'code generation' }

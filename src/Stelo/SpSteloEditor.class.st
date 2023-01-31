@@ -43,7 +43,7 @@ SpSteloEditor >> plotter [
 
 { #category : #private }
 SpSteloEditor >> plotterLabel [
-	^ 'Plotter'
+	^ 'Plotter' localized
 ]
 
 { #category : #accessing }

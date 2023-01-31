@@ -645,6 +645,12 @@ BlockMorph >> isCBlock [
 ]
 
 { #category : #testing }
+BlockMorph >> isChoiceArg [
+
+	^ false
+]
+
+{ #category : #testing }
 BlockMorph >> isForever [
 	"True only for forever command blocks."
 

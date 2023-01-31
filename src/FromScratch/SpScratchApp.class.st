@@ -20,6 +20,14 @@ SpScratchApp class >> aboutAppString [
 	self subclassResponsibility
 ]
 
+{ #category : #adding }
+SpScratchApp class >> addBlockDefsTo: aSet [
+
+	| list |
+	list := ScratchScript allSubclasses collect: [ :each | each new ].
+	ScratchTranslator addBlockDefs: list to: aSet
+]
+
 { #category : #utilities }
 SpScratchApp class >> alert: aString [
 
@@ -95,6 +103,18 @@ SpScratchApp class >> deploySystem [
 { #category : #constants }
 SpScratchApp class >> extension [
 	self subclassResponsibility
+]
+
+{ #category : #utilities }
+SpScratchApp class >> generatePOTFile [
+
+	| strings file |
+	strings := Set new.
+	ScratchTranslator addLocalizedTextsTo: strings.
+	self addBlockDefsTo: strings.
+	file := FileSystem workingDirectory / self appName withExtension:
+		        'pot'.
+	ScratchTranslator writePOT: strings file: file
 ]
 
 { #category : #constants }
