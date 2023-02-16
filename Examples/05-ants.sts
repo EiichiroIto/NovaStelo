@@ -1,61 +1,64 @@
 (NovaStelo (Observer Patches Turtles3)
-       ((for Observer ()
-	     ((when diffuse
-		((doRepeat 100
-			   ((diffuseVar:percentage: "nest scent" 15)))
-		 (scalePatch:color:from:to: "nest scent" 15 1 1000)))
-	      (when loop
-		((diffuseVar:percentage: pheromone 15)
-		 (multiplyVar:by: pheromone 0.95)))
-	      (when startup
-		((clearAll)
-		 (createTurtleSize:breedId: 100 Turtles3)))))
-	(for Patches ( pheromone food nest "nest scent")
-	     ((when setup
-		((setVar:to: pheromone 0)
-		 (setVar:to: food 0)
-		 (doIfElse (less:than: (distanceTo: (patchAtX:y: 0 0)) 5)
-			   ((setVar:to: nest 1)
-			    (setVar:to: "nest scent" 1000))
-			   ((setVar:to: nest 0)
-			    (setVar:to: "nest scent" 0)))
-		 (doIf (less:than: (distanceTo: (patchAtX:y: 30 0)) 3)
-		       ((setVar:to: food (randomFrom:to: 1 4))))
-		 (doIf (less:than: (distanceTo: (patchAtX:y: -40 40)) 3)
-		       ((setVar:to: food (randomFrom:to: 1 4))))
-		 (broadcast: diffuse)))
-	      (when loop
-		((doIfElse (equal:to: (getVar nest) 1)
-			   ((setColor: 115))
-			   ((doIfElse (more:than: (getVar food) 0)
-				      ((setColor: 105))
-				      ((scaleValue:color:from:to: pheromone 55 1 35)))))))))
-	(for Turtles3 ( deltaX deltaY "carrying food" "drop size")
-	     ((when loop
-		((doIf (and:with: (equal:to: (getVar "carrying food") 1) (equal:to: (getPatchVar:at: nest (here)) 1))
-		       ((setVar:to: "carrying food" 0)
-			(turn: 180)
-			(forward: 1)))))
-	      (when loop
-		((doIf (equal:to: (getVar "carrying food") 1)
-		       ((changePatchVar:at:by: pheromone (here) (getVar "drop size"))
-			(changeVar:by: "drop size" -0.6)
-			(turn: (aimHigh: "nest scent"))
-			(forward: 1)))))
-	      (when loop
-		((doIf (equal:to: (getVar "carrying food") 0)
-		       ((doIfElse (less:than: (getPatchVar:at: pheromone (here)) 0.2)
-				  ((turn: (randomFrom:to: -40 40)))
-				  ((turn: (aimHigh: pheromone))))
-			(forward: 1)))))
-	      (when setup
-		((setXpos: 0)
-		 (setYpos: 0)
-		 (setVar:to: "carrying food" 0)))
-	      (when loop
-		((doIf (and:with: (equal:to: (getVar "carrying food") 0) (more:than: (getPatchVar:at: food (here)) 0))
-		       ((setVar:to: "carrying food" 1)
-			(changePatchVar:at:by: food (here) -1)
-			(setVar:to: "drop size" 35)
-			(turn: 180)
-			(forward: 1)))))))))
+ ((for Observer ( )
+   (
+   (when startup
+    ((clearAll)
+     (createTurtleSize:breedId: 100 Turtles3)))
+   (when loop
+    ((diffuseVar:percentage: "pheromone" 15)
+     (multiplyVar:by: "pheromone" 0.95)))
+   (when diffuse
+    ((doRepeat 100
+      ((diffuseVar:percentage: "nest scent" 15)))
+     (scalePatch:color:from:to: "nest scent" 15 1 1000)))))
+  (for Patches ((var "food") (var "nest") (var "nest scent") (var "pheromone") )
+   (
+   (when loop
+    ((doIfElse (equal:to: (getVar "nest") 1)
+      ((setColor: 115))
+      ((doIfElse (more:than: (getVar "food") 0)
+        ((setColor: 105))
+        ((scaleValue:color:from:to: "pheromone" 55 1 35)))))))
+   (when setup
+    ((setVar:to: "pheromone" 0)
+     (setVar:to: "food" 0)
+     (doIfElse (less:than: (distanceTo: (patchAtX:y: 0 0)) 5)
+      ((setVar:to: "nest" 1)
+       (setVar:to: "nest scent" 1000))
+      ((setVar:to: "nest" 0)
+       (setVar:to: "nest scent" 0)))
+     (doIf (less:than: (distanceTo: (patchAtX:y: 30 0)) 3)
+      ((setVar:to: "food" (randomFrom:to: 1 4))))
+     (doIf (less:than: (distanceTo: (patchAtX:y: -40 40)) 3)
+      ((setVar:to: "food" (randomFrom:to: 1 4))))
+     (broadcast: diffuse)))))
+  (for Turtles3 ((var "carrying food") (var "deltaX") (var "deltaY") (var "drop size") )
+   (
+   (when loop
+    ((doIf (and:with: (equal:to: (getVar "carrying food") 0) (more:than: (getPatchVar:at: "food" (here)) 0))
+      ((setVar:to: "carrying food" 1)
+       (changePatchVar:at:by: "food" (here) -1)
+       (setVar:to: "drop size" 35)
+       (turn: 180)
+       (forward: 1)))))
+   (when setup
+    ((setXpos: 0)
+     (setYpos: 0)
+     (setVar:to: "carrying food" 0)))
+   (when loop
+    ((doIf (equal:to: (getVar "carrying food") 0)
+      ((doIfElse (less:than: (getPatchVar:at: "pheromone" (here)) 0.2)
+        ((turn: (randomFrom:to: -40 40)))
+        ((turn: (aimHigh: "pheromone"))))
+       (forward: 1)))))
+   (when loop
+    ((doIf (equal:to: (getVar "carrying food") 1)
+      ((changePatchVar:at:by: "pheromone" (here) (getVar "drop size"))
+       (changeVar:by: "drop size" -0.6)
+       (turn: (aimHigh: "nest scent"))
+       (forward: 1)))))
+   (when loop
+    ((doIf (and:with: (equal:to: (getVar "carrying food") 1) (equal:to: (getPatchVar:at: "nest" (here)) 1))
+      ((setVar:to: "carrying food" 0)
+       (turn: 180)
+       (forward: 1)))))))))

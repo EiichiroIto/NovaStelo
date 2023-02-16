@@ -1,33 +1,36 @@
-(NovaStelo ( Observer Patches Turtles3)
-  ((for Observer ()
-	((when startup
-	   ((clearTurtles)
-	    (createTurtleSize:breedId: 100 Turtles3)))))
-   (for Patches ()
-	((when setup
-	   ((doIfElse (more:than: (randomFrom:to: 1 100) 95)
-		      ((setColor: (colorRed)))
-		      ((setColor: (colorBlack))))))))
-   (for Turtles3 ( deltaX deltaY a)
-	((when setup
-	   ((setVar:to: a 0)
-	    (setColor: (colorCyan))
-	    (setXpos: (randomFrom:to: 1 100))
-	    (setYpos: (randomFrom:to: 1 100))))
-	 (when loop
-	   ((turn: (randomFrom:to: -15 15))
-	    (forward: 1)))
-	 (when loop
-	   ((doIfElse (equal:to: (getVar a) 0)
-		      ((doIf (equal:to: (getPatchColorAt: (here)) (colorRed))
-			     ((setColor: 15)
-			      (setPatchColorAt:to: (here) (colorBlack))
-			      (setVar:to: a 1)
-			      (turn: 180)
-			      (forward: 1))))
-		      ((doIf (equal:to: (getPatchColorAt: (front)) (colorRed))
-			     ((stamp)
-			      (setColor: (colorCyan))
-			      (setVar:to: a 0)
-			      (turn: 180)
-			      (forward: 1)))))))))))
+(NovaStelo (Observer Patches Turtles3)
+ ((for Observer ( )
+   (
+   (when startup
+    ((clearTurtles)
+     (createTurtleSize:breedId: 100 Turtles3)))))
+  (for Patches ( )
+   (
+   (when setup
+    ((doIfElse (more:than: (randomFrom:to: 1 100) 95)
+      ((setColor: (colorRed)))
+      ((setColor: (colorBlack))))))))
+  (for Turtles3 ((var "a") (var "deltaX") (var "deltaY") )
+   (
+   (when loop
+    ((doIfElse (equal:to: (getVar "a") 0)
+      ((doIf (equal:to: (getPatchColorAt: (here)) (colorRed))
+        ((setColor: 15)
+         (setPatchColorAt:to: (here) (colorBlack))
+         (setVar:to: "a" 1)
+         (turn: 180)
+         (forward: 1))))
+      ((doIf (equal:to: (getPatchColorAt: (front)) (colorRed))
+        ((stamp)
+         (setColor: (colorCyan))
+         (setVar:to: "a" 0)
+         (turn: 180)
+         (forward: 1)))))))
+   (when loop
+    ((turn: (randomFrom:to: -15 15))
+     (forward: 1)))
+   (when setup
+    ((setVar:to: "a" 0)
+     (setColor: (colorCyan))
+     (setXpos: (randomFrom:to: 1 100))
+     (setYpos: (randomFrom:to: 1 100))))))))

@@ -1,24 +1,27 @@
 (NovaStelo (Observer Patches Turtles3)
-	   ((for Observer ()
-		 ((when loop
-		    ((nsumVar:to: life count)))
-		  (when startup
-		    ((clearTurtles)))))
-	    (for Patches (count life)
-		 ((when setup
-		    ((setVar:to: count 0)
-		     (doIfElse (less:than: (randomFrom:to: 1 10) 5)
-			       ((setVar:to: life 1)
-				(setColor: (colorRed)))
-			       ((setVar:to: life 0)
-				(setColor: (colorBlack))))))
-		  (when loop
-		    ((doIfElse (equal:to: (getVar life) 0)
-			       ((doIf (equal:to: (getVar count) 3)
-				      ((setVar:to: life 1)
-				       (setColor: (colorRed)))))
-			       ((doIf (not: (or:with: (equal:to: (getVar count) 2) (equal:to: (getVar count) 3)))
-				      ((setVar:to: life 0)
-				       (setColor: (colorBlack))))))))))
-	    (for Turtles3 (deltaX deltaY)
-		 ())))
+ ((for Observer ( )
+   (
+   (when startup
+    ((clearTurtles)))
+   (when loop
+    ((nsumVar:to: "life" "count")))))
+  (for Patches ((var "count") (var "life") )
+   (
+   (when loop
+    ((doIfElse (equal:to: (getVar "life") 0)
+      ((doIf (equal:to: (getVar "count") 3)
+        ((setVar:to: "life" 1)
+         (setColor: (colorRed)))))
+      ((doIf (not: (or:with: (equal:to: (getVar "count") 2) (equal:to: (getVar "count") 3)))
+        ((setVar:to: "life" 0)
+         (setColor: (colorBlack))))))))
+   (when setup
+    ((setVar:to: "count" 0)
+     (doIfElse (less:than: (randomFrom:to: 1 10) 5)
+      ((setVar:to: "life" 1)
+       (setColor: (colorRed)))
+      ((setVar:to: "life" 0)
+       (setColor: (colorBlack))))))))
+  (for Turtles3 ((var "deltaX") (var "deltaY") )
+   (
+   ))))

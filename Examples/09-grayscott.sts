@@ -1,13 +1,6 @@
 (NovaStelo (Observer Patches Turtles3)
  ((for Observer ((var "dt") (var "du") (var "dv") (var "dx") (var "f") (var "k") )
    (
-   (when loop
-    ((copyPatchVar:to: "u" "lu")
-     (diffuse4Var:percentage: "lu" 100)
-     (multiplyVar:by: "lu" 4)
-     (copyPatchVar:to: "v" "lv")
-     (diffuse4Var:percentage: "lv" 100)
-     (multiplyVar:by: "lv" 4)))
    (when startup
     ((createPatchesSize: 256)
      (setVar:to: "dx" "0.01")
@@ -15,19 +8,16 @@
      (setVar:to: "du" "0.00002")
      (setVar:to: "dv" "0.00001")
      (setVar:to: "f" "0.022")
-     (setVar:to: "k" "0.051")))))
+     (setVar:to: "k" "0.051")))
+   (when loop
+    ((copyPatchVar:to: "u" "lu")
+     (diffuse4Var:percentage: "lu" 100)
+     (multiplyVar:by: "lu" 4)
+     (copyPatchVar:to: "v" "lv")
+     (diffuse4Var:percentage: "lv" 100)
+     (multiplyVar:by: "lv" 4)))))
   (for Patches ((var "dudt") (var "dvdt") (var "lu") (var "lv") (var "u") (var "uv2") (var "v") )
    (
-   (when setup
-    ((doIfElse (and:with: (is:between:and: (getXpos) -10 10) (is:between:and: (getYpos) -10 10))
-      ((setVar:to: "u" "0.5")
-       (changeVar:by: "u" (divide:by: (randomFrom:to: 0 10) 100))
-       (setVar:to: "v" "0.25")
-       (changeVar:by: "v" (divide:by: (randomFrom:to: 0 10) 100)))
-      ((setVar:to: "u" 1)))
-     (setVar:to: "lu" "0")
-     (setVar:to: "dudt" "0")
-     (scaleValue:color:from:to: "u" 0 0 1)))
    (when loop
     ((setVar:to: "uv2" (multiply:and: (getVar "u") (multiply:and: (getVar "v") (getVar "v"))))
      (changeVar:by: "lu" (negated: (multiply:and: 4 (getVar "u"))))
@@ -38,6 +28,16 @@
      (setVar:to: "dvdt" (plus:and: (multiply:and: (getVar "lv") (getObserverVar: "dv")) (minus:with: (getVar "uv2") (multiply:and: (plus:and: (getObserverVar: "f") (getObserverVar: "k")) (getVar "v")))))
      (changeVar:by: "u" (multiply:and: (getVar "dudt") (getObserverVar: "dt")))
      (changeVar:by: "v" (multiply:and: (getVar "dvdt") (getObserverVar: "dt")))
+     (scaleValue:color:from:to: "u" 0 0 1)))
+   (when setup
+    ((doIfElse (and:with: (is:between:and: (getXpos) -10 10) (is:between:and: (getYpos) -10 10))
+      ((setVar:to: "u" "0.5")
+       (changeVar:by: "u" (divide:by: (randomFrom:to: 0 10) 100))
+       (setVar:to: "v" "0.25")
+       (changeVar:by: "v" (divide:by: (randomFrom:to: 0 10) 100)))
+      ((setVar:to: "u" 1)))
+     (setVar:to: "lu" "0")
+     (setVar:to: "dudt" "0")
      (scaleValue:color:from:to: "u" 0 0 1)))))
   (for Turtles3 ( )
    (

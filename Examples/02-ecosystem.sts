@@ -1,39 +1,42 @@
 (NovaStelo (Observer Patches Turtles3)
-	   ((for Observer ()
-		 ((when loop
-		    ((plot:data: 1 (turtlesCount: Turtles3))))
-		  (when startup
-		    ((clearAll)
-		     (createTurtleSize:breedId: 100 Turtles3)
-		     (clearPlots)
-		     (plot:color: 1 15)
-		     (setPlotYMin: 0)))))
-	    (for Patches (food)
-		 ((when loop
-		    ((doIf (equal:to: (randomFrom:to: 1 1000) 1)
-			   ((setVar:to: food 1)))
-		     (doIfElse (equal:to: (getVar food) 1)
-			       ((setColor: (colorGreen)))
-			       ((setColor: (colorBlack))))))
-		  (when setup
-		    ((doIfElse (equal:to: (randomFrom:to: 1 20) 1)
-			       ((setVar:to: food 1)
-				(setColor: (colorGreen)))
-			       ((setVar:to: food 0)))))))
-	    (for Turtles3 (energy)
-		 ((when loop
-		    ((doIf (less:than: (getVar energy) 0)
-			   ((die)))))
-		  (when setup
-		    ((setColor: (colorWhite))
-		     (setVar:to: energy 20)
-		     (setXpos: (randomFrom:to: 1 (screenWidth)))
-		     (setYpos: (randomFrom:to: 1 (screenHeight)))))
-		  (when loop
-		    ((turn: (randomFrom:to: -50 50))
-		     (forward: 1)
-		     (changeVar:by: energy -0.1)))
-		  (when loop
-		    ((doIf (more:than: (getPatchVar:at: food (here)) 0)
-			   ((setPatchVar:at:to: food (here) 0)
-			    (changeVar:by: energy 1)))))))))
+ ((for Observer ( )
+   (
+   (when loop
+    ((plot:data: 1 (turtlesCount: Turtles3))))
+   (when startup
+    ((clearAll)
+     (createTurtleSize:breedId: 100 Turtles3)
+     (clearPlots)
+     (plot:color: 1 15)
+     (setPlotYMin: 0)))))
+  (for Patches ((var "food") )
+   (
+   (when loop
+    ((doIf (equal:to: (randomFrom:to: 1 1000) 1)
+      ((setVar:to: "food" 1)))
+     (doIfElse (equal:to: (getVar "food") 1)
+      ((setColor: (colorGreen)))
+      ((setColor: (colorBlack))))))
+   (when setup
+    ((doIfElse (equal:to: (randomFrom:to: 1 20) 1)
+      ((setVar:to: "food" 1)
+       (setColor: (colorGreen)))
+      ((setVar:to: "food" 0)))))))
+  (for Turtles3 ((var "energy") )
+   (
+   (when loop
+    ((doIf (less:than: (getVar "energy") 0)
+      ((die)))))
+   (when setup
+    ((setColor: (colorWhite))
+     (setVar:to: "energy" 20)
+     (setXpos: (randomFrom:to: 1 (screenWidth)))
+     (setYpos: (randomFrom:to: 1 (screenHeight)))))
+   (when loop
+    ((turn: (randomFrom:to: -50 50))
+     (forward: 1)
+     (changeVar:by: "energy" -0.1)))
+   (when loop
+    ((doIf (more:than: (getPatchVar:at: "food" (here)) 0)
+      ((setPatchVar:at:to: "food" (here) 0)
+       (changeVar:by: "energy" 1)))))))))
