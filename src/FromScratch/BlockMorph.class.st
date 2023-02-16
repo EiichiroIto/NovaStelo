@@ -18,11 +18,8 @@ Class {
 		'cachedFeedbackForm'
 	],
 	#classVars : [
-		'ArgFont',
 		'CBlockBracketThickness',
-		'DebugMenu',
 		'LabelColor',
-		'LabelFont',
 		'PuzzleInset',
 		'PuzzleWidth'
 	],
@@ -39,7 +36,7 @@ BlockMorph class >> initialize [
 	PuzzleWidth := 14.
 	CBlockBracketThickness := 12.
 
-	DebugMenu := true
+	"DebugMenu := true"
 ]
 
 { #category : #accessing }
@@ -610,7 +607,6 @@ BlockMorph >> initialize [
 	isSpecialForm := false.
 	color := Color r: 0.4 g: 0.7 b: 0.8.
 	oldColor := color.
-	scratchProc := nil.
 	hadError := false
 ]
 
@@ -692,6 +688,12 @@ BlockMorph >> isReporter [
 
 	^ false
 
+]
+
+{ #category : #testing }
+BlockMorph >> isSetterBlock [
+
+	^ false
 ]
 
 { #category : #testing }
@@ -877,6 +879,14 @@ BlockMorph >> nextBlock: aBlockMorph [
 
 ]
 
+{ #category : #'block enumerating' }
+BlockMorph >> nextOrInnerBlocks [
+
+	^ self nextBlock
+		  ifNil: [ #(  ) ]
+		  ifNotNil: [ :block | Array with: block ]
+]
+
 { #category : #private }
 BlockMorph >> nonControlFlowSubmorphs [
 	"Answer a collection of submorphs minus any blocks that are part of the control flow. For example, command blocks omit their submorph that is the next block in the block sequence, C-blocks omit both their next block and the first block of their nested block list, etc."
@@ -941,11 +951,10 @@ BlockMorph >> scratchProc [
 { #category : #processes }
 BlockMorph >> scratchProc: aScratchProcess [
 
-	hadError == true ifTrue: [cachedFeedbackForm := nil].
+	hadError ifTrue: [ cachedFeedbackForm := nil ].
 	hadError := false.
 	scratchProc := aScratchProcess.
-	self changed.
-
+	self changed
 ]
 
 { #category : #processes }

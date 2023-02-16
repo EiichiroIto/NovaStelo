@@ -47,6 +47,18 @@ ObjStreamTest >> serializeAndDeserialize: anObject [
 	^ self newObjStream readObjFrom: (ReadStream on: stream contents)
 ]
 
+{ #category : #test }
+ObjStreamTest >> testFirstPass [
+
+	| obj |
+	obj := self newObjStream.
+	self assert: obj firstPass isNil.
+	obj firstPass: true.
+	self assert: obj firstPass.
+	obj firstPass: false.
+	self deny: obj firstPass
+]
+
 { #category : #tests }
 ObjStreamTest >> testFixedFormatClasses [
 	| shared |
@@ -87,6 +99,43 @@ ObjStreamTest >> testFixedFormatClasses [
 
 ]
 
+{ #category : #test }
+ObjStreamTest >> testGetBigIntId [
+
+	| obj s r |
+	s := ReadStream on: #[ 0 8 0 0 244 68 130 145 99 69 ].
+	obj := self newObjStream.
+	obj stream: s.
+	r := obj getBigInt: nil id: 6.
+	self assert: r equals: 5000000000000000000
+]
+
+{ #category : #test }
+ObjStreamTest >> testPutBigIntId [
+
+	| obj s |
+	s := WriteStream on: ByteArray new.
+	obj := self newObjStream.
+	obj firstPass: false.
+	obj stream: s.
+	self assert: obj stream contents isEmpty.
+	obj putBigInt: 5000000000000000000 id: 123.
+	self
+		assertCollection: obj stream contents
+		equals: #[ 123 0 8 0 0 244 68 130 145 99 69 ]
+]
+
+{ #category : #test }
+ObjStreamTest >> testStream [
+
+	| obj a |
+	obj := self newObjStream.
+	self assert: obj stream isNil.
+	a := WriteStream on: ByteArray new.
+	obj stream: a.
+	self assert: obj stream identicalTo: a
+]
+
 { #category : #tests }
 ObjStreamTest >> testUserClasses [
 	"Test conversions for fixed-format objects."
@@ -106,6 +155,7 @@ ObjStreamTest >> testUserClasses [
 
 { #category : #tests }
 ObjStreamTest >> testWriteFile [
+
 	| all objects s file |
 	all := OrderedCollection new.
 	all add: true.
@@ -117,26 +167,34 @@ ObjStreamTest >> testWriteFile [
 	all add: 123.546.
 	all add: 'This is a string.'.
 	all add: #thisIsASymbol.
-	all add: #(100 101 102 253 254 255) asByteArray.
+	all add: #( 100 101 102 253 254 255 ) asByteArray.
 	"all add: ScriptableScratchMorph popSound samples."
 	all add: (ImageMorph defaultForm asFormOfDepth: 32) bits.
 	all add: (Array with: 1 with: 2 with: 3).
 	all add: (Array with: 1 with: 2 with: 3) asOrderedCollection.
 	all add: (Array with: 1 with: 2 with: 3) asSet.
 	all add: (IdentitySet withAll: (Array with: 1 with: 2 with: 3)).
-	all add: (Dictionary new at: 'John' put: 'Maloney'; at: 'Lise' put: 'Kreps'; yourself).
-	all add: (IdentityDictionary new at: #John put: 'Maloney'; at: #Lise put: 'Kreps'; yourself).
+	all add: (Dictionary new
+			 at: 'John' put: 'Maloney';
+			 at: 'Lise' put: 'Kreps';
+			 yourself).
+	all add: (IdentityDictionary new
+			 at: #John put: 'Maloney';
+			 at: #Lise put: 'Kreps';
+			 yourself).
 	all add: (Color gray: 0.5).
 	all add: (Color red alpha: 0.5).
-	all add: 1@2.0.
-	all add: (9.5@20 extent: 30@40).
+	all add: 1 @ 2.0.
+	all add: (9.5 @ 20 extent: 30 @ 40).
 	all add: (ImageMorph defaultForm asFormOfDepth: 32).
 	all add: ImageMorph defaultForm.
 
-	objects := (Array with: nil), all asArray.
+	objects := (Array with: nil) , all asArray.
 	file := 'test.obj' asFileReference.
 	file isFile ifTrue: [ file delete ].
 	s := file binaryWriteStream.
 	self newObjStream storeObj: objects on: s.
 	s close.
+	self assert: file isFile.
+	file delete
 ]

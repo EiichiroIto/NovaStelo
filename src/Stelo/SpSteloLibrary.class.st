@@ -46,7 +46,7 @@ SpSteloLibrary >> connectPresenters [
 SpSteloLibrary >> deleteTurtles [
 	turtles size = 1
 		ifTrue: [ self inform: 'Can''t delete all turtles' localized ]
-		ifFalse: [ self deleteTurtlesMenu openWithSpecAt: World cursorPoint ]
+		ifFalse: [ self deleteTurtlesMenu openWithSpecAt: self currentWorld cursorPoint ]
 ]
 
 { #category : #private }
@@ -114,7 +114,7 @@ SpSteloLibrary >> selectButton: aString [
 SpSteloLibrary >> selectTurtles [
 	turtles size = 1
 		ifTrue: [ self turtlesSelected: turtles first breedNo ]
-		ifFalse: [ self selectTurtlesMenu openWithSpecAt: World cursorPoint ]
+		ifFalse: [ self selectTurtlesMenu openWithSpecAt: self currentWorld cursorPoint ]
 ]
 
 { #category : #private }

@@ -27,6 +27,12 @@ Object >> isNumberString [
 ]
 
 { #category : #'*FromScratch' }
+Object >> localized [
+
+	^ self
+]
+
+{ #category : #'*FromScratch' }
 Object >> storeFieldsNamed: varList on: anObjStream [
 	"Store the instance variables in the given list on the given object stream."
 

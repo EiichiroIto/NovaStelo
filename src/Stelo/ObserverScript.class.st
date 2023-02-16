@@ -5,56 +5,69 @@ Class {
 }
 
 { #category : #'block specs' }
-ObserverScript >> blocks [
-	"Answer a collection of block specifications for the blocks that are common to all objects. Block specificatons (Arrays) are interspersed with category names (Strings). A block specification is an Array of the form: (<block spec string> <block type> <selector> [optional initial argument values]).
+ObserverScript >> addBasicBlocks [
 
-	Explanation of flags:
-		-	no flags
-		b	boolean reporter
-		c	c-shaped block containing a sequence of commands (always special form)
-		r	reporter
-		s	special form command with its own evaluation rule
-		t	timed command, like wait or glide
-		E	message event hat
-		K	key event hat
-		M	mouse-click event hat
-		S	start event hat
-		W	when <condition> hat (obsolete)"
+	blockMorphBuilder
+		addCategory: 'basic';
+		addCommand: 'set patch size to %n' selector: #createPatchesSize: arguments: #( 100 );
+		addCommand: 'create %n %m' selector: #createTurtleSize:breedId: arguments: #( 100 '' );
+		addSeparator;
+		addCommand: 'clear all' selector: #clearAll;
+		addCommand: 'clear graphics' selector: #clearGraphics;
+		addCommand: 'clear turtles' selector: #clearTurtles;
+		addCommand: 'clear turtle %m' selector: #clearTurtle: arguments: #( '' ).
+	super addBasicBlocks.
+	blockMorphBuilder
+		addSeparator;
+		addCommand: 'set random seed %n' selector: #setRandomSeed: arguments: #( 0 )
+]
 
-	| blocks |
-	blocks := #(
-		'basic'
-			('set patch size to %n'		- createPatchesSize: 100)
-			('create %n %m'			-	createTurtleSize:breedId: 100 '')
-			-
-			('clear all'				-	clearAll)
-			('clear graphics'		-	clearGraphics)
-			('clear turtles'			-	clearTurtles)
-			('clear turtle %m'		-	clearTurtle: '')
-			-
-			('set random seed %n'					-	setRandomSeed: 0)
-		'patch'
-			('set patch''s %p to %p'			- copyPatchVar:to: '' '')
-			('change patch''s %p by %n'		- changePatchVar:by: '' 0.1)
-			('multiply patch''s %p by %n'	- multiplyVar:by: '' 0.9)
-			('scale patch''s %p color %c from %n to %n'  - scalePatch:color:from:to: '' 15 1 100)
-			-
-			('diffuse patch''s %p %n'			- diffuseVar:percentage: '' 20)
-			('diffuse4 patch''s %p %n'		- diffuse4Var:percentage: '' 20)
-			('nsum patch''s %p to %p'			- nsumVar:to: '' '')
-			('nsum4 patch''s %p to %p'		- nsum4Var:to: '' '')
-		'control'
-			('when setup'					T	-)
-		'pen'
-			('clear plots'								-	clearPlots)
-			('set plot %n color %c'				-	plot:color: 1 15)
-			('set y min to %n'						-	setPlotYMin: 0)
-			('set y max to %n'						-	setPlotYMax: 100)
-			-
-			('plot %n data %n'						-	plot:data: 1 10)
-	).
+{ #category : #'block specs' }
+ObserverScript >> addBlockSpecs [
 
-	^ blocks, super blocks, self variablesBlocks
+	super addBlockSpecs.
+	self
+		addPatchBlocks;
+		addPenBlocks;
+		addListBlocks
+]
+
+{ #category : #'block specs' }
+ObserverScript >> addControlBlocks [
+
+	blockMorphBuilder
+		addCategory: 'control';
+		addHatBlock: 'when setup' type: #T arguments: #( - ).
+	super addControlBlocks
+]
+
+{ #category : #'block specs' }
+ObserverScript >> addPatchBlocks [
+
+	blockMorphBuilder
+		addCategory: 'patch';
+		addCommand: 'set patch''s %p to %p' selector: #copyPatchVar:to: arguments: #( '' '' );
+		addCommand: 'change patch''s %p by %n' selector: #changePatchVar:by: arguments: #( '' 0.1 );
+		addCommand: 'multiply patch''s %p by %n' selector: #multiplyVar:by: arguments: #( '' 0.9 );
+		addCommand: 'scale patch''s %p color %c from %n to %n' selector: #scalePatch:color:from:to: arguments: #( '' 15 1 100 );
+		addSeparator;
+		addCommand: 'diffuse patch''s %p %n' selector: #diffuseVar:percentage: arguments: #( '' 20 );
+		addCommand: 'diffuse4 patch''s %p %n' selector: #diffuse4Var:percentage: arguments: #( '' 20 );
+		addCommand: 'nsum patch''s %p to %p' selector: #nsumVar:to: arguments: #( '' '' );
+		addCommand: 'nsum4 patch''s %p to %p' selector: #nsum4Var:to: arguments: #( '' '' )
+]
+
+{ #category : #'block specs' }
+ObserverScript >> addPenBlocks [
+
+	blockMorphBuilder
+		addCategory: 'pen';
+		addCommand: 'clear plots' selector: #clearPlots;
+		addCommand: 'set plot %n color %c' selector: #plot:color: arguments: #( 1 15 );
+		addCommand: 'set y min to %n' selector: #setPlotYMin: arguments: #( 0 );
+		addCommand: 'set y max to %n' selector: #setPlotYMax: arguments: #( 100 );
+		addSeparator;
+		addCommand: 'plot %n data %n' selector: #plot:data: arguments: #( 1 10 )
 ]
 
 { #category : #testing }

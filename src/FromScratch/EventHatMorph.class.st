@@ -54,21 +54,6 @@ EventHatMorph >> for: aString event: aSymbol [
 ]
 
 { #category : #initialization }
-EventHatMorph >> forLoopEvent [
-	self for: 'when loop' event: #loop
-]
-
-{ #category : #initialization }
-EventHatMorph >> forSetupEvent [
-	self for: 'when setup' event: #setup
-]
-
-{ #category : #initialization }
-EventHatMorph >> forStartupEvent [
-	self for: 'when setup' event: #startup
-]
-
-{ #category : #initialization }
 EventHatMorph >> initialize [
 	| label |
 	super initialize.

@@ -143,7 +143,7 @@ StaticChoiceArgMorph >> presentMenu [
 	| list ret |
 	list := self argList.
 	list isEmpty ifTrue: [ ^ self ].
-	ret := SpScratchApp select: 'Select one' localized chooseFrom: list.
+	ret := SpScratchFrame select: 'Select one' localized chooseFrom: list.
 	ret ifNil: [ ^ self ].
 	self choice: ret
 ]

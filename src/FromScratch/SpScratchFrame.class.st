@@ -13,9 +13,132 @@ Class {
 	#category : #'FromScratch-Spec2'
 }
 
+{ #category : #utilities }
+SpScratchFrame class >> alert: aString [
+
+	SpInformDialog new
+		title: 'alert!' localized;
+		label: aString;
+		acceptLabel: 'Close' localized;
+		openModal
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> chooseDirectory: aString [
+
+	^ UIManager default chooseDirectory: aString
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
+
+	^ UIManager default
+		  chooseExistingFileReference: aString
+		  extensions: aCollection
+		  path: aFileReference
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
+
+	^ UIManager default
+		  chooseExistingFileReference: aString
+		  extensions: aCollection
+		  path: aFileReference
+		  preview: aClass
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
+
+	^ UIManager default
+		  chooseForSaveFileReference: aString
+		  extensions: aCollection
+		  path: aFileReference
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> confirm: aString [
+
+	^ SpConfirmDialog new
+		  title: 'Important confirmation' localized;
+		  label: aString;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
+		  openModal
+]
+
 { #category : #private }
 SpScratchFrame class >> libraryPaneHeight [
 	^ self buttonHeight + 23
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> longMessage: aString title: aString2 [
+
+	UIManager default longMessage: aString title: aString2
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> multiLineRequest: aString initialAnswer: aString2 [
+
+	^ SpRequestTextDialog new
+		  title: 'Information request' localized;
+		  label: aString;
+		  text: aString2;
+		  acceptLabel: 'OK' localized;
+		  cancelLabel: 'Cancel' localized;
+		  extent: self currentWorld extent // 2;
+		  openModal
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
+
+	^ SpMultiSelectDialog new
+		  title: 'Multiple Select' localized;
+		  label: aString;
+		  items: aCollection;
+		  selectedItems: aCollection2;
+		  display: [ :each | each ];
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
+		  openModal
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> request: aString [
+
+	^ SpRequestDialog new
+		  title: 'Information request' localized;
+		  label: aString;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
+		  openModal
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> request: aString initialAnswer: aString2 [
+
+	^ SpRequestDialog new
+		  title: 'Information request' localized;
+		  label: aString;
+		  text: aString2;
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
+		  openModal
+]
+
+{ #category : #utilities }
+SpScratchFrame class >> select: aString chooseFrom: aCollection [
+
+	^ SpSelectDialog new
+		  title: aString;
+		  items: aCollection;
+			display: [ :each | each localized ];
+			acceptLabel: 'OK' localized;
+			cancelLabel: 'Cancel' localized;
+		  openModal
 ]
 
 { #category : #private }
@@ -70,35 +193,87 @@ SpScratchFrame >> addBlockMenu: aMenu for: aBlockMorph [
 
 { #category : #'menu building' }
 SpScratchFrame >> addScriptMenu: aMenu for: aScript [
-	SpScratchApp clipboard isString
-		ifTrue: [ aMenu
-				addItem: [ :item | 
-					item
-						name: 'paste' localized;
-						action: [ application pasteBlock ] ] ].
+
+	SpScratchApp clipboard isString ifTrue: [ 
+		aMenu addItem: [ :item | 
+			item
+				name: 'paste' localized;
+				action: [ application pasteBlock ] ] ].
 	aMenu
 		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
+			grp addItem: [ :item | 
 					item
 						name: 'add sub block' localized;
-						action: [ application addSubBlock: World cursorPoint script: aScript ] ] ];
+						action: [ 
+							application
+								addSubBlock: self currentWorld cursorPoint
+								script: aScript ] ] ];
 		addGroup: [ :grp | 
-			grp
-				addItem: [ :item | 
-					item
-						name: 'clean up' localized;
-						action: [ aScript cleanUp ] ] ]
+			grp addItem: [ :item | 
+				item
+					name: 'clean up' localized;
+					action: [ aScript cleanUp ] ] ]
+]
+
+{ #category : #utilities }
+SpScratchFrame >> alert: aString [
+
+	self class alert: aString
 ]
 
 { #category : #'menu building' }
 SpScratchFrame >> blockMenuFor: aBlockMorph inScriptEditor: aBoolean [
-	| menu |
-	aBoolean
-		ifFalse: [ ^ nil ].
-	menu := self newMenu.
-	self addBlockMenu: menu for: aBlockMorph.
-	^ menu
+
+	aBoolean ifFalse: [ ^ nil ].
+	^ self newMenu in: [ :m | 
+		  self addBlockMenu: m for: aBlockMorph.
+		  m ]
+]
+
+{ #category : #utilities }
+SpScratchFrame >> chooseDirectory: aString [
+
+	^ self class chooseDirectory: aString
+]
+
+{ #category : #utilities }
+SpScratchFrame >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
+
+	^ self class
+		  chooseExistingFileReference: aString
+		  extensions: aCollection
+		  path: aFileReference
+]
+
+{ #category : #utilities }
+SpScratchFrame >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
+
+	^ self class
+		  chooseExistingFileReference: aString
+		  extensions: aCollection
+		  path: aFileReference
+		  preview: aClass
+]
+
+{ #category : #utilities }
+SpScratchFrame >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
+
+	^ self class
+		  chooseForSaveFileReference: aString
+		  extensions: aCollection
+		  path: aFileReference
+]
+
+{ #category : #utilities }
+SpScratchFrame >> confirm: aString [
+
+	^ self class confirm: aString
+]
+
+{ #category : #accessing }
+SpScratchFrame >> currentCategory [
+
+	^ viewerPane currentCategory
 ]
 
 { #category : #accessing }
@@ -199,6 +374,12 @@ SpScratchFrame >> initializeWindow: aWindow [
 		whenClosedDo: [ application windowClosing ]
 ]
 
+{ #category : #utilities }
+SpScratchFrame >> longMessage: aString title: aString2 [
+
+	self class longMessage: aString title: aString2
+]
+
 { #category : #accessing }
 SpScratchFrame >> modifiedText [
 
@@ -209,6 +390,18 @@ SpScratchFrame >> modifiedText [
 SpScratchFrame >> modifiedText: aString [
 
 	modifiedProjectLabel label: aString
+]
+
+{ #category : #utilities }
+SpScratchFrame >> multiLineRequest: aString initialAnswer: aString2 [
+
+	^ self class multiLineRequest: aString initialAnswer: aString2
+]
+
+{ #category : #utilities }
+SpScratchFrame >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
+
+	^ self class multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2
 ]
 
 { #category : #initialization }
@@ -270,6 +463,18 @@ SpScratchFrame >> projectName: aString [
 	projectNameLabel label: aString
 ]
 
+{ #category : #utilities }
+SpScratchFrame >> request: aString [
+
+	^ self class request: aString
+]
+
+{ #category : #utilities }
+SpScratchFrame >> request: aString initialAnswer: aString2 [
+
+	^ self class request: aString initialAnswer: aString2
+]
+
 { #category : #accessing }
 SpScratchFrame >> scriptForm [
 	^ editorPane screenshot
@@ -277,10 +482,16 @@ SpScratchFrame >> scriptForm [
 
 { #category : #'menu building' }
 SpScratchFrame >> scriptMenuFor: aScript [
-	| menu |
-	menu := self newMenu.
-	self addScriptMenu: menu for: aScript.
-	^ menu
+
+	^ self newMenu in: [ :m | 
+		  self addScriptMenu: m for: aScript.
+		  m ]
+]
+
+{ #category : #utilities }
+SpScratchFrame >> select: aString chooseFrom: aCollection [
+
+	^ self class select: aString chooseFrom: aCollection
 ]
 
 { #category : #accessing }

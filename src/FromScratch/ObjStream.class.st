@@ -198,6 +198,18 @@ ObjStream >> convertFromUTF8: aByteArray [
 	^ ZnUTF8Encoder default decodeBytes: aByteArray
 ]
 
+{ #category : #accessing }
+ObjStream >> firstPass [
+
+	^ firstPass
+]
+
+{ #category : #accessing }
+ObjStream >> firstPass: anObject [
+
+	firstPass := anObject
+]
+
 { #category : #'private-reading' }
 ObjStream >> fixReferencesForObjectRecord: objectRecord [
 	"After reading all the objects in the objects table, this method is called on each object record to replace all its object references with pointers to the actual object in the object table. The fields for user-defined objects are still held in an array in the object table record. Fixed-format objects are processed by calling their read selector a second time and, since firstPass is now false, this read method fixes any object references."
@@ -252,7 +264,7 @@ ObjStream >> getBigInt: anObject id: classID [
 	| digitCount result |
 	digitCount := stream uint16.
 	result := (self classForID: classID) new: digitCount.
-	1 to: digitCount do: [:i | result digitAt: i put: stream next].
+	1 to: digitCount do: [:i | result byteAt: i put: stream next].
 	^ result
 
 ]
@@ -467,11 +479,12 @@ ObjStream >> putArray: anObject id: classID [
 { #category : #'fixed format-writing' }
 ObjStream >> putBigInt: anObject id: classID [
 
-	firstPass ifTrue: [^ self].
+	| len |
+	firstPass ifTrue: [ ^ self ].
 	stream nextPut: classID.
-	stream uint16: anObject digitLength.
-	1 to: anObject digitLength do: [:i | stream nextPut: (anObject digitAt: i)].
-
+	len := anObject numberOfDigitsInBase: 256.
+	stream uint16: len.
+	1 to: len do: [ :i | stream nextPut: (anObject byteAt: i) ]
 ]
 
 { #category : #'fixed format-writing' }
@@ -810,6 +823,18 @@ ObjStream >> storeObj: anObject on: aStream showProgress: showProgress [
 				obj := objEntry at: 2.
 				self writeObject: obj objEntry: objEntry]].
 
+]
+
+{ #category : #accessing }
+ObjStream >> stream [
+
+	^ stream
+]
+
+{ #category : #accessing }
+ObjStream >> stream: anObject [
+
+	stream := anObject
 ]
 
 { #category : #'private-reading' }

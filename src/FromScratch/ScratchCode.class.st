@@ -276,11 +276,6 @@ ScratchCode >> generateEventHeader: aString [
 ]
 
 { #category : #'code generator' }
-ScratchCode >> generateGlobalVars: aCollection [
-	"do nothing"
-]
-
-{ #category : #'code generator' }
 ScratchCode >> generateIndent: anInteger [
 	"do nothing"
 ]
@@ -315,6 +310,11 @@ ScratchCode >> generateSubFooter: aString [
 
 { #category : #'code generator' }
 ScratchCode >> generateSubHeader: aString [
+	"do nothing"
+]
+
+{ #category : #'code generator' }
+ScratchCode >> generateSubVars: aCollection [
 	"do nothing"
 ]
 
@@ -365,6 +365,14 @@ ScratchCode >> less: x than: y [
 ]
 
 { #category : #'arithmetic ops' }
+ScratchCode >> lessEqual: x than: y [
+
+	^ generator
+		  lessEqual: [ x argString: parser ]
+		  than: [ y argString: parser ]
+]
+
+{ #category : #'arithmetic ops' }
 ScratchCode >> minus: x with: y [
 	^ generator
 		minus: [ x argString: parser ]
@@ -383,6 +391,14 @@ ScratchCode >> more: x than: y [
 	^ generator
 		less: [ y argString: parser ]
 		than: [ x argString: parser ]
+]
+
+{ #category : #'arithmetic ops' }
+ScratchCode >> moreEqual: x than: y [
+
+	^ generator
+		  lessEqual: [ y argString: parser ]
+		  than: [ x argString: parser ]
 ]
 
 { #category : #'arithmetic ops' }
@@ -470,6 +486,12 @@ ScratchCode >> subTable: aDictionary [
 { #category : #'arithmetic ops' }
 ScratchCode >> truncated: x [
 	^ generator truncated: (x argString: parser)
+]
+
+{ #category : #'code generator' }
+ScratchCode >> varNamesUsedIn: aMorph [
+
+	self subclassResponsibility
 ]
 
 { #category : #private }

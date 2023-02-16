@@ -611,6 +611,12 @@ SteloCode >> turtlesCount: bno [
 		arg: (bno argString: parser)
 ]
 
+{ #category : #'code generator' }
+SteloCode >> varNamesUsedIn: aMorph [
+
+	^ #()
+]
+
 { #category : #private }
 SteloCode >> variableArgString: aString [
 	| v |

@@ -121,7 +121,7 @@ ScratchSexpImporter >> importCodes: aCollection into: aScript [
 	aCollection
 		do: [ :each | 
 			tuple := self tupleFrom: each.
-			block := aScript blockFromTuple: tuple receiver: aScript.
+			block := aScript blockFromTuple: tuple.
 			top
 				ifNil: [ top := block.
 					prev addMorph: block ]
@@ -135,13 +135,13 @@ ScratchSexpImporter >> importEvent: aCollection for: aScript eventName: aString 
 	| block prev tuple top |
 	prev := aScript blocksBin.
 	tuple := self eventBlockTupleFor: aString.
-	top := block := aScript hatBlockFromTuple: tuple receiver: aScript.
+	top := block := aScript hatBlockFromTuple: tuple.
 	prev addMorph: block.
 	prev := block.
 	aCollection
 		do: [ :each | 
 			tuple := self tupleFrom: each.
-			block := aScript blockFromTuple: tuple receiver: aScript.
+			block := aScript blockFromTuple: tuple.
 			prev nextBlock: block.
 			prev := block ].
 	^ top
@@ -174,13 +174,13 @@ ScratchSexpImporter >> importSub: aCollection for: aScript subName: aString [
 	| block prev tuple top |
 	prev := aScript blocksBin.
 	tuple := self subBlockTupleFor: aString.
-	top := block := aScript hatBlockFromTuple: tuple receiver: aScript.
+	top := block := aScript hatBlockFromTuple: tuple.
 	prev addMorph: block.
 	prev := block.
 	aCollection
 		do: [ :each | 
 			tuple := self tupleFrom: each.
-			block := aScript blockFromTuple: tuple receiver: aScript.
+			block := aScript blockFromTuple: tuple.
 			prev nextBlock: block.
 			prev := block ].
 	^ top
@@ -207,12 +207,9 @@ ScratchSexpImporter >> importWorld: aCollection [
 
 { #category : #private }
 ScratchSexpImporter >> operatorTupleFrom: aCollection [
-	| selector tuple |
-	selector := ScratchBlockParser
-				invOperatorAt: aCollection first asSymbol
-				ifAbsent: [ self error ].
+
+	| tuple |
 	tuple := aCollection copy.
-	tuple at: 1 put: selector.
 	self updateArgs: tuple.
 	^ tuple
 ]
@@ -237,8 +234,8 @@ ScratchSexpImporter >> subBlockTupleFor: aString [
 ScratchSexpImporter >> tupleFrom: aCollection [
 	| selector tuple |
 	selector := aCollection first asSymbol.
-	(ScratchBlockParser isInvOperator: selector)
-		ifTrue: [ ^ self operatorTupleFrom: aCollection ].
+	"(ScratchBlockParser isInvOperator: selector)
+		ifTrue: [ ^ self operatorTupleFrom: aCollection ]."
 	selector = #getVar
 		ifTrue: [ ^ self getVarTupleFrom: aCollection ].
 	(#(setVar:to: changeVar:by:) includes: selector)

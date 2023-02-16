@@ -11,21 +11,24 @@ Class {
 }
 
 { #category : #specs }
-SpSteloConvDialog class >> defaultSpec [
+SpSteloConvDialog class >> defaultLayout [
+
 	^ self listToPlotSpec
 ]
 
 { #category : #'instance creation' }
 SpSteloConvDialog class >> listNames: listNames plots: plots [
+
 	| dialog |
 	dialog := self new
-		listNames: listNames;
-		plots: plots;
-		yourself.
-	(dialog openModalWithSpec: #listToPlotSpec) isCancelled
+		          listNames: listNames;
+		          plots: plots;
+		          yourself.
+	(dialog openModalWithLayout: self listToPlotSpec) isCancelled 
 		ifTrue: [ ^ nil ].
-	^ {dialog listName.
-	dialog plot}
+	^ { 
+		  dialog listName.
+		  dialog plot }
 ]
 
 { #category : #specs }
@@ -52,15 +55,17 @@ SpSteloConvDialog class >> plotToListSpec [
 
 { #category : #'instance creation' }
 SpSteloConvDialog class >> plots: plots listNames: listNames [
+
 	| dialog |
 	dialog := self new
-		listNames: listNames;
-		plots: plots;
-		yourself.
-	(dialog openModalWithSpec: #plotToListSpec) isCancelled
-		ifTrue: [ ^ nil ].
-	^ {dialog plot.
-	dialog listName}
+		          listNames: listNames;
+		          plots: plots;
+		          yourself.
+	(dialog openModalWithLayout: self plotToListSpec) isCancelled ifTrue: [ 
+		^ nil ].
+	^ { 
+		  dialog plot.
+		  dialog listName }
 ]
 
 { #category : #initialization }

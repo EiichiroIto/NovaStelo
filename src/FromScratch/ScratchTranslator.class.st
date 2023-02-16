@@ -18,14 +18,9 @@ Class {
 ScratchTranslator class >> addBlockDefs: aCollection to: aSet [
 
 	aCollection do: [ :each | 
-		aSet addAll: each blockCategories.
-		each blocks do: [ :each2 | 
-			each2 = '-' ifFalse: [ 
-				each2 isString
-					ifTrue: [ aSet add: each2 ]
-					ifFalse: [ 
-						(each2 isArray and: [ each2 size > 2 ]) ifTrue: [ 
-							aSet add: each2 first ] ] ] ] ]
+		aSet
+			addAll: each blockCategories;
+			addAll: (each blockMorphBuilder blockSpecs collect: #label) ]
 ]
 
 { #category : #utilities }
@@ -99,8 +94,10 @@ ScratchTranslator class >> current: aTranslator [
 
 { #category : #private }
 ScratchTranslator class >> defaultTranslator [
+
 	| obj |
 	obj := self new.
+	obj locale: 'en'.
 	obj fontAt: #Arg put: StandardFonts defaultFont.
 	obj fontAt: #Button put: StandardFonts buttonFont.
 	obj fontAt: #Label put: StandardFonts listFont.
@@ -177,18 +174,21 @@ ScratchTranslator class >> renderHintString [
 
 { #category : #accessing }
 ScratchTranslator class >> setLocale: aString [
+
 	| fr tr |
-	aString ifEmpty: [ ^ false ].
+	(aString isNil or: [ aString isEmpty ]) ifTrue: [ ^ self ].
 	fr := ('locale/' , aString , '.po') asFileReference.
+	tr := nil.
 	fr isFile
-		ifFalse: [ self current: nil.
-			GraphicFontSettings resetAllFontToDefault.
-			^ aString = 'en' ].
-	tr := self new.
-	tr readFrom: fr readStream.
-	tr setupFonts.
-	self current: tr.
-	^ true
+		ifTrue: [ 
+			tr := self new.
+			tr locale: aString.
+			tr readFrom: fr readStream.
+			tr setupFonts ]
+		ifFalse: [ 
+			GraphicFontSettings setFontsToStyleNamed: #small.
+			tr := self defaultTranslator ].
+	self current: tr
 ]
 
 { #category : #'Unicode rendering' }
@@ -293,6 +293,18 @@ ScratchTranslator >> fonts [
 ScratchTranslator >> initialize [
 	fonts := Dictionary new.
 	texts := Dictionary new
+]
+
+{ #category : #accessing }
+ScratchTranslator >> locale [
+
+	^ locale
+]
+
+{ #category : #accessing }
+ScratchTranslator >> locale: anObject [
+
+	locale := anObject
 ]
 
 { #category : #accessing }

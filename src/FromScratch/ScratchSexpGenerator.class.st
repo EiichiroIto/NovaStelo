@@ -99,11 +99,6 @@ ScratchSexpGenerator >> generateEventHeader: aString [
 	self printOpenParen
 ]
 
-{ #category : #'code generator' }
-ScratchSexpGenerator >> generateGlobalVars: aCollection [ 
-	"do nothing"
-]
-
 { #category : #private }
 ScratchSexpGenerator >> generateIndent: anInteger [ 
 	"do nothing"
@@ -150,6 +145,11 @@ ScratchSexpGenerator >> generateSubHeader: aString [
 		printString: aString.
 	self generateLineFeed.
 	self printOpenParen
+]
+
+{ #category : #'code generator' }
+ScratchSexpGenerator >> generateSubVars: aCollection [ 
+	"do nothing"
 ]
 
 { #category : #'code generator' }
@@ -256,6 +256,12 @@ ScratchSexpGenerator >> printString: aString [
 ScratchSexpGenerator >> spriteArgString: aMorph [
 	aMorph ifNil: [ self error ].
 	^ aMorph objName
+]
+
+{ #category : #'code generator' }
+ScratchSexpGenerator >> varNamesUsedIn: aMorph [
+
+	^ #()
 ]
 
 { #category : #'arg generator' }

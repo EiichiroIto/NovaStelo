@@ -6,8 +6,7 @@ Class {
 	#name : #ScratchScriptsMorph,
 	#superclass : #BlockPlateMorph,
 	#instVars : [
-		'feedbackMorph',
-		'screenshooting'
+		'feedbackMorph'
 	],
 	#category : #'FromScratch-Blocks'
 }
@@ -40,7 +39,7 @@ ScratchScriptsMorph >> drawOn: aCanvas [
 	"Fill with my texture patch. Fill with a solid color if there is no texture in the current skin dictionary."
 
 	| patchF clipC y x |
-	self isScreenshooting
+	screenshooting
 		ifTrue: [ aCanvas fillRectangle: self bounds color: Color transparent.
 			^ self ].
 	patchF := ScratchTheme formAt: #scriptsPaneTexture.
@@ -62,43 +61,9 @@ ScratchScriptsMorph >> initialize [
 	self enableDragNDrop: true
 ]
 
-{ #category : #screenshot }
-ScratchScriptsMorph >> isScreenshooting [
-
-	^ screenshooting ifNil: [screenshooting := false]
-
-]
-
 { #category : #testing }
 ScratchScriptsMorph >> isScriptEditor [
 	^ true
-]
-
-{ #category : #screenshot }
-ScratchScriptsMorph >> screenshot [
-
-	"answer a Form of myself apt for exporting"
-
-	| saveForm leftX topY rightX bottomY |
-	submorphs isEmpty ifTrue: [ ^ nil ].
-	screenshooting := true.
-	self changed.
-	saveForm := self imageForm.
-	"clip"
-	leftX := submorphs anyOne left.
-	topY := submorphs anyOne top.
-	rightX := submorphs anyOne right.
-	bottomY := submorphs anyOne bottom.
-	(self allMorphs select: [ :m | m ~= self ]) do: [ :m | 
-		leftX := leftX min: m left.
-		topY := topY min: m top.
-		rightX := rightX max: m right.
-		bottomY := bottomY max: m bottom ].
-	saveForm := saveForm copy: (leftX @ topY - self position rectangle:
-			             rightX @ bottomY - self position).
-	screenshooting := false.
-	self changed.
-	^ saveForm
 ]
 
 { #category : #'event handling' }

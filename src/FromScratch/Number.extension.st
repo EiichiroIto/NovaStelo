@@ -10,8 +10,3 @@ Number >> asNumberNoError [
 Number >> hhmmss [
 	^ self rounded hhmmss
 ]
-
-{ #category : #'*FromScratch' }
-Number >> localized [
-	^ self
-]

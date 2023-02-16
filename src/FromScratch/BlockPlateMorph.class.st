@@ -4,10 +4,23 @@ Class {
 	#instVars : [
 		'draggingPoint',
 		'scrollPoint',
-		'project'
+		'project',
+		'screenshooting'
 	],
 	#category : #'FromScratch-Blocks'
 }
+
+{ #category : #accessing }
+BlockPlateMorph >> draggingPoint [
+
+	^ draggingPoint
+]
+
+{ #category : #accessing }
+BlockPlateMorph >> draggingPoint: anObject [
+
+	draggingPoint := anObject
+]
 
 { #category : #'event handling' }
 BlockPlateMorph >> handlesMouseWheel: anEvent [
@@ -19,7 +32,8 @@ BlockPlateMorph >> handlesMouseWheel: anEvent [
 BlockPlateMorph >> initialize [
 
 	super initialize.
-	borderWidth := 0
+	borderWidth := 0.
+	screenshooting := false
 ]
 
 { #category : #'event handling' }
@@ -60,16 +74,67 @@ BlockPlateMorph >> mouseWheel: event [
 	event isDown ifTrue: [ owner vScrollPixels: v + 5 ]
 ]
 
-{ #category : #acessing }
+{ #category : #accessing }
 BlockPlateMorph >> project [
 
 	^ project
 ]
 
-{ #category : #acessing }
+{ #category : #accessing }
 BlockPlateMorph >> project: aProject [
 
 	project := aProject
+]
+
+{ #category : #accessing }
+BlockPlateMorph >> screenshooting [
+
+	^ screenshooting
+]
+
+{ #category : #accessing }
+BlockPlateMorph >> screenshooting: anObject [
+
+	^ screenshooting := anObject
+]
+
+{ #category : #api }
+BlockPlateMorph >> screenshot [
+
+	"answer a Form of myself apt for exporting"
+
+	| saveForm leftX topY rightX bottomY |
+	submorphs isEmpty ifTrue: [ ^ nil ].
+	screenshooting := true.
+	self changed.
+	saveForm := self imageForm.
+	"clip"
+	leftX := submorphs anyOne left.
+	topY := submorphs anyOne top.
+	rightX := submorphs anyOne right.
+	bottomY := submorphs anyOne bottom.
+	(self allMorphs select: [ :m | m ~= self ]) do: [ :m | 
+		leftX := leftX min: m left.
+		topY := topY min: m top.
+		rightX := rightX max: m right.
+		bottomY := bottomY max: m bottom ].
+	saveForm := saveForm copy: (leftX @ topY - self position rectangle:
+			             rightX @ bottomY - self position).
+	screenshooting := false.
+	self changed.
+	^ saveForm
+]
+
+{ #category : #accessing }
+BlockPlateMorph >> scrollPoint [
+
+	^ scrollPoint
+]
+
+{ #category : #accessing }
+BlockPlateMorph >> scrollPoint: anObject [
+
+	scrollPoint := anObject
 ]
 
 { #category : #'event handling' }

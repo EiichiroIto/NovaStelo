@@ -9,7 +9,7 @@ TScratchPlotterMenu >> savePlotImage: aPlotter [
 	| file saveForm |
 	saveForm := self formFrom: aPlotter extent: 400 @ 400.
 	saveForm ifNil: [ ^ self ].
-	file := UIManager default
+	file := SpScratchFrame
 		        chooseForSaveFileReference: 'Save Plots Snapshot' localized
 		        extensions: { self application imageExtension }
 		        path: self application extraPath.
@@ -22,7 +22,7 @@ TScratchPlotterMenu >> savePlotImage: aPlotter [
 TScratchPlotterMenu >> setMaxPlotSize: aPlotter [
 
 	| ret |
-	ret := SpScratchApp
+	ret := SpScratchFrame
 		       request: 'number of max plots?' localized
 		       initialAnswer: (aPlotter maxSize ifNil: [ '' ]) asString.
 	ret ifNil: [ ^ self ].
@@ -36,7 +36,7 @@ TScratchPlotterMenu >> setMaxPlotSize: aPlotter [
 TScratchPlotterMenu >> setMaxValue: aPlotter [
 
 	| ret |
-	ret := SpScratchApp
+	ret := SpScratchFrame
 		       request: 'maximum plot value?' localized
 		       initialAnswer: (aPlotter max ifNil: [ '' ]) asString.
 	ret ifNil: [ ^ self ].
@@ -50,7 +50,7 @@ TScratchPlotterMenu >> setMaxValue: aPlotter [
 TScratchPlotterMenu >> setMinValue: aPlotter [
 
 	| ret |
-	ret := SpScratchApp
+	ret := SpScratchFrame
 		       request: 'minimum plot value?' localized
 		       initialAnswer: (aPlotter min ifNil: [ '' ]) asString.
 	ret ifNil: [ ^ self ].
@@ -64,7 +64,7 @@ TScratchPlotterMenu >> setMinValue: aPlotter [
 TScratchPlotterMenu >> setPlotPeriod: aPlotter [
 
 	| ret |
-	ret := SpScratchApp
+	ret := SpScratchFrame
 		       request: 'update plot period? (in milliseconds)' localized
 		       initialAnswer: (aPlotter updatePeriod ifNil: [ '' ]) asString.
 	(ret isNil or: [ ret isEmpty ]) ifTrue: [ ^ self ].

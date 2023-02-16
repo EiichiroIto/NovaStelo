@@ -24,18 +24,11 @@ SpScratchApp class >> aboutAppString [
 SpScratchApp class >> addBlockDefsTo: aSet [
 
 	| list |
-	list := ScratchScript allSubclasses collect: [ :each | each new ].
+	list := ScratchScript allSubclasses collect: [ :each | 
+		        each new
+			        setupBlockSpecs;
+			        yourself ].
 	ScratchTranslator addBlockDefs: list to: aSet
-]
-
-{ #category : #utilities }
-SpScratchApp class >> alert: aString [
-
-	SpInformDialog new
-		title: 'alert!' localized;
-		label: aString;
-		acceptLabel: 'Close' localized;
-		openModal
 ]
 
 { #category : #constants }
@@ -63,31 +56,20 @@ SpScratchApp class >> clipboard: anObject [
 	Clipboard := anObject
 ]
 
-{ #category : #utilities }
-SpScratchApp class >> confirm: aString [
-
-	^ SpConfirmDialog new
-		  title: 'Important confirmation' localized;
-		  label: aString;
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
-		  openModal
-]
-
 { #category : #accessing }
 SpScratchApp class >> deploySystem [
+
 	"self deploySystem"
-	(self confirm: 'Deploying System?')
-		ifFalse: [ ^ self ].
-	World closeAllWindowsDiscardingChanges.
+
+	(self confirm: 'Deploying System?') ifFalse: [ ^ self ].
+	self currentWorld closeAllWindowsDiscardingChanges.
 	FreeTypeFontProvider current updateFromSystem.
-	MCRepositoryGroup
-		allSubInstancesDo: [ :gr | gr repositories do: [ :r | gr removeRepository: r ] ].
+	MCRepositoryGroup allSubInstancesDo: [ :gr | 
+		gr repositories do: [ :r | gr removeRepository: r ] ].
 	IceRepository registry removeAll.
-	IceCredentialStore current
-		in:
-			[ :store | store allCredentials do: [ :each | each removeFrom: store ] ].
-	Smalltalk cleanUp: true except: {} confirming: false.
+	IceCredentialStore current in: [ :store | 
+		store allCredentials do: [ :each | each removeFrom: store ] ].
+	Smalltalk cleanUp: true except: {  } confirming: false.
 	Deprecation
 		raiseWarning: false;
 		showWarning: false.
@@ -132,32 +114,6 @@ SpScratchApp class >> initialize [
 	UseErrorCatcher := false
 ]
 
-{ #category : #utilities }
-SpScratchApp class >> multiLineRequest: aString initialAnswer: aString2 [
-
-	^ SpRequestTextDialog new
-		  title: 'Information request' localized;
-		  label: aString;
-		  text: aString2;
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
-		  openModal
-]
-
-{ #category : #utilities }
-SpScratchApp class >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
-
-	^ SpMultiSelectDialog new
-		  title: 'Multiple Select' localized;
-		  label: aString;
-		  items: aCollection;
-		  selectedItems: aCollection2;
-		  display: [ :each | each ];
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
-		  openModal
-]
-
 { #category : #'instance creation' }
 SpScratchApp class >> open [
 
@@ -196,47 +152,14 @@ SpScratchApp class >> projectClass [
 { #category : #'menu actions' }
 SpScratchApp class >> quit [
 
-	(self confirm: 'Quit Application?' localized) ifFalse: [ ^ self ].
+	(SpScratchFrame confirm: 'Quit Application?' localized) ifFalse: [ 
+		^ self ].
 	Smalltalk snapshot: false andQuit: true
-]
-
-{ #category : #utilities }
-SpScratchApp class >> request: aString [
-
-	^ SpRequestDialog new
-		  title: 'Information request' localized;
-		  label: aString;
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
-		  openModal
-]
-
-{ #category : #utilities }
-SpScratchApp class >> request: aString initialAnswer: aString2 [
-
-	^ SpRequestDialog new
-		  title: 'Information request' localized;
-		  label: aString;
-		  text: aString2;
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
-		  openModal
 ]
 
 { #category : #constants }
 SpScratchApp class >> screenshotExtent [
 	^ 400 @ 400
-]
-
-{ #category : #utilities }
-SpScratchApp class >> select: aString chooseFrom: aCollection [
-
-	^ SpSelectDialog new
-		  title: aString;
-		  items: aCollection;
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
-		  openModal
 ]
 
 { #category : #constants }
@@ -273,11 +196,11 @@ SpScratchApp class >> useErrorCatcher: aBoolean [
 SpScratchApp >> addList: aScript [
 
 	| listName |
-	listName := self request: 'List name?' localized.
+	listName := presenter request: 'List name?' localized.
 	listName := self normalizeVariableName: listName.
 	(listName isNil or: [ listName isEmpty ]) ifTrue: [ ^ self ].
 	(aScript variableNameInUse: listName) ifTrue: [ 
-		^ self alert: 'That list name is already in use!' localized ].
+		^ presenter alert: 'That list name is already in use!' localized ].
 	aScript addList: listName.
 	presenter currentCategory: #variables
 ]
@@ -286,13 +209,13 @@ SpScratchApp >> addList: aScript [
 SpScratchApp >> addSubBlock: aPoint script: aScript [
 
 	| subName |
-	subName := self request: 'Sub name?' localized.
+	subName := presenter request: 'Sub name?' localized.
 	subName := self normalizeModuleName: subName.
 	(subName isNil or: [ subName isEmpty ]) ifTrue: [ ^ self ].
 	(aScript isValidSubName: subName) ifFalse: [ 
-		^ self alert: 'invalid sub name!' localized ].
+		^ presenter alert: 'invalid sub name!' localized ].
 	(aScript subNameInUse: subName) ifTrue: [ 
-		^ self alert: 'That sub name is already in use!' localized ].
+		^ presenter alert: 'That sub name is already in use!' localized ].
 	aScript addSubBlock: aPoint name: subName
 ]
 
@@ -300,19 +223,13 @@ SpScratchApp >> addSubBlock: aPoint script: aScript [
 SpScratchApp >> addVariable: aScript [
 
 	| varName |
-	varName := self request: 'Variable name?' localized.
+	varName := presenter request: 'Variable name?' localized.
 	varName := self normalizeVariableName: varName.
 	(varName isNil or: [ varName isEmpty ]) ifTrue: [ ^ self ].
 	(aScript variableNameInUse: varName) ifTrue: [ 
-		^ self alert: 'That variable name is already in use!' localized ].
+		^ presenter alert: 'That variable name is already in use!' localized ].
 	aScript addVariable: varName.
 	presenter currentCategory: #variables
-]
-
-{ #category : #utilities }
-SpScratchApp >> alert: aString [
-
-	self class alert: aString
 ]
 
 { #category : #accessing }
@@ -337,12 +254,6 @@ SpScratchApp >> closeMediaEditorsAndDialogs [
 		 each isKindOf: DialogWindowMorph ]) do: #delete
 ]
 
-{ #category : #utilities }
-SpScratchApp >> confirm: aString [
-
-	^ self class confirm: aString
-]
-
 { #category : #'menu actions' }
 SpScratchApp >> confirmForNewProject [
 
@@ -350,7 +261,7 @@ SpScratchApp >> confirmForNewProject [
 	self closeMediaEditorsAndDialogs.
 	self stopAllProcesses.
 	(project notNil and: [ project modified ]) ifTrue: [ 
-		response := self confirm: 'Save the current project?' localized.
+		response := presenter confirm: 'Save the current project?' localized.
 		response ifTrue: [ ^ self saveProjectNoDialog ] ].
 	^ true
 ]
@@ -381,7 +292,7 @@ SpScratchApp >> deleteList: aScript [
 	| list choice |
 	list := aScript listVarNames.
 	list isEmpty ifTrue: [ ^ self ].
-	choice := self select: 'Choose list var to delete.' localized chooseFrom: list.
+	choice := presenter select: 'Choose list var to delete.' localized chooseFrom: list.
 	choice ifNil: [ ^ self ].
 	aScript deleteList: choice.
 	presenter currentCategory: #variables
@@ -395,7 +306,7 @@ SpScratchApp >> deleteVariable: aScript [
 	list := aScript varNames.
 	list isEmpty
 		ifTrue: [ ^ self ].
-	choice := self select: 'Choose variable to delete.' localized chooseFrom: list.
+	choice := presenter select: 'Choose variable to delete.' localized chooseFrom: list.
 	choice ifNil: [ ^ self ].
 	aScript deleteVariable: choice.
 	presenter currentCategory: #variables
@@ -403,14 +314,15 @@ SpScratchApp >> deleteVariable: aScript [
 
 { #category : #private }
 SpScratchApp >> deserializeFrom: aString [
+
 	| lex list obj |
 	lex := SexpLexer new read: aString.
 	list := SexpParser new parse: lex.
 	obj := (ScratchSexpImporter appName: self appName)
-		importCode: list
-		into: self target.
+		       importCode: list
+		       into: self target.
 	obj ifNil: [ ^ nil ].
-	obj position: World cursorPoint.
+	obj position: self currentWorld cursorPoint.
 	^ obj
 ]
 
@@ -435,11 +347,12 @@ SpScratchApp >> editNotes [
 
 	| ret |
 	self closeMediaEditorsAndDialogs.
-	ret := self
+	ret := presenter
 		       multiLineRequest: 'Project Notes' localized
 		       initialAnswer: project comment.
 	ret ifNil: [ ^ self ].
-	project comment: ret
+	project comment: ret.
+	project modified: true
 ]
 
 { #category : #private }
@@ -455,20 +368,13 @@ SpScratchApp >> examplesDirectory [
 ]
 
 { #category : #private }
-SpScratchApp >> export: anExporter extension: aString [
-
-	self flag: #ToBeRemoved.
-	self export: anExporter extension: aString isBinary: false
-]
-
-{ #category : #private }
 SpScratchApp >> export: anExporter extension: aString isBinary: aBoolean [
 
 	| str |
 	str := self class
 		       try: [ anExporter exportFrom: self isBinary: aBoolean ]
 		       onFailure: [ :err | 
-			       self alert:
+			       presenter alert:
 				       'Could not generate code: ' localized , err asString ].
 	self exportString: str extension: aString isBinary: aBoolean
 ]
@@ -479,7 +385,7 @@ SpScratchApp >> exportScriptImage [
 	| file saveForm |
 	saveForm := presenter scriptForm.
 	saveForm ifNil: [ ^ self ].
-	file := UIManager default
+	file := presenter
 		        chooseForSaveFileReference: 'Export ...' localized
 		        extensions: { self imageExtension }
 		        path: self extraPath.
@@ -494,7 +400,7 @@ SpScratchApp >> exportStageImage [
 	| file saveForm |
 	saveForm := presenter stageShotExtent: self class screenshotExtent.
 	saveForm ifNil: [ ^ self ].
-	file := UIManager default
+	file := presenter
 		        chooseForSaveFileReference: 'Export ...' localized
 		        extensions: { self imageExtension }
 		        path: self extraPath.
@@ -509,7 +415,7 @@ SpScratchApp >> exportString: aContentsString extension: aString isBinary: aBool
 	| file f |
 	self closeMediaEditorsAndDialogs.
 	self stopAllProcesses.
-	file := UIManager default
+	file := presenter
 		        chooseForSaveFileReference: 'Export ...' localized
 		        extensions: { aString }
 		        path: self extraPath.
@@ -525,7 +431,7 @@ SpScratchApp >> exportString: aContentsString extension: aString isBinary: aBool
 			f close ]
 		onFailure: [ 
 			f ifNotNil: [ f close ].
-			self alert: 'Could not write file: ' localized , file basename ]
+			presenter alert: 'Could not write file: ' localized , file basename ]
 ]
 
 { #category : #private }
@@ -562,13 +468,6 @@ SpScratchApp >> imageExtension [
 ]
 
 { #category : #private }
-SpScratchApp >> import: anImporter extension: aString [
-
-	self flag: #ToBeRemoved.
-	self import: anImporter extension: aString isBinary: false
-]
-
-{ #category : #private }
 SpScratchApp >> import: anImporter extension: aString isBinary: aBoolean [
 	| code |
 	code := self importFileWithExtension: aString isBinary: aBoolean.
@@ -584,7 +483,7 @@ SpScratchApp >> importFileWithExtension: aString isBinary: aBoolean [
 	| file f code |
 	self closeMediaEditorsAndDialogs.
 	self stopAllProcesses.
-	file := UIManager default
+	file := presenter
 		        chooseExistingFileReference: 'Import ...' localized
 		        extensions: { aString }
 		        path: self extraDirectory.
@@ -603,7 +502,8 @@ SpScratchApp >> importFileWithExtension: aString isBinary: aBoolean [
 				  file } ]
 		  onFailure: [ 
 			  f ifNotNil: [ f close ].
-			  self alert: 'Could not read file: ' localized , file basename.
+			  presenter alert:
+				  'Could not read file: ' localized , file basename.
 			  nil ]
 ]
 
@@ -627,18 +527,6 @@ SpScratchApp >> loadExample: aFileReference [
 	self projectDirectory: nil.
 	self projectName: aFileReference base.
 	self installNewProject: newProj
-]
-
-{ #category : #utilities }
-SpScratchApp >> multiLineRequest: aString initialAnswer: aString2 [
-
-	^ self class multiLineRequest: aString initialAnswer: aString2
-]
-
-{ #category : #utilities }
-SpScratchApp >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
-
-	^ self class multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2
 ]
 
 { #category : #processes }
@@ -686,7 +574,7 @@ SpScratchApp >> openProject [
 	| file newProj |
 	self confirmForNewProject
 		ifFalse: [ ^ self ].
-	file := UIManager default
+	file := presenter
 		chooseExistingFileReference: 'Open Project' localized
 		extensions: {self class extension}
 		path: self projectDirectory
@@ -797,7 +685,7 @@ SpScratchApp >> readProjectFrom: aFileReference [
 	reader := project newProjectReadWriter.
 	f := aFileReference binaryReadStream.
 	f ifNil: [ 
-		self alert:
+		presenter alert:
 			'Could not read file: ' localized , aFileReference pathString.
 		^ nil ].
 	^ self class
@@ -807,20 +695,8 @@ SpScratchApp >> readProjectFrom: aFileReference [
 			  newProj info: (reader extractInfoFrom: projData).
 			  newProj ]
 		  onFailure: [ :err | 
-			  self alert: err messageText.
+			  presenter alert: err messageText.
 			  nil ]
-]
-
-{ #category : #utilities }
-SpScratchApp >> request: aString [
-
-	^ self class request: aString
-]
-
-{ #category : #utilities }
-SpScratchApp >> request: aString initialAnswer: aString2 [
-
-	^ self class request: aString initialAnswer: aString2
 ]
 
 { #category : #private }
@@ -864,10 +740,11 @@ SpScratchApp >> saveProjectNoDialog [
 
 { #category : #private }
 SpScratchApp >> saveScratchFileFor: aProject [
-	^ UIManager default
-		chooseForSaveFileReference: 'Save Project' localized
-		extensions: {self class extension}
-		path: self projectPath
+
+	^ presenter
+		  chooseForSaveFileReference: 'Save Project' localized
+		  extensions: { self class extension }
+		  path: self projectPath
 ]
 
 { #category : #settings }
@@ -875,12 +752,6 @@ SpScratchApp >> saveSettings [
 
 	settings saveFile:
 		FileSystem workingDirectory / self class settingsFilename
-]
-
-{ #category : #utilities }
-SpScratchApp >> select: aString chooseFrom: aCollection [
-
-	^ self class select: aString chooseFrom: aCollection
 ]
 
 { #category : #settings }
@@ -891,19 +762,19 @@ SpScratchApp >> selectSetting: aSymbol [
 	list := settings optionsFor: aSymbol.
 	ret := list = #string
 		       ifTrue: [ 
-			       self
+			       presenter
 				       request: 'Enter for ' localized , aSymbol
 				       initialAnswer: (self settingAt: aSymbol) ]
 		       ifFalse: [ 
 			       list isEmpty ifTrue: [ ^ self ].
-			       self
+			       presenter
 				       select: 'Select an option for ' localized , aSymbol
 				       chooseFrom: list ].
 	ret ifNil: [ ^ self ].
 	ret = (self settingAt: aSymbol) ifTrue: [ ^ self ].
 	self settingAt: aSymbol put: ret.
 	aSymbol = #language ifFalse: [ ^ self ].
-	(self confirm: 'Language settings has changed. Restart application?') 
+	(presenter confirm: 'Language settings has changed. Restart application?') 
 		ifFalse: [ ^ self ].
 	old := self settingAt: #dontClose.
 	self settingAt: #dontClose put: false.
@@ -1048,13 +919,13 @@ SpScratchApp >> writeProjectAs: aFileReference [
 					do: [  ] ].
 			saveError := err ].
 	saveError ifNotNil: [ 
-		self alert: saveError.
+		presenter alert: saveError.
 		^ false ].
 	aFileReference deleteIfAbsent: [  ].
 	[ tmpFile renameTo: aFileReference basename ]
 		on: Error
 		do: [ 
-			self alert:
+			presenter alert:
 				'Save failed. The folder may be read-only.' localized.
 			^ false ].
 	project modified: false.

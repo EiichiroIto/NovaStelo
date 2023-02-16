@@ -465,7 +465,7 @@ ScratchStackProcess >> expression: anObject [
 
 { #category : #initialization }
 ScratchStackProcess >> initialize [
-	stackFrame := nil.
+
 	readyToYield := false.
 	errorFlag := false.
 	readyToTerminate := false

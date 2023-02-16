@@ -189,14 +189,13 @@ CBlockMorph >> drawInnerTopY: y on: aCanvas [
 ]
 
 { #category : #drawing }
-CBlockMorph >> drawOn: aCanvas [ 
+CBlockMorph >> drawOn: aCanvas [
 
 	| c |
 	topBarBottom := self top + self topBarHeight.
-	self isForever
-		ifTrue: [blockBottom := self bottom - 3]
-		ifFalse: [blockBottom := self bottom - 7].
-
+	blockBottom := self bottom - (self isForever
+		                ifTrue: [ 3 ]
+		                ifFalse: [ 7 ]).
 	self computeHighlightColors.
 	c := FormCanvas extent: self extent depth: 32.
 	c := c copyOffset: self topLeft negated.
@@ -204,9 +203,7 @@ CBlockMorph >> drawOn: aCanvas [
 	self drawTopBarOn: c.
 	self drawVerticalBarOn: c.
 	self drawBottomBarOn: c.
-
-	self drawFinalOn: aCanvas fromCanvas: c.
-
+	self drawFinalOn: aCanvas fromCanvas: c
 ]
 
 { #category : #drawing }
@@ -368,9 +365,16 @@ CBlockMorph >> localVars [
 	^ list collect: [ :each | each varName ]
 ]
 
-{ #category : #'code generation' }
+{ #category : #accessing }
 CBlockMorph >> nestedBlock [
+
 	^ nestedBlock
+]
+
+{ #category : #accessing }
+CBlockMorph >> nestedBlock: aMorph [
+
+	nestedBlock := aMorph
 ]
 
 { #category : #accessing }
@@ -396,6 +400,16 @@ CBlockMorph >> nextBlock: aBlockMorph [
 	nextBlock := aBlockMorph.
 	aBlockMorph ifNotNil: [self addMorph: aBlockMorph].
 
+]
+
+{ #category : #'block enumerating' }
+CBlockMorph >> nextOrInnerBlocks [
+
+	| set |
+	set := Set new.
+	nextBlock ifNotNil: [ set add: nextBlock ].
+	nestedBlock ifNotNil: [ set add: nestedBlock ].
+	^ set asArray
 ]
 
 { #category : #private }

@@ -38,7 +38,7 @@ SpStelo class >> appName [
 { #category : #constants }
 SpStelo class >> appVersion [
 
-	^ '1.2.6'
+	^ '1.2.7'
 ]
 
 { #category : #constants }
@@ -192,22 +192,22 @@ SpStelo >> eventIdFor: aSymbol [
 
 { #category : #'menu actions' }
 SpStelo >> exportPlots [
-	self export: SteloPlotsExporter new extension: self plotsExtension
+	self export: SteloPlotsExporter new extension: self plotsExtension isBinary: false
 ]
 
 { #category : #'menu actions' }
 SpStelo >> exportSexpCode [
-	self export: (ScratchSexpExporter appName: self appName) extension: self sexpExtension
+	self export: (ScratchSexpExporter appName: self appName) extension: self sexpExtension isBinary: false
 ]
 
 { #category : #'menu actions' }
 SpStelo >> importPlots [
-	self import: SteloPlotsImporter new extension: self plotsExtension
+	self import: SteloPlotsImporter new extension: self plotsExtension isBinary: false
 ]
 
 { #category : #'menu actions' }
 SpStelo >> importSexpCode [
-	self import: (ScratchSexpImporter appName: self appName) extension: self sexpExtension.
+	self import: (ScratchSexpImporter appName: self appName) extension: self sexpExtension isBinary: false.
 	presenter updateTurtles
 ]
 
@@ -227,6 +227,7 @@ SpStelo >> installNewProject: aProject [
 	project := aProject.
 	project application: self.
 	project setupScripts.
+	project setupBlockSpecs.
 	project fixVars.
 	project modified: false.
 	self restoreProject.
@@ -393,7 +394,7 @@ SpStelo >> startEvent [
 		eventMenuFrom: events
 		whenSelected: [ :v | eno := v ].
 	menu ifNil: [ ^ self ].
-	menu openWithSpecAt: World cursorPoint.
+	menu openWithSpecAt: self currentWorld cursorPoint.
 	eno = 0 ifTrue: [ ^ self ].
 	program := project programOf: events.
 	process := sworld newProcess program: program.
@@ -441,16 +442,18 @@ SpStelo >> startSetup [
 
 { #category : #'menu actions' }
 SpStelo >> startStageRecording [
+
 	| file |
-	file := UIManager default
-		chooseForSaveFileReference: 'Start Stage Recording' localized
-		extensions: {'gif'}
-		path: self projectPath.
+	file := presenter
+		        chooseForSaveFileReference:
+		        'Start Stage Recording' localized
+		        extensions: { 'gif' }
+		        path: self projectPath.
 	file ifNil: [ ^ self ].
 	recorder := ScratchRecorder new
-		openFileNamed: file;
-		model: presenter;
-		extent: self class recodingExtent.
+		            openFileNamed: file;
+		            model: presenter;
+		            extent: self class recodingExtent.
 	self updateStatusForced: true
 ]
 

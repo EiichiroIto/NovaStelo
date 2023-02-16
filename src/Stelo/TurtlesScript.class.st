@@ -8,73 +8,83 @@ Class {
 }
 
 { #category : #'block specs' }
-TurtlesScript >> blocks [
-	"Answer a collection of block specifications for the blocks that are common to all objects. Block specificatons (Arrays) are interspersed with category names (Strings). A block specification is an Array of the form: (<block spec string> <block type> <selector> [optional initial argument values]).
+TurtlesScript >> addBasicBlocks [
 
-	Explanation of flags:
-		-	no flags
-		b	boolean reporter
-		c	c-shaped block containing a sequence of commands (always special form)
-		r	reporter
-		s	special form command with its own evaluation rule
-		t	timed command, like wait or glide
-		E	message event hat
-		K	key event hat
-		M	mouse-click event hat
-		S	start event hat
-		W	when <condition> hat (obsolete)"
+	blockMorphBuilder
+		addCategory: 'basic';
+		addCommand: 'forward %n' selector: #forward: arguments: #( 1 );
+		addCommand: 'turn %n' selector: #turn: arguments: #( 5 );
+		addCommand: 'heading %n' selector: #setHeading: arguments: #( 0 );
+		addSeparator;
+		addCommand: 'change x by %n' selector: #changeXposBy: arguments: #( 1 );
+		addCommand: 'set x to %n' selector: #setXpos: arguments: #( 0 );
+		addCommand: 'change y by %n' selector: #changeYposBy: arguments: #( 1 );
+		addCommand: 'set y to %n' selector: #setYpos: arguments: #( 0 );
+		addSeparator;
+		addCommand: 'hatch' selector: #hatch;
+		addCommand: 'die' selector: #die.
+	super addBasicBlocks
+]
 
-	| blocks |
-	blocks := #(
-		'basic'
-			('forward %n'		- forward: 1)
-			('turn %n'				- turn: 5)
-			('heading %n'		- setHeading: 0)
-			-
-			('change x by %n'		-	changeXposBy: 1)
-			('set x to %n'				-	setXpos: 0)
-			('change y by %n'		-	changeYposBy: 1)
-			('set y to %n'				-	setYpos: 0)
-			-
-			('hatch'					-	hatch)
-			('die'						- die)
-		'pen'
-			('stamp'				- stamp)
-			('pen up'				- penUp)
-			('pen down'			- penDown)
-			('is pen down?'	r isPenDown)
-		'sensing'
-			('id'					r	getId)
-			('x position'		r	getXpos)
-			('y position'		r	getYpos)
-			('heading'			r	getHeading)
-			('dx'					r	dx)
-			('dy'					r	dy)
-			('breed id'			r	getBreedId)
-			-
-			('one of %m at %n'				r	turtle:at: '' 0)
-			('distance to %n'				r	distanceTo: 0)
-			('direction to %n'				r	directionTo: 0)
-			('aim high %p'			r	aimHigh: '')
-			-
-			('%n of %m ''s %t'	r	getTurtle:breed:var:		0 '' '')
-			-
-			('here'								r	here)
-			('front'							r	front)
-			('x %n y %n from here'	r	relativeToX:y:		0 0)
-			('r %n theta %n from here'	r	relativeToR:theta:		0 0)
-		'control'
-			('when setup'		S	-)
-		'patch'
-			('patch color at %n' 			r 	getPatchColorAt: 0)
-			('set patch color at %n to %c'			- setPatchColorAt:to: 0 15)
-			-
-			('patch''s %p at %n'							r 	getPatchVar:at: 	'' 0)
-			('set patch''s %p at %n to %n'			-	setPatchVar:at:to: '' 0 0)
-			('change patch''s %p at %n by %n'		-	changePatchVar:at:by: '' 0 1)
-	).
+{ #category : #'block specs' }
+TurtlesScript >> addBlockSpecs [
 
-	^ blocks, self colorBlocks, self variablesBlocks, super blocks, self observerBlocks
+	self
+		addPatchBlocks;
+		addPenBlocks;
+		addColorBlocks;
+		addConstantColorBlocks;
+		addObserverBlocks;
+		addListBlocks.
+	super addBlockSpecs
+]
+
+{ #category : #'block specs' }
+TurtlesScript >> addPatchBlocks [
+
+	blockMorphBuilder
+		addCategory: 'patch';
+		addReporter: 'patch''s %p at %n' selector: #getPatchVar:at: arguments: #( '' 0 );
+		addCommand: 'set patch''s %p at %n to %n' selector: #setPatchVar:at:to: arguments: #( '' 0 0 );
+		addCommand: 'change patch''s %p at %n by %n' selector: #changePatchVar:at:by: arguments: #( '' 0 1 )
+]
+
+{ #category : #'block specs' }
+TurtlesScript >> addPenBlocks [
+
+	blockMorphBuilder
+		addCategory: 'pen';
+		addCommand: 'stamp' selector: #stamp;
+		addCommand: 'pen up' selector: #penUp;
+		addCommand: 'pen down' selector: #penDown;
+		addReporter: 'is pen down?' selector: #isPenDown
+]
+
+{ #category : #'block specs' }
+TurtlesScript >> addSensingBlocks [
+
+	blockMorphBuilder
+		addCategory: 'sensing';
+		addReporter: 'id' selector: #getId;
+		addReporter: 'x position' selector: #getXpos;
+		addReporter: 'y position' selector: #getYpos;
+		addReporter: 'heading' selector: #getHeading;
+		addReporter: 'dx' selector: #dx;
+		addReporter: 'dy' selector: #dy;
+		addReporter: 'breed id' selector: #getBreedId;
+		addSeparator;
+		addReporter: 'one of %m at %n' selector: #turtle:at: arguments: #( '' 0 );
+		addReporter: 'distance to %n' selector: #distanceTo: arguments: #( 0 );
+		addReporter: 'direction to %n' selector: #directionTo: arguments: #( 0 );
+		addReporter: 'aim high %p' selector: #aimHigh: arguments: #( '' );
+		addSeparator;
+		addReporter: '%n of %m ''s %t' selector: #getTurtle:breed:var: arguments: #( 0 '' '' );
+		addSeparator;
+		addReporter: 'here' selector: #here;
+		addReporter: 'front' selector: #front;
+		addReporter: 'x %n y %n from here' selector: #relativeToX:y: arguments: #( 0 0 );
+		addReporter: 'r %n theta %n from here' selector: #relativeToR:theta: arguments: #( 0 0 ).
+	super addSensingBlocks
 ]
 
 { #category : #private }

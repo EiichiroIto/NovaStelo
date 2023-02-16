@@ -60,7 +60,7 @@ SpriteArgMorph >> evaluate [
 
 	self checkForDeletedMorph.
 	morph isString
-		ifTrue: [ morph := owner script project findObjName: morph ].
+		ifTrue: [ morph := owner receiver project findObjName: morph ].
 	^ morph
 ]
 
@@ -80,22 +80,20 @@ SpriteArgMorph >> handlesMouseDown: evt [
 
 { #category : #initialize }
 SpriteArgMorph >> initialize [
+
 	super initialize.
 	self borderInset.
 	self borderWidth: 1.
 	self color: Color white.
 	labelMorph := StringMorph new
-		font: ScratchTranslator argFont;
-		color: Color white.
+		              font: ScratchTranslator argFont;
+		              color: Color white.
 	self addMorph: labelMorph.
-	self
-		extent:
-			(labelMorph extent y > 15
-				ifTrue: [ 20 @ (labelMorph extent y + 3) ]
-				ifFalse: [ 20 @ 15 ]).
+	self extent: (labelMorph extent y > 15
+			 ifTrue: [ 20 @ (labelMorph extent y + 3) ]
+			 ifFalse: [ 20 @ 15 ]).
 	menuIconMorph := ImageMorph new form: DropDownMenuForm.
 	self addMorphFront: menuIconMorph.
-	morph := nil.
 	self updateLabel
 ]
 
@@ -117,7 +115,7 @@ SpriteArgMorph >> presentMenu [
 
 	"Let the user select a Scratch object or the special value #mouse."
 
-	| project objList ret |
+	| project objList |
 	project := self project.
 	project ifNil: [ ^ self ].
 	objList := project scriptsForMenu.

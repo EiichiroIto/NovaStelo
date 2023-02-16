@@ -266,12 +266,12 @@ IfElseBlockMorph >> emitCode: aGenerator indent: indent [
 	aGenerator emitIfElseBlock: self indent: indent.
 ]
 
-{ #category : #'code generation' }
+{ #category : #accessing }
 IfElseBlockMorph >> falseBlock [
 	^ falseBlock
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 IfElseBlockMorph >> falseBlock: aBlockMorph [
 	"Add the given block as my false nested block sequence. Delete the old nested blocks, if any."
 
@@ -383,6 +383,17 @@ IfElseBlockMorph >> nextBlock: aBlockMorph [
 
 ]
 
+{ #category : #'block enumerating' }
+IfElseBlockMorph >> nextOrInnerBlocks [
+
+	| set |
+	set := Set new.
+	nextBlock ifNotNil: [ set add: nextBlock ].
+	trueBlock ifNotNil: [ set add: trueBlock ].
+	falseBlock ifNotNil: [ set add: falseBlock ].
+	^ set asArray
+]
+
 { #category : #private }
 IfElseBlockMorph >> nonControlFlowSubmorphs [
 	"Answer a collection of submorphs minus any blocks that are part of the control flow. For example, command blocks omit their submorph that is the next block in the block sequence, C-blocks omit both their next block and the first block of their nested block list, etc."
@@ -414,12 +425,12 @@ IfElseBlockMorph >> topBarHeight [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : #accessing }
 IfElseBlockMorph >> trueBlock [
 	^ trueBlock
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 IfElseBlockMorph >> trueBlock: aBlockMorph [
 	"Add the given block as my true nested block sequence. Delete the old nested blocks, if any."
 

@@ -37,6 +37,14 @@ ScratchTranslatorTest >> testDefaultFont [
 ]
 
 { #category : #test }
+ScratchTranslatorTest >> testDefaultTranslator [
+
+	| obj |
+	obj := ScratchTranslator defaultTranslator.
+	self assert: obj locale equals: 'en'
+]
+
+{ #category : #test }
 ScratchTranslatorTest >> testFontAt [
 	| t f |
 	t := self newTranslator.
@@ -65,6 +73,18 @@ ScratchTranslatorTest >> testInitialize [
 	t := self newTranslator.
 	self assert: t fonts isDictionary.
 	self assert: t texts isDictionary
+]
+
+{ #category : #test }
+ScratchTranslatorTest >> testLocale [
+
+	| obj |
+	obj := self newTranslator.
+	self assert: obj locale isNil.
+	obj locale: 'en'.
+	self assert: obj locale equals: 'en'.
+	obj locale: 'ja'.
+	self assert: obj locale equals: 'ja'
 ]
 
 { #category : #test }

@@ -119,6 +119,7 @@ SpSteloTest >> testVarsAt [
 	proj := self newProject.
 	app installNewProject: proj.
 	s := app addTurtles.
+	s setupBlockSpecs.
 	app target: s.
 	r := app varsAt: 1.
 	self assert: r isArray.

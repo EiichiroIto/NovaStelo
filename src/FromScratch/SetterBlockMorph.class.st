@@ -42,22 +42,26 @@ SetterBlockMorph >> expressionArg [
 
 { #category : #initialization }
 SetterBlockMorph >> initChangerForVar: varName [
+
 	self commandSpec: 'change %v by %n' localized.
 	argPermutation := CommandBlockMorph
-		argPermutationForSpec: 'change %v to %n'
-		withTranslation: commandSpec.
+		                  argPermutationForSpec: 'change %v to %n'
+		                  withTranslation: commandSpec.
 	self selector: #changeVar:by:.
-	self variable: varName
+	self variable: varName.
+	self expressionArg numExpression: '1'
 ]
 
 { #category : #initialization }
 SetterBlockMorph >> initSetterForVar: varName [
+
 	self commandSpec: 'set %v to %n' localized.
 	argPermutation := CommandBlockMorph
-		argPermutationForSpec: 'set %v to %n'
-		withTranslation: commandSpec.
+		                  argPermutationForSpec: 'set %v to %n'
+		                  withTranslation: commandSpec.
 	self selector: #setVar:to:.
-	self variable: varName
+	self variable: varName.
+	self expressionArg stringExpression: '0'
 ]
 
 { #category : #initialization }
@@ -67,6 +71,12 @@ SetterBlockMorph >> initialize [
 	isSpecialForm := false.
 	isTimed := false.
 
+]
+
+{ #category : #testing }
+SetterBlockMorph >> isSetterBlock [
+
+	^ true
 ]
 
 { #category : #private }

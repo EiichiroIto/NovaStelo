@@ -88,6 +88,90 @@ BlockMorphTest >> testBottomBlock [
 ]
 
 { #category : #test }
+BlockMorphTest >> testIsBlockMorph [
+
+	self assert: self newBlock isBlockMorph
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsBooleanReporter [
+
+	self deny: self newBlock isBooleanReporter
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsCBlock [
+
+	self deny: self newBlock isCBlock
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsChoiceArg [
+
+	self deny: self newBlock isChoiceArg
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsForever [
+
+	self deny: self newBlock isForever
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsHatBlock [
+
+	self deny: self newBlock isHatBlock
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsIfElseBlock [
+
+	self deny: self newBlock isIfElseBlock
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsReporter [
+
+	self deny: self newBlock isReporter
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsSetterBlock [
+
+	self deny: self newBlock isSetterBlock
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsStop [
+
+	self deny: self newBlock isStop
+]
+
+{ #category : #test }
+BlockMorphTest >> testIsVariableBlock [
+
+	self deny: self newBlock isVariableBlock
+]
+
+{ #category : #test }
+BlockMorphTest >> testNextOrInnerBlocks [
+
+	| b1 b2 b3 |
+	b1 := self newBlock.
+	b2 := self newBlock.
+	b3 := self newBlock.
+	self assert: b1 nextOrInnerBlocks isArray.
+	self assert: b1 nextOrInnerBlocks isEmpty.
+	b1 nextBlock: b2.
+	b2 nextBlock: b3.
+	self assert: b1 nextOrInnerBlocks size equals: 1.
+	self assert: b1 nextOrInnerBlocks first identicalTo: b2.
+	self assert: b2 nextOrInnerBlocks size equals: 1.
+	self assert: b2 nextOrInnerBlocks first identicalTo: b3.
+	self assert: b3 nextOrInnerBlocks isEmpty
+]
+
+{ #category : #test }
 BlockMorphTest >> testTopBlock [
 	| b1 b2 b3 |
 	b1 := self newBlock.

@@ -48,8 +48,7 @@ ScratchStackFrame >> hasLocalVar: aString [
 
 { #category : #initialization }
 ScratchStackFrame >> initialize [
-	parentFrame := nil.
-	expression := nil.
+
 	arguments := OrderedCollection new.
 	pc := 1.
 	shouldUnlight := false

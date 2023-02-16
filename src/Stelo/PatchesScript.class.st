@@ -5,43 +5,32 @@ Class {
 }
 
 { #category : #'block specs' }
-PatchesScript >> blocks [
-	"Answer a collection of block specifications for the blocks that are common to all objects. Block specificatons (Arrays) are interspersed with category names (Strings). A block specification is an Array of the form: (<block spec string> <block type> <selector> [optional initial argument values]).
+PatchesScript >> addBlockSpecs [
 
-	Explanation of flags:
-		-	no flags
-		b	boolean reporter
-		c	c-shaped block containing a sequence of commands (always special form)
-		r	reporter
-		s	special form command with its own evaluation rule
-		t	timed command, like wait or glide
-		E	message event hat
-		K	key event hat
-		M	mouse-click event hat
-		S	start event hat
-		W	when <condition> hat (obsolete)"
+	self
+		addColorBlocks;
+		addConstantColorBlocks;
+		addObserverBlocks;
+		addListBlocks.
+	super addBlockSpecs
+]
 
-	| blocks |
-	blocks := #(
-		'sensing'
-			('id'									r	getId)
-			('x position'						r	getXpos)
-			('y position'						r	getYpos)
-			('one of %m at %n'				r	turtle:at: '' 0)
-			('distance to %n'				r	distanceTo: 0)
-			('direction to %n'				r	directionTo: 0)
-			-
-			('here'								r	here)
-			('x %n y %n from here'	r	relativeToX:y:		0 0)
-			('r %n theta %n from here'	r	relativeToR:theta:		0 0)
-		'control'
-			('when setup'						S	-)
-		'patch'
-			('patch color at %n' 			r 	getPatchColorAt: 0)
-			('set patch color at %n to %c'			- setPatchColorAt:to: 0 15)
-	).
+{ #category : #'block specs' }
+PatchesScript >> addSensingBlocks [
 
-	^ blocks, self colorBlocks, self variablesBlocks, super blocks, self observerBlocks
+	blockMorphBuilder
+		addCategory: 'sensing';
+		addReporter: 'id' selector: #getId;
+		addReporter: 'x position' selector: #getXpos;
+		addReporter: 'y position' selector: #getYpos;
+		addReporter: 'one of %m at %n' selector: #turtle:at: arguments: #( '' 0 );
+		addReporter: 'distance to %n' selector: #distanceTo: arguments: #( 0 );
+		addReporter: 'direction to %n' selector: #directionTo: arguments: #( 0 );
+		addSeparator;
+		addReporter: 'here' selector: #here;
+		addReporter: 'x %n y %n from here' selector: #relativeToX:y: arguments: #( 0 0 );
+		addReporter: 'r %n theta %n from here' selector: #relativeToR:theta: arguments: #( 0 0 ).
+	super addSensingBlocks
 ]
 
 { #category : #testing }

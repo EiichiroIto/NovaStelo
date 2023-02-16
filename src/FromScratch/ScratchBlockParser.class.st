@@ -4,44 +4,25 @@ Class {
 	#instVars : [
 		'codeGenerator'
 	],
-	#classVars : [
-		'InvOperatorDict',
-		'OperatorDict'
-	],
 	#category : #'FromScratch-Process'
 }
 
 { #category : #accessing }
 ScratchBlockParser class >> allSymbols [
+
 	"self allSymbols inspect."
+
 	| list |
-	list := ScratchScript allBlockSpecs.
-	list := list select: [ :each | each isArray ].
-	list := list collect: [ :each | each third ].
-	list := list collect: [ :each | self operatorAt: each ifAbsent: [ each ] ].
+	list := ScratchScript allSubclasses collect: [ :each | 
+		        each new
+			        setupBlockSpecs;
+			        yourself ].
+	list := list flatCollect: [ :each | 
+		        each blockMorphBuilder blockSpecs ].
+	list := list collect: [ :each | each selector ].
 	list := list asSet.
 	list := list asSortedCollection.
 	^ list asArray
-]
-
-{ #category : #private }
-ScratchBlockParser class >> buildOperatorDict [
-	"self buildOperatorDict"
-	OperatorDict := Dictionary new.
-	OperatorDict at: #+ put: #plus:and:.
-	OperatorDict at: #- put: #minus:with:.
-	OperatorDict at: #* put: #multiply:and:.
-	OperatorDict at: #/ put: #divide:by:.
-	OperatorDict at: #< put: #less:than:.
-	OperatorDict at: #= put: #equal:to:.
-	OperatorDict at: #> put: #more:than:.
-	OperatorDict at: #& put: #and:with:.
-	OperatorDict at: #| put: #or:with:.
-	OperatorDict at: #// put: #div:by:.
-	OperatorDict at: #\\ put: #mod:by:.
-	InvOperatorDict := Dictionary new.
-	OperatorDict
-		keysAndValuesDo: [ :key :value | InvOperatorDict at: value asSymbol put: key asString ]
 ]
 
 { #category : #'instance creation' }
@@ -51,35 +32,9 @@ ScratchBlockParser class >> codeGenerator: aCodeGenerator [
 		yourself.
 ]
 
-{ #category : #initialization }
-ScratchBlockParser class >> initialize [
-	"ScratchBlockParser initialize."
-	self buildOperatorDict.
-]
-
-{ #category : #accessing }
-ScratchBlockParser class >> invOperatorAt: aSymbol ifAbsent: aBlock [
-	^ InvOperatorDict at: aSymbol asSymbol ifAbsent: aBlock
-]
-
-{ #category : #testing }
-ScratchBlockParser class >> isInvOperator: aSymbol [
-	^ InvOperatorDict includesKey: aSymbol asSymbol
-]
-
-{ #category : #testing }
-ScratchBlockParser class >> isOperator: aSymbol [
-	^ OperatorDict includesKey: aSymbol asSymbol
-]
-
 { #category : #'instance creation' }
 ScratchBlockParser class >> new [
 	self shouldNotImplement
-]
-
-{ #category : #accessing }
-ScratchBlockParser class >> operatorAt: aSymbol ifAbsent: aBlock [
-	^ OperatorDict at: aSymbol asSymbol ifAbsent: aBlock
 ]
 
 { #category : #'arg generator' }
@@ -159,17 +114,6 @@ ScratchBlockParser >> emitEventHatBlock: aMorph indent: indent [
 ]
 
 { #category : #'code generator' }
-ScratchBlockParser >> emitGlobalVars: aCollection indent: indent [
-	aCollection isEmpty
-		ifTrue: [ ^ self ].
-	indent = 0
-		ifTrue: [ ^ self ].
-	codeGenerator
-		generateIndent: indent;
-		generateGlobalVars: aCollection
-]
-
-{ #category : #'code generator' }
 ScratchBlockParser >> emitIfElseBlock: aMorph indent: indent [ 
 	self emitBlockBegin: aMorph.
 	aMorph trueBlock ifNil: [self emitPassIndent: indent + 1]
@@ -206,9 +150,21 @@ ScratchBlockParser >> emitSubHatBlock: aMorph indent: indent [
 				generateIndent: i2;
 				generateEmptySubBody ]
 		ifNotNil: [ 
-			self emitGlobalVars: aMorph varNames indent: i2.
+			self emitSubVarDeclaration: aMorph indent: i2.
 			self emitCode: aMorph nextBlock indent: i2 ].
 	codeGenerator generateSubFooter: str
+]
+
+{ #category : #'code generator' }
+ScratchBlockParser >> emitSubVarDeclaration: aMorph indent: indent [
+
+	| list |
+	list := codeGenerator varNamesUsedIn: aMorph.
+	list isEmpty ifTrue: [ ^ self ].
+	indent = 0 ifTrue: [ ^ self ].
+	codeGenerator
+		generateIndent: indent;
+		generateSubVars: list
 ]
 
 { #category : #'arg generator' }
@@ -248,11 +204,8 @@ ScratchBlockParser >> privCodeGenerator: aCodeGenerator [
 
 { #category : #'arg generator' }
 ScratchBlockParser >> reporterArgString: aReporterMorph [
-	| selector |
-	selector := aReporterMorph selector.
-	(self class isOperator: selector)
-		ifTrue: [ selector := self class operatorAt: selector ifAbsent: [ self error ] ].
-	^ codeGenerator generateReporter: selector morph: aReporterMorph
+
+	^ codeGenerator generateReporter: aReporterMorph selector morph: aReporterMorph
 ]
 
 { #category : #'arg generator' }

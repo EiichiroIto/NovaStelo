@@ -36,7 +36,13 @@ SMicroWorld >> addBreed: aBreed [
 
 { #category : #accessing }
 SMicroWorld >> addList: aString var: vno breed: bno [
-	"do nothing"
+
+	self livingBreed: bno do: [ :each | 
+		self
+			var: vno
+			breed: bno
+			list: each
+			set: #(  ) ]
 ]
 
 { #category : #accessing }

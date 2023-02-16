@@ -31,7 +31,7 @@ ReporterBlockMorph >> canBecomeWatcher [
 	^ self isReporter
 		and: [ self argumentCount <= 1
 				and:
-					[ self script watcherSelectors includes: selector ] ]
+					[ receiver watcherSelectors includes: selector ] ]
 ]
 
 { #category : #other }
@@ -122,7 +122,7 @@ ReporterBlockMorph >> drawOn: aCanvas [
 
 { #category : #evaluation }
 ReporterBlockMorph >> evaluate [
-	^ receiver evaluateFor: self
+	^ receiver evaluateBlock: self
 ]
 
 { #category : #other }

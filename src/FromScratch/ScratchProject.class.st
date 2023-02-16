@@ -216,6 +216,12 @@ ScratchProject >> scriptsForMenu [
 	^ self scripts
 ]
 
+{ #category : #api }
+ScratchProject >> setupBlockSpecs [
+
+	scripts do: #setupBlockSpecs
+]
+
 { #category : #'object i/o' }
 ScratchProject >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(scripts info) on: anObjStream.

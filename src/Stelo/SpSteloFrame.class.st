@@ -111,7 +111,7 @@ SpSteloFrame >> changeColor: vno breed: bno at: id [
 		             acceptLabel: 'OK' localized;
 		             cancelLabel: 'Cancel' localized;
 		             items: ColorList colorNames;
-		             display: [ :each | each ];
+		             display: [ :each | each localized ];
 		             displayIcon: [ :each | 
 			             Morph new
 				             extent: 20 @ 20;
@@ -135,7 +135,7 @@ SpSteloFrame >> changeNumberVar: vno breed: bno at: id [
 
 	| val ret |
 	val := application sworld var: vno breed: bno at: id.
-	ret := application
+	ret := self
 		       request: 'Enter number' localized
 		       initialAnswer: val asString.
 	ret ifNil: [ ^ self ].
@@ -358,7 +358,7 @@ SpSteloFrame >> findObject: aString [
 	| bno ret id |
 	bno := self currentBreedNo.
 	bno = SBreedId observerBreedNo ifTrue: [ ^ self ].
-	ret := application
+	ret := self
 		       request: 'Enter id' localized
 		       initialAnswer: aString asString.
 	ret ifNil: [ ^ self ].
