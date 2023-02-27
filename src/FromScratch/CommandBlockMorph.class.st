@@ -22,8 +22,6 @@ Class {
 		'commandSpec',
 		'argPermutation',
 		'argMorphs',
-		'receiver',
-		'selector',
 		'isTimed',
 		'numberArgFlags',
 		'labelId'
@@ -299,7 +297,7 @@ CommandBlockMorph >> coerceArgs: argList [
 
 	| args |
 	args := argList asArray.
-	(receiver specialCommands includes: selector)
+	(receiver specialCommandSelectors includes: selector)
 		ifFalse: [ "ensure args are numbers where numbers are expected"
 			args := argList asArray
 				with: self numberArgFlags
@@ -430,12 +428,12 @@ CommandBlockMorph >> isCommandBlock [
 { #category : #testing }
 CommandBlockMorph >> isForever [
 
-	^ receiver foreverBlocks includes: selector
+	^ receiver foreverBlockSelectors includes: selector
 ]
 
 { #category : #testing }
 CommandBlockMorph >> isStop [
-	^ receiver stopBlocks includes: selector
+	^ receiver stopBlockSelectors includes: selector
 ]
 
 { #category : #testing }
@@ -523,21 +521,6 @@ CommandBlockMorph >> organizeArgs: argList [
 	^ argPermutation collect: [ :each | argList at: each ]
 ]
 
-{ #category : #accessing }
-CommandBlockMorph >> receiver [
-
-	^ receiver
-
-]
-
-{ #category : #accessing }
-CommandBlockMorph >> receiver: anObject [
-	"Set my receiver object."
-
-	receiver := anObject.
-
-]
-
 { #category : #private }
 CommandBlockMorph >> replaceArgMorph: oldMorph by: newMorph [
 	"Replace oldMorph with newMorph in my argMorphs and submorphs lists. This is done when dropping a reporter block onto one of my arguments."
@@ -546,20 +529,6 @@ CommandBlockMorph >> replaceArgMorph: oldMorph by: newMorph [
 		m == oldMorph ifTrue: [newMorph] ifFalse: [m]].
 	self replaceSubmorph: oldMorph by: newMorph.
 	self layoutChanged.
-
-]
-
-{ #category : #accessing }
-CommandBlockMorph >> selector [
-
-	^ selector
-
-]
-
-{ #category : #accessing }
-CommandBlockMorph >> selector: aSymbol [
-
-	selector := aSymbol.
 
 ]
 

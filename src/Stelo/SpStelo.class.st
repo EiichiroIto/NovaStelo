@@ -66,7 +66,7 @@ SpStelo class >> menuCommandOn: aBuilder [
 
 { #category : #constants }
 SpStelo class >> presentationClass [
-	^ SpSteloFrame
+	^ SpSteloPresenter
 ]
 
 { #category : #constants }
@@ -263,9 +263,10 @@ SpStelo >> maxUpdateInfoCount [
 
 { #category : #processes }
 SpStelo >> newCode [
-	^ SteloCode new
-		generator: SteloBytecodeGenerator new;
-		yourself
+
+	^ SteloBytecodeGenerator new
+		  parser: ScratchBlockParser new;
+		  yourself
 ]
 
 { #category : #private }
@@ -280,7 +281,7 @@ SpStelo >> newPatches [
 
 { #category : #private }
 SpStelo >> newPresenter [
-	^ SpSteloFrame basicNew
+	^ SpSteloPresenter basicNew
 		application: self;
 		initialize;
 		whenStepsDo: [ self stepProcesses ]
@@ -378,8 +379,11 @@ SpStelo >> sexpExtension [
 
 { #category : #'menu actions' }
 SpStelo >> showBytecode: topBlock [
+
 	| code |
-	code := self newCode parse: topBlock target: presenter target.
+	code := self newCode
+		        script: presenter target;
+		        parseBlock: topBlock.
 	code inspect
 ]
 
@@ -418,16 +422,19 @@ SpStelo >> startLoopSlow [
 
 { #category : #processes }
 SpStelo >> startProcessFor: topBlock [
+
 	| code program |
 	self stopAllProcesses.
 	self setupEvents.
-	code := self newCode parse: topBlock target: presenter target.
+	code := self newCode
+		        script: presenter target;
+		        parseBlock: topBlock.
 	program := self newProgram.
 	program
 		addCode: code;
 		addEntryPoint: 1
-			eventNo: EventId singleEventNo
-			breedNo: topBlock receiver breedNo.
+		eventNo: EventId singleEventNo
+		breedNo: topBlock receiver breedNo.
 	process := sworld newProcess program: program.
 	process single.
 	^ process

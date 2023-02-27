@@ -13,12 +13,12 @@ Class {
 STurtles >> aliveAt: index [
 	(index between: 1 and: self size)
 		ifFalse: [ ^ false ].
-	^ self flag: varId class aliveFlagNo at: index
+	^ self flag: varDef class aliveFlagNo at: index
 ]
 
 { #category : #'accessing variable' }
 STurtles >> aliveAt: index put: aBoolean [
-	self flag: varId class aliveFlagNo at: index put: aBoolean.
+	self flag: varDef class aliveFlagNo at: index put: aBoolean.
 ]
 
 { #category : #accessing }
@@ -93,12 +93,12 @@ STurtles >> fieldsVersion [
 
 { #category : #'accessing variable' }
 STurtles >> headingAt: anInteger [
-	^ self var: varId class headingVarNo at: anInteger
+	^ self var: varDef class headingVarNo at: anInteger
 ]
 
 { #category : #'accessing variable' }
 STurtles >> headingAt: anInteger put: aNumber [
-	self var: varId class headingVarNo at: anInteger put: aNumber.
+	self var: varDef class headingVarNo at: anInteger put: aNumber.
 ]
 
 { #category : #'object i/o' }
@@ -118,18 +118,18 @@ STurtles >> initialize [
 { #category : #microworld }
 STurtles >> livingOnesDo: aBlock [
 	1 to: self size do: [ :each | 
-		(self flag: varId class aliveFlagNo at: each)
+		(self flag: varDef class aliveFlagNo at: each)
 			ifTrue: [ aBlock cull: each cull: self ] ]
 ]
 
 { #category : #'accessing variable' }
 STurtles >> penDownAt: anInteger [
-	^ self flag: varId class penDownFlagNo at: anInteger
+	^ self flag: varDef class penDownFlagNo at: anInteger
 ]
 
 { #category : #'accessing variable' }
 STurtles >> penDownAt: anInteger put: aBoolean [
-	self flag: varId class penDownFlagNo at: anInteger put: aBoolean.
+	self flag: varDef class penDownFlagNo at: anInteger put: aBoolean.
 ]
 
 { #category : #printing }
@@ -142,8 +142,8 @@ STurtles >> printOn: aStream [
 
 { #category : #initialization }
 STurtles >> reset [
-	varId := STurtleVarDef new.
-	variables := Variables new updateVarDef: varId.
+	varDef := STurtleVarDef new.
+	variables := Variables new updateVarDef: varDef.
 ]
 
 { #category : #microworld }
@@ -172,29 +172,29 @@ STurtles >> storeFieldsOn: anObjStream [
 STurtles >> var: anInteger at: id put: aNumber [
 	| data |
 	data := aNumber.
-	anInteger = varId class colorVarNo
+	anInteger = varDef class colorVarNo
 		ifTrue: [ defaultColor := data ].
-	anInteger = varId class headingVarNo
+	anInteger = varDef class headingVarNo
 		ifTrue: [ data := aNumber \\ 360 ].
 	super var: anInteger at: id put: data
 ]
 
 { #category : #'accessing variable' }
 STurtles >> xAt: anInteger [
-	^ self var: varId class xVarNo at: anInteger
+	^ self var: varDef class xVarNo at: anInteger
 ]
 
 { #category : #'accessing variable' }
 STurtles >> xAt: anInteger put: aNumber [
-	self var: varId class xVarNo at: anInteger put: aNumber.
+	self var: varDef class xVarNo at: anInteger put: aNumber.
 ]
 
 { #category : #'accessing variable' }
 STurtles >> yAt: anInteger [
-	^ self var: varId class yVarNo at: anInteger
+	^ self var: varDef class yVarNo at: anInteger
 ]
 
 { #category : #'accessing variable' }
 STurtles >> yAt: anInteger put: aNumber [
-	self var: varId class yVarNo at: anInteger put: aNumber.
+	self var: varDef class yVarNo at: anInteger put: aNumber.
 ]

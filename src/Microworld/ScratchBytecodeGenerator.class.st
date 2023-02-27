@@ -1,14 +1,24 @@
 Class {
 	#name : #ScratchBytecodeGenerator,
-	#superclass : #Object,
+	#superclass : #ScratchGenerator,
 	#instVars : [
 		'stream',
 		'labelId',
 		'address',
-		'subTable'
+		'subTable',
+		'script'
 	],
 	#category : #'Microworld-Bytecode'
 }
+
+{ #category : #utilities }
+ScratchBytecodeGenerator class >> unimplementedSelectors [
+
+	"ScratchBytecodeGenerator unimplementedSelectors"
+
+	^ SpScratchApp allBlockSymbols
+	  \ (self subclasses first methods collect: #selector)
+]
 
 { #category : #accessing }
 ScratchBytecodeGenerator >> address [
@@ -26,33 +36,28 @@ ScratchBytecodeGenerator >> addressOfSubName: aString [
 	^ subTable at: aString
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> and: x with: y [
-	^ self binaryCommand: #and arg1: x arg2: y
-]
-
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> appendCall: aString [
 	stream
 		nextPut: (ScratchBytecodeCall subName: aString address: (self addressOfSubName: aString))
 ]
 
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> appendLabel: anInteger [
 	stream nextPut: (ScratchBytecodeLabel id: anInteger).
 ]
 
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> appendSymbol: aSymbol [
 	stream nextPut: (ScratchBytecodeSymbol selector: aSymbol).
 ]
 
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> appendSymbol: aSymbol withJump: anInteger [
 	stream nextPut: (ScratchBytecodeSymbolWithJump selector: aSymbol labelId: anInteger).
 ]
 
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> appendValue: anObject [
 	| v |
 	v := anObject isBlock
@@ -62,7 +67,7 @@ ScratchBytecodeGenerator >> appendValue: anObject [
 	stream nextPut: (ScratchBytecodeValue data: v).
 ]
 
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> binaryCommand: aSymbol arg1: anObject1 arg2: anObject2 [
 	self appendValue: anObject1.
 	self appendValue: anObject2.
@@ -70,38 +75,9 @@ ScratchBytecodeGenerator >> binaryCommand: aSymbol arg1: anObject1 arg2: anObjec
 	^ nil
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> bitAnd: x with: y [
-	^ self binaryCommand: #bitAnd arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> bitOr: x with: y [
-	^ self binaryCommand: #bitOr arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> bitShift: x left: y [
-	^ self binaryCommand: #bitShiftLeft arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> bitShift: x right: y [
-	^ self binaryCommand: #bitShiftRight arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> bitXor: x with: y [
-	^ self binaryCommand: #bitXor arg1: x arg2: y
-]
-
-{ #category : #'control ops' }
-ScratchBytecodeGenerator >> callSub: aString [
-	self appendCall: aString.
-]
-
-{ #category : #accessing }
+{ #category : #private }
 ScratchBytecodeGenerator >> code [
+
 	| firstPass array out |
 	firstPass := stream contents.
 	array := self labelsAndJumpsFor: firstPass.
@@ -112,83 +88,109 @@ ScratchBytecodeGenerator >> code [
 	^ out contents
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> computeFunction: aSymbol of: x [
-	^ self unaryCommand: aSymbol arg: x
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> divide: x by: y [
-	^ self binaryCommand: #div arg1: x arg2: y
-]
-
 { #category : #'control ops' }
 ScratchBytecodeGenerator >> doIfBegin: cond [
-	| id |
-	id := labelId newNo.
-	self appendValue: cond.
-	self appendSymbol: #jumpIfFalse withJump: id.
-	^ id
+
+	self subclassResponsibility
 ]
 
 { #category : #'control ops' }
-ScratchBytecodeGenerator >> doIfElse: orgId [
-	| newId |
-	newId := labelId newNo.
-	self appendSymbol: #jump withJump: newId.	
-	self appendLabel: orgId.
-	^ newId
-]
+ScratchBytecodeGenerator >> doIfEnd: anInteger [
 
-{ #category : #'control ops' }
-ScratchBytecodeGenerator >> doIfEnd: id [
-	self appendLabel: id.
-]
-
-{ #category : #'control ops' }
-ScratchBytecodeGenerator >> doRepeatBegin: num [
-	| label1 label2 |
-	label1 := labelId newNo.
-	label2 := labelId newNo.
-	self appendValue: num.
-	self appendLabel: label1.
-	self appendSymbol: #dup.
-	self appendValue: 0.
-	self appendSymbol: #equal.
-	self appendSymbol: #jumpIfTrue withJump: label2.
-	^ 	Array with: label1 with: label2
-]
-
-{ #category : #'control ops' }
-ScratchBytecodeGenerator >> doRepeatEndLabels: aCollection [
-	self appendSymbol: #dec.
-	self appendSymbol: #jump withJump: aCollection first.
-	self appendLabel: aCollection second.
-	self appendSymbol: #drop.
+	self subclassResponsibility
 ]
 
 { #category : #'control ops' }
 ScratchBytecodeGenerator >> doUntilBegin [
-	| id |
-	id := labelId newNo.
-	self appendLabel: id.
-	^ id
+
+	self subclassResponsibility
 ]
 
 { #category : #'control ops' }
 ScratchBytecodeGenerator >> doUntilEnd: cond id: id [
-	self appendValue: cond.
-	self appendSymbol: #jumpIfFalse withJump: id.
+
+	self subclassResponsibility
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> equal: x to: y [
-	^ self binaryCommand: #equal arg1: x arg2: y
+{ #category : #'arg generator' }
+ScratchBytecodeGenerator >> eventTitleString: aString [
+
+	aString isEmpty ifTrue: [ ^ nil ].
+	^ script project eventIdFor: aString asSymbol
 ]
 
-{ #category : #'sensing ops' }
-ScratchBytecodeGenerator >> getId [
-	^ self nullaryCommand: #getId
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateDoIfBegin: aMorph [
+
+	| cond id |
+	cond := aMorph blockArgs first argString: parser.
+	id := self doIfBegin: cond.
+	aMorph labelId: id
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateDoIfEnd: aMorph [
+
+	self doIfEnd: aMorph labelId
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateDoUntilBegin: aMorph [ 
+
+	| id |
+	id := self doUntilBegin.
+	aMorph labelId: id
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateDoUntilEnd: aMorph [ 
+
+	| cond id |
+	cond := aMorph blockArgs first argString: parser.
+	id := aMorph labelId.
+	self doUntilEnd: cond id: id
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateEmptySubBody [
+
+	"do nothing"
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateEventFooter: aString [ 
+
+	self stopThread
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateEventHeader: aString [
+
+	"do nothing"
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateIndent: anInteger [
+
+	"do nothing"
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generatePass [
+
+	"do nothing"
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateSubHeader: aString [
+
+	"do nothing"
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> generateSubVars: aCollection [
+
+	"do nothing"
 ]
 
 { #category : #initialization }
@@ -199,12 +201,15 @@ ScratchBytecodeGenerator >> initialize [
 	address := 1.
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> is: a between: x and: y [
-	self lessEqual: x than: a.
-	self lessEqual: a than: y.
-	self appendSymbol: #and.
-	^ nil
+{ #category : #accessing }
+ScratchBytecodeGenerator >> labelId [
+	^ labelId
+]
+
+{ #category : #accessing }
+ScratchBytecodeGenerator >> labelId: anObject [
+
+	labelId := anObject
 ]
 
 { #category : #private }
@@ -222,17 +227,7 @@ ScratchBytecodeGenerator >> labelsAndJumpsFor: aCollection [
 	^ Array with: labels with: jumps asArray
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> less: x than: y [
-	^ self binaryCommand: #less arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> lessEqual: x than: y [
-	^ self binaryCommand: #lessEqual arg1: x arg2: y
-]
-
-{ #category : #accessing }
+{ #category : #private }
 ScratchBytecodeGenerator >> literalStringFrom: anObject [
 	anObject isString
 		ifTrue: [ ^ anObject asNumberNoError ].
@@ -241,55 +236,10 @@ ScratchBytecodeGenerator >> literalStringFrom: anObject [
 	^ 0
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> minus: x with: y [
-	^ self binaryCommand: #minus arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> mod: x by: y [
-	^ self binaryCommand: #mod arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> multiply: x and: y [
-	^ self binaryCommand: #mul arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> not: x [
-	^ self unaryCommand: #not arg: x
-]
-
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> nullaryCommand: aSymbol [
 	self appendSymbol: aSymbol.
 	^ nil
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> or: x with: y [
-	^ self binaryCommand: #or arg1: x arg2: y
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> plus: x and: y [
-	^ self binaryCommand: #plus arg1: x arg2: y
-]
-
-{ #category : #private }
-ScratchBytecodeGenerator >> privLabelId [
-	^ labelId
-]
-
-{ #category : #private }
-ScratchBytecodeGenerator >> privStream [
-	^ stream
-]
-
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> randomFrom: x to: y [
-	^ self binaryCommand: #randomFromTo arg1: x arg2: y
 ]
 
 { #category : #private }
@@ -300,29 +250,39 @@ ScratchBytecodeGenerator >> resolveJumpAddress: aCollection using: anArray [
 				ifTrue: [ each address: (anArray at: each labelId) ] ].
 ]
 
-{ #category : #'control ops' }
-ScratchBytecodeGenerator >> return: anInteger [
-	self unaryCommand: #return arg: anInteger
+{ #category : #accessing }
+ScratchBytecodeGenerator >> script [
+
+	^ script
 ]
 
-{ #category : #'control ops' }
-ScratchBytecodeGenerator >> returnValue [
-	^ self nullaryCommand: #returnValue
+{ #category : #accessing }
+ScratchBytecodeGenerator >> script: anObject [
+
+	script := anObject
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> rounded: x [
-	^ self unaryCommand: #rounded arg: x
-]
+{ #category : #'arg generator' }
+ScratchBytecodeGenerator >> spriteArgString: aMorph [
 
-{ #category : #'control ops' }
-ScratchBytecodeGenerator >> stopAll [
-	self nullaryCommand: #stopAll.
+	^ aMorph breedNo
 ]
 
 { #category : #'control ops' }
 ScratchBytecodeGenerator >> stopThread [
-	self nullaryCommand: #stop.
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+ScratchBytecodeGenerator >> stream [
+	^ stream
+]
+
+{ #category : #accessing }
+ScratchBytecodeGenerator >> stream: anObject [
+
+	stream := anObject
 ]
 
 { #category : #accessing }
@@ -335,7 +295,7 @@ ScratchBytecodeGenerator >> subTable: aDictionary [
 	subTable := aDictionary.
 ]
 
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> ternaryCommand: aSymbol arg1: anObject1 arg2: anObject2 arg3: anObject3 [
 	self appendValue: anObject1.
 	self appendValue: anObject2.
@@ -344,14 +304,15 @@ ScratchBytecodeGenerator >> ternaryCommand: aSymbol arg1: anObject1 arg2: anObje
 	^ nil
 ]
 
-{ #category : #'arithmetic ops' }
-ScratchBytecodeGenerator >> truncated: x [
-	^ self unaryCommand: #truncated arg: x
-]
-
-{ #category : #private }
+{ #category : #'code injection' }
 ScratchBytecodeGenerator >> unaryCommand: aSymbol arg: anObject [
 	self appendValue: anObject.
 	self appendSymbol: aSymbol.
 	^ nil
+]
+
+{ #category : #'code generator' }
+ScratchBytecodeGenerator >> varNamesUsedIn: aMorph [
+
+	^ #(  )
 ]

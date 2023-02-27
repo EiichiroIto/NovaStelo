@@ -32,6 +32,163 @@ BlockMorphBuilderTest >> newScript [
 ]
 
 { #category : #test }
+BlockMorphBuilderTest >> testAddBooleanReporterSelector [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addBooleanReporter: 'abc' selector: #def.
+	block := builder blockSpecAt: #def.
+	self assert: block isBooleanReporter.
+	self assert: block label equals: 'abc'
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddBooleanReporterSelectorArguments [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addBooleanReporter: 'abc' selector: #def arguments: #( 1 2 ).
+	block := builder blockSpecAt: #def.
+	self assert: block isBooleanReporter.
+	self assert: block label equals: 'abc'.
+	self assertCollection: block arguments equals: #( 1 2 )
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddCBlockSelectorArguments [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addCBlock: 'abc' selector: #def arguments: #( 1 2 ).
+	block := builder blockSpecAt: #def.
+	self assert: block isCBlock.
+	self assert: block label equals: 'abc'.
+	self assertCollection: block arguments equals: #( 1 2 )
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddCategory [
+
+	| builder |
+	builder := self newBlockMorphBuilder.
+	self assert: builder lastCategory isNil.
+	builder addCategory: 'abc'.
+	self assert: builder lastCategory equals: 'abc'.
+	builder addCategory: 'def'.
+	self assert: builder lastCategory equals: 'def'
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddCommandSelector [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addCommand: 'abc' selector: #def.
+	block := builder blockSpecAt: #def.
+	self assert: block isCommandBlock.
+	self assert: block label equals: 'abc'
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddCommandSelectorArguments [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addCommand: 'abc' selector: #def arguments: #( 1 2 ).
+	block := builder blockSpecAt: #def.
+	self assert: block isCommandBlock.
+	self assert: block label equals: 'abc'.
+	self assertCollection: block arguments equals: #( 1 2 )
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddEventHatBlockSelectorEventName [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addEventHatBlock: 'abc' selector: #def eventName: 'ghi'.
+	block := builder blockSpecAt: #def.
+	self assert: block isEventHatBlock.
+	self assert: block label equals: 'abc'.
+	self assert: block selector equals: #def.
+	self assertCollection: block arguments equals: #( 'ghi' )
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddReporterSelector [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addReporter: 'abc' selector: #def.
+	block := builder blockSpecAt: #def.
+	self assert: block isReporterBlock.
+	self assert: block label equals: 'abc'
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddReporterSelectorArguments [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addReporter: 'abc' selector: #def arguments: #( 1 2 ).
+	block := builder blockSpecAt: #def.
+	self assert: block isReporterBlock.
+	self assert: block label equals: 'abc'.
+	self assertCollection: block arguments equals: #( 1 2 )
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddSeparator [
+
+	| builder blocks |
+	builder := self newBlockMorphBuilder.
+	builder addCategory: 'abc'.
+	blocks := builder blocksFor: 'abc'.
+	self assert: blocks isEmpty.
+	builder addSeparator.
+	blocks := builder blocksFor: 'abc'.
+	self assert: blocks size equals: 1.
+	self assert: blocks first isSeparator
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddSpecialSelectorArguments [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addSpecial: 'abc' selector: #def arguments: #( 1 2 ).
+	block := builder blockSpecAt: #def.
+	self assert: block isSpecialForm.
+	self assert: block label equals: 'abc'.
+	self assertCollection: block arguments equals: #( 1 2 )
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddStartHatBlockSelector [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addStartHatBlock: 'abc' selector: #def.
+	block := builder blockSpecAt: #def.
+	self assert: block isStartHatBlock.
+	self assert: block label equals: 'abc'.
+	self assert: block selector equals: #def.
+	self assert: block arguments isEmpty
+]
+
+{ #category : #test }
+BlockMorphBuilderTest >> testAddTimedSelectorArguments [
+
+	| builder block |
+	builder := self newBlockMorphBuilder.
+	builder addTimed: 'abc' selector: #def arguments: #( 1 2 ).
+	block := builder blockSpecAt: #def.
+	self assert: block isTimedBlock.
+	self assert: block label equals: 'abc'.
+	self assertCollection: block arguments equals: #( 1 2 )
+]
+
+{ #category : #test }
 BlockMorphBuilderTest >> testAppendBlockSpecInto [
 
 	| obj spec1 spec2 spec3 list |
@@ -280,20 +437,6 @@ BlockMorphBuilderTest >> testCompatibleSelectorOf [
 ]
 
 { #category : #test }
-BlockMorphBuilderTest >> testEventHatBlockFor [
-
-	| obj block script |
-	script := self newScript.
-	script setupBlockSpecs.
-	obj := self newBlockMorphBuilder.
-	obj script: script.
-	block := obj eventHatBlockFor: 'abc'.
-	self assert: (block isKindOf: EventHatMorph).
-	self assert: block scriptOwner identicalTo: script.
-	self assert: block eventName equals: 'abc'
-]
-
-{ #category : #test }
 BlockMorphBuilderTest >> testLastCategory [
 
 	| obj a |
@@ -317,20 +460,6 @@ BlockMorphBuilderTest >> testLocalVarBlockFor [
 	self assert: (block isKindOf: LocalVarBlockMorph).
 	self assert: block receiver identicalTo: script.
 	self assert: block variable equals: 'abc'
-]
-
-{ #category : #test }
-BlockMorphBuilderTest >> testLoopHatBlock [
-
-	| obj block script |
-	script := self newScript.
-	script setupBlockSpecs.
-	obj := self newBlockMorphBuilder.
-	obj script: script.
-	block := obj loopHatBlock.
-	self assert: (block isKindOf: EventHatMorph).
-	self assert: block scriptOwner identicalTo: script.
-	self assert: block eventName equals: 'loop'
 ]
 
 { #category : #test }
@@ -415,48 +544,6 @@ BlockMorphBuilderTest >> testSetVarBlockFor [
 ]
 
 { #category : #test }
-BlockMorphBuilderTest >> testSetupHatBlock [
-
-	| obj block script |
-	script := self newScript.
-	script setupBlockSpecs.
-	obj := self newBlockMorphBuilder.
-	obj script: script.
-	block := obj setupHatBlock.
-	self assert: (block isKindOf: EventHatMorph).
-	self assert: block scriptOwner identicalTo: script.
-	self assert: block eventName equals: 'setup'
-]
-
-{ #category : #test }
-BlockMorphBuilderTest >> testStartHatBlock [
-
-	| obj block script |
-	script := self newScript.
-	script setupBlockSpecs.
-	obj := self newBlockMorphBuilder.
-	obj script: script.
-	block := obj startHatBlock.
-	self assert: (block isKindOf: EventHatMorph).
-	self assert: block scriptOwner identicalTo: script.
-	self assert: block eventName equals: 'start'
-]
-
-{ #category : #test }
-BlockMorphBuilderTest >> testStartupHatBlock [
-
-	| obj block script |
-	script := self newScript.
-	script setupBlockSpecs.
-	obj := self newBlockMorphBuilder.
-	obj script: script.
-	block := obj startupHatBlock.
-	self assert: (block isKindOf: EventHatMorph).
-	self assert: block scriptOwner identicalTo: script.
-	self assert: block eventName equals: 'startup'
-]
-
-{ #category : #test }
 BlockMorphBuilderTest >> testSubHatBlockFor [
 
 	| obj block script |
@@ -466,7 +553,7 @@ BlockMorphBuilderTest >> testSubHatBlockFor [
 	obj script: script.
 	block := obj subHatBlockFor: 'abc'.
 	self assert: (block isKindOf: SubHatMorph).
-	self assert: block scriptOwner identicalTo: script.
+	self assert: block receiver identicalTo: script.
 	self assert: block subName equals: 'abc'
 ]
 

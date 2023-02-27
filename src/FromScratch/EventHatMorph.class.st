@@ -5,33 +5,53 @@ I am a hat block for stacks triggered by Scratch events.
 Class {
 	#name : #EventHatMorph,
 	#superclass : #HatBlockMorph,
+	#instVars : [
+		'labelMorph'
+	],
 	#category : #'FromScratch-Blocks'
 }
 
-{ #category : #other }
+{ #category : #accessing }
 EventHatMorph >> asBlockTuple [
+
 	"Answer a tuple (Array) describing this block and its event name."
 
-	^ Array with: self class name with: self eventName
+	^ Array with: selector with: self eventName
+]
 
+{ #category : #initialization }
+EventHatMorph >> commandSpec [
+
+	^ labelMorph contents asString
+]
+
+{ #category : #initialization }
+EventHatMorph >> commandSpec: aString [
+
+	labelMorph contents: aString.
+	self fixBlockLayout
+]
+
+{ #category : #accessing }
+EventHatMorph >> defaultArgs: defaultValues [
+
+	self eventName: defaultValues first
 ]
 
 { #category : #'code generation' }
 EventHatMorph >> emitCode: aGenerator indent: indent [
-	aGenerator emitEventHatBlock: self indent: indent.
+
+	aGenerator emitEventHatBlock: self indent: indent
 ]
 
-{ #category : #other }
+{ #category : #accessing }
 EventHatMorph >> eventName [
-	"Answer the name of this script."
 
 	^ scriptNameMorph eventName
-
 ]
 
-{ #category : #other }
+{ #category : #accessing }
 EventHatMorph >> eventName: aString [
-	"Set my event name. Used for initialization."
 
 	scriptNameMorph eventName: aString.
 	self fixBlockLayout.
@@ -39,38 +59,24 @@ EventHatMorph >> eventName: aString [
 ]
 
 { #category : #initialization }
-EventHatMorph >> for: aString event: aSymbol [
-	| s |
-	super initialize.
-	self removeAllMorphs.
-	s := self newLabelString
-		contents: aString localized;
-		yourself.
-	self addMorphBack: s.
-
-	"create scriptNameMorph but don't add it"
-	scriptNameMorph := EventTitleMorph new eventName: aSymbol.
-	self fixBlockLayout
-]
-
-{ #category : #initialization }
 EventHatMorph >> initialize [
-	| label |
+
 	super initialize.
 	self removeAllMorphs.
-	label := StringMorph
-		contents: 'when I receive' localized
-		font: ScratchTranslator labelFont.
-	label color: Color white.
-	self addMorphBack: label.
+	labelMorph := StringMorph
+		              contents: 'when I receive'
+		              font: ScratchTranslator labelFont.
+	labelMorph color: Color white.
+	self addMorphBack: labelMorph.
 	scriptNameMorph := EventTitleMorph new.
 	self addMorphBack: scriptNameMorph
 ]
 
 { #category : #initialization }
 EventHatMorph >> newLabelString [
+
 	^ StringMorph new
-		font: ScratchTranslator labelFont;
-		color: Color white;
-		yourself
+		  font: ScratchTranslator labelFont;
+		  color: Color white;
+		  yourself
 ]

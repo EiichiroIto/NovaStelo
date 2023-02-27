@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #accessing }
+SObserverVarDef class >> colorVarNo [
+
+	^ 1
+]
+
+{ #category : #accessing }
 SObserverVarDef class >> countAliveVarNo [
 	^ 5
 ]

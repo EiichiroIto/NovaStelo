@@ -7,11 +7,16 @@ Class {
 	#name : #HatBlockMorph,
 	#superclass : #BlockMorph,
 	#instVars : [
-		'scriptNameMorph',
-		'scriptOwner'
+		'scriptNameMorph'
 	],
 	#category : #'FromScratch-Blocks'
 }
+
+{ #category : #accessing }
+HatBlockMorph >> argPermutation: anArray [
+
+	"do nothing"
+]
 
 { #category : #private }
 HatBlockMorph >> blockAttachPoints: aSet [
@@ -22,6 +27,12 @@ HatBlockMorph >> blockAttachPoints: aSet [
 	nextB
 		ifNil: [ aSet add: self bottomLeft -> self ]
 		ifNotNil: [ nextB blockAttachPoints: aSet ]
+]
+
+{ #category : #accessing }
+HatBlockMorph >> defaultArgs: defaultValues [
+
+	"do nothing"
 ]
 
 { #category : #drawing }
@@ -85,7 +96,7 @@ HatBlockMorph >> duplicate [
 
 	| m |
 	m := self fullCopy.
-	scriptOwner ifNotNil: [m scriptOwner: scriptOwner].
+	receiver ifNotNil: [m receiver: receiver].
 	self world activeHand attachMorph: m.
 
 ]
@@ -108,7 +119,7 @@ HatBlockMorph >> fixBlockLayout [
 				ifTrue: [ m fixArgLayout ].
 			m position: x @ (centerY - (m height // 2)).
 			x := x + m width + 5 ].
-	x + x + 4.
+	"x + x + 4."
 	self width: (x - self left max: self hatTopForm width).
 	nonBlockSubmorphs := self submorphs
 		select: [ :m | m isBlockMorph not or: [ m isArgMorph ] ].
@@ -152,32 +163,10 @@ HatBlockMorph >> isHatBlock [
 
 ]
 
-{ #category : #accessing }
-HatBlockMorph >> receiver [
-
-	^ scriptOwner
-
-]
-
-{ #category : #accessing }
-HatBlockMorph >> scriptOwner [
-
-	^ scriptOwner
-
-]
-
-{ #category : #accessing }
-HatBlockMorph >> scriptOwner: anObject [
-
-	scriptOwner := anObject.
-	self fixBlockLayout.
-
-]
-
 { #category : #processes }
 HatBlockMorph >> startProcess [
 	self stopProcess.
-	scriptOwner ifNil: [ ^ self ].
+	receiver ifNil: [ ^ self ].
 	self applicationDo: [ :app | app startProcessFor: self ].
 	self changed
 ]

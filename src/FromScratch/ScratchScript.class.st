@@ -103,13 +103,13 @@ ScratchScript >> addGenericListBlocksTo: page y: startY [
 	x := 13.
 	y := startY + 10.
 	page addMorph: (addButton
-			 target: self project application;
+			 target: project application;
 			 arguments: { self };
 			 position: x @ y).
 	y := addButton bottom + 3.
 	self listVarNames isEmpty ifTrue: [ ^ y ].
 	page addMorph: (deleteButton
-			 target: self project application;
+			 target: project application;
 			 arguments: { self };
 			 position: x @ y).
 	y := deleteButton bottom + 10.
@@ -161,7 +161,7 @@ ScratchScript >> addGenericVariableBlocksTo: page y: startY [
 	page
 		addMorph:
 			(addButton
-				target: self project application;
+				target: project application;
 				arguments: {self};
 				position: x @ startY).
 	y := addButton bottom + 3.
@@ -169,7 +169,7 @@ ScratchScript >> addGenericVariableBlocksTo: page y: startY [
 		ifTrue: [ page
 				addMorph:
 					(deleteButton
-						target: self project application;
+						target: project application;
 						arguments: {self};
 						position: x @ y).
 			y := deleteButton bottom + 10.
@@ -212,6 +212,12 @@ ScratchScript >> addVariableReportersTo: page x: x y: startY [
 		page addMorph: (b position: x + watcherButton width + 4 @ y).
 		y := y + b height + 3 ].
 	^ y
+]
+
+{ #category : #accessing }
+ScratchScript >> allHatBlocks [
+
+	^ self subHatBlocks , self eventHatBlocks , self startHatBlocks
 ]
 
 { #category : #accessing }
@@ -260,6 +266,12 @@ ScratchScript >> blockMorphBuilder: anObject [
 	blockMorphBuilder := anObject
 ]
 
+{ #category : #'block building' }
+ScratchScript >> blockMorphsForWriting [
+
+	^ blocksBin submorphs select: [ :m | m respondsTo: #tupleSequence ]
+]
+
 { #category : #'block specs' }
 ScratchScript >> blockSpecAt: aSymbol [
 	^ blockMorphBuilder blockSpecAt: aSymbol
@@ -281,49 +293,56 @@ ScratchScript >> blocksFor: aCategory [
 	^ blockMorphBuilder blocksFor: aCategory
 ]
 
+{ #category : #'block specs' }
+ScratchScript >> cBlockSelectors [
+
+	^ #( doIf doRepeat doUntil doForever doWhile doIterate )
+]
+
 { #category : #'block building' }
 ScratchScript >> cleanUp [
 	blocksBin cleanUp
 ]
 
 { #category : #'block building' }
+ScratchScript >> convertEventHatTuple: anArray [
+
+	| selector |
+	anArray first = #EventHatMorph ifTrue: [ 
+		selector := anArray second asSymbol.
+		^ (self startHatBlockNames includes: selector)
+			  ifTrue: [ Array with: selector ]
+			  ifFalse: [ Array with: #event: with: selector ] ].
+	anArray first = #SubHatMorph ifTrue: [ 
+		^ Array with: #sub: with: anArray second ].
+	^ anArray
+]
+
+{ #category : #'block building' }
 ScratchScript >> convertStacksToTuples [
+
 	"Convert my blocks bin from a morph containing block stack into a collection of (<point>, <tuple>) pairs the represent the same stacks in compact, language-independent form."
 
-	| stacks blocks comments |
-	blocksBin isArray
-		ifTrue: [ ^ self ].
-	stacks := blocksBin submorphs
-		select: [ :m | m respondsTo: #tupleSequence ].
-	blocks := stacks select: [ :m | m isBlockMorph ].
-	comments := stacks select: [ :m | m isCommentMorph ].
-	blocks := blocks
-		collect: [ :blockM | 
-			Array
-				with: blockM position - blocksBin position
-				with: blockM tupleSequence ].
-	comments := comments
-		collect: [ :blockM | 
-			Array
-				with: blockM position - blocksBin position
-				with: blockM tupleSequence ].
-	blocksBin := blocks , comments
+	blocksBin isArray ifTrue: [ ^ self ].
+	blocksBin := self blockMorphsForWriting collect: [ :blockM | 
+		             Array
+			             with: blockM position - blocksBin position
+			             with: blockM tupleSequence ]
 ]
 
 { #category : #'block building' }
 ScratchScript >> convertTuplesToStacks [
+
 	| tuplesList stack |
-	blocksBin isArray
-		ifFalse: [ ^ self ].
+	blocksBin isArray ifFalse: [ ^ self ].
 	tuplesList := blocksBin.
-	blocksBin := ScratchScriptsMorph new
-		project: self project;
-		yourself.
-	tuplesList
-		do: [ :pair | 
-			stack := blockMorphBuilder stackFromTupleList: pair second.
-			stack position: pair first.
-			blocksBin addMorph: stack ]
+	blocksBin := self newScriptsMorph
+		             project: project;
+		             yourself.
+	tuplesList do: [ :pair | 
+		stack := blockMorphBuilder stackFromTupleList: pair second.
+		stack position: pair first.
+		blocksBin addMorph: stack ]
 ]
 
 { #category : #private }
@@ -396,6 +415,18 @@ ScratchScript >> defaultArgsFor: blockSpec [
 	^ defaultArgs
 ]
 
+{ #category : #accessing }
+ScratchScript >> defaultEventName [
+
+	^ project defaultEventName
+]
+
+{ #category : #accessing }
+ScratchScript >> defaultSubName [
+
+	^ project defaultSubName
+]
+
 { #category : #variables }
 ScratchScript >> deleteList: aString [
 	self subclassResponsibility
@@ -429,13 +460,21 @@ ScratchScript >> evaluator [
 ]
 
 { #category : #accessing }
-ScratchScript >> eventBlocks [
-	^ blocksBin submorphs select: [:m | m class = EventHatMorph]
+ScratchScript >> eventHatBlocks [
+
+	^ blocksBin submorphs select: [ :m | m class = EventHatMorph ]
 ]
 
 { #category : #'object i/o' }
 ScratchScript >> fieldsVersion [
 	^ 1
+]
+
+{ #category : #accessing }
+ScratchScript >> fixScriptBeforeWriting [
+
+	blocksBin allMorphsDo: [ :each | 
+		each isBlockMorph ifTrue: [ each stopProcess ] ]
 ]
 
 { #category : #accessing }
@@ -448,7 +487,7 @@ ScratchScript >> fixUnsavedFields [
 ]
 
 { #category : #'block specs' }
-ScratchScript >> foreverBlocks [
+ScratchScript >> foreverBlockSelectors [
 
 	^ #( doForever doForeverIf )
 ]
@@ -458,43 +497,21 @@ ScratchScript >> getVar: aString [
 	^ self evaluator getVar: aString
 ]
 
-{ #category : #'block building' }
-ScratchScript >> hatBlockFromSpec: aBlockSpec [
+{ #category : #'block specs' }
+ScratchScript >> getVarSelectors [
 
-	aBlockSpec isEventHatBlock ifTrue: [ 
-		^ blockMorphBuilder eventHatBlockFor: project defaultEventName ].
-	aBlockSpec isStartHatBlock ifTrue: [ 
-		^ blockMorphBuilder startHatBlock ].
-	aBlockSpec isSetupHatBlock ifTrue: [ 
-		^ blockMorphBuilder setupHatBlock ].
-	aBlockSpec isStartupHatBlock ifTrue: [ 
-		^ blockMorphBuilder startupHatBlock ].
-	aBlockSpec isLoopHatBlock ifTrue: [ ^ blockMorphBuilder loopHatBlock ].
-	aBlockSpec isSubHatBlock ifTrue: [ 
-		^ blockMorphBuilder subHatBlockFor: project defaultSubName ].
-	self error
-]
-
-{ #category : #'block building' }
-ScratchScript >> hatBlockFromTuple: tuple [
-
-	| blockClass eventName |
-	blockClass := Smalltalk at: tuple first.
-	eventName := tuple at: 2.
-	blockClass = SubHatMorph ifTrue: [ 
-		^ blockMorphBuilder subHatBlockFor: eventName ].
-	blockClass = EventHatMorph ifTrue: [ 
-		eventName = 'start' ifTrue: [ ^ blockMorphBuilder startHatBlock ].
-		eventName = 'startup' ifTrue: [ ^ blockMorphBuilder startupHatBlock ].
-		eventName = 'setup' ifTrue: [ ^ blockMorphBuilder setupHatBlock ].
-		eventName = 'loop' ifTrue: [ ^ blockMorphBuilder loopHatBlock ].
-		^ blockMorphBuilder eventHatBlockFor: eventName ].
-	self error
+	^ #( getVar )
 ]
 
 { #category : #accessing }
 ScratchScript >> hatBlocks [
 	^ blocksBin submorphs select: [ :m | m isHatBlock ]
+]
+
+{ #category : #'block specs' }
+ScratchScript >> ifElseBlockSelectors [
+
+	^ #( doIfElse )
 ]
 
 { #category : #'object i/o' }
@@ -507,7 +524,7 @@ ScratchScript >> initFieldsFrom: anObjStream version: classVersion [
 { #category : #initialization }
 ScratchScript >> initialize [
 
-	blocksBin := ScratchScriptsMorph new
+	blocksBin := self newScriptsMorph
 ]
 
 { #category : #testing }
@@ -523,6 +540,12 @@ ScratchScript >> isValidSubName: aString [
 { #category : #'argument menus' }
 ScratchScript >> listVarNames [
 	self subclassResponsibility
+]
+
+{ #category : #'block specs' }
+ScratchScript >> loopBlockSelectors [
+
+	^ #( doForever doForeverIf doRepeat doUntil )
 ]
 
 { #category : #private }
@@ -546,6 +569,12 @@ ScratchScript >> newBlockPaletteMorph [
 		yourself
 ]
 
+{ #category : #private }
+ScratchScript >> newScriptsMorph [
+
+	^ ScratchScriptsMorph new
+]
+
 { #category : #accessing }
 ScratchScript >> objName [
 	self subclassResponsibility
@@ -560,6 +589,12 @@ ScratchScript >> project [
 ScratchScript >> project: aProject [
 	project := aProject.
 	blocksBin project: project
+]
+
+{ #category : #'block specs' }
+ScratchScript >> setVarSelectors [
+
+	^ #( setVar:to: changeVar:by: )
 ]
 
 { #category : #'block specs' }
@@ -584,12 +619,25 @@ ScratchScript >> setupBlockSpecs [
 ]
 
 { #category : #'block specs' }
-ScratchScript >> specialCommands [
-	^ #(#setVar:to:)
+ScratchScript >> specialCommandSelectors [
+
+	^ #( #setVar:to: )
 ]
 
 { #category : #'block specs' }
-ScratchScript >> stopBlocks [
+ScratchScript >> startHatBlockNames [
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+ScratchScript >> startHatBlocks [
+
+	^ blocksBin submorphs select: [ :m | m class = StartHatMorph ]
+]
+
+{ #category : #'block specs' }
+ScratchScript >> stopBlockSelectors [
 
 	^ #( stopThread stopAll return: break continue doReturn )
 ]
@@ -600,13 +648,13 @@ ScratchScript >> storeFieldsOn: anObjStream [
 ]
 
 { #category : #accessing }
-ScratchScript >> subBlocks [
-	^ blocksBin submorphs select: [:m | m class = SubHatMorph]
+ScratchScript >> subHatBlockNamed: aString [
+	^ self subHatBlocks detect: [ :each | each subName = aString ] ifNone: [ nil ]
 ]
 
 { #category : #accessing }
-ScratchScript >> subHatBlockNamed: aString [
-	^ self subBlocks detect: [ :each | each subName = aString ] ifNone: [ nil ]
+ScratchScript >> subHatBlocks [
+	^ blocksBin submorphs select: [:m | m class = SubHatMorph]
 ]
 
 { #category : #testing }
@@ -616,7 +664,7 @@ ScratchScript >> subNameInUse: aString [
 
 { #category : #'argument menus' }
 ScratchScript >> subNames [
-	^ (self subBlocks collect: #subName) asSet asArray sort
+	^ (self subHatBlocks collect: #subName) asSet asArray sort
 ]
 
 { #category : #accessing }
@@ -667,6 +715,12 @@ ScratchScript >> useVariableWatcher [
 { #category : #'argument menus' }
 ScratchScript >> varNames [
 	self subclassResponsibility
+]
+
+{ #category : #'block specs' }
+ScratchScript >> variableBlockSelectors [
+
+	^ #( readVariable changeVariable )
 ]
 
 { #category : #variables }

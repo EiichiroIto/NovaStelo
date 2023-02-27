@@ -81,8 +81,8 @@ SObserver >> newTurtle [
 
 { #category : #initialization }
 SObserver >> reset [
-	varId := SObserverVarDef new.
-	variables := Variables new updateVarDef: varId
+	varDef := SObserverVarDef new.
+	variables := Variables new updateVarDef: varDef
 ]
 
 { #category : #microworld }
@@ -103,7 +103,7 @@ SObserver >> ticks [
 
 { #category : #microworld }
 SObserver >> var: anInteger at: dummy put: anObject sworld: aWorld [
-	anInteger = varId class ticksVarNo
+	anInteger = varDef class ticksVarNo
 		ifTrue: [ ^ ticks := anObject ].
 	self var: anInteger at: dummy put: anObject
 ]
@@ -111,7 +111,7 @@ SObserver >> var: anInteger at: dummy put: anObject sworld: aWorld [
 { #category : #microworld }
 SObserver >> var: anInteger at: id sworld: aWorld [
 	| v |
-	v := varId class.
+	v := varDef class.
 	anInteger = v widthVarNo
 		ifTrue: [ ^ aWorld extent x ].
 	anInteger = v heightVarNo
@@ -125,6 +125,6 @@ SObserver >> var: anInteger at: id sworld: aWorld [
 	anInteger = v sizeVarNo
 		ifTrue: [ ^ aWorld sizeOf: id ].
 	anInteger = v maxVarVarNo
-		ifTrue: [ ^ varId size ].
+		ifTrue: [ ^ varDef size ].
 	^ self var: anInteger at: id
 ]

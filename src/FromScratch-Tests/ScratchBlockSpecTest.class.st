@@ -46,11 +46,8 @@ ScratchBlockSpecTest >> testIsBooleanReporter [
 	| obj |
 	obj := self newObj.
 	self deny: obj isBooleanReporter.
-	obj type: #b.
-	self assert: obj isBooleanReporter.
-	#( C E K M S T L G c r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isBooleanReporter ]
+	obj type: #isBooleanReporter.
+	self assert: obj isBooleanReporter
 ]
 
 { #category : #test }
@@ -59,11 +56,8 @@ ScratchBlockSpecTest >> testIsCBlock [
 	| obj |
 	obj := self newObj.
 	self deny: obj isCBlock.
-	obj type: #c.
-	self assert: obj isCBlock.
-	#( C E K M S T L G b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isCBlock ]
+	obj type: #isCBlock.
+	self assert: obj isCBlock
 ]
 
 { #category : #test }
@@ -72,11 +66,8 @@ ScratchBlockSpecTest >> testIsCommandBlock [
 	| obj |
 	obj := self newObj.
 	self deny: obj isCommandBlock.
-	obj type: #-.
-	self assert: obj isCommandBlock.
-	#( C E K M S T L G c b r s t ) do: [ :each | 
-		obj type: each.
-		self deny: obj isCommandBlock ]
+	obj type: #isCommandBlock.
+	self assert: obj isCommandBlock
 ]
 
 { #category : #test }
@@ -85,38 +76,8 @@ ScratchBlockSpecTest >> testIsEventHatBlock [
 	| obj |
 	obj := self newObj.
 	self deny: obj isEventHatBlock.
-	obj type: #E.
-	self assert: obj isEventHatBlock.
-	#( C K M S T L G c b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isEventHatBlock ]
-]
-
-{ #category : #test }
-ScratchBlockSpecTest >> testIsHatBlock [
-
-	| obj |
-	obj := self newObj.
-	self deny: obj isHatBlock.
-	#( C E K M S T L G ) do: [ :each | 
-		obj type: each.
-		self assert: obj isHatBlock ].
-	#( c b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isHatBlock ]
-]
-
-{ #category : #test }
-ScratchBlockSpecTest >> testIsLoopHatBlock [
-
-	| obj |
-	obj := self newObj.
-	self deny: obj isLoopHatBlock.
-	obj type: #L.
-	self assert: obj isLoopHatBlock.
-	#( C E K M S T G c b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isLoopHatBlock ]
+	obj type: #isEventHatBlock.
+	self assert: obj isEventHatBlock
 ]
 
 { #category : #test }
@@ -131,26 +92,10 @@ ScratchBlockSpecTest >> testIsReporterBlock [
 	| obj |
 	obj := self newObj.
 	self deny: obj isReporterBlock.
-	obj type: #b.
+	obj type: #isBooleanReporter.
 	self assert: obj isReporterBlock.
-	obj type: #r.
-	self assert: obj isReporterBlock.
-	#( C E K M S T L G c s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isReporterBlock ]
-]
-
-{ #category : #test }
-ScratchBlockSpecTest >> testIsSetupHatBlock [
-
-	| obj |
-	obj := self newObj.
-	self deny: obj isSetupHatBlock.
-	obj type: #S.
-	self assert: obj isSetupHatBlock.
-	#( C E K M L T G c b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isSetupHatBlock ]
+	obj type: #isReporterBlock.
+	self assert: obj isReporterBlock
 ]
 
 { #category : #test }
@@ -159,11 +104,8 @@ ScratchBlockSpecTest >> testIsSpecialForm [
 	| obj |
 	obj := self newObj.
 	self deny: obj isSpecialForm.
-	obj type: #s.
-	self assert: obj isSpecialForm.
-	#( C E K M S T L G b c r t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isSpecialForm ]
+	obj type: #isSpecialForm.
+	self assert: obj isSpecialForm
 ]
 
 { #category : #test }
@@ -172,37 +114,8 @@ ScratchBlockSpecTest >> testIsStartHatBlock [
 	| obj |
 	obj := self newObj.
 	self deny: obj isStartHatBlock.
-	obj type: #G.
-	self assert: obj isStartHatBlock.
-	#( C E K M S T L c b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isStartHatBlock ]
-]
-
-{ #category : #test }
-ScratchBlockSpecTest >> testIsStartupHatBlock [
-
-	| obj |
-	obj := self newObj.
-	self deny: obj isStartupHatBlock.
-	obj type: #T.
-	self assert: obj isStartupHatBlock.
-	#( C E K M S L G c b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isStartupHatBlock ]
-]
-
-{ #category : #test }
-ScratchBlockSpecTest >> testIsSubHatBlock [
-
-	| obj |
-	obj := self newObj.
-	self deny: obj isSubHatBlock.
-	obj type: #C.
-	self assert: obj isSubHatBlock.
-	#( L E K M S T G c b r s t - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isSubHatBlock ]
+	obj type: #isStartHatBlock.
+	self assert: obj isStartHatBlock
 ]
 
 { #category : #test }
@@ -211,11 +124,8 @@ ScratchBlockSpecTest >> testIsTimedBlock [
 	| obj |
 	obj := self newObj.
 	self deny: obj isTimedBlock.
-	obj type: #t.
-	self assert: obj isTimedBlock.
-	#( C E K M S T L G b c r s - ) do: [ :each | 
-		obj type: each.
-		self deny: obj isTimedBlock ]
+	obj type: #isTimedBlock.
+	self assert: obj isTimedBlock
 ]
 
 { #category : #test }

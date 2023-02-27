@@ -44,37 +44,25 @@ ScratchBlockSpec >> isBlockSpec [
 { #category : #testing }
 ScratchBlockSpec >> isBooleanReporter [
 
-	^ type = #b
+	^ type = #isBooleanReporter
 ]
 
 { #category : #testing }
 ScratchBlockSpec >> isCBlock [
 
-	^ type = #c
+	^ type = #isCBlock
 ]
 
 { #category : #testing }
 ScratchBlockSpec >> isCommandBlock [
 
-	^ type = #-
+	^ type = #isCommandBlock
 ]
 
 { #category : #testing }
 ScratchBlockSpec >> isEventHatBlock [
 
-	^ type = #E
-]
-
-{ #category : #testing }
-ScratchBlockSpec >> isHatBlock [
-
-	^ #( C E K M S T L G ) includes: type
-]
-
-{ #category : #testing }
-ScratchBlockSpec >> isLoopHatBlock [
-
-	^ type = #L
+	^ type = #isEventHatBlock
 ]
 
 { #category : #testing }
@@ -86,43 +74,25 @@ ScratchBlockSpec >> isNativeBlock [
 { #category : #testing }
 ScratchBlockSpec >> isReporterBlock [
 
-	^ #(r b) includes: type
-]
-
-{ #category : #testing }
-ScratchBlockSpec >> isSetupHatBlock [
-
-	^ type = #S
+	^ #(isReporterBlock isBooleanReporter) includes: type
 ]
 
 { #category : #testing }
 ScratchBlockSpec >> isSpecialForm [
 
-	^ type = #s
+	^ type = #isSpecialForm
 ]
 
 { #category : #testing }
 ScratchBlockSpec >> isStartHatBlock [
 
-	^ type = #G
-]
-
-{ #category : #testing }
-ScratchBlockSpec >> isStartupHatBlock [
-
-	^ type = #T
-]
-
-{ #category : #testing }
-ScratchBlockSpec >> isSubHatBlock [
-
-	^ type = #C
+	^ type = #isStartHatBlock
 ]
 
 { #category : #testing }
 ScratchBlockSpec >> isTimedBlock [
 
-	^ type = #t
+	^ type = #isTimedBlock
 ]
 
 { #category : #accessing }

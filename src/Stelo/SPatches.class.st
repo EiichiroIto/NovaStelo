@@ -218,8 +218,8 @@ SPatches >> printOn: aStream [
 
 { #category : #initialization }
 SPatches >> reset [
-	varId := SPatchVarDef new.
-	variables := Variables new updateVarDef: varId.
+	varDef := SPatchVarDef new.
+	variables := Variables new updateVarDef: varDef.
 ]
 
 { #category : #accessing }
@@ -264,9 +264,9 @@ SPatches >> usePluginDiffuser [
 
 { #category : #'accessing variable' }
 SPatches >> var: anInteger1 at: anInteger2 [
-	anInteger1 = varId class xVarNo
+	anInteger1 = varDef class xVarNo
 		ifTrue: [ ^ self xAt: anInteger2 ].
-	anInteger1 = varId class yVarNo
+	anInteger1 = varDef class yVarNo
 		ifTrue: [ ^ self yAt: anInteger2 ].
 	^ super var: anInteger1 at: anInteger2
 ]

@@ -101,8 +101,8 @@ SteloScript >> addControlBlocks [
 
 	blockMorphBuilder
 		addCategory: 'control';
-		addHatBlock: 'when loop' type: #L arguments: #( - );
-		addHatBlock: 'when I receive %e' type: #E arguments: #( - );
+		addStartHatBlock: 'when loop' selector: #loop;
+		addEventHatBlock: 'when I receive' selector: #event: eventName: '';
 		addSeparator;
 		addCBlock: 'repeat %n' selector: #doRepeat arguments: #( 10 );
 		addSeparator;
@@ -145,7 +145,7 @@ SteloScript >> addObserverBlocks [
 
 	blockMorphBuilder
 		addCategory: 'control';
-		addHatBlock: 'when setup' type: #S arguments: #( - );
+		addStartHatBlock: 'when setup' selector: #setup;
 
 		addCategory: 'patch';
 		addReporter: 'patch color at %n' selector: #getPatchColorAt: arguments: #( 0 );
@@ -318,19 +318,9 @@ SteloScript >> objName [
 	^ 'None'
 ]
 
-{ #category : #accessing }
-SteloScript >> observerVarId [
-	^ project observer varId
-]
-
 { #category : #'argument menus' }
 SteloScript >> observerVarNamesMenu [
 	^ project observerVarNamesMenu
-]
-
-{ #category : #accessing }
-SteloScript >> patchVarId [
-	^ project patches varId
 ]
 
 { #category : #'argument menus' }
@@ -355,15 +345,17 @@ SteloScript >> setupBlockCategory [
 
 { #category : #program }
 SteloScript >> setupEvent: aHatBlock program: aProgram table: aDictionary events: aDictionary2 [
+
 	| code addr |
 	aDictionary2
 		at: aHatBlock eventName asSymbol
 		ifPresent: [ :eventNo | 
 			addr := aProgram nextAddress.
 			code := project newCode
-				startAddress: addr;
-				subTable: aDictionary;
-				parse: aHatBlock target: self.
+				        address: addr;
+				        subTable: aDictionary;
+				        script: self;
+				        parseBlock: aHatBlock.
 			aProgram
 				addCode: code;
 				addEntryPoint: addr eventNo: eventNo breedNo: self breedNo ]
@@ -371,33 +363,59 @@ SteloScript >> setupEvent: aHatBlock program: aProgram table: aDictionary events
 
 { #category : #program }
 SteloScript >> setupProgram: aProgram events: aDictionary [
+
 	| subTable |
 	subTable := Dictionary new.
-	self subBlocks
-		do: [ :each | 
-			self
-				setupSub: each
-				program: aProgram
-				table: subTable ].
-	self eventBlocks
-		do: [ :each | 
-			self
-				setupEvent: each
-				program: aProgram
-				table: subTable
-				events: aDictionary ].
+	self subHatBlocks do: [ :each | 
+		self setupSub: each program: aProgram table: subTable ].
+	self eventHatBlocks do: [ :each | 
+		self
+			setupEvent: each
+			program: aProgram
+			table: subTable
+			events: aDictionary ].
+	self startHatBlocks do: [ :each | 
+		self
+			setupStart: each
+			program: aProgram
+			table: subTable
+			events: aDictionary ]
+]
+
+{ #category : #program }
+SteloScript >> setupStart: aHatBlock program: aProgram table: aDictionary events: aDictionary2 [
+
+	| code addr |
+	aDictionary2 at: aHatBlock selector ifPresent: [ :eventNo | 
+		addr := aProgram nextAddress.
+		code := project newCode
+			        address: addr;
+			        subTable: aDictionary;
+			        script: self;
+			        parseBlock: aHatBlock.
+		aProgram
+			addCode: code;
+			addEntryPoint: addr eventNo: eventNo breedNo: self breedNo ]
 ]
 
 { #category : #program }
 SteloScript >> setupSub: aHatBlock program: aProgram table: aDictionary [
+
 	| code addr |
 	addr := aProgram nextAddress.
 	code := project newCode
-		startAddress: addr;
-		subTable: aDictionary;
-		parse: aHatBlock target: self.
+		        address: addr;
+		        subTable: aDictionary;
+		        script: self;
+		        parseBlock: aHatBlock.
 	aProgram addCode: code.
 	aDictionary at: aHatBlock subName put: addr
+]
+
+{ #category : #'block specs' }
+SteloScript >> startHatBlockNames [
+
+	^ #( startup setup loop )
 ]
 
 { #category : #'object i/o' }
@@ -431,18 +449,20 @@ SteloScript >> useVariableWatcher [
 	^ false
 ]
 
-{ #category : #accessing }
-SteloScript >> varId [
-	^ breed varId
-]
-
 { #category : #variables }
 SteloScript >> varNames [
 	^ breed userDefinedVarNames
 ]
 
 { #category : #accessing }
+SteloScript >> varNoFor: aString [
+
+	^ breed varNoFor: aString
+]
+
+{ #category : #accessing }
 SteloScript >> varNoFor: vno breed: bno [
+
 	^ project varNoFor: vno breed: bno
 ]
 

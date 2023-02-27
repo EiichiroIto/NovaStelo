@@ -7,6 +7,12 @@ Class {
 	#category : #'Stelo-Tests'
 }
 
+{ #category : #tests }
+SObserverVarDefTest >> testColorVarNo [
+
+	self assert: SObserverVarDef colorVarNo equals: 1
+]
+
 { #category : #'tests-accessing' }
 SObserverVarDefTest >> testCountAliveVarNo [
 	self assert: SObserverVarDef countAliveVarNo equals: 5.

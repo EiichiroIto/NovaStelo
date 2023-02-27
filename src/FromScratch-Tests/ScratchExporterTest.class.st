@@ -16,8 +16,8 @@ ScratchExporterTest >> newExporter [
 ScratchExporterTest >> testPrivStream [
 	| e s |
 	e := self newExporter.
-	self assert: e privStream isNil.
+	self assert: e stream isNil.
 	s := WriteStream on: ''.
 	e privStream: s.
-	self assert: e privStream equals: s.
+	self assert: e stream equals: s.
 ]

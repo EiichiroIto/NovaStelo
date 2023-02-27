@@ -1,5 +1,5 @@
 Class {
-	#name : #SpScratchFrame,
+	#name : #SpScratchPresenter,
 	#superclass : #SpPresenter,
 	#instVars : [
 		'viewerPane',
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #utilities }
-SpScratchFrame class >> alert: aString [
+SpScratchPresenter class >> alert: aString [
 
 	SpInformDialog new
 		title: 'alert!' localized;
@@ -24,13 +24,13 @@ SpScratchFrame class >> alert: aString [
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> chooseDirectory: aString [
+SpScratchPresenter class >> chooseDirectory: aString [
 
 	^ UIManager default chooseDirectory: aString
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
+SpScratchPresenter class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ UIManager default
 		  chooseExistingFileReference: aString
@@ -39,7 +39,7 @@ SpScratchFrame class >> chooseExistingFileReference: aString extensions: aCollec
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
+SpScratchPresenter class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
 
 	^ UIManager default
 		  chooseExistingFileReference: aString
@@ -49,7 +49,7 @@ SpScratchFrame class >> chooseExistingFileReference: aString extensions: aCollec
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
+SpScratchPresenter class >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ UIManager default
 		  chooseForSaveFileReference: aString
@@ -58,7 +58,7 @@ SpScratchFrame class >> chooseForSaveFileReference: aString extensions: aCollect
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> confirm: aString [
+SpScratchPresenter class >> confirm: aString [
 
 	^ SpConfirmDialog new
 		  title: 'Important confirmation' localized;
@@ -69,18 +69,18 @@ SpScratchFrame class >> confirm: aString [
 ]
 
 { #category : #private }
-SpScratchFrame class >> libraryPaneHeight [
+SpScratchPresenter class >> libraryPaneHeight [
 	^ self buttonHeight + 23
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> longMessage: aString title: aString2 [
+SpScratchPresenter class >> longMessage: aString title: aString2 [
 
 	UIManager default longMessage: aString title: aString2
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> multiLineRequest: aString initialAnswer: aString2 [
+SpScratchPresenter class >> multiLineRequest: aString initialAnswer: aString2 [
 
 	^ SpRequestTextDialog new
 		  title: 'Information request' localized;
@@ -93,7 +93,7 @@ SpScratchFrame class >> multiLineRequest: aString initialAnswer: aString2 [
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
+SpScratchPresenter class >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
 
 	^ SpMultiSelectDialog new
 		  title: 'Multiple Select' localized;
@@ -107,7 +107,7 @@ SpScratchFrame class >> multiSelect: aString chooseFrom: aCollection selectedIte
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> request: aString [
+SpScratchPresenter class >> request: aString [
 
 	^ SpRequestDialog new
 		  title: 'Information request' localized;
@@ -118,7 +118,7 @@ SpScratchFrame class >> request: aString [
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> request: aString initialAnswer: aString2 [
+SpScratchPresenter class >> request: aString initialAnswer: aString2 [
 
 	^ SpRequestDialog new
 		  title: 'Information request' localized;
@@ -130,7 +130,7 @@ SpScratchFrame class >> request: aString initialAnswer: aString2 [
 ]
 
 { #category : #utilities }
-SpScratchFrame class >> select: aString chooseFrom: aCollection [
+SpScratchPresenter class >> select: aString chooseFrom: aCollection [
 
 	^ SpSelectDialog new
 		  title: aString;
@@ -142,32 +142,32 @@ SpScratchFrame class >> select: aString chooseFrom: aCollection [
 ]
 
 { #category : #private }
-SpScratchFrame class >> titleButtonHeight [
+SpScratchPresenter class >> titleButtonHeight [
 	^ 23 + 10
 ]
 
 { #category : #private }
-SpScratchFrame class >> viewerPaneWidth [
+SpScratchPresenter class >> viewerPaneWidth [
 	^ 214
 ]
 
 { #category : #private }
-SpScratchFrame class >> workPaneHeight [
+SpScratchPresenter class >> workPaneHeight [
 	^ 600
 ]
 
 { #category : #private }
-SpScratchFrame class >> workPaneWidth [
+SpScratchPresenter class >> workPaneWidth [
 	^ 600
 ]
 
 { #category : #private }
-SpScratchFrame >> aboutTitle [
+SpScratchPresenter >> aboutTitle [
 	^ application appName
 ]
 
 { #category : #'menu building' }
-SpScratchFrame >> addBlockMenu: aMenu for: aBlockMorph [
+SpScratchPresenter >> addBlockMenu: aMenu for: aBlockMorph [
 	aMenu
 		addGroup: [ :grp | 
 			grp
@@ -192,7 +192,7 @@ SpScratchFrame >> addBlockMenu: aMenu for: aBlockMorph [
 ]
 
 { #category : #'menu building' }
-SpScratchFrame >> addScriptMenu: aMenu for: aScript [
+SpScratchPresenter >> addScriptMenu: aMenu for: aScript [
 
 	SpScratchApp clipboard isString ifTrue: [ 
 		aMenu addItem: [ :item | 
@@ -216,13 +216,13 @@ SpScratchFrame >> addScriptMenu: aMenu for: aScript [
 ]
 
 { #category : #utilities }
-SpScratchFrame >> alert: aString [
+SpScratchPresenter >> alert: aString [
 
 	self class alert: aString
 ]
 
 { #category : #'menu building' }
-SpScratchFrame >> blockMenuFor: aBlockMorph inScriptEditor: aBoolean [
+SpScratchPresenter >> blockMenuFor: aBlockMorph inScriptEditor: aBoolean [
 
 	aBoolean ifFalse: [ ^ nil ].
 	^ self newMenu in: [ :m | 
@@ -231,13 +231,13 @@ SpScratchFrame >> blockMenuFor: aBlockMorph inScriptEditor: aBoolean [
 ]
 
 { #category : #utilities }
-SpScratchFrame >> chooseDirectory: aString [
+SpScratchPresenter >> chooseDirectory: aString [
 
 	^ self class chooseDirectory: aString
 ]
 
 { #category : #utilities }
-SpScratchFrame >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
+SpScratchPresenter >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ self class
 		  chooseExistingFileReference: aString
@@ -246,7 +246,7 @@ SpScratchFrame >> chooseExistingFileReference: aString extensions: aCollection p
 ]
 
 { #category : #utilities }
-SpScratchFrame >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
+SpScratchPresenter >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
 
 	^ self class
 		  chooseExistingFileReference: aString
@@ -256,7 +256,7 @@ SpScratchFrame >> chooseExistingFileReference: aString extensions: aCollection p
 ]
 
 { #category : #utilities }
-SpScratchFrame >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
+SpScratchPresenter >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ self class
 		  chooseForSaveFileReference: aString
@@ -265,34 +265,34 @@ SpScratchFrame >> chooseForSaveFileReference: aString extensions: aCollection pa
 ]
 
 { #category : #utilities }
-SpScratchFrame >> confirm: aString [
+SpScratchPresenter >> confirm: aString [
 
 	^ self class confirm: aString
 ]
 
 { #category : #accessing }
-SpScratchFrame >> currentCategory [
+SpScratchPresenter >> currentCategory [
 
 	^ viewerPane currentCategory
 ]
 
 { #category : #accessing }
-SpScratchFrame >> currentCategory: aString [
+SpScratchPresenter >> currentCategory: aString [
 	viewerPane currentCategory: aString
 ]
 
 { #category : #private }
-SpScratchFrame >> defaultExtent [
+SpScratchPresenter >> defaultExtent [
 	self subclassResponsibility
 ]
 
 { #category : #private }
-SpScratchFrame >> display [
+SpScratchPresenter >> display [
 	^ stageFrame display
 ]
 
 { #category : #'menu building' }
-SpScratchFrame >> examplesMenu [
+SpScratchPresenter >> examplesMenu [
 	| m |
 	m := self newMenu.
 	application exampleFiles
@@ -306,7 +306,7 @@ SpScratchFrame >> examplesMenu [
 ]
 
 { #category : #private }
-SpScratchFrame >> formFrom: aMorph extent: size [
+SpScratchPresenter >> formFrom: aMorph extent: size [
 	| canvas thumbForm bounds |
 	bounds := aMorph modelBounds.
 	canvas := FormCanvas extent: bounds extent depth: 32.
@@ -324,7 +324,7 @@ SpScratchFrame >> formFrom: aMorph extent: size [
 ]
 
 { #category : #'menu building' }
-SpScratchFrame >> helpMenu [
+SpScratchPresenter >> helpMenu [
 
 	^ self newMenu
 		  addItem: [ :item | 
@@ -349,12 +349,12 @@ SpScratchFrame >> helpMenu [
 ]
 
 { #category : #accessing }
-SpScratchFrame >> info: aString [
+SpScratchPresenter >> info: aString [
 	self display info: aString
 ]
 
 { #category : #initialization }
-SpScratchFrame >> initializePresenters [
+SpScratchPresenter >> initializePresenters [
 
 	logo := self newLogo.
 	menu := self newMenuBar.
@@ -367,7 +367,7 @@ SpScratchFrame >> initializePresenters [
 ]
 
 { #category : #initialization }
-SpScratchFrame >> initializeWindow: aWindow [
+SpScratchPresenter >> initializeWindow: aWindow [
 	aWindow
 		initialExtent: self defaultExtent;
 		aboutText: application class aboutAppString;
@@ -375,37 +375,37 @@ SpScratchFrame >> initializeWindow: aWindow [
 ]
 
 { #category : #utilities }
-SpScratchFrame >> longMessage: aString title: aString2 [
+SpScratchPresenter >> longMessage: aString title: aString2 [
 
 	self class longMessage: aString title: aString2
 ]
 
 { #category : #accessing }
-SpScratchFrame >> modifiedText [
+SpScratchPresenter >> modifiedText [
 
 	^ modifiedProjectLabel label
 ]
 
 { #category : #accessing }
-SpScratchFrame >> modifiedText: aString [
+SpScratchPresenter >> modifiedText: aString [
 
 	modifiedProjectLabel label: aString
 ]
 
 { #category : #utilities }
-SpScratchFrame >> multiLineRequest: aString initialAnswer: aString2 [
+SpScratchPresenter >> multiLineRequest: aString initialAnswer: aString2 [
 
 	^ self class multiLineRequest: aString initialAnswer: aString2
 ]
 
 { #category : #utilities }
-SpScratchFrame >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
+SpScratchPresenter >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
 
 	^ self class multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2
 ]
 
 { #category : #initialization }
-SpScratchFrame >> newEditor [
+SpScratchPresenter >> newEditor [
 
 	^ self newMorph
 		  morph: self newEditorMorph;
@@ -413,7 +413,7 @@ SpScratchFrame >> newEditor [
 ]
 
 { #category : #initialization }
-SpScratchFrame >> newEditorMorph [
+SpScratchPresenter >> newEditorMorph [
 
 	^ ScrollFrameMorph new
 		  growthFraction: 0.1;
@@ -422,7 +422,7 @@ SpScratchFrame >> newEditorMorph [
 ]
 
 { #category : #initialization }
-SpScratchFrame >> newLogo [
+SpScratchPresenter >> newLogo [
 
 	^ self newImage
 		  image: (ScratchTheme formAt: #logo);
@@ -430,58 +430,58 @@ SpScratchFrame >> newLogo [
 ]
 
 { #category : #initialization }
-SpScratchFrame >> newStage [
+SpScratchPresenter >> newStage [
 
 	self subclassResponsibility
 ]
 
 { #category : #initialization }
-SpScratchFrame >> newViewer [
+SpScratchPresenter >> newViewer [
 
 	^ self instantiate: SpScratchListViewer
 ]
 
 { #category : #private }
-SpScratchFrame >> privEditor [
+SpScratchPresenter >> privEditor [
 	^ editorPane
 ]
 
 { #category : #private }
-SpScratchFrame >> privStage [
+SpScratchPresenter >> privStage [
 	^ stageFrame
 ]
 
 { #category : #accessing }
-SpScratchFrame >> projectName [
+SpScratchPresenter >> projectName [
 
 	^ projectNameLabel label
 ]
 
 { #category : #accessing }
-SpScratchFrame >> projectName: aString [
+SpScratchPresenter >> projectName: aString [
 
 	projectNameLabel label: aString
 ]
 
 { #category : #utilities }
-SpScratchFrame >> request: aString [
+SpScratchPresenter >> request: aString [
 
 	^ self class request: aString
 ]
 
 { #category : #utilities }
-SpScratchFrame >> request: aString initialAnswer: aString2 [
+SpScratchPresenter >> request: aString initialAnswer: aString2 [
 
 	^ self class request: aString initialAnswer: aString2
 ]
 
 { #category : #accessing }
-SpScratchFrame >> scriptForm [
+SpScratchPresenter >> scriptForm [
 	^ editorPane screenshot
 ]
 
 { #category : #'menu building' }
-SpScratchFrame >> scriptMenuFor: aScript [
+SpScratchPresenter >> scriptMenuFor: aScript [
 
 	^ self newMenu in: [ :m | 
 		  self addScriptMenu: m for: aScript.
@@ -489,19 +489,19 @@ SpScratchFrame >> scriptMenuFor: aScript [
 ]
 
 { #category : #utilities }
-SpScratchFrame >> select: aString chooseFrom: aCollection [
+SpScratchPresenter >> select: aString chooseFrom: aCollection [
 
 	^ self class select: aString chooseFrom: aCollection
 ]
 
 { #category : #accessing }
-SpScratchFrame >> settings [
+SpScratchPresenter >> settings [
 
 	^ self application settings
 ]
 
 { #category : #'menu building' }
-SpScratchFrame >> settingsMenu [
+SpScratchPresenter >> settingsMenu [
 
 	| m |
 	m := self newMenu.
@@ -523,56 +523,56 @@ SpScratchFrame >> settingsMenu [
 ]
 
 { #category : #initialization }
-SpScratchFrame >> setupMenu [
+SpScratchPresenter >> setupMenu [
 
 	self subclassResponsibility
 ]
 
 { #category : #private }
-SpScratchFrame >> stageShotExtent: size [
+SpScratchPresenter >> stageShotExtent: size [
 	^ self formFrom: self display extent: size
 ]
 
 { #category : #stepping }
-SpScratchFrame >> stepTime [
+SpScratchPresenter >> stepTime [
 	^ self display stepTime
 ]
 
 { #category : #stepping }
-SpScratchFrame >> stepTime: anInteger [
+SpScratchPresenter >> stepTime: anInteger [
 	self display
 		stepTime: anInteger;
 		startStepping
 ]
 
 { #category : #accessing }
-SpScratchFrame >> tab: aString [
+SpScratchPresenter >> tab: aString [
 	editorPane tab: aString
 ]
 
 { #category : #accessing }
-SpScratchFrame >> target [
+SpScratchPresenter >> target [
 	^ viewerPane target
 ]
 
 { #category : #accessing }
-SpScratchFrame >> target: aScript [
+SpScratchPresenter >> target: aScript [
 	viewerPane target: aScript.
 	editorPane target: aScript
 ]
 
 { #category : #accessing }
-SpScratchFrame >> updateContents [
+SpScratchPresenter >> updateContents [
 	viewerPane updateContents
 ]
 
 { #category : #accessing }
-SpScratchFrame >> updateDisplay [
+SpScratchPresenter >> updateDisplay [
 	self display changed
 ]
 
 { #category : #private }
-SpScratchFrame >> updateWindowSettings [
+SpScratchPresenter >> updateWindowSettings [
 
 	| win |
 	Display isFullscreen
@@ -597,7 +597,7 @@ SpScratchFrame >> updateWindowSettings [
 ]
 
 { #category : #stepping }
-SpScratchFrame >> whenStepsDo: aBlock [
+SpScratchPresenter >> whenStepsDo: aBlock [
 	self display
 		whenStepsDo: aBlock;
 		startStepping

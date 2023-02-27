@@ -31,6 +31,23 @@ SpScratchApp class >> addBlockDefsTo: aSet [
 	ScratchTranslator addBlockDefs: list to: aSet
 ]
 
+{ #category : #utilities }
+SpScratchApp class >> allBlockSymbols [
+
+	| list |
+	list := ScratchScript allSubclasses.
+	list := list reject: [ :each | each category endsWith: '-Tests' ].
+	list := list collect: [ :each | 
+		        each new
+			        setupBlockSpecs;
+			        yourself ].
+	list := list reject: [ :each | each blockMorphBuilder isNil ].
+	list := list flatCollect: [ :each | 
+		        each blockMorphBuilder blockSpecs ].
+	list := list select: #isBlockSpec.
+	^ (list collect: #selector) asSet
+]
+
 { #category : #constants }
 SpScratchApp class >> appFolderName [
 	self subclassResponsibility
@@ -152,7 +169,7 @@ SpScratchApp class >> projectClass [
 { #category : #'menu actions' }
 SpScratchApp class >> quit [
 
-	(SpScratchFrame confirm: 'Quit Application?' localized) ifFalse: [ 
+	(SpScratchPresenter confirm: 'Quit Application?' localized) ifFalse: [ 
 		^ self ].
 	Smalltalk snapshot: false andQuit: true
 ]
@@ -544,6 +561,12 @@ SpScratchApp >> newProject [
 ]
 
 { #category : #private }
+SpScratchApp >> newSerializer [
+
+	^ ScratchSexpGenerator new
+]
+
+{ #category : #private }
 SpScratchApp >> normalizeModuleName: aString [
 
 	^ aString
@@ -787,7 +810,7 @@ SpScratchApp >> selectSetting: aSymbol [
 { #category : #private }
 SpScratchApp >> serializeBlocks: aTopBlock [
 	| code |
-	code := ScratchSexpGenerator new parse: aTopBlock initialIndent: 1.
+	code := self newSerializer parseBlock: aTopBlock initialIndent: 1.
 	aTopBlock isHatBlock
 		ifFalse: [ code := '(' , code , ')' ].
 	^ code

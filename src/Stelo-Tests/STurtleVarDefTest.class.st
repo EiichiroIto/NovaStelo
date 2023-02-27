@@ -25,9 +25,11 @@ STurtleVarDefTest >> testClassNameFor [
 
 { #category : #'tests-accessing' }
 STurtleVarDefTest >> testColorVarNo [
+
 	| v |
 	v := STurtleVarDef new.
 	self assert: (v varNoFor: 'color') equals: STurtleVarDef colorVarNo.
+	self assert: STurtleVarDef colorVarNo equals: 1
 ]
 
 { #category : #'tests-accessing' }

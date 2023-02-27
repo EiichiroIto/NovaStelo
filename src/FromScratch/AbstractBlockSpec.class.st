@@ -17,7 +17,7 @@ AbstractBlockSpec class >> booleanReporter: aString selector: aSymbol arguments:
 
 	^ ScratchBlockSpec new
 		  label: aString;
-		  type: #b;
+		  type: #isBooleanReporter;
 		  selector: aSymbol;
 		  arguments: aCollection copy;
 		  yourself
@@ -28,7 +28,7 @@ AbstractBlockSpec class >> cBlock: aString selector: aSymbol arguments: aCollect
 
 	^ ScratchBlockSpec new
 		  label: aString;
-		  type: #c;
+		  type: #isCBlock;
 		  selector: aSymbol;
 		  arguments: aCollection copy;
 		  yourself
@@ -39,21 +39,21 @@ AbstractBlockSpec class >> command: aString selector: aSymbol arguments: aCollec
 
 	^ ScratchBlockSpec new
 		  label: aString;
-		  type: #-;
+		  type: #isCommandBlock;
 		  selector: aSymbol;
 		  arguments: aCollection copy;
 		  yourself
 ]
 
 { #category : #'instance creation' }
-AbstractBlockSpec class >> hatBlock: aString type: aString2 arguments: aCollection [
+AbstractBlockSpec class >> eventHatBlock: aString selector: aSymbol eventName: aString2 [
 
-	self assert: [ aString2 isString ].
+	self assert: [ aSymbol isSymbol ].
 	^ ScratchBlockSpec new
 		  label: aString;
-		  type: aString2;
-		  selector: nil;
-		  arguments: aCollection copy;
+		  type: #isEventHatBlock;
+		  selector: aSymbol;
+		  arguments: { aString2 };
 		  yourself
 ]
 
@@ -62,7 +62,7 @@ AbstractBlockSpec class >> reporter: aString selector: aSymbol arguments: aColle
 
 	^ ScratchBlockSpec new
 		  label: aString;
-		  type: #r;
+		  type: #isReporterBlock;
 		  selector: aSymbol;
 		  arguments: aCollection copy;
 		  yourself
@@ -79,9 +79,21 @@ AbstractBlockSpec class >> special: aString selector: aSymbol arguments: aCollec
 
 	^ ScratchBlockSpec new
 		  label: aString;
-		  type: #s;
+		  type: #isSpecialForm;
 		  selector: aSymbol;
 		  arguments: aCollection copy;
+		  yourself
+]
+
+{ #category : #'instance creation' }
+AbstractBlockSpec class >> startHatBlock: aString selector: aSymbol [
+
+	self assert: [ aSymbol isSymbol ].
+	^ ScratchBlockSpec new
+		  label: aString;
+		  type: #isStartHatBlock;
+		  selector: aSymbol;
+		  arguments: #(  );
 		  yourself
 ]
 
@@ -90,7 +102,7 @@ AbstractBlockSpec class >> timed: aString selector: aSymbol arguments: aCollecti
 
 	^ ScratchBlockSpec new
 		  label: aString;
-		  type: #t;
+		  type: #isTimedBlock;
 		  selector: aSymbol;
 		  arguments: aCollection copy;
 		  yourself

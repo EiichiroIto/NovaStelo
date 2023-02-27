@@ -31,7 +31,7 @@ ScratchSexpImporter >> appName: anObject [
 ]
 
 { #category : #private }
-ScratchSexpImporter >> cBlockTupleFrom: anArray [
+ScratchSexpImporter >> cBlockTupleFrom: anArray script: aScript [
 	| tuple innerBlock |
 	tuple := anArray copy.
 	tuple at: 1 put: (tuple at: 1) asSymbol.
@@ -39,20 +39,20 @@ ScratchSexpImporter >> cBlockTupleFrom: anArray [
 		| arg |
 		arg := tuple at: each.
 		arg isArray
-			ifTrue: [ arg := self tupleFrom: arg.
+			ifTrue: [ arg := self tupleFrom: arg script: aScript.
 				tuple at: each put: arg ] ].
 	innerBlock := tuple at: tuple size.
 	innerBlock := innerBlock isEmpty
 		ifTrue: [ nil ]
-		ifFalse: [ innerBlock collect: [ :each | self tupleFrom: each ] ].
+		ifFalse: [ innerBlock collect: [ :each | self tupleFrom: each script: aScript ] ].
 	tuple at: tuple size put: innerBlock.
 	^ tuple
 ]
 
 { #category : #private }
-ScratchSexpImporter >> evaluateArg: anObject [
+ScratchSexpImporter >> evaluateArg: anObject script: aScript [
 	anObject isArray
-		ifTrue: [ ^ self tupleFrom: anObject ]
+		ifTrue: [ ^ self tupleFrom: anObject script: aScript ]
 		ifFalse: [ anObject isString
 				ifTrue: [ anObject isNumberString
 						ifTrue: [ ^ anObject asNumberNoError ] ] ].
@@ -61,27 +61,32 @@ ScratchSexpImporter >> evaluateArg: anObject [
 
 { #category : #private }
 ScratchSexpImporter >> eventBlockTupleFor: aString [
-	^ { #EventHatMorph. aString }
+
+	^ { 
+		  #EventHatMorph.
+		  aString }
 ]
 
 { #category : #private }
-ScratchSexpImporter >> getVarTupleFrom: aCollection [
-	^ {#readVariable.
-	aCollection second}
+ScratchSexpImporter >> getVarTupleFrom: aCollection script: aScript [
+
+	^ { 
+		  #readVariable.
+		  aCollection second }
 ]
 
 { #category : #private }
-ScratchSexpImporter >> ifElseTupleFrom: anArray [
+ScratchSexpImporter >> ifElseTupleFrom: anArray script: aScript [
 	| cond trueBlock falseBlock |
-	cond := self tupleFrom: anArray second.
+	cond := self tupleFrom: anArray second script: aScript.
 	trueBlock := anArray third.
 	trueBlock := trueBlock isEmpty
 		ifTrue: [ nil ]
-		ifFalse: [ trueBlock collect: [ :each | self tupleFrom: each ] ].
+		ifFalse: [ trueBlock collect: [ :each | self tupleFrom: each script: aScript ] ].
 	falseBlock := anArray fourth.
 	falseBlock := falseBlock isEmpty
 		ifTrue: [ nil ]
-		ifFalse: [ falseBlock collect: [ :each | self tupleFrom: each ] ].
+		ifFalse: [ falseBlock collect: [ :each | self tupleFrom: each script: aScript ] ].
 	^ {anArray first asSymbol.
 	cond.
 	trueBlock.
@@ -120,7 +125,7 @@ ScratchSexpImporter >> importCodes: aCollection into: aScript [
 	top := nil.
 	aCollection
 		do: [ :each | 
-			tuple := self tupleFrom: each.
+			tuple := self tupleFrom: each script: aScript.
 			block := aScript blockFromTuple: tuple.
 			top
 				ifNil: [ top := block.
@@ -132,18 +137,26 @@ ScratchSexpImporter >> importCodes: aCollection into: aScript [
 
 { #category : #private }
 ScratchSexpImporter >> importEvent: aCollection for: aScript eventName: aString [
-	| block prev tuple top |
-	prev := aScript blocksBin.
+
+	| tuple |
 	tuple := self eventBlockTupleFor: aString.
-	top := block := aScript hatBlockFromTuple: tuple.
+	^ self importHat: aCollection for: aScript tuple: tuple
+]
+
+{ #category : #private }
+ScratchSexpImporter >> importHat: aCollection for: aScript tuple: anArray [
+
+	| block prev tuple top |
+	tuple := anArray.
+	top := block := aScript blockFromTuple: tuple.
+	prev := aScript blocksBin.
 	prev addMorph: block.
 	prev := block.
-	aCollection
-		do: [ :each | 
-			tuple := self tupleFrom: each.
-			block := aScript blockFromTuple: tuple.
-			prev nextBlock: block.
-			prev := block ].
+	aCollection do: [ :each | 
+		tuple := self tupleFrom: each script: aScript.
+		block := aScript blockFromTuple: tuple.
+		prev nextBlock: block.
+		prev := block ].
 	^ top
 ]
 
@@ -171,19 +184,10 @@ ScratchSexpImporter >> importScripts: aCollection for: aScript [
 
 { #category : #private }
 ScratchSexpImporter >> importSub: aCollection for: aScript subName: aString [
-	| block prev tuple top |
-	prev := aScript blocksBin.
+
+	| tuple |
 	tuple := self subBlockTupleFor: aString.
-	top := block := aScript hatBlockFromTuple: tuple.
-	prev addMorph: block.
-	prev := block.
-	aCollection
-		do: [ :each | 
-			tuple := self tupleFrom: each.
-			block := aScript blockFromTuple: tuple.
-			prev nextBlock: block.
-			prev := block ].
-	^ top
+	^ self importHat: aCollection for: aScript tuple: tuple
 ]
 
 { #category : #private }
@@ -206,19 +210,19 @@ ScratchSexpImporter >> importWorld: aCollection [
 ]
 
 { #category : #private }
-ScratchSexpImporter >> operatorTupleFrom: aCollection [
+ScratchSexpImporter >> operatorTupleFrom: aCollection script: aScript [
 
 	| tuple |
 	tuple := aCollection copy.
-	self updateArgs: tuple.
+	self updateArgs: tuple script: aScript.
 	^ tuple
 ]
 
 { #category : #private }
-ScratchSexpImporter >> setVarTupleFrom: aCollection [
+ScratchSexpImporter >> setVarTupleFrom: aCollection script: aScript [
 	| arg |
 	arg := aCollection third.
-	arg := self evaluateArg: arg.
+	arg := self evaluateArg: arg script: aScript.
 	^ {#changeVariable.
 	aCollection second.
 	aCollection first asSymbol.
@@ -226,35 +230,41 @@ ScratchSexpImporter >> setVarTupleFrom: aCollection [
 ]
 
 { #category : #private }
-ScratchSexpImporter >> subBlockTupleFor: aString [
-	^ { #SubHatMorph. aString }
+ScratchSexpImporter >> startBlockTupleFor: aString [
+
+	^ { aString asSymbol }
 ]
 
 { #category : #private }
-ScratchSexpImporter >> tupleFrom: aCollection [
+ScratchSexpImporter >> subBlockTupleFor: aString [
+
+	^ { #sub:. aString }
+]
+
+{ #category : #private }
+ScratchSexpImporter >> tupleFrom: aCollection script: aScript [
+
 	| selector tuple |
 	selector := aCollection first asSymbol.
-	"(ScratchBlockParser isInvOperator: selector)
-		ifTrue: [ ^ self operatorTupleFrom: aCollection ]."
-	selector = #getVar
-		ifTrue: [ ^ self getVarTupleFrom: aCollection ].
-	(#(setVar:to: changeVar:by:) includes: selector)
-		ifTrue: [ ^ self setVarTupleFrom: aCollection ].
-	selector = #doIfElse
-		ifTrue: [ ^ self ifElseTupleFrom: aCollection ].
-	(#(doIf doRepeat doUntil doForever doWhile doIterate) includes: selector)
-		ifTrue: [ ^ self cBlockTupleFrom: aCollection ].
+	(aScript getVarSelectors includes: selector) ifTrue: [ 
+		^ self getVarTupleFrom: aCollection script: aScript ].
+	(aScript setVarSelectors includes: selector) ifTrue: [ 
+		^ self setVarTupleFrom: aCollection script: aScript ].
+	(aScript ifElseBlockSelectors includes: selector) ifTrue: [ 
+		^ self ifElseTupleFrom: aCollection script: aScript ].
+	(aScript cBlockSelectors includes: selector) ifTrue: [ 
+		^ self cBlockTupleFrom: aCollection script: aScript ].
 	tuple := aCollection copy.
-	self updateArgs: tuple.
+	self updateArgs: tuple script: aScript.
 	^ tuple
 ]
 
 { #category : #private }
-ScratchSexpImporter >> updateArgs: anArray [
+ScratchSexpImporter >> updateArgs: anArray script: aScript [
 	anArray at: 1 put: (anArray at: 1) asSymbol.
 	2 to: anArray size do: [ :each | 
 		| arg |
 		arg := anArray at: each.
-		arg := self evaluateArg: arg.
+		arg := self evaluateArg: arg script: aScript.
 		anArray at: each put: arg ]
 ]

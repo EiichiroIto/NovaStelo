@@ -8,8 +8,39 @@ Class {
 }
 
 { #category : #private }
+SteloBytecodeGeneratorTest >> choice: anInteger [
+
+	^ SVarArgMorph new
+		  choice: anInteger;
+		  yourself
+]
+
+{ #category : #private }
+SteloBytecodeGeneratorTest >> literalValue: anObject [
+
+	^ SLiteralArgMorph new
+		  value: anObject;
+		  yourself
+]
+
+{ #category : #private }
+SteloBytecodeGeneratorTest >> newApplication [
+
+	| app |
+	app := SpStelo new.
+	app settings: SpStelo settingsClass new.
+	app presenter: app newPresenter.
+	app sworld: self newWorld.
+	app installNewProject: app createProject.
+	^ app
+]
+
+{ #category : #private }
 SteloBytecodeGeneratorTest >> newGenerator [
+
 	^ SteloBytecodeGenerator new
+		  parser: ScratchBlockParser new;
+		  yourself
 ]
 
 { #category : #private }
@@ -55,11 +86,11 @@ SteloBytecodeGeneratorTest >> testAddressOfSubName [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testAimHighVar [
-	| w v ret b t |
-	w := SMicroWorld new.
-	w addBreed: SPatches new.
-	w addBreed: (STurtles new breedNo: 3).
+SteloBytecodeGeneratorTest >> testAimHigh [
+
+	| w v ret b t app |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 5.
 	w create: 3 turtles: 1.
 	v := w patches addVariable: 'a'.
@@ -93,9 +124,10 @@ SteloBytecodeGeneratorTest >> testAimHighVar [
 		at: 14
 		put: 3.
 	b := self newGenerator.
-	b aimHighVar: v.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b aimHigh: (self choice: 'a').
 	t := self newThread: w.
-	t forBreedNo: 3 index: 1.
+	t forBreedNo: SBreedId turtleBreedNo index: 1.
 	t codes: b code.
 	ret := t evaluate: 1.
 	self assert: ret equals: -45
@@ -103,132 +135,35 @@ SteloBytecodeGeneratorTest >> testAimHighVar [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testAndWith [
+
 	| t b r |
 	b := self newGenerator.
-	r := b and: true with: true.
+	r := b and: (self literalValue: 1) with: (self literalValue: 1).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b and: true with: false.
+	r := b and: (self literalValue: 1) with: (self literalValue: 0).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b and: false with: true.
+	r := b and: (self literalValue: 0) with: (self literalValue: 1).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b and: false with: false.
+	r := b and: (self literalValue: 0) with: (self literalValue: 0).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
-	self assert: (t evaluate: 1) equals: 0.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testAppendCall [
-	| b r |
-	b := self newGenerator.
-	b subTable: { 'def'->123 } asDictionary.
-	self assert: b privStream contents isEmpty.
-	b appendCall: 'def'.
-	self assert: b privStream contents size equals: 1.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeCall.
-	self assert: r subName equals: 'def'.
-	self assert: r address equals: 123.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testAppendLabel [
-	| b r |
-	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b appendLabel: 123.
-	b appendLabel: 456.
-	self assert: b privStream contents size equals: 2.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeLabel.
-	self assert: r id equals: 123.
-	r := b privStream contents second.
-	self assert: r class equals: ScratchBytecodeLabel.
-	self assert: r id equals: 456.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testAppendSymbol [
-	| b r |
-	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b appendSymbol: #abc.
-	b appendSymbol: #def.
-	self assert: b privStream contents size equals: 2.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeSymbol.
-	self assert: r selector equals: #abc.
-	r := b privStream contents second.
-	self assert: r class equals: ScratchBytecodeSymbol.
-	self assert: r selector equals: #def.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testAppendSymbolWithJump [
-	| b r |
-	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b appendSymbol: #abc withJump: 12.
-	b appendSymbol: #def withJump: 34.
-	self assert: b privStream contents size equals: 2.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeSymbolWithJump.
-	self assert: r selector equals: #abc.
-	self assert: r labelId equals: 12.
-	r := b privStream contents second.
-	self assert: r class equals: ScratchBytecodeSymbolWithJump.
-	self assert: r selector equals: #def.
-	self assert: r labelId equals: 34.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testAppendValue [
-	| b r |
-	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b appendValue: 123.
-	b appendValue: 456.
-	self assert: b privStream contents size equals: 2.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 123.
-	r := b privStream contents second.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 456.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testBinaryCommandArg1Arg2 [
-	| b r |
-	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b binaryCommand: #abc arg1: 123 arg2: 456.
-	self assert: b privStream contents size equals: 3.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 123.
-	r := b privStream contents second.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 456.
-	r := b privStream contents third.
-	self assert: r class equals: ScratchBytecodeSymbol.
-	self assert: r selector equals: #abc.
+	self assert: (t evaluate: 1) equals: 0
 ]
 
 { #category : #test }
@@ -239,7 +174,7 @@ SteloBytecodeGeneratorTest >> testBroadcast [
 	eventId := EventId new.
 	e := eventId newNo.
 	b := self newGenerator.
-	b broadcast: e.
+	b broadcast: (self literalValue: e).
 	self assert: w raisedEvents isEmpty.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -250,28 +185,64 @@ SteloBytecodeGeneratorTest >> testBroadcast [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testCallSub [
+
 	| b r |
 	b := self newGenerator.
 	b subTable: { 'abc'->9. 'def'->3 } asDictionary.
-	b return: 1.
-	b callSub: 'def'.
+	b return: (self literalValue: 1).
+	b callSub: (self choice: 'def').
 	b address: 5.
 	r := b code.
 	self assertCollection: r equals: #(push1 return pushShort 3 0 call stop).
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testChangePatchVaratBy [
-	| w b vid t pno |
-	w := self newWorld.
+SteloBytecodeGeneratorTest >> testChangeObserverVarBy [
+
+	| app w vid b t |
+	app := self newApplication.
+	w := app sworld.
+	w createPatch: 5.
+	w create: 3 turtles: 2.
+	vid := (w breedOf: SBreedId observerBreedNo) addVariable: 'a'.
+	w
+		var: vid
+		breed: SBreedId observerBreedNo
+		at: 1
+		put: 6.
+
+	b := self newGenerator.
+	b script: (app scriptOf: SBreedId observerBreedNo).
+	b changeObserverVar: (self choice: 'a') by: (self literalValue: 2).
+	t := self newThread: w.
+	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t codes: b code.
+	t execute: 1.
+
+	self
+		assert: (w var: vid breed: SBreedId observerBreedNo at: 1)
+		equals: 8
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testChangePatchVarAtBy [
+
+	| app w b vid t pno |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 3.
 	w create: 3 turtles: 1.
 	vid := w patches addVariable: 'a'.
 	w patches var: vid at: 2 put: 1.
 	w patches var: vid at: 5 put: 2.
+
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
 	pno := w patchIndexAtX: 0 y: 0.
-	b changePatchVar: vid at: pno by: 5.
+	b
+		changePatchVar: (self choice: 'a')
+		at: (self literalValue: pno)
+		by: (self literalValue: 5).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -279,9 +250,14 @@ SteloBytecodeGeneratorTest >> testChangePatchVaratBy [
 	self assert: (w patches var: vid at: 2) equals: 1.
 	self assert: (w patches var: vid at: 5) equals: 7.
 	w y: 3 at: 1 put: -1.
+
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
 	pno := w patchIndexAtX: 0 y: -1.
-	b changePatchVar: vid at: pno by: 5.
+	b
+		changePatchVar: (self choice: 'a')
+		at: (self literalValue: pno)
+		by: (self literalValue: 5).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -291,9 +267,49 @@ SteloBytecodeGeneratorTest >> testChangePatchVaratBy [
 ]
 
 { #category : #test }
+SteloBytecodeGeneratorTest >> testChangePatchVarBy [
+
+	| app w vid b t |
+	app := self newApplication.
+	w := app sworld.
+	w createPatch: 5.
+	w create: 3 turtles: 2.
+	vid := (w breedOf: SBreedId patchBreedNo) addVariable: 'a'.
+	w
+		var: vid
+		breed: SBreedId patchBreedNo
+		at: 4
+		put: 6.
+	w
+		var: vid
+		breed: SBreedId patchBreedNo
+		at: 5
+		put: 7.
+
+	b := self newGenerator.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b
+		changePatchVar: (self choice: 'a')
+		by: (self literalValue: 2).
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+
+	self
+		assert: (w var: vid breed: SBreedId patchBreedNo at: 4)
+		equals: 8.
+	self
+		assert: (w var: vid breed: SBreedId patchBreedNo at: 5)
+		equals: 9
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testChangeVarBy [
-	| w vid b t |
-	w := self newWorld.
+
+	| app w vid b t |
+	app := self newApplication.
+	w := app sworld.
 	w create: 3 turtles: 2.
 	vid := (w breedOf: 3) addVariable: 'a'.
 	w
@@ -302,15 +318,18 @@ SteloBytecodeGeneratorTest >> testChangeVarBy [
 		at: 1
 		put: 5.
 	b := self newGenerator.
-	b changeVar: vid by: 10.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b changeVar: (self choice: 'a') by: (self literalValue: 10).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
 	self assert: (w var: vid breed: 3 at: 1) equals: 15.
 	self assert: (w var: vid breed: 3 at: 2) equals: 0.
+
 	b := self newGenerator.
-	b changeVar: vid by: -1.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b changeVar: (self choice: 'a') by: (self literalValue: -1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
@@ -335,7 +354,7 @@ SteloBytecodeGeneratorTest >> testChangeXposBy [
 		at: 2
 		put: 4.
 	b := self newGenerator.
-	b changeXposBy: 3.
+	b changeXposBy: (self literalValue: 3).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
@@ -360,7 +379,7 @@ SteloBytecodeGeneratorTest >> testChangeYposBy [
 		at: 2
 		put: 4.
 	b := self newGenerator.
-	b changeYposBy: 3.
+	b changeYposBy: (self literalValue: 3).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
@@ -428,6 +447,61 @@ SteloBytecodeGeneratorTest >> testClearGraphics [
 ]
 
 { #category : #test }
+SteloBytecodeGeneratorTest >> testClearPlots [
+
+	| w b t ret |
+	w := self newWorld.
+	ret := w plotList.
+	self assert: ret isCollection.
+	self assert: ret isEmpty.
+
+	b := self newGenerator.
+	b clearPlots.
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+
+	ret := w plotList.
+	self assert: ret size equals: 1.
+	self assert: (ret first isKindOf: ScratchPlotCommand).
+	self assert: ret first command equals: ScratchPlotCommand clearPlotNo
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testClearTurtle [
+
+	| w b t |
+	w := self newWorld.
+	w createPatch: 3.
+	w create: SBreedId turtleBreedNo turtles: 2.
+	w
+		var: SPatchVarDef colorVarNo
+		breed: 2
+		at: 1
+		put: 3.
+	self
+		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		equals: 3.
+	self assert: w patches size equals: 9.
+	self assert: (w breedOf: 3) countAlive equals: 2.
+
+	b := self newGenerator.
+	b clearTurtle: (self literalValue: SBreedId turtleBreedNo).
+
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+
+	self
+		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		equals: 3.
+	self assert: w patches size equals: 9.
+	self assert: (w breedOf: 3) countAlive equals: 0
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testClearTurtles [
 	| w b t |
 	w := self newWorld.
@@ -458,37 +532,245 @@ SteloBytecodeGeneratorTest >> testClearTurtles [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testCode [
+
 	| b arr |
 	b := self newGenerator.
-	b forward: 1.
-	b turn: 15.
+	b forward: (self literalValue: 1).
+	b turn: (self literalValue: 15).
 	arr := b code.
 	self assertCollection: arr equals: #(push1 forward pushShort 15 0 pushShort 5 0 getVar plus setHeading stop).
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorBlack [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorBlack.
+	self assert: r equals: ColorList black
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorBlue [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorBlue.
+	self assert: r equals: ColorList blue
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorBrown [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorBrown.
+	self assert: r equals: ColorList brown
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorCyan [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorCyan.
+	self assert: r equals: ColorList cyan
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorGray [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorGray.
+	self assert: r equals: ColorList gray
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorGreen [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorGreen.
+	self assert: r equals: ColorList green
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorLime [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorLime.
+	self assert: r equals: ColorList lime
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorMagenta [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorMagenta.
+	self assert: r equals: ColorList magenta
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorOf [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorOf: #black.
+	self assert: r equals: ColorList black.
+	r := obj colorOf: #white.
+	self assert: r equals: ColorList white
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorOrange [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorOrange.
+	self assert: r equals: ColorList orange
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorPink [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorPink.
+	self assert: r equals: ColorList pink
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorPurple [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorPurple.
+	self assert: r equals: ColorList purple
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorRandom [
+
+	| obj thread r |
+	100 timesRepeat: [ 
+		obj := self newGenerator.
+		obj colorRandom.
+		thread := self newThread.
+		thread codes: obj code.
+		r := thread evaluate: 1.
+		self assert: (r between: 0 and: ColorList colors size - 1) ]
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorRed [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorRed.
+	self assert: r equals: ColorList red
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorSky [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorSky.
+	self assert: r equals: ColorList sky
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorTurquoise [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorTurquoise.
+	self assert: r equals: ColorList turquoise
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorWhite [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorWhite.
+	self assert: r equals: ColorList white
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testColorYellow [
+
+	| obj r |
+	obj := self newGenerator.
+	r := obj colorYellow.
+	self assert: r equals: ColorList yellow
 ]
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testComputeFunctionOf [
 	| t b r |
 	b := self newGenerator.
-	r := b computeFunction: #abs of: -1.
+	r := b computeFunction: (self choice: #abs) of: (self literalValue: -1).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b computeFunction: #abs of: 10.
+	r := b computeFunction: (self choice: #abs) of: (self literalValue: 10).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 10.
 
 	b := self newGenerator.
-	r := b computeFunction: #sqrt of: 2.
+	r := b computeFunction: (self choice: #sqrt) of: (self literalValue: 2).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 2 sqrt.
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testCopyPatchVarTo [
+
+	| app w vid1 vid2 b t |
+	app := self newApplication.
+	w := app sworld.
+	w createPatch: 5.
+	w create: 3 turtles: 2.
+	vid1 := (w breedOf: SBreedId patchBreedNo) addVariable: 'a'.
+	vid2 := (w breedOf: SBreedId patchBreedNo) addVariable: 'b'.
+	w
+		var: vid1
+		breed: SBreedId patchBreedNo
+		at: 4
+		put: 6.
+	w
+		var: vid2
+		breed: SBreedId patchBreedNo
+		at: 4
+		put: 7.
+
+	b := self newGenerator.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b
+		copyPatchVar: (self choice: 'a')
+		to: (self choice: 'b').
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+
+	self
+		assert: (w var: vid1 breed: SBreedId patchBreedNo at: 4)
+		equals: 6.
+	self
+		assert: (w var: vid2 breed: SBreedId patchBreedNo at: 4)
+		equals: 6
 ]
 
 { #category : #test }
@@ -503,7 +785,7 @@ SteloBytecodeGeneratorTest >> testCreatePatchesSize [
 		at: 1
 		put: 3.
 	b := self newGenerator.
-	b createPatchesSize: 4.
+	b createPatchesSize: (self literalValue: 4).
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
@@ -532,7 +814,7 @@ SteloBytecodeGeneratorTest >> testCreateTurtleSizeBreedId [
 		at: 1
 		put: 3.
 	b := self newGenerator.
-	b createTurtleSize: 3 breedId: 3.
+	b createTurtleSize: (self literalValue: 3) breedId: (self literalValue: 3).
 	self
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
@@ -575,12 +857,14 @@ SteloBytecodeGeneratorTest >> testDie [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
-	| w b v t arr |
-	w := self newWorld.
+	| app w b v t arr |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b diffuse4Var: v percentage: 80.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b diffuse4Var: (self choice: 'a') percentage: (self literalValue: 80).
 
 	"
 10  0  0  0    2  2  0  2
@@ -663,12 +947,14 @@ SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
-	| w b v t arr |
-	w := self newWorld.
+	| app w b v t arr |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b diffuseVar: v percentage: 80.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b diffuseVar: (self choice: 'a') percentage: (self literalValue: 80).
 
 	"
 10  0  0  0    2  2  0  2
@@ -763,7 +1049,7 @@ SteloBytecodeGeneratorTest >> testDirectionTo [
 	21 22 23 24 25"
 	b := self newGenerator.
 	pno := w patchIndexAtX: 2 y: 1.
-	r := b directionTo: pno.
+	r := b directionTo: (self literalValue: pno).
 	self assert: r isNil.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -785,7 +1071,7 @@ SteloBytecodeGeneratorTest >> testDistanceTo [
 	w x: 3 at: 2 put: 1.
 	b := self newGenerator.
 	pno := w patchIndexAtX: 2 y: 1.
-	r := b distanceTo: pno.
+	r := b distanceTo: (self literalValue: pno).
 	self assert: r isNil.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -803,35 +1089,35 @@ SteloBytecodeGeneratorTest >> testDistanceTo [
 SteloBytecodeGeneratorTest >> testDivideBy [
 	| t b r |
 	b := self newGenerator.
-	r := b divide: 100 by: 2.
+	r := b divide: (self literalValue: 100) by: (self literalValue: 2).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 50.
 
 	b := self newGenerator.
-	r := b divide: 12 by: 3.
+	r := b divide: (self literalValue: 12) by: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 4.
 
 	b := self newGenerator.
-	r := b divide: 10 by: -2.
+	r := b divide: (self literalValue: 10) by: (self literalValue: -2).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: -5.
 
 	b := self newGenerator.
-	r := b divide: 1 by: 5.
+	r := b divide: (self literalValue: 1) by: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.2.
 
 	b := self newGenerator.
-	r := b divide: 2 by: -4.
+	r := b divide: (self literalValue: 2) by: (self literalValue: -4).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -869,8 +1155,10 @@ SteloBytecodeGeneratorTest >> testDoIfBegin [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testDoIfElse [
-	| w b t i |
-	w := self newWorld.
+
+	| app w b t i |
+	app := self newApplication.
+	w := app sworld.
 	w create: 3 turtles: 2.
 	w
 		var: STurtleVarDef colorVarNo
@@ -882,12 +1170,14 @@ SteloBytecodeGeneratorTest >> testDoIfElse [
 		breed: 3
 		at: 2
 		put: 0.
+
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
 	b appendValue: false.
 	i := b doIfBegin: nil.
 	b die.
 	i := b doIfElse: i.
-	b setVar: STurtleVarDef colorVarNo to: 15.
+	b setVar: (self choice: 'color') to: (self literalValue: 15).
 	b doIfEnd: i.
 	self
 		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
@@ -901,12 +1191,14 @@ SteloBytecodeGeneratorTest >> testDoIfElse [
 		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
 		equals: 15.
 	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
 	b appendValue: true.
 	i := b doIfBegin: nil.
 	b die.
 	i := b doIfElse: i.
-	b setVar: STurtleVarDef colorVarNo to: 15.
+	b setVar: (self choice: 'color') to: (self literalValue: 15).
 	b doIfEnd: i.
 	self
 		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
@@ -937,7 +1229,7 @@ SteloBytecodeGeneratorTest >> testDoRepeatBegin [
 	b := self newGenerator.
 	b appendValue: false.
 	arr := b doRepeatBegin: 5.
-	b forward: 1.
+	b forward: (self literalValue: 1).
 	b doRepeatEndLabels: arr.
 	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 0.
 	t := self newThread: w.
@@ -960,7 +1252,7 @@ SteloBytecodeGeneratorTest >> testDoUntilBegin [
 	(w breedOf: 3) headingAt: 1 put: 0.
 	b := self newGenerator.
 	i := b doUntilBegin.
-	b forward: 1.
+	b forward: (self literalValue: 1).
 	b appendValue: 5.
 	b getXpos.
 	b appendSymbol: #less.
@@ -1022,28 +1314,28 @@ SteloBytecodeGeneratorTest >> testDy [
 SteloBytecodeGeneratorTest >> testEqualTo [
 	| t b r |
 	b := self newGenerator.
-	r := b equal: 12 to: 3.
+	r := b equal: (self literalValue: 12) to: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b equal: 10 to: -3.
+	r := b equal: (self literalValue: 10) to: (self literalValue: -3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b equal: 5 to: 5.
+	r := b equal: (self literalValue: 5) to: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b equal: -2.5 to: -2.5.
+	r := b equal: (self literalValue: -2.5) to: (self literalValue: -2.5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1061,7 +1353,7 @@ SteloBytecodeGeneratorTest >> testForward [
 	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0.
 	(w breedOf: 3) headingAt: 1 put: 45.
 	b := self newGenerator.
-	b forward: 2 sqrt.
+	b forward: (self literalValue: 2 sqrt).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -1070,6 +1362,26 @@ SteloBytecodeGeneratorTest >> testForward [
 	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 1.
 	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
 	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testFront [
+
+	| w b t ret x y |
+	w := self newWorld.
+	w createPatch: 5.
+	w create: SBreedId turtleBreedNo turtles: 1.
+	x := w x: SBreedId turtleBreedNo at: 1.
+	y := w x: SBreedId turtleBreedNo at: 1.
+	(w breedOf: SBreedId turtleBreedNo) headingAt: 1 put: 0.
+
+	b := self newGenerator.
+	ret := b front.
+	self assert: ret isNil.
+	t := self newThread: w.
+	t forBreedNo: 3 index: 1.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 14
 ]
 
 { #category : #test }
@@ -1095,6 +1407,19 @@ SteloBytecodeGeneratorTest >> testGetBreedId [
 	t forObserver.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testGetBreedVarAt [
+
+	| g |
+	g := self newGenerator.
+	g getBreed: 4 var: 5 at: 3.
+	self
+		assertCollection: g code
+		equals:
+			{ #pushShort. 3. 0. #pushShort. 5. 0. #pushShort. 4. 0. #getBreedVar.
+			#stop }
 ]
 
 { #category : #test }
@@ -1139,6 +1464,28 @@ SteloBytecodeGeneratorTest >> testGetColor [
 ]
 
 { #category : #test }
+SteloBytecodeGeneratorTest >> testGetHeading [
+
+	| w b t ret |
+	w := self newWorld.
+	w createPatch: 3.
+	w create: SBreedId turtleBreedNo turtles: 1.
+	w
+		var: STurtleVarDef headingVarNo
+		breed: SBreedId turtleBreedNo
+		at: 1
+		put: 123.
+
+	b := self newGenerator.
+	ret := b getHeading.
+	self assert: ret isNil.
+	t := self newThread: w.
+	t forBreedNo: 3 index: 1.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 123
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testGetId [
 	| w b t ret |
 	w := self newWorld.
@@ -1163,12 +1510,14 @@ SteloBytecodeGeneratorTest >> testGetId [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testGetObserverVar [
-	| w b t ret |
-	w := self newWorld.
-	w addBreed: SObserver new.
+
+	| app w b t ret |
+	app := self newApplication.
+	w := app sworld.
 	w create: 3 turtles: 1.
 	b := self newGenerator.
-	ret := b getObserverVar: SObserverVarDef widthVarNo.
+	b script: (app scriptOf: SBreedId observerBreedNo).
+	ret := b getObserverVar: (self choice: 'width').
 	self assert: ret isNil.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -1219,7 +1568,7 @@ SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 		put: ColorList lime.
 	b := self newGenerator.
 	pno := w patchIndexAtX: 1 y: 2.
-	ret := b getPatchColorAt: pno.
+	ret := b getPatchColorAt: (self literalValue: pno).
 	self assert: ret isNil.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -1227,7 +1576,7 @@ SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 	ret := t evaluate: 1.
 	self assert: ret equals: ColorList green.
 	b := self newGenerator.
-	ret := b getPatchColorAt: 9.
+	ret := b getPatchColorAt: (self literalValue: 9).
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
@@ -1237,16 +1586,18 @@ SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testGetPatchVarAt [
-	| w b vid t ret pno |
-	w := self newWorld.
+	| app w b vid t ret pno |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 3.
 	w create: 3 turtles: 1.
 	vid := w patches addVariable: 'a'.
 	w patches var: vid at: 5 put: 4.
 	w patches var: vid at: 2 put: 8.
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
 	pno := w patchIndexAtX: 0 y: 0.
-	ret := b getPatchVar: vid at: pno.
+	ret := b getPatchVar: (self choice: 'a') at: (self literalValue: pno).
 	self assert: ret isNil.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -1260,13 +1611,47 @@ SteloBytecodeGeneratorTest >> testGetPatchVarAt [
 ]
 
 { #category : #test }
+SteloBytecodeGeneratorTest >> testGetTurtleBreedVar [
+
+	| app w vid b t |
+	app := self newApplication.
+	w := app sworld.
+	w create: 3 turtles: 2.
+	vid := (w breedOf: 3) addVariable: 'a'.
+
+	b := self newGenerator.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b
+		getTurtle: (self literalValue: 1)
+		breed: (self literalValue: SBreedId turtleBreedNo)
+		var: (self choice: 'a').
+
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 0.
+
+	w
+		var: vid
+		breed: 3
+		at: 1
+		put: 5.
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 5
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testGetVar [
-	| w vid b t ret |
-	w := self newWorld.
+	| app w vid b t ret |
+	app := self newApplication.
+	w := app sworld.
 	w create: 3 turtles: 2.
 	vid := (w breedOf: 3) addVariable: 'a'.
 	b := self newGenerator.
-	ret := b getVar: vid.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	ret := b getVar: (self choice: 'a').
 	self assert: ret isNil.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -1284,7 +1669,7 @@ SteloBytecodeGeneratorTest >> testGetVar [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testGetVarBreedNoIndex [
+SteloBytecodeGeneratorTest >> testGetVarBreedNoAt [
 	| w b vid t ret |
 	w := self newWorld.
 	w createPatch: 3.
@@ -1301,7 +1686,7 @@ SteloBytecodeGeneratorTest >> testGetVarBreedNoIndex [
 		at: 2
 		put: 5.
 	b := self newGenerator.
-	ret := b getVar: [ :x | vid ] breedNo: 3 index: 2.
+	ret := b getVar: [ :x | vid ] breedNo: 3 at: 2.
 	self assert: ret isNil.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -1434,44 +1819,38 @@ SteloBytecodeGeneratorTest >> testHere [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testInitialize [
-	self testPrivLabelId.
-	self testPrivStream.
-]
-
-{ #category : #test }
 SteloBytecodeGeneratorTest >> testIsBetweenAnd [
 	| t b r |
 	b := self newGenerator.
-	r := b is: 10 between: 3 and: 12.
+	r := b is: (self literalValue: 10) between: (self literalValue: 3) and: (self literalValue: 12).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b is: 10 between: 10 and: 12.
+	r := b is: (self literalValue: 10) between: (self literalValue: 10) and: (self literalValue: 12).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b is: 12 between: 10 and: 12.
+	r := b is: (self literalValue: 12) between: (self literalValue: 10) and: (self literalValue: 12).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b is: 9 between: 10 and: 12.
+	r := b is: (self literalValue: 9) between: (self literalValue: 10) and: (self literalValue: 12).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b is: 13 between: 10 and: 12.
+	r := b is: (self literalValue: 13) between: (self literalValue: 10) and: (self literalValue: 12).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1514,7 +1893,7 @@ SteloBytecodeGeneratorTest >> testKillBreed [
 	w createPatch: 3.
 	w create: 3 turtles: 3.
 	b := self newGenerator.
-	b kill: 2 breed: 3.
+	b kill: (self literalValue: 2) breed: (self literalValue: 3).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 3.
 	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
@@ -1528,52 +1907,31 @@ SteloBytecodeGeneratorTest >> testKillBreed [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testLabelsAndJumpsFor [
-	| b arr |
-	b := self newGenerator.
-	b appendLabel: b privLabelId newNo.
-	b appendValue: 1.
-	b appendValue: 2.
-	b appendLabel: b privLabelId newNo.
-	b appendSymbol: #a.
-	b appendLabel: b privLabelId newNo.
-	b appendValue: 2.
-	b appendSymbol: #a withJump: 1.
-
-	arr := b labelsAndJumpsFor: b privStream contents.
-
-	self assertCollection: arr first equals: #(1 5 6).
-	self assert: arr second size equals: 1.
-	self assert: arr second first selector equals: #a.
-	self assert: b address equals: 13.
-]
-
-{ #category : #test }
 SteloBytecodeGeneratorTest >> testLessEqualThan [
 	| t b r |
 	b := self newGenerator.
-	r := b lessEqual: 12 than: 3.
+	r := b lessEqual: (self literalValue: 12) than: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b lessEqual: -10 than: 3.
+	r := b lessEqual: (self literalValue: -10) than: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b lessEqual: 5 than: 5.
+	r := b lessEqual: (self literalValue: 5) than: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b lessEqual: -2.5 than: -2.
+	r := b lessEqual: (self literalValue: -2.5) than: (self literalValue: -2).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1584,28 +1942,28 @@ SteloBytecodeGeneratorTest >> testLessEqualThan [
 SteloBytecodeGeneratorTest >> testLessThan [
 	| t b r |
 	b := self newGenerator.
-	r := b less: 12 than: 3.
+	r := b less: (self literalValue: 12) than: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b less: -10 than: 3.
+	r := b less: (self literalValue: -10) than: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b less: 5 than: 5.
+	r := b less: (self literalValue: 5) than: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b less: -2.5 than: -2.
+	r := b less: (self literalValue: -2.5) than: (self literalValue: -2).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1616,28 +1974,28 @@ SteloBytecodeGeneratorTest >> testLessThan [
 SteloBytecodeGeneratorTest >> testMinusWith [
 	| t b r |
 	b := self newGenerator.
-	r := b minus: 12 with: 3.
+	r := b minus: (self literalValue: 12) with: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 9.
 
 	b := self newGenerator.
-	r := b minus: 10 with: -3.
+	r := b minus: (self literalValue: 10) with: (self literalValue: -3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 13.
 
 	b := self newGenerator.
-	r := b minus: 1.5 with: 5.
+	r := b minus: (self literalValue: 1.5) with: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: -3.5.
 
 	b := self newGenerator.
-	r := b minus: -2 with: -4.
+	r := b minus: (self literalValue: -2) with: (self literalValue: -4).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1648,28 +2006,28 @@ SteloBytecodeGeneratorTest >> testMinusWith [
 SteloBytecodeGeneratorTest >> testModBy [
 	| t b r |
 	b := self newGenerator.
-	r := b mod: 12 by: 3.
+	r := b mod: (self literalValue: 12) by: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b mod: 10 by: -3.
+	r := b mod: (self literalValue: 10) by: (self literalValue: -3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: -2.
 
 	b := self newGenerator.
-	r := b mod: 1 by: 5.
+	r := b mod: (self literalValue: 1) by: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b mod: -2 by: 4.
+	r := b mod: (self literalValue: -2) by: (self literalValue: 4).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1677,31 +2035,110 @@ SteloBytecodeGeneratorTest >> testModBy [
 ]
 
 { #category : #test }
+SteloBytecodeGeneratorTest >> testMoreEqualThan [
+
+	| t b r |
+	b := self newGenerator.
+	r := b
+		     moreEqual: (self literalValue: 12)
+		     than: (self literalValue: 3).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 1.
+
+	b := self newGenerator.
+	r := b
+		     moreEqual: (self literalValue: -10)
+		     than: (self literalValue: 3).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 0.
+
+	b := self newGenerator.
+	r := b moreEqual: (self literalValue: 5) than: (self literalValue: 5).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 1.
+
+	b := self newGenerator.
+	r := b
+		     moreEqual: (self literalValue: -2.5)
+		     than: (self literalValue: -2).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 0
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testMoreThan [
+
+	| t b r |
+	b := self newGenerator.
+	r := b less: (self literalValue: 12) than: (self literalValue: 3).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 0.
+
+	b := self newGenerator.
+	r := b less: (self literalValue: -10) than: (self literalValue: 3).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 1.
+
+	b := self newGenerator.
+	r := b more: (self literalValue: 5) than: (self literalValue: 5).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 0.
+
+	b := self newGenerator.
+	r := b more: (self literalValue: -2.5) than: (self literalValue: -2).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 0.
+
+	b := self newGenerator.
+	r := b more: (self literalValue: 2.5) than: (self literalValue: -2).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 1
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testMultiplyAnd [
 	| t b r |
 	b := self newGenerator.
-	r := b multiply: 12 and: 3.
+	r := b multiply: (self literalValue: 12) and: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 36.
 
 	b := self newGenerator.
-	r := b multiply: 10 and: -3.
+	r := b multiply: (self literalValue: 10) and: (self literalValue: -3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: -30.
 
 	b := self newGenerator.
-	r := b multiply: 1.5 and: 5.
+	r := b multiply: (self literalValue: 1.5) and: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 7.5.
 
 	b := self newGenerator.
-	r := b multiply: -2 and: -4.
+	r := b multiply: (self literalValue: -2) and: (self literalValue: -4).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1709,13 +2146,15 @@ SteloBytecodeGeneratorTest >> testMultiplyAnd [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testMultiplyBreedVarBy [
-	| w v b t |
-	w := self newWorld.
+SteloBytecodeGeneratorTest >> testMultiplyVarBy [
+	| app w v b t |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 3.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b multiplyBreed: SBreedId patchBreedNo var: v by: 2.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b multiplyVar: (self choice: 'a') by: (self literalValue: 2).
 	w patches var: v at: 1 put: 1.
 	w patches var: v at: 5 put: 2.
 	w patches var: v at: 7 put: 3.
@@ -1730,17 +2169,36 @@ SteloBytecodeGeneratorTest >> testMultiplyBreedVarBy [
 ]
 
 { #category : #test }
+SteloBytecodeGeneratorTest >> testNegated [
+
+	| t b r |
+	b := self newGenerator.
+	r := b negated: (self literalValue: 12).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: -12.
+
+	b := self newGenerator.
+	r := b negated: (self literalValue: -5).
+	self assert: r isNil.
+	t := self newThread.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 5
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testNot [
 	| t b r |
 	b := self newGenerator.
-	r := b not: true.
+	r := b not: (self literalValue: 1).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 0.
 
 	b := self newGenerator.
-	r := b not: false.
+	r := b not: (self literalValue: 0).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1749,13 +2207,16 @@ SteloBytecodeGeneratorTest >> testNot [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testNsum4VarTo [
-	| w v1 v2 b t |
-	w := self newWorld.
+
+	| app w v1 v2 b t |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 4.
 	v1 := w patches addVariable: 'a'.
 	v2 := w patches addVariable: 'b'.
 	b := self newGenerator.
-	b nsum4Var: v1 to: v2.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b nsum4Var: (self choice: 'a') to: (self choice: 'b').
 	"
 0 1 0 0     1 0 2 3
 0 0 1 0 --> 0 4 0 1
@@ -1777,13 +2238,16 @@ SteloBytecodeGeneratorTest >> testNsum4VarTo [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testNsumVarTo [
-	| w v1 v2 b t |
-	w := self newWorld.
+
+	| app w v1 v2 b t |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 4.
 	v1 := w patches addVariable: 'a'.
 	v2 := w patches addVariable: 'b'.
 	b := self newGenerator.
-	b nsumVar: v1 to: v2.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b nsumVar: (self choice: 'a') to: (self choice: 'b').
 	"
 0 1 0 0     4 1 5 4
 0 0 1 0 --> 3 4 3 1
@@ -1804,47 +2268,36 @@ SteloBytecodeGeneratorTest >> testNsumVarTo [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testNullaryCommand [
-	| b r |
-	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b nullaryCommand: #abc.
-	self assert: b privStream contents size equals: 1.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeSymbol.
-	self assert: r selector equals: #abc.
-]
-
-{ #category : #test }
 SteloBytecodeGeneratorTest >> testOrWith [
+
 	| t b r |
 	b := self newGenerator.
-	r := b or: true with: true.
+	r := b or: (self literalValue: 1) with: (self literalValue: 1).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b or: true with: false.
+	r := b or: (self literalValue: 1) with: (self literalValue: 0).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b or: false with: true.
+	r := b or: (self literalValue: 0) with: (self literalValue: 1).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
 
 	b := self newGenerator.
-	r := b or: false with: false.
+	r := b or: (self literalValue: 0) with: (self literalValue: 0).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
-	self assert: (t evaluate: 1) equals: 0.
+	self assert: (t evaluate: 1) equals: 0
 ]
 
 { #category : #test }
@@ -1854,13 +2307,13 @@ SteloBytecodeGeneratorTest >> testPatchAtXY [
 	w createPatch: 3.
 
 	b := self newGenerator.
-	b patchAtX: 0 y: 0.
+	b patchAtX: (self literalValue: 0) y: (self literalValue: 0).
 	t := self newThread: w.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 5.
 
 	b := self newGenerator.
-	b patchAtX: -1 y: 1.
+	b patchAtX: (self literalValue: -1) y: (self literalValue: 1).
 	t := self newThread: w.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 7.
@@ -1868,6 +2321,28 @@ SteloBytecodeGeneratorTest >> testPatchAtXY [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testPenDown [
+
+	| w b t r |
+	w := self newWorld.
+	w create: 3 turtles: 1.
+	w
+		var: STurtleVarDef flagVarNo
+		breed: 3
+		at: 1
+		put: 1.
+	b := self newGenerator.
+	b penDown.
+	t := self newThread: w.
+	t forBreedNo: 3 index: 1.
+	t codes: b code.
+	t execute: 1.
+	r := w var: STurtleVarDef flagVarNo breed: 3 at: 1.
+	self assert: r equals: 1 + (1 << STurtleVarDef penDownFlagNo)
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testPenDown2 [
+
 	| w b t r |
 	w := self newWorld.
 	w create: 3 turtles: 1.
@@ -1894,15 +2369,59 @@ SteloBytecodeGeneratorTest >> testPenDown [
 	self assert: r equals: 1
 ]
 
-{ #category : #tests }
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testPenUp [
+
+	| w b t r |
+	w := self newWorld.
+	w create: 3 turtles: 1.
+	w
+		var: STurtleVarDef flagVarNo
+		breed: 3
+		at: 1
+		put: 1.
+	b := self newGenerator.
+	b penUp.
+	t := self newThread: w.
+	t forBreedNo: 3 index: 1.
+	t codes: b code.
+	t execute: 1.
+	r := w var: STurtleVarDef flagVarNo breed: 3 at: 1.
+	self assert: r equals: 1
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testPlotColor [
+
+	| w b t ret |
+	w := self newWorld.
+	ret := w plotList.
+	self assert: ret isCollection.
+	self assert: ret isEmpty.
+
+	b := self newGenerator.
+	b plot: (self literalValue: 1) color: (self literalValue: ColorList brown).
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+
+	ret := w plotList.
+	self assert: ret size equals: 1.
+	self assert: (ret first isKindOf: ScratchPlotColor).
+	self assert: ret first color equals: (ColorList default colorAt: ColorList brown)
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testPlotData [
 	| w b t ret |
 	w := self newWorld.
 	ret := w plotList.
 	self assert: ret isCollection.
 	self assert: ret isEmpty.
+
 	b := self newGenerator.
-	b plot: 1 data: 2.
+	b plot: (self literalValue: 1) data: (self literalValue: 2).
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
@@ -1916,28 +2435,28 @@ SteloBytecodeGeneratorTest >> testPlotData [
 SteloBytecodeGeneratorTest >> testPlusAnd [
 	| t b r |
 	b := self newGenerator.
-	r := b plus: 12 and: 3.
+	r := b plus: (self literalValue: 12) and: (self literalValue: 3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 15.
 
 	b := self newGenerator.
-	r := b plus: 10 and: -3.
+	r := b plus: (self literalValue: 10) and: (self literalValue: -3).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 7.
 
 	b := self newGenerator.
-	r := b plus: 1.5 and: 5.
+	r := b plus: (self literalValue: 1.5) and: (self literalValue: 5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 6.5.
 
 	b := self newGenerator.
-	r := b plus: -2 and: -4.
+	r := b plus: (self literalValue: -2) and: (self literalValue: -4).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -1945,27 +2464,11 @@ SteloBytecodeGeneratorTest >> testPlusAnd [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testPrivLabelId [
-	| b |
-	b := self newGenerator.
-	self assert: b privLabelId class equals: BaseId.
-	self assert: b privLabelId size equals: 0.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testPrivStream [
-	| b |
-	b := self newGenerator.
-	self assert: b privStream isStream.
-	self assert: b privStream contents isArray.
-]
-
-{ #category : #test }
 SteloBytecodeGeneratorTest >> testRandomFromTo [
 	| t b r |
 	b := self newGenerator.
 	10
-		timesRepeat: [ r := b randomFrom: 1 to: 10.
+		timesRepeat: [ r := b randomFrom: (self literalValue: 1) to: (self literalValue: 10).
 			self assert: r isNil.
 			t := self newThread.
 			t codes: b code.
@@ -1987,35 +2490,35 @@ SteloBytecodeGeneratorTest >> testRelativeToRTheta [
 "
 
 	b := self newGenerator.
-	b relativeToR: 1 theta: 0.
+	b relativeToR: (self literalValue: 1) theta: (self literalValue: 0).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 14.
 
 	b := self newGenerator.
-	b relativeToR: 1 theta: 90.
+	b relativeToR: (self literalValue: 1) theta: (self literalValue: 90).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 18.
 
 	b := self newGenerator.
-	b relativeToR: 1 theta: 180.
+	b relativeToR: (self literalValue: 1) theta: (self literalValue: 180).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 12.
 
 	b := self newGenerator.
-	b relativeToR: 1 theta: 270.
+	b relativeToR: (self literalValue: 1) theta: (self literalValue: 270).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 8.
 
 	b := self newGenerator.
-	b relativeToR: 2 theta: 0.
+	b relativeToR: (self literalValue: 2) theta: (self literalValue: 0).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2034,50 +2537,25 @@ SteloBytecodeGeneratorTest >> testRelativeToXY [
  7 8 9"
 
 	b := self newGenerator.
-	b patchAtX: 0 y: 0.
+	b patchAtX: (self literalValue: 0) y: (self literalValue: 0).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 5.
 
 	b := self newGenerator.
-	b relativeToX: -1 y: 0.
+	b relativeToX: (self literalValue: -1) y: (self literalValue: 0).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 4.
 
 	b := self newGenerator.
-	b relativeToX: 0 y: 1.
+	b relativeToX: (self literalValue: 0) y: (self literalValue: 1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 8.
-]
-
-{ #category : #test }
-SteloBytecodeGeneratorTest >> testResolveJumpAddressUsing [
-	| b fp arr |
-	b := self newGenerator.
-	b appendLabel: b privLabelId newNo.
-	b appendValue: 1.
-	b appendValue: 2.
-	b appendSymbol: #a withJump: 3.
-	b appendLabel: b privLabelId newNo.
-	b appendSymbol: #b.
-	b appendLabel: b privLabelId newNo.
-	b appendValue: 2.
-	b appendSymbol: #c withJump: 2.
-	fp := b privStream contents.
-
-	self assert: (fp at: 4) address equals: nil.
-	self assert: (fp at: 9) address equals: nil.
-
-	arr := b labelsAndJumpsFor: fp.
-	b resolveJumpAddress: arr second using: arr first.
-
-	self assert: (fp at: 4) address equals: 10.
-	self assert: (fp at: 9) address equals: 9.
 ]
 
 { #category : #test }
@@ -2099,28 +2577,28 @@ SteloBytecodeGeneratorTest >> testReturnValue [
 SteloBytecodeGeneratorTest >> testRounded [
 	| t b r |
 	b := self newGenerator.
-	r := b rounded: 10.
+	r := b rounded: (self literalValue: 10).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 10.
 
 	b := self newGenerator.
-	r := b rounded: 10.2.
+	r := b rounded: (self literalValue: 10.2).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 10.
 
 	b := self newGenerator.
-	r := b rounded: 10.5.
+	r := b rounded: (self literalValue: 10.5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 11.
 
 	b := self newGenerator.
-	r := b rounded: -10.5.
+	r := b rounded: (self literalValue: -10.5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -2128,18 +2606,20 @@ SteloBytecodeGeneratorTest >> testRounded [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
-	| w v b t |
-	w := self newWorld.
-	w addBreed: SObserver new.
+SteloBytecodeGeneratorTest >> testScalePatchColorFromTo [
+
+	| app w v b t |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
 	b
-		scaleValue: v
-		color: 15
-		from: 1
-		to: 9.
+		scalePatch: (self choice: 'a')
+		color: (self literalValue: 15)
+		from: (self literalValue: 1)
+		to: (self literalValue: 9).
 	w patches var: v at: 1 put: 0.
 	w patches var: v at: 2 put: 1.
 	w patches var: v at: 3 put: 2.
@@ -2188,7 +2668,105 @@ SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testSetColorTo [
+SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
+
+	| app w v b t |
+	app := self newApplication.
+	w := app sworld.
+	w createPatch: 4.
+	v := w patches addVariable: 'a'.
+	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b
+		scaleValue: (self choice: 'a')
+		color: (self literalValue: 15)
+		from: (self literalValue: 1)
+		to: (self literalValue: 9).
+	w patches var: v at: 1 put: 0.
+	w patches var: v at: 2 put: 1.
+	w patches var: v at: 3 put: 2.
+	w patches var: v at: 4 put: 3.
+	w patches var: v at: 5 put: 4.
+	w patches var: v at: 6 put: 5.
+	w patches var: v at: 7 put: 6.
+	w patches var: v at: 8 put: 7.
+	w patches var: v at: 9 put: 8.
+	w patches var: v at: 10 put: 9.
+	w patches var: v at: 11 put: 10.
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 1)
+		equals: ColorList black.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 6)
+		equals: ColorList red - 1.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 7)
+		equals: ColorList red.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 8)
+		equals: ColorList red + 1.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 11)
+		equals: ColorList white.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 12)
+		equals: ColorList black.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 13)
+		equals: ColorList black.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 14)
+		equals: ColorList black.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 15)
+		equals: ColorList black.
+	self
+		assert: (w patches var: SPatchVarDef colorVarNo at: 16)
+		equals: ColorList black
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testScreenHeight [
+
+	| app w b t |
+	app := self newApplication.
+	w := app sworld.
+	w createPatch: 10.
+
+	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b screenHeight.
+
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 10
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testScreenWidth [
+
+	| app w b t |
+	app := self newApplication.
+	w := app sworld.
+	w createPatch: 10.
+
+	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b screenWidth.
+
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 10
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testSetColor [
 	| w b t |
 	w := self newWorld.
 	w createPatch: 3.
@@ -2216,7 +2794,7 @@ SteloBytecodeGeneratorTest >> testSetColorTo [
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 2)
 		equals: ColorList black.
 	b := self newGenerator.
-	b setColorTo: ColorList yellow.
+	b setColor: (self literalValue: ColorList yellow).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2255,7 +2833,7 @@ SteloBytecodeGeneratorTest >> testSetHeading [
 		at: 2
 		put: 5.
 	b := self newGenerator.
-	b setHeading: 15.
+	b setHeading: (self literalValue: 15).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2281,7 +2859,7 @@ SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 	w create: 3 turtles: 1.
 	b := self newGenerator.
 	pno := w patchIndexAtX: 1 y: 2.
-	b setPatchColorAt: pno to: ColorList red.
+	b setPatchColorAt: (self literalValue: pno) to: (self literalValue: ColorList red).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2290,7 +2868,7 @@ SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 3)
 		equals: ColorList red.
 	b := self newGenerator.
-	b setPatchColorAt: 9 to: ColorList red.
+	b setPatchColorAt: (self literalValue: 9) to: (self literalValue: ColorList red).
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
@@ -2305,25 +2883,31 @@ SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testSetPatchVarAtTo [
-	| w b vid t pno |
-	w := self newWorld.
+
+	| app w b vid t pno |
+	app := self newApplication.
+	w := app sworld.
 	w createPatch: 3.
 	w create: 3 turtles: 1.
 	vid := w patches addVariable: 'a'.
 	self assert: (w patches var: vid at: 2) equals: 0.
 	self assert: (w patches var: vid at: 5) equals: 0.
+
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
 	pno := w patchIndexAtX: 0 y: 0.
-	b setPatchVar: vid at: pno to: 5.
+	b setPatchVar: (self choice: 'a') at: (self literalValue: pno) to: (self literalValue: 5).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
 	self assert: (w patches var: vid at: 2) equals: 0.
 	self assert: (w patches var: vid at: 5) equals: 5.
+
 	b := self newGenerator.
+	b script: (app scriptOf: SBreedId patchBreedNo).
 	pno := w patchIndexAtX: 0 y: -1.
-	b setPatchVar: vid at: pno to: 5.
+	b setPatchVar: (self choice: 'a') at: (self literalValue: pno) to: (self literalValue: 5).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2333,13 +2917,59 @@ SteloBytecodeGeneratorTest >> testSetPatchVarAtTo [
 ]
 
 { #category : #test }
+SteloBytecodeGeneratorTest >> testSetPlotYMax [
+
+	| w b t ret |
+	w := self newWorld.
+	ret := w plotList.
+	self assert: ret isCollection.
+	self assert: ret isEmpty.
+
+	b := self newGenerator.
+	b setPlotYMax: (self literalValue: 10).
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+
+	ret := w plotList.
+	self assert: ret size equals: 1.
+	self assert: (ret first isKindOf: ScratchPlotCommand).
+	self assert: ret first command equals: ScratchPlotCommand setPlotYMax.
+	self assert: ret first args first equals: 10
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testSetPlotYMin [
+
+	| w b t ret |
+	w := self newWorld.
+	ret := w plotList.
+	self assert: ret isCollection.
+	self assert: ret isEmpty.
+
+	b := self newGenerator.
+	b setPlotYMin: (self literalValue: 10).
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	t execute: 1.
+
+	ret := w plotList.
+	self assert: ret size equals: 1.
+	self assert: (ret first isKindOf: ScratchPlotCommand).
+	self assert: ret first command equals: ScratchPlotCommand setPlotYMin.
+	self assert: ret first args first equals: 10
+]
+
+{ #category : #test }
 SteloBytecodeGeneratorTest >> testSetRandomSeed [
 	| w b t r |
 	w := self newWorld.
 	r := w random.
 	w createPatch: 3.
 	b := self newGenerator.
-	b setRandomSeed: 1234.
+	b setRandomSeed: (self literalValue: 1234).
 	self assert: w random identicalTo: r.
 	t := self newThread: w.
 	t forObserver.
@@ -2350,14 +2980,17 @@ SteloBytecodeGeneratorTest >> testSetRandomSeed [
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testSetVarTo [
-	| w vid b t |
-	w := self newWorld.
+
+	| app w vid b t |
+	app := self newApplication.
+	w := app sworld.
 	w create: 3 turtles: 2.
 	vid := (w breedOf: 3) addVariable: 'a'.
 	self assert: (w var: vid breed: 3 at: 1) equals: 0.
 	self assert: (w var: vid breed: 3 at: 2) equals: 0.
 	b := self newGenerator.
-	b setVar: vid to: 10.
+	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b setVar: (self choice: 'a') to: (self literalValue: 10).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2374,7 +3007,7 @@ SteloBytecodeGeneratorTest >> testSetXpos [
 	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 0.
 	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
 	b := self newGenerator.
-	b setXpos: 3.
+	b setXpos: (self literalValue: 3).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2391,7 +3024,7 @@ SteloBytecodeGeneratorTest >> testSetYpos [
 	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 0.
 	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0.
 	b := self newGenerator.
-	b setYpos: 5.
+	b setYpos: (self literalValue: 5).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
@@ -2487,52 +3120,57 @@ SteloBytecodeGeneratorTest >> testSubTable [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testTernaryCommandArg1Arg2Arg3 [
-	| b r |
+SteloBytecodeGeneratorTest >> testTicks [
+
+	| app w b t |
+	app := self newApplication.
+	w := app sworld.
+
 	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b ternaryCommand: #abc arg1: 123 arg2: 456 arg3: 789.
-	self assert: b privStream contents size equals: 4.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 123.
-	r := b privStream contents second.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 456.
-	r := b privStream contents third.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 789.
-	r := b privStream contents fourth.
-	self assert: r class equals: ScratchBytecodeSymbol.
-	self assert: r selector equals: #abc.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b ticks.
+
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 0.
+
+	w incrementTicks.
+	w incrementTicks.
+	w incrementTicks.
+
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 3
 ]
 
 { #category : #test }
 SteloBytecodeGeneratorTest >> testTruncated [
 	| t b r |
 	b := self newGenerator.
-	r := b truncated: 10.
+	r := b truncated: (self literalValue: 10).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 10.
 
 	b := self newGenerator.
-	r := b truncated: 10.2.
+	r := b truncated: (self literalValue: 10.2).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 10.
 
 	b := self newGenerator.
-	r := b truncated: 10.5.
+	r := b truncated: (self literalValue: 10.5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 10.
 
 	b := self newGenerator.
-	r := b truncated: -10.5.
+	r := b truncated: (self literalValue: -10.5).
 	self assert: r isNil.
 	t := self newThread.
 	t codes: b code.
@@ -2555,7 +3193,7 @@ SteloBytecodeGeneratorTest >> testTurn [
 		at: 2
 		put: 5.
 	b := self newGenerator.
-	b turn: -15.
+	b turn: (self literalValue: -15).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
@@ -2574,9 +3212,10 @@ SteloBytecodeGeneratorTest >> testTurtleAt [
 	w := self newWorld.
 	w create: 3 turtles: 3.
 	w x: 3 at: 3 put: 1.
+
 	b := self newGenerator.
 	pno := w patchIndexAtX: 0 y: 0.
-	b turtle: 3 at: pno.
+	b turtle: (self literalValue: 3) at: (self literalValue: pno).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2585,9 +3224,10 @@ SteloBytecodeGeneratorTest >> testTurtleAt [
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 1.
+
 	b := self newGenerator.
 	pno := w patchIndexAtX: 1 y: 0.
-	b turtle: 3 at: pno.
+	b turtle: (self literalValue: 3) at: (self literalValue: pno).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 3.
 	t codes: b code.
@@ -2596,8 +3236,9 @@ SteloBytecodeGeneratorTest >> testTurtleAt [
 	t forPatchId: (w patches indexAtPoint: 1 @ 0).
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 3.
+
 	b := self newGenerator.
-	b turtle: 3 at: pno.
+	b turtle: (self literalValue: 3) at: (self literalValue: pno).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
@@ -2609,16 +3250,34 @@ SteloBytecodeGeneratorTest >> testTurtleAt [
 ]
 
 { #category : #test }
-SteloBytecodeGeneratorTest >> testUnaryCommandArg [
-	| b r |
+SteloBytecodeGeneratorTest >> testTurtlesCount [
+
+	| app w b t |
+	app := self newApplication.
+	w := app sworld.
+	w create: SBreedId turtleBreedNo turtles: 10.
+
 	b := self newGenerator.
-	self assert: b privStream contents isEmpty.
-	b unaryCommand: #abc arg: 123.
-	self assert: b privStream contents size equals: 2.
-	r := b privStream contents first.
-	self assert: r class equals: ScratchBytecodeValue.
-	self assert: r data equals: 123.
-	r := b privStream contents second.
-	self assert: r class equals: ScratchBytecodeSymbol.
-	self assert: r selector equals: #abc.
+	b script: (app scriptOf: SBreedId patchBreedNo).
+	b turtlesCount: (self literalValue: SBreedId turtleBreedNo).
+
+	t := self newThread: w.
+	t forObserver.
+	t codes: b code.
+	self assert: (t evaluate: 1) equals: 10
+]
+
+{ #category : #test }
+SteloBytecodeGeneratorTest >> testVariableArgString [
+
+	| g r |
+	g := self newGenerator.
+	g script: STestScript new.
+	r := g variableArgString: 'a'.
+	self assert: r isNil.
+	self
+		assertCollection: g code
+		equals: { #pushShort. 5. 0. #getVar. #stop }.
+	r := g variableArgString: 'notExistVariableName'.
+	self assert: r equals: 0
 ]

@@ -152,15 +152,39 @@ ScratchSexpGenerator >> generateSubVars: aCollection [
 	"do nothing"
 ]
 
+{ #category : #accessing }
+ScratchSexpGenerator >> indentLevel [
+
+	^ indentLevel
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> indentLevel: anObject [
+
+	indentLevel := anObject
+]
+
 { #category : #'code generator' }
 ScratchSexpGenerator >> indentLevelFor: aString [
 	^ 2
 ]
 
+{ #category : #accessing }
+ScratchSexpGenerator >> indents [
+
+	^ indents
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> indents: anObject [
+
+	indents := anObject
+]
+
 { #category : #initialization }
 ScratchSexpGenerator >> initialize [
 	super initialize.
-	parser := ScratchBlockParser codeGenerator: self.
+	parser := ScratchBlockParser new generator: self.
 	stream := WriteStream on: String new.
 	indents := Array with: 0.
 	indentLevel := 1.
@@ -182,8 +206,9 @@ ScratchSexpGenerator >> localVarArgString: aString [
 	^ aString
 ]
 
-{ #category : #accessing }
-ScratchSexpGenerator >> parse: aTopBlock initialIndent: anInteger [
+{ #category : #api }
+ScratchSexpGenerator >> parseBlock: aTopBlock initialIndent: anInteger [
+
 	indents at: 1 put: anInteger.
 	position := anInteger.
 	parser parseBlock: aTopBlock.
@@ -191,9 +216,28 @@ ScratchSexpGenerator >> parse: aTopBlock initialIndent: anInteger [
 ]
 
 { #category : #accessing }
-ScratchSexpGenerator >> parse: aTopBlock target: aMorph [
-	parser parseBlock: aTopBlock.
-	^ stream contents
+ScratchSexpGenerator >> parser [
+
+	^ parser
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> parser: anObject [
+
+	parser := anObject.
+	parser generator: self
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> position [
+
+	^ position
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> position: anObject [
+
+	position := anObject
 ]
 
 { #category : #private }
@@ -258,6 +302,18 @@ ScratchSexpGenerator >> spriteArgString: aMorph [
 	^ aMorph objName
 ]
 
+{ #category : #accessing }
+ScratchSexpGenerator >> stream [
+
+	^ stream
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> stream: anObject [
+
+	stream := anObject
+]
+
 { #category : #'code generator' }
 ScratchSexpGenerator >> varNamesUsedIn: aMorph [
 
@@ -267,4 +323,16 @@ ScratchSexpGenerator >> varNamesUsedIn: aMorph [
 { #category : #'arg generator' }
 ScratchSexpGenerator >> variableArgString: aString [
 	^ '(getVar ' , (SexpLexer quotedString: aString) , ')'
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> wantsLinefeed [
+
+	^ wantsLinefeed
+]
+
+{ #category : #accessing }
+ScratchSexpGenerator >> wantsLinefeed: anObject [
+
+	wantsLinefeed := anObject
 ]

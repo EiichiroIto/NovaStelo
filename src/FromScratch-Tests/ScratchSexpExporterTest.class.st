@@ -42,7 +42,7 @@ ScratchSexpExporterTest >> testWriteFooter [
 	ex := self newExporter.
 	ex privStream: '' writeStream.
 	ex writeFooter: nil.
-	self assert: ex privStream contents equals: '))'
+	self assert: ex stream contents equals: '))'
 ]
 
 { #category : #test }
@@ -52,7 +52,7 @@ ScratchSexpExporterTest >> testWriteHeader [
 	ex := self newExporter.
 	ex privStream: '' writeStream.
 	ex writeHeader: proj.
-	self assert: ex privStream contents equals: '(abc ()', String lf, ' ('
+	self assert: ex stream contents equals: '(abc ()', String lf, ' ('
 ]
 
 { #category : #test }
@@ -61,7 +61,7 @@ ScratchSexpExporterTest >> testWriteIndent [
 	ex := self newExporter.
 	ex privStream: '' writeStream.
 	ex writeIndent.
-	self assert: ex privStream contents equals: String lf, '   '
+	self assert: ex stream contents equals: String lf, '   '
 ]
 
 { #category : #test }
@@ -73,10 +73,10 @@ ScratchSexpExporterTest >> testWriteScript [
 	ex privStream: '' writeStream.
 	ex writeScript: sc.
 	self
-		assert: ex privStream contents
+		assert: ex stream contents
 		equals:
 			'(for test ((var "a") (var "b c") (list "d") (list "e f"))' , String lf
-				, '   (' , String lf , '   ))'
+				, '   ())'
 ]
 
 { #category : #test }
@@ -95,7 +95,7 @@ ScratchSexpExporterTest >> testWriteScriptNames [
 	ex := self newExporter.
 	ex privStream: '' writeStream.
 	ex writeScriptNames: proj.
-	self assert: ex privStream contents equals: '(a b)'
+	self assert: ex stream contents equals: '(a b)'
 ]
 
 { #category : #test }
@@ -104,7 +104,7 @@ ScratchSexpExporterTest >> testWriteScriptSeparator [
 	ex := self newExporter.
 	ex privStream: '' writeStream.
 	ex writeScriptSeparator.
-	self assert: ex privStream contents equals: String lf, '  '
+	self assert: ex stream contents equals: String lf, '  '
 ]
 
 { #category : #test }
@@ -116,6 +116,6 @@ ScratchSexpExporterTest >> testWriteVarNames [
 	ex privStream: '' writeStream.
 	ex writeVarNames: sc.
 	self
-		assert: ex privStream contents
+		assert: ex stream contents
 		equals: '(var "a") (var "b c") (list "d") (list "e f")'
 ]

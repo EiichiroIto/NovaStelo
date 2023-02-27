@@ -224,5 +224,6 @@ SteloProject >> turtleVarNamesMenu [
 
 { #category : #accessing }
 SteloProject >> varNoFor: vno breed: bno [
-	^ (self scriptOf: bno) varId varNoFor: vno
+
+	^ (self scriptOf: bno) varNoFor: vno
 ]

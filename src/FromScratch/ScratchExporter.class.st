@@ -23,13 +23,13 @@ ScratchExporter >> exportFrom: anApplication isBinary: aBoolean [
 ]
 
 { #category : #private }
-ScratchExporter >> privStream [
-	^ stream
+ScratchExporter >> privStream: aStream [
+	stream := aStream.
 ]
 
 { #category : #private }
-ScratchExporter >> privStream: aStream [
-	stream := aStream.
+ScratchExporter >> stream [
+	^ stream
 ]
 
 { #category : #private }

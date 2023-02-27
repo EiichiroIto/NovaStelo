@@ -16,9 +16,11 @@ SPatchVarDefTest >> testClassNameFor [
 
 { #category : #'tests-accessing' }
 SPatchVarDefTest >> testColorVarNo [
+
 	| v |
 	v := SPatchVarDef new.
 	self assert: (v varNoFor: 'color') equals: SPatchVarDef colorVarNo.
+	self assert: SPatchVarDef colorVarNo equals: 1
 ]
 
 { #category : #'tests-initialization' }

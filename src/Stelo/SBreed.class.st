@@ -2,8 +2,8 @@ Class {
 	#name : #SBreed,
 	#superclass : #Object,
 	#instVars : [
-		'varId',
-		'variables'
+		'variables',
+		'varDef'
 	],
 	#category : #'Stelo-Model'
 }
@@ -11,16 +11,16 @@ Class {
 { #category : #accessing }
 SBreed >> addList: aString [
 	| id |
-	id := varId addList: aString.
-	variables updateVarDef: varId.
+	id := varDef addList: aString.
+	variables updateVarDef: varDef.
 	^ id
 ]
 
 { #category : #accessing }
 SBreed >> addVariable: aString [
 	| id |
-	id := varId addVariable: aString.
-	variables updateVarDef: varId.
+	id := varDef addVariable: aString.
+	variables updateVarDef: varDef.
 	^ id
 ]
 
@@ -67,17 +67,17 @@ SBreed >> clearAt: id [
 
 { #category : #'accessing variable' }
 SBreed >> colorAt: anInteger [
-	^ variables var: varId class colorVarNo at: anInteger
+	^ variables var: varDef class colorVarNo at: anInteger
 ]
 
 { #category : #'accessing variable' }
 SBreed >> colorAt: index put: anInteger [
-	self var: varId class colorVarNo at: index put: anInteger
+	self var: varDef class colorVarNo at: index put: anInteger
 ]
 
 { #category : #accessing }
 SBreed >> colors [
-	^ variables realArrayAt: varId class colorVarNo
+	^ variables realArrayAt: varDef class colorVarNo
 ]
 
 { #category : #'accessing variable' }
@@ -92,8 +92,8 @@ SBreed >> countAlive [
 
 { #category : #accessing }
 SBreed >> deleteVariable: aString [
-	varId delete: aString.
-	variables updateVarDef: varId.
+	varDef delete: aString.
+	variables updateVarDef: varDef.
 ]
 
 { #category : #'object i/o' }
@@ -103,14 +103,14 @@ SBreed >> fieldsVersion [
 
 { #category : #accessing }
 SBreed >> fixVars [
-	varId fixVars.
-	variables ifNotNil: [ variables fixVars: varId ].
+	varDef fixVars.
+	variables ifNotNil: [ variables fixVars: varDef ].
 ]
 
 { #category : #'accessing variable' }
 SBreed >> flag: anInteger at: id [
 	| vars v b |
-	vars := variables varAt: varId class flagVarNo.
+	vars := variables varAt: varDef class flagVarNo.
 	b := 1 << anInteger.
 	v := vars at: id.
 	^ (v bitAnd: b) > 0
@@ -119,7 +119,7 @@ SBreed >> flag: anInteger at: id [
 { #category : #'accessing variable' }
 SBreed >> flag: anInteger at: id put: aBoolean [
 	| vars v b |
-	vars := variables varAt: varId class flagVarNo.
+	vars := variables varAt: varDef class flagVarNo.
 	b := 1 << anInteger.
 	v := vars at: id.
 	v := aBoolean
@@ -130,7 +130,7 @@ SBreed >> flag: anInteger at: id put: aBoolean [
 
 { #category : #'object i/o' }
 SBreed >> initFieldsFrom: anObjStream version: classVersion [
-	self initFieldsNamed: #(varId variables) from: anObjStream.
+	self initFieldsNamed: #(varDef variables) from: anObjStream.
 ]
 
 { #category : #initialization }
@@ -150,14 +150,14 @@ SBreed >> privVariables [
 
 { #category : #accessing }
 SBreed >> realVarNames [
-	^ varId realVarNames
+	^ varDef realVarNames
 ]
 
 { #category : #initialization }
 SBreed >> reset [
 	"reset means clear all variable with its definitions"
-	varId := SBreedVarDef new.
-	variables := Variables new updateVarDef: varId.
+	varDef := SBreedVarDef new.
+	variables := Variables new updateVarDef: varDef.
 ]
 
 { #category : #microworld }
@@ -179,22 +179,22 @@ SBreed >> size [
 
 { #category : #'object i/o' }
 SBreed >> storeFieldsOn: anObjStream [
-	self storeFieldsNamed: #(varId variables) on: anObjStream.
+	self storeFieldsNamed: #(varDef variables) on: anObjStream.
 ]
 
 { #category : #accessing }
 SBreed >> userDefinedListNames [
-	^ varId listNames
+	^ varDef listNames
 ]
 
 { #category : #'accessing variable' }
 SBreed >> userDefinedVarNames [
-	^ (varId userDefinedVarNames \ self userDefinedListNames) sorted
+	^ (varDef userDefinedVarNames \ self userDefinedListNames) sorted
 ]
 
 { #category : #accessing }
 SBreed >> userDefinedVarNoAndNames [
-	^ varId userDefinedVarNoAndNames
+	^ varDef userDefinedVarNoAndNames
 ]
 
 { #category : #'accessing variable' }
@@ -267,21 +267,21 @@ SBreed >> varArrayNamed: aString put: aCollection [
 ]
 
 { #category : #accessing }
-SBreed >> varId [
-	^ varId
+SBreed >> varDef [
+	^ varDef
 ]
 
 { #category : #accessing }
 SBreed >> varNames [
-	^ varId varNames
+	^ varDef varNames
 ]
 
 { #category : #accessing }
 SBreed >> varNoFor: aString [
-	^ varId varNoFor: aString
+	^ varDef varNoFor: aString
 ]
 
 { #category : #accessing }
 SBreed >> variableNameInUse: aString [
-	^ varId includes: aString
+	^ varDef includes: aString
 ]

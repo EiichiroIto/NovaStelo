@@ -15,7 +15,9 @@ Class {
 		'hadError',
 		'blockLayoutNeeded',
 		'cachedForm',
-		'cachedFeedbackForm'
+		'cachedFeedbackForm',
+		'receiver',
+		'selector'
 	],
 	#classVars : [
 		'CBlockBracketThickness',
@@ -726,6 +728,13 @@ BlockMorph >> isStopOrForever [
 ]
 
 { #category : #testing }
+BlockMorph >> isSubHatMorph [
+
+	^ false
+
+]
+
+{ #category : #testing }
 BlockMorph >> isVariableBlock [
 	"do not delete"
 	^ false
@@ -764,7 +773,7 @@ BlockMorph >> justDroppedInto: newOwner event: evt [
 						ifNotNil: [ bottomBlockUsed := true.
 							targetAssoc value owner isBlockMorph
 								ifTrue: [ targetAssoc := nil ] ] ] ].
-	targetAssoc ifNil: [ ^ self ].
+	targetAssoc ifNil: [ ^ self onlyDroppedIntoScriptEditor ].
 
 	"make sure no processes are running"
 	self = self topBlock
@@ -895,6 +904,12 @@ BlockMorph >> nonControlFlowSubmorphs [
 
 ]
 
+{ #category : #'dropping/grabbing' }
+BlockMorph >> onlyDroppedIntoScriptEditor [
+
+	""
+]
+
 { #category : #'code generation' }
 BlockMorph >> parseUsing: aParser [
 	^ aParser parseBlock: self
@@ -907,15 +922,15 @@ BlockMorph >> project [
 
 { #category : #accessing }
 BlockMorph >> receiver [
-	"Overridden by blocks which have receivers."
 
-	^ nil
+	^ receiver
 
 ]
 
 { #category : #accessing }
 BlockMorph >> receiver: anObject [
-	"Set my receiver. Does nothing here, but overridden in blocks that have a receiver." 
+
+	receiver := anObject
 
 ]
 
@@ -955,6 +970,28 @@ BlockMorph >> scratchProc: aScratchProcess [
 	hadError := false.
 	scratchProc := aScratchProcess.
 	self changed
+]
+
+{ #category : #accessing }
+BlockMorph >> scriptEditor [
+	owner ifNil: [ ^ nil ].
+	owner isBlockPalette ifTrue: [ ^ nil ].
+	owner isScriptEditor ifTrue: [ ^ owner ].
+	^ owner scriptEditor
+]
+
+{ #category : #accessing }
+BlockMorph >> selector [
+
+	^ selector
+
+]
+
+{ #category : #accessing }
+BlockMorph >> selector: aSymbol [
+
+	selector := aSymbol.
+
 ]
 
 { #category : #processes }

@@ -16,8 +16,8 @@ SBreedTest >> testAddList [
 	self assert: a ~= b.
 	self assert: (br privVariables privVarNames includes: 'a' ).
 	self assert: (br privVariables privVarNames includes: 'b' ).
-	self assert: (br varId listNames includes: 'a' ).
-	self assert: (br varId listNames includes: 'b' ).
+	self assert: (br varDef listNames includes: 'a' ).
+	self assert: (br varDef listNames includes: 'b' ).
 ]
 
 { #category : #'tests-variables' }
@@ -84,15 +84,15 @@ SBreedTest >> testDeleteVariable [
 	br deleteVariable: 'b'.
 	self assert: (br privVariables privVarNames includes: 'a' ).
 	self deny: (br privVariables privVarNames includes: 'b' ).
-	self assert: (br varId privVarNames includes: 'a' ).
-	self deny: (br varId privVarNames includes: 'b' ).
+	self assert: (br varDef privVarNames includes: 'a' ).
+	self deny: (br varDef privVarNames includes: 'b' ).
 ]
 
 { #category : #'tests-initialization' }
 SBreedTest >> testInitialize [
 	| br |
 	br := SBreed new.
-	self assert: br varId class equals: SBreedVarDef.
+	self assert: br varDef class equals: SBreedVarDef.
 	self assert: br privVariables class equals: Variables.
 ]
 
@@ -282,9 +282,9 @@ SBreedTest >> testVarFor [
 SBreedTest >> testVarId [
 	| obj |
 	obj := STurtles new.
-	self assert: obj varId class equals: STurtleVarDef.
+	self assert: obj varDef class equals: STurtleVarDef.
 	obj := SPatches new.
-	self assert: obj varId class equals: SPatchVarDef
+	self assert: obj varDef class equals: SPatchVarDef
 ]
 
 { #category : #'tests-variables' }

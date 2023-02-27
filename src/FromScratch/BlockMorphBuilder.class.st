@@ -83,14 +83,14 @@ BlockMorphBuilder >> addCommand: aString selector: aSymbol arguments: aCollectio
 ]
 
 { #category : #api }
-BlockMorphBuilder >> addHatBlock: aString type: aString2 arguments: aCollection [
+BlockMorphBuilder >> addEventHatBlock: aString selector: aSymbol eventName: aString2 [
 
 	| blockSpec |
 	blockSpec := AbstractBlockSpec
-		             hatBlock: aString
-		             type: aString2
-		             arguments: aCollection.
-	self assert: [ blockSpec isHatBlock ].
+		             eventHatBlock: aString
+		             selector: aSymbol
+		             eventName: aString2.
+	self assert: [ blockSpec isEventHatBlock ].
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
@@ -125,6 +125,17 @@ BlockMorphBuilder >> addSpecial: aString selector: aSymbol arguments: aCollectio
 		             special: aString
 		             selector: aSymbol
 		             arguments: aCollection.
+	self registerBlockSpec: blockSpec asCategory: lastCategory
+]
+
+{ #category : #api }
+BlockMorphBuilder >> addStartHatBlock: aString selector: aSymbol [
+
+	| blockSpec |
+	blockSpec := AbstractBlockSpec
+		             startHatBlock: aString
+		             selector: aSymbol.
+	self assert: [ blockSpec isStartHatBlock ].
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
@@ -193,23 +204,9 @@ BlockMorphBuilder >> blockFromSpec: aBlockSpec [
 	argPermutation := CommandBlockMorph
 		                  argPermutationForSpec: aBlockSpec label
 		                  withTranslation: blockLabelSpec.
-	aBlockSpec isHatBlock ifTrue: [ 
-		^ (script hatBlockFromSpec: aBlockSpec) color: c ].
 	selector := aBlockSpec selector asSymbol.
-	aBlockSpec isCBlock
-		ifTrue: [ 
-			block := selector = #doIfElse
-				         ifTrue: [ IfElseBlockMorph new isSpecialForm: true ]
-				         ifFalse: [ CBlockMorph new isSpecialForm: true ] ]
-		ifFalse: [ 
-			aBlockSpec isReporterBlock
-				ifTrue: [ 
-					block := ReporterBlockMorph new.
-					c := c darker ]
-				ifFalse: [ block := CommandBlockMorph new ] ].
-	aBlockSpec isBooleanReporter ifTrue: [ block isBoolean: true ].
-	aBlockSpec isSpecialForm ifTrue: [ block isSpecialForm: true ].
-	aBlockSpec isTimedBlock ifTrue: [ block isTimed: true ].
+	block := self blockMorphFromSpec: aBlockSpec.
+	aBlockSpec isReporterBlock ifTrue: [ c := c darker ].
 	defaultArgs := script defaultArgsFor: aBlockSpec.
 	^ block
 		  argPermutation: argPermutation;
@@ -222,43 +219,21 @@ BlockMorphBuilder >> blockFromSpec: aBlockSpec [
 ]
 
 { #category : #api }
-BlockMorphBuilder >> blockFromTuple: tuple [
+BlockMorphBuilder >> blockFromTuple: anArray [
 
 	"Answer a new block for the given tuple."
 
-	| k spec block argCount arg argBlock |
+	| k spec block argCount arg argBlock tuple |
+	tuple := script convertEventHatTuple: anArray.
 	k := tuple first.
-	k = #localVar ifTrue: [ 
-		^ self localVarBlockFor: tuple second ].
-	(#( readVariable changeVariable ) includes: k) ifTrue: [ 
+	k = #localVar ifTrue: [ ^ self localVarBlockFor: tuple second ].
+	(script variableBlockSelectors includes: k) ifTrue: [ 
 		^ self variableBlockFromTuple: tuple ].
-	(#( EventHatMorph SubHatMorph ) includes: k) ifTrue: [ 
-		^ script hatBlockFromTuple: tuple ].
-	"#scratchComment = k
-		ifTrue: [ block := ScratchCommentMorph new.
-			tuple size > 1
-				ifTrue: [ block commentMorph contents: (tuple at: 2) ].
-			tuple size > 2
-				ifTrue: [ (tuple at: 3)
-						ifFalse: [ block toggleShowing ] ].
-			tuple size > 3
-				ifTrue: [ block width: (tuple at: 4) ].
-			tuple size > 4
-				ifTrue: [ block anchor: (self blockWithID: (tuple at: 5)) ].
-			^ block ].
-	#comment: = k
-		ifTrue: [ block := CommentBlockMorph new.
-			tuple size > 1
-				ifTrue: [ block comment: (tuple at: 2) ].
-			tuple size > 2
-				ifTrue: [ (tuple at: 3)
-						ifFalse: [ block toggleShowing ] ].
-			block color: (Color r: 0.8 g: 0 b: 0).
-			^ block ]."
+	k = #sub: ifTrue: [ ^ self subHatBlockFor: tuple second ].
 	spec := self blockSpecAt: k.
-	spec ifNil: [ 
-		^ self unknownBlockFor: k ].
+	spec ifNil: [ ^ self unknownBlockFor: k ].
 	block := self blockFromSpec: spec.
+	block isHatBlock ifTrue: [ block defaultArgs: tuple copyWithoutFirst ].
 	block isCommandBlock ifTrue: [ 
 		argCount := block argumentCount min: tuple size - 1.
 		1 to: argCount do: [ :i | 
@@ -273,8 +248,7 @@ BlockMorphBuilder >> blockFromTuple: tuple [
 				(block argumentAt: i) defaultValue: arg ] ].
 		block isCBlock ifTrue: [ 
 			tuple last isArray ifTrue: [ 
-				block firstBlockList:
-					(self stackFromTupleList: tuple last) ] ].
+				block firstBlockList: (self stackFromTupleList: tuple last) ] ].
 		block isIfElseBlock ifTrue: [ 
 			arg := tuple at: tuple size - 1.
 			arg isArray ifTrue: [ 
@@ -282,8 +256,29 @@ BlockMorphBuilder >> blockFromTuple: tuple [
 			arg := tuple last.
 			arg isArray ifTrue: [ 
 				block falseBlock: (self stackFromTupleList: arg) ] ].
-		block isReporter ifTrue: [ 
-			(spec type includes: $b) ifTrue: [ block isBoolean: true ] ] ].
+		(block isReporter and: [ spec isBooleanReporter ]) ifTrue: [ 
+			block isBoolean: true ] ].
+	^ block
+]
+
+{ #category : #private }
+BlockMorphBuilder >> blockMorphFromSpec: aBlockSpec [
+
+	| block |
+	aBlockSpec isStartHatBlock ifTrue: [ ^ StartHatMorph new ].
+	aBlockSpec isEventHatBlock ifTrue: [ ^ EventHatMorph new ].
+	block := aBlockSpec isCBlock
+		         ifTrue: [ 
+			         aBlockSpec selector asSymbol = #doIfElse
+				         ifTrue: [ IfElseBlockMorph new isSpecialForm: true ]
+				         ifFalse: [ CBlockMorph new isSpecialForm: true ] ]
+		         ifFalse: [ 
+			         aBlockSpec isReporterBlock
+				         ifTrue: [ ReporterBlockMorph new ]
+				         ifFalse: [ CommandBlockMorph new ] ].
+	aBlockSpec isBooleanReporter ifTrue: [ block isBoolean: true ].
+	aBlockSpec isSpecialForm ifTrue: [ block isSpecialForm: true ].
+	aBlockSpec isTimedBlock ifTrue: [ block isTimed: true ].
 	^ block
 ]
 
@@ -358,7 +353,7 @@ BlockMorphBuilder >> categoryColors: anObject [
 	categoryColors := anObject
 ]
 
-{ #category : #api }
+{ #category : #'block building' }
 BlockMorphBuilder >> changeVarBlockFor: aString [
 
 	^ SetterBlockMorph new
@@ -389,14 +384,6 @@ BlockMorphBuilder >> compatibleSelectorOf: aSymbol [
 	^ self blockSelectorOf: block
 ]
 
-{ #category : #api }
-BlockMorphBuilder >> eventHatBlockFor: aString [
-
-	^ EventHatMorph new
-		  scriptOwner: script;
-		  eventName: aString
-]
-
 { #category : #initialization }
 BlockMorphBuilder >> initialize [
 
@@ -417,21 +404,12 @@ BlockMorphBuilder >> lastCategory: anObject [
 	lastCategory := anObject
 ]
 
-{ #category : #api }
+{ #category : #'block building' }
 BlockMorphBuilder >> localVarBlockFor: aString [
 
 	^ LocalVarBlockMorph new
 		  commandSpec: aString;
 		  receiver: script
-]
-
-{ #category : #api }
-BlockMorphBuilder >> loopHatBlock [
-
-	^ EventHatMorph new
-		  for: 'when loop' event: #loop;
-		  scriptOwner: script;
-		  yourself
 ]
 
 { #category : #printing }
@@ -486,22 +464,13 @@ BlockMorphBuilder >> setCategory: aString color: aColor [
 	categoryColors at: aString asLowercase put: aColor
 ]
 
-{ #category : #api }
+{ #category : #'block building' }
 BlockMorphBuilder >> setVarBlockFor: aString [
 
 	^ SetterBlockMorph new
 		  receiver: script;
 		  initSetterForVar: aString;
 		  color: (self blockColorFor: 'variables');
-		  yourself
-]
-
-{ #category : #api }
-BlockMorphBuilder >> setupHatBlock [
-
-	^ EventHatMorph new
-		  for: 'when setup' event: #setup;
-		  scriptOwner: script;
 		  yourself
 ]
 
@@ -519,34 +488,17 @@ BlockMorphBuilder >> stackFromTupleList: tupleList [
 	^ stackTop
 ]
 
-{ #category : #api }
-BlockMorphBuilder >> startHatBlock [
-
-	^ EventHatMorph new
-		  for: 'when start' event: #start;
-		  scriptOwner: script;
-		  yourself
-]
-
-{ #category : #api }
-BlockMorphBuilder >> startupHatBlock [
-
-	^ EventHatMorph new
-		  for: 'when setup' event: #startup;
-		  scriptOwner: script;
-		  yourself
-]
-
-{ #category : #api }
+{ #category : #'block building' }
 BlockMorphBuilder >> subHatBlockFor: aString [
 
 	^ SubHatMorph new
-		  scriptOwner: script;
+		  receiver: script;
+		  selector: #sub:;
 		  subName: aString;
 		  yourself
 ]
 
-{ #category : #api }
+{ #category : #'block building' }
 BlockMorphBuilder >> unknownBlockFor: aSymbol [
 
 	^ CommandBlockMorph new
@@ -566,7 +518,7 @@ BlockMorphBuilder >> unknownCategoryColor [
 	^ Color gray
 ]
 
-{ #category : #api }
+{ #category : #'block building' }
 BlockMorphBuilder >> variableBlockFor: aString [
 
 	^ VariableBlockMorph new
