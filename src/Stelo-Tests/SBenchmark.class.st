@@ -24,24 +24,6 @@ SBenchmark >> diffuse2: anInteger [
 ]
 
 { #category : #accessing }
-SBenchmark >> diffuse: anInteger [
-	"SBenchmark new diffuse: 1000."
-	" 11356 10449 10275 10207"
-
-	| a d |
-	a := FloatArray new: 10000.
-	a at: 50 put: 5000.
-	d := SNativeDiffuser new.
-	^ Time
-		millisecondsToRun: [ anInteger
-				timesRepeat: [ d
-						diffuse8: a
-						cols: 100
-						rows: 100
-						percent: 80.0 ] ]
-]
-
-{ #category : #accessing }
 SBenchmark >> diffuseAndMultiply: anInteger [
 	"SBenchmark new diffuseAndMultiply: 100000. --> "
 

@@ -388,15 +388,6 @@ SMicroWorld >> sizeOf: bno [
 	^ (self breedOf: bno) size
 ]
 
-{ #category : #accessing }
-SMicroWorld >> toggleDiffuser [
-	self isPluginDiffuser
-		ifTrue: [ ^ self patches useNativeDiffuser ].
-	SteloPlugin2 isAvailable
-		ifFalse: [ ^ self ].
-	self patches usePluginDiffuser
-]
-
 { #category : #private }
 SMicroWorld >> turtleBreedsDo: aBlock [
 	SBreedId defaultUserNo to: breeds size do: [ :each | 
@@ -500,8 +491,7 @@ SMicroWorld >> var: anInteger breed: bid putAll: anObject [
 
 { #category : #accessing }
 SMicroWorld >> worldName [
-	self maxBreedNo >= SBreedId patchBreedNo
-		ifTrue: [ ^ 'MicroWorld - ' , self patches diffuserName ].
+
 	^ 'MicroWorld'
 ]
 

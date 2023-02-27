@@ -1,6 +1,6 @@
 Class {
 	#name : #SNativeDiffuser2,
-	#superclass : #SDiffuser,
+	#superclass : #Object,
 	#category : #'Stelo-Model'
 }
 
@@ -57,11 +57,6 @@ SNativeDiffuser2 >> diffuse8: anArray cols: anInteger rows: anInteger2 percent: 
 		to: anArray size
 		with: result
 		startingAt: 1
-]
-
-{ #category : #accessing }
-SNativeDiffuser2 >> diffuserName [
-	^ 'native diffuser2'
 ]
 
 { #category : #testing }

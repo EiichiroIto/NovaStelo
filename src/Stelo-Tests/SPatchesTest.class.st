@@ -295,11 +295,6 @@ SPatchesTest >> testInitialize [
 	self assert: ps size equals: 10000.
 ]
 
-{ #category : #test }
-SPatchesTest >> testIsPluginDiffuser [
-	self testUsePluginDiffuser
-]
-
 { #category : #'tests-enumerating' }
 SPatchesTest >> testLivingOnesDo [
 	| ps count |
@@ -472,15 +467,6 @@ SPatchesTest >> testUseNativeDiffuser [
 	self deny: p isPluginDiffuser.
 	p useNativeDiffuser.
 	self deny: p isPluginDiffuser
-]
-
-{ #category : #test }
-SPatchesTest >> testUsePluginDiffuser [
-	| p |
-	p := self newBreed.
-	self deny: p isPluginDiffuser.
-	p usePluginDiffuser.
-	self assert: p isPluginDiffuser
 ]
 
 { #category : #'tests-accessing variable' }

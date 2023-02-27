@@ -554,13 +554,6 @@ SpStelo >> target: aScript [
 ]
 
 { #category : #'menu actions' }
-SpStelo >> toggleDiffuser [
-	self isPluginWorld
-		ifTrue: [ ^ self ].
-	sworld toggleDiffuser
-]
-
-{ #category : #'menu actions' }
 SpStelo >> toggleSWorld [
 	self isPluginWorld
 		ifTrue: [ self changeMicroWorld ]

@@ -399,19 +399,6 @@ SpSteloPresenter >> helpMenu [
 		grp
 			addItem: [ :item | 
 				item
-					name: 'Use Plugin Diffuser';
-					icon: (application isPluginDiffuser
-							 ifTrue: [ checked ]
-							 ifFalse: [ unchecked ]);
-					enabled: [ 
-						SteloPlugin2 isAvailable and: [ application isPluginWorld not ] ];
-					action: [ 
-						application toggleDiffuser.
-						item icon: (application isPluginDiffuser
-									 ifTrue: [ checked ]
-									 ifFalse: [ unchecked ]) ] ];
-			addItem: [ :item | 
-				item
 					name: 'Use Plugin World';
 					icon: (application isPluginWorld
 							 ifTrue: [ checked ]

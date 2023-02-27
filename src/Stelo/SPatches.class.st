@@ -109,11 +109,6 @@ SPatches >> diffuse8: anInteger1 varNo: anInteger2 [
 ]
 
 { #category : #accessing }
-SPatches >> diffuserName [
-	^ diffuser diffuserName
-]
-
-{ #category : #accessing }
 SPatches >> extent [
 	^ order @ order
 ]
@@ -255,11 +250,6 @@ SPatches >> storeFieldsOn: anObjStream [
 { #category : #accessing }
 SPatches >> useNativeDiffuser [
 	diffuser := SNativeDiffuser2 new
-]
-
-{ #category : #accessing }
-SPatches >> usePluginDiffuser [
-	diffuser := SPluginDiffuser new
 ]
 
 { #category : #'accessing variable' }
