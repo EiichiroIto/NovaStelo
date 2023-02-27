@@ -460,15 +460,6 @@ SPatchesTest >> testRows [
 	self assert: ps rows equals: 120.
 ]
 
-{ #category : #test }
-SPatchesTest >> testUseNativeDiffuser [
-	| p |
-	p := self newBreed.
-	self deny: p isPluginDiffuser.
-	p useNativeDiffuser.
-	self deny: p isPluginDiffuser
-]
-
 { #category : #'tests-accessing variable' }
 SPatchesTest >> testVarAt [
 	| ps |

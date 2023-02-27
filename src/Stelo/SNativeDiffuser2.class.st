@@ -59,11 +59,6 @@ SNativeDiffuser2 >> diffuse8: anArray cols: anInteger rows: anInteger2 percent: 
 		startingAt: 1
 ]
 
-{ #category : #testing }
-SNativeDiffuser2 >> isPluginDiffuser [
-	^ false
-]
-
 { #category : #api }
 SNativeDiffuser2 >> nsum4: anArray dst: anArray2 cols: anInteger rows: anInteger2 [
 	| result tmp sz |

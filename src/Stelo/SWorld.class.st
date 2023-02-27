@@ -92,11 +92,6 @@ SWorld >> flag: anInteger breed: bno at: id put: aBoolean [
 ]
 
 { #category : #testing }
-SWorld >> isPluginDiffuser [
-	^ false
-]
-
-{ #category : #testing }
 SWorld >> isPluginWorld [
 	^ false
 ]

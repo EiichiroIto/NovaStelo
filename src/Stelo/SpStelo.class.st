@@ -237,11 +237,6 @@ SpStelo >> installNewProject: aProject [
 ]
 
 { #category : #testing }
-SpStelo >> isPluginDiffuser [
-	^ sworld ifNil: [ false ] ifNotNil: [ sworld isPluginDiffuser ]
-]
-
-{ #category : #testing }
 SpStelo >> isPluginWorld [
 	^ sworld ifNil: [ false ] ifNotNil: [ sworld isPluginWorld ]
 ]

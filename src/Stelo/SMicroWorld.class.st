@@ -220,11 +220,6 @@ SMicroWorld >> initialize [
 	self reset
 ]
 
-{ #category : #testing }
-SMicroWorld >> isPluginDiffuser [
-	^ self patches isPluginDiffuser
-]
-
 { #category : #processing }
 SMicroWorld >> livingBreed: bno do: aBlock [
 	(breeds at: bno) livingOnesDo: aBlock.

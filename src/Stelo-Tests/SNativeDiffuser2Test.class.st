@@ -74,13 +74,6 @@ SNativeDiffuser2Test >> testDiffuse8ColsRowsPercent [
 ]
 
 { #category : #test }
-SNativeDiffuser2Test >> testIsPluginDiffuser [
-	| d |
-	d := self newDiffuser.
-	self deny: d isPluginDiffuser
-]
-
-{ #category : #test }
 SNativeDiffuser2Test >> testNsum4DstColsRows [
 	| d x |
 	d := self newDiffuser.

@@ -150,14 +150,10 @@ SPatches >> initFieldsFrom: anObjStream version: classVersion [
 
 { #category : #initialization }
 SPatches >> initialize [
-	super initialize.
-	self useNativeDiffuser.
-	self create: self defaultOrder
-]
 
-{ #category : #testing }
-SPatches >> isPluginDiffuser [
-	^ diffuser isPluginDiffuser
+	super initialize.
+	diffuser := SNativeDiffuser2 new.
+	self create: self defaultOrder
 ]
 
 { #category : #microworld }
@@ -245,11 +241,6 @@ SPatches >> size [
 SPatches >> storeFieldsOn: anObjStream [
 	super storeFieldsOn: anObjStream.
 	self storeFieldsNamed: #(order) on: anObjStream.
-]
-
-{ #category : #accessing }
-SPatches >> useNativeDiffuser [
-	diffuser := SNativeDiffuser2 new
 ]
 
 { #category : #'accessing variable' }
