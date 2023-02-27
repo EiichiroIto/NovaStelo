@@ -19,32 +19,8 @@ Class {
 		'receiver',
 		'selector'
 	],
-	#classVars : [
-		'CBlockBracketThickness',
-		'LabelColor',
-		'PuzzleInset',
-		'PuzzleWidth'
-	],
 	#category : #'FromScratch-Blocks'
 }
-
-{ #category : #'class initialization' }
-BlockMorph class >> initialize [
-	"self initialize"
-
-	LabelColor := nil.
-
-	PuzzleInset := 11.
-	PuzzleWidth := 14.
-	CBlockBracketThickness := 12.
-
-	"DebugMenu := true"
-]
-
-{ #category : #accessing }
-BlockMorph class >> labelColor [
-	^ LabelColor ifNil: [ LabelColor := ScratchTheme labelOffColor ]
-]
 
 { #category : #'dropping/grabbing' }
 BlockMorph >> aboutToBeGrabbedBy: aHandMorph [
@@ -142,9 +118,10 @@ BlockMorph >> bottomBlock [
 	^ m
 ]
 
-{ #category : #accessing }
-BlockMorph >> bracketThickness [
-	self shouldNotImplement
+{ #category : #constants }
+BlockMorph >> cBlockBracketThickness [
+
+	^ 12
 ]
 
 { #category : #accessing }
@@ -335,8 +312,8 @@ BlockMorph >> drawBottomEdgeOn: aCanvas [
 	| right y gapStart gapEnd |
 	right := self width - 1.
 	y := self height - 7.
-	gapStart := PuzzleInset.
-	gapEnd := PuzzleInset + PuzzleWidth.
+	gapStart := self puzzleInset.
+	gapEnd := self puzzleInset + self puzzleWidth.
 
 	self drawHLineFrom: 1 to: right - 1 y: y color: color on: aCanvas.
 	self drawHLineFrom: 2 to: right - 2 y: y + 1 color: color on: aCanvas.
@@ -480,8 +457,8 @@ BlockMorph >> drawTopEdgeOn: aCanvas [
 
 	| right gapStart gapEnd |
 	right := self width - 1.
-	gapStart := PuzzleInset.
-	gapEnd := PuzzleInset + PuzzleWidth.
+	gapStart := self puzzleInset.
+	gapEnd := self puzzleInset + self puzzleWidth.
 
 	self drawHLineFrom: 2 to: gapStart y: 0 color: highlightColor1 on: aCanvas.
 	self drawHLineFrom: gapEnd to: right - 2 y: 0 color: highlightColor1 on: aCanvas.
@@ -788,7 +765,7 @@ BlockMorph >> justDroppedInto: newOwner event: evt [
 						ifTrue: [ targetBlock owner attachBlock: self ]
 						ifFalse: [ self
 								position:
-									(targetP x - self bracketThickness)
+									(targetP x - self cBlockBracketThickness)
 										@ (targetP y - self topBarHeight - 3) ].
 					self attachBlockNested: targetBlock.
 					^ self ].
@@ -822,18 +799,10 @@ BlockMorph >> justDroppedInto: newOwner event: evt [
 			targetBlock attachBlock: self ]
 ]
 
-{ #category : #private }
+{ #category : #constants }
 BlockMorph >> labelColor [
-	"Answer a label color, either black or white, that maximizes the contrast with my color."
 
-	^ self class labelColor
-
-"old:
-	^ self color luminance > 0.8
-		ifTrue: [Color black]
-		ifFalse: [Color white]
-"
-
+	^ ScratchTheme labelOffColor
 ]
 
 { #category : #private }
@@ -918,6 +887,18 @@ BlockMorph >> parseUsing: aParser [
 { #category : #accessing }
 BlockMorph >> project [
 	^ owner ifNotNil: [ owner project ]
+]
+
+{ #category : #constants }
+BlockMorph >> puzzleInset [
+
+	^ 11
+]
+
+{ #category : #constants }
+BlockMorph >> puzzleWidth [
+
+	^ 14
 ]
 
 { #category : #accessing }

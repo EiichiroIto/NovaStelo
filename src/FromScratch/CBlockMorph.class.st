@@ -58,7 +58,7 @@ CBlockMorph >> attachBlock: aBlockMorph [
 	"Attach the given block to me. Assume the block has been positioned correctly."
 
 	self addMorph: aBlockMorph.
-	aBlockMorph top >= (self bottom - CBlockBracketThickness)
+	aBlockMorph top >= (self bottom - self cBlockBracketThickness)
 		ifTrue: [nextBlock := aBlockMorph]
 		ifFalse: [nestedBlock := aBlockMorph].
 
@@ -97,13 +97,6 @@ CBlockMorph >> blockAttachPoints: aSet [
 	aSet addAll: result
 ]
 
-{ #category : #accessing }
-CBlockMorph >> bracketThickness [
-
-	^ CBlockBracketThickness
-
-]
-
 { #category : #geometry }
 CBlockMorph >> containsPoint: aPoint [
 
@@ -125,8 +118,8 @@ CBlockMorph >> drawBottomBarOn: aCanvas [
 			barBottom := self bottom - 7.
 			self drawBottomEdgeOn: aCanvas].
 
-	barTop := barBottom - (CBlockBracketThickness - 3).
-	left := self left + CBlockBracketThickness - 1.
+	barTop := barBottom - (self cBlockBracketThickness - 3).
+	left := self left + self cBlockBracketThickness - 1.
 
 	"fill in bottom-left corner"
 	aCanvas fillRectangle: (left@(barTop - 2) extent: 1@1) color: color.
@@ -151,10 +144,10 @@ CBlockMorph >> drawBottomBarOn: aCanvas [
 CBlockMorph >> drawInnerTopY: y on: aCanvas [
 
 	| left right gapStart gapEnd |
-	left := CBlockBracketThickness - 1.
+	left := self cBlockBracketThickness - 1.
 	right := self width - 1.
-	gapStart := left + PuzzleInset + 1.
-	gapEnd := gapStart + PuzzleWidth.
+	gapStart := left + self puzzleInset + 1.
+	gapEnd := gapStart + self puzzleWidth.
 
 	self drawHLineFrom: left to: (right - 1) y: y color: color on: aCanvas.
 	self drawHLineFrom: left to: (right - 2) y: y + 1 color: color on: aCanvas.
@@ -217,11 +210,11 @@ CBlockMorph >> drawTopBarOn: aCanvas [
 		fillRectangle: ((self right - 1)@(self top + 3) corner: self right @topBarBottom)
 		color: shadowColor.
 
-	left := CBlockBracketThickness - 1.
+	left := self cBlockBracketThickness - 1.
 	right := self width - 1.
 	y := topBarBottom - self top.
-	gapStart := left + PuzzleInset + 1.
-	gapEnd := gapStart + PuzzleWidth.
+	gapStart := left + self puzzleInset + 1.
+	gapEnd := gapStart + self puzzleWidth.
 
 	self drawHLineFrom: left to: (right - 1) y: y color: color on: aCanvas.
 	self drawHLineFrom: left to: (right - 2) y: y + 1 color: color on: aCanvas.
@@ -259,7 +252,7 @@ CBlockMorph >> drawVerticalBarOn: aCanvas [
 
 	| left top barRight |
 	left := self left.
-	barRight := (left + CBlockBracketThickness) - 1.
+	barRight := (left + self cBlockBracketThickness) - 1.
 	top := self top.
 	
 	aCanvas
@@ -317,7 +310,7 @@ CBlockMorph >> fixBlockLayout [
 		ifTrue: [ nextBlock := nil ].
 	oldExtent := self extent.
 	newW := oldExtent x max: 40.
-	newH := self topBarHeight + CBlockBracketThickness.
+	newH := self topBarHeight + self cBlockBracketThickness.
 	self isForever
 		ifFalse: [ newH := newH + 4 ].
 	nestedBlock
@@ -326,7 +319,7 @@ CBlockMorph >> fixBlockLayout [
 			nestedBlock fixBlockLayout.
 			newH := newH + nestedBlock fullBounds height - 1.
 			nestedBlock
-				position: self position + (CBlockBracketThickness @ (self topBarHeight + 3)).
+				position: self position + (self cBlockBracketThickness @ (self topBarHeight + 3)).
 			nestedBlock blockSequence last isStopOrForever
 				ifTrue: [ newH := newH + 4 ] ].
 	self extent: newW @ newH + (0 @ stretchHeight).
@@ -437,7 +430,7 @@ CBlockMorph >> topBarHeight [
 	| nonBlockSubmorphs |
 	nonBlockSubmorphs := self submorphs select: [:m |
 		(m isKindOf: BlockMorph) not or: [argMorphs includes: m]].
-	^ nonBlockSubmorphs inject: CBlockBracketThickness into: [:h :m | h max: (m height + 4)].
+	^ nonBlockSubmorphs inject: self cBlockBracketThickness into: [:h :m | h max: (m height + 4)].
 
 
 ]

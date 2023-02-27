@@ -128,7 +128,7 @@ HatBlockMorph >> fixBlockLayout [
 			self hatTopForm height
 				+
 					(nonBlockSubmorphs
-						inject: CBlockBracketThickness
+						inject: self cBlockBracketThickness
 						into: [ :h :m | h max: m height + 8 ]).
 	(nextB := self nextBlock)
 		ifNotNil: [ nextB left: self left.

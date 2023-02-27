@@ -63,7 +63,7 @@ IfElseBlockMorph >> attachBlock: aBlockMorph [
 	self addMorph: aBlockMorph.
 	y := aBlockMorph top.
 	y <= (self top + elseBarY) ifTrue: [trueBlock := aBlockMorph. ^ self].
-	y <= (self bottom - CBlockBracketThickness) ifTrue: [falseBlock := aBlockMorph. ^ self].
+	y <= (self bottom - self cBlockBracketThickness) ifTrue: [falseBlock := aBlockMorph. ^ self].
 	nextBlock := aBlockMorph.
 
 
@@ -105,7 +105,7 @@ IfElseBlockMorph >> containsPoint: aPoint [
 { #category : #drawing }
 IfElseBlockMorph >> drawBottomBarOn: aCanvas [ 
 
-	self drawInnerBottomY: self bottom - CBlockBracketThickness - 4 on: aCanvas.
+	self drawInnerBottomY: self bottom - self cBlockBracketThickness - 4 on: aCanvas.
 	self drawBottomEdgeOn: aCanvas.
 
 
@@ -116,7 +116,7 @@ IfElseBlockMorph >> drawElseBarOn: aCanvas [
 
 	| left y |
 	"these are in absolute coordinates"
-	left := self left + CBlockBracketThickness - 1.
+	left := self left + self cBlockBracketThickness - 1.
 	y := self top + elseBarY.
 
 	self drawInnerBottomY: y on: aCanvas.
@@ -136,8 +136,8 @@ IfElseBlockMorph >> drawElseBarOn: aCanvas [
 IfElseBlockMorph >> drawInnerBottomY: y on: aCanvas [
 
 	| left barBottom |
-	left := self left + CBlockBracketThickness - 1.
-	barBottom := y + (CBlockBracketThickness - 3).
+	left := self left + self cBlockBracketThickness - 1.
+	barBottom := y + (self cBlockBracketThickness - 3).
 
 	"fill in bottom-left corner"
 	aCanvas fillRectangle: (left@(y - 2) extent: 1@1) color: color.
@@ -162,10 +162,10 @@ IfElseBlockMorph >> drawInnerBottomY: y on: aCanvas [
 IfElseBlockMorph >> drawInnerTopY: y on: aCanvas [
 
 	| left right gapStart gapEnd |
-	left := CBlockBracketThickness - 1.
+	left := self cBlockBracketThickness - 1.
 	right := self width - 1.
-	gapStart := left + PuzzleInset + 1.
-	gapEnd := gapStart + PuzzleWidth.
+	gapStart := left + self puzzleInset + 1.
+	gapEnd := gapStart + self puzzleWidth.
 
 	self drawHLineFrom: left to: (right - 1) y: y color: color on: aCanvas.
 	self drawHLineFrom: left to: (right - 2) y: y + 1 color: color on: aCanvas.
@@ -238,7 +238,7 @@ IfElseBlockMorph >> drawVerticalBarOn: aCanvas [
 
 	| left top barRight |
 	left := self left.
-	barRight := (left + CBlockBracketThickness) - 1.
+	barRight := (left + self cBlockBracketThickness) - 1.
 	top := self top.
 	
 	aCanvas
@@ -308,7 +308,7 @@ IfElseBlockMorph >> fixBlockLayout [
 	trueBlock
 		ifNil: [ newH := newH + 15 ]
 		ifNotNil: [ trueBlock fixBlockLayout.
-			trueBlock position: self position + (CBlockBracketThickness @ newH).
+			trueBlock position: self position + (self cBlockBracketThickness @ newH).
 			newH := newH + trueBlock fullBounds height.
 			trueBlock blockSequence last isStopOrForever
 				ifTrue: [ newH := newH + 4 ] ].
@@ -318,11 +318,11 @@ IfElseBlockMorph >> fixBlockLayout [
 		ifNil: [ newH := newH + 15 ]
 		ifNotNil: [ falseBlock fixBlockLayout.
 			falseBlock
-				position: self position + (CBlockBracketThickness @ newH).
+				position: self position + (self cBlockBracketThickness @ newH).
 			newH := newH + falseBlock fullBounds height.
 			falseBlock blockSequence last isStopOrForever
 				ifTrue: [ newH := newH + 4 ] ].
-	newH := newH + CBlockBracketThickness.
+	newH := newH + self cBlockBracketThickness.
 	self height: newH.
 	nextBlock
 		ifNotNil: [ nextBlock position: self left @ (self bottom - 4) ].
@@ -420,7 +420,7 @@ IfElseBlockMorph >> topBarHeight [
 	| nonBlockSubmorphs |
 	nonBlockSubmorphs := self submorphs select: [:m |
 		(m isKindOf: BlockMorph) not or: [argMorphs includes: m]].
-	^ nonBlockSubmorphs inject: CBlockBracketThickness into: [:h :m | h max: (m height + 4)].
+	^ nonBlockSubmorphs inject: self cBlockBracketThickness into: [:h :m | h max: (m height + 4)].
 
 
 ]
