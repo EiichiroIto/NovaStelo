@@ -157,6 +157,25 @@ SMicroWorldTest >> testAimHighPatchVarBreedId [
 ]
 
 { #category : #test }
+SMicroWorldTest >> testAliveBreedAt [
+
+	| world |
+	world := self newWorld.
+	self assert: (world aliveBreed: SBreedId observerBreedNo at: 1).
+	self deny: (world aliveBreed: SBreedId observerBreedNo at: 2).
+	world createPatch: 2.
+	self assert: (world aliveBreed: SBreedId patchesBreedNo at: 1).
+	self assert: (world aliveBreed: SBreedId patchesBreedNo at: 2).
+	self assert: (world aliveBreed: SBreedId patchesBreedNo at: 3).
+	self assert: (world aliveBreed: SBreedId patchesBreedNo at: 4).
+	self deny: (world aliveBreed: SBreedId patchesBreedNo at: 5).
+	world create: SBreedId turtlesBreedNo turtles: 2.
+	self assert: (world aliveBreed: SBreedId turtlesBreedNo at: 1).
+	self assert: (world aliveBreed: SBreedId turtlesBreedNo at: 2).
+	self deny: (world aliveBreed: SBreedId turtlesBreedNo at: 3)
+]
+
+{ #category : #test }
 SMicroWorldTest >> testBreedOf [
 
 	| world r |
@@ -635,8 +654,18 @@ SMicroWorldTest >> testInitialize [
 ]
 
 { #category : #test }
-SMicroWorldTest >> testIsPluginWorld [
-	self deny: SMicroWorld new isPluginWorld
+SMicroWorldTest >> testKillAt [
+
+	| world |
+	world := self newWorld.
+	world create: SBreedId turtlesBreedNo turtles: 2.
+	self assert: (world aliveBreed: SBreedId turtlesBreedNo at: 1).
+	self assert: (world aliveBreed: SBreedId turtlesBreedNo at: 2).
+	self deny: (world aliveBreed: SBreedId turtlesBreedNo at: 3).
+	world kill: SBreedId turtlesBreedNo at: 2.
+	self assert: (world aliveBreed: SBreedId turtlesBreedNo at: 1).
+	self deny: (world aliveBreed: SBreedId turtlesBreedNo at: 2).
+	self deny: (world aliveBreed: SBreedId turtlesBreedNo at: 3)
 ]
 
 { #category : #test }
@@ -1063,6 +1092,37 @@ SMicroWorldTest >> testSizeOf [
 	world create: SBreedId turtlesBreedNo turtles: 1.
 	self assert: (world sizeOf: SBreedId patchesBreedNo) equals: 25.
 	self assert: (world sizeOf: SBreedId turtlesBreedNo) equals: 100
+]
+
+{ #category : #test }
+SMicroWorldTest >> testTicks [
+
+	| world |
+	world := self newWorld.
+	self assert: world ticks equals: 0.
+	world incrementTicks.
+	self assert: world ticks equals: 1.
+	world incrementTicks.
+	self assert: world ticks equals: 2
+]
+
+{ #category : #test }
+SMicroWorldTest >> testTurtleAtExceptBreedIndex [
+
+	| world pos id |
+	world := self newWorld.
+	world createPatch: 10.
+	world create: SBreedId turtlesBreedNo turtles: 2.
+	world x: SBreedId turtlesBreedNo at: 1 put: 0.
+	world x: SBreedId turtlesBreedNo at: 2 put: 0.
+	world y: SBreedId turtlesBreedNo at: 1 put: 0.
+	world y: SBreedId turtlesBreedNo at: 2 put: 0.
+	pos := world patchIndexAtX: 0 y: 0.
+	id := world turtle: SBreedId turtlesBreedNo at: pos exceptBreed: SBreedId turtlesBreedNo index: 1.
+	self assert: id equals: 2.
+	id := world turtle: SBreedId turtlesBreedNo at: pos exceptBreed: SBreedId turtlesBreedNo index: 2.
+	self assert: id equals: 1.
+
 ]
 
 { #category : #test }

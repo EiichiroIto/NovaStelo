@@ -30,7 +30,7 @@ SteloBytecodeGeneratorTest >> newApplication [
 	app := SpStelo new.
 	app settings: SpStelo settingsClass new.
 	app presenter: app newPresenter.
-	app sworld: self newWorld.
+	"app sworld: self newWorld."
 	app installNewProject: app createProject.
 	^ app
 ]

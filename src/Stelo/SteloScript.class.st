@@ -205,8 +205,7 @@ SteloScript >> addSensingBlocks [
 { #category : #variables }
 SteloScript >> addVariable: aString [
 	| vno |
-	vno := breed addVariable: aString.
-	project addVariable: aString var: vno breed: breed breedNo
+	vno := breed addVariable: aString
 ]
 
 { #category : #accessing }

@@ -1,6 +1,6 @@
 Class {
 	#name : #SMicroWorld,
-	#superclass : #SteloWorld,
+	#superclass : #Object,
 	#instVars : [
 		'breeds',
 		'raisedEvents',
@@ -42,11 +42,6 @@ SMicroWorld >> addNewTurtle [
 	^ breed
 ]
 
-{ #category : #api }
-SMicroWorld >> addVariable: aString var: vno breed: bno [
-	"do nothing"
-]
-
 { #category : #'thread ops' }
 SMicroWorld >> aimHighPatchVar: vid breed: bid id: id [
 	| x y heading |
@@ -54,6 +49,19 @@ SMicroWorld >> aimHighPatchVar: vid breed: bid id: id [
 	y := (breeds at: bid) yAt: id.
 	heading := (breeds at: bid) headingAt: id.
 	^ self patches aimHighVarNo: vid atPoint: x @ y direction: heading
+]
+
+{ #category : #testing }
+SMicroWorld >> aliveBreed: bno at: id [
+	| size |
+	bno = SBreedId observerBreedNo
+		ifTrue: [ ^ id = 1 ].
+	size := self sizeOf: bno.
+	(id between: 1 and: size)
+		ifFalse: [ ^ false ].
+	bno = SBreedId patchesBreedNo
+		ifTrue: [ ^ true ].
+	^ self flag: STurtlesVarDef aliveFlagNo breed: bno at: id
 ]
 
 { #category : #private }
@@ -235,6 +243,13 @@ SMicroWorld >> initialize [
 	self reset
 ]
 
+{ #category : #'thread ops' }
+SMicroWorld >> kill: bid at: anInteger [
+	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchesBreedNo ])
+		ifTrue: [ ^ self ].
+	self flag: STurtlesVarDef aliveFlagNo breed: bid at: anInteger put: false
+]
+
 { #category : #enumerating }
 SMicroWorld >> livingBreed: bno do: aBlock [
 	(breeds at: bno) livingOnesDo: aBlock.
@@ -354,12 +369,6 @@ SMicroWorld >> reset [
 	plotList := OrderedCollection new
 ]
 
-{ #category : #api }
-SMicroWorld >> retrieveBreed: aBreed [
-
-	"do nothing"
-]
-
 { #category : #'thread ops' }
 SMicroWorld >> scaleVar: v color: c breed: bid from: f to: t id: id [
 	bid = SBreedId observerBreedNo
@@ -398,6 +407,23 @@ SMicroWorld >> setRandomSeed: aNumber [
 { #category : #accessing }
 SMicroWorld >> sizeOf: bno [
 	^ (self breedOf: bno) size
+]
+
+{ #category : #accessing }
+SMicroWorld >> ticks [
+
+	^ self observer ticks
+]
+
+{ #category : #'thread ops' }
+SMicroWorld >> turtle: bno at: pos exceptBreed: myBno index: myIndex [
+	| list |
+	list := self turtles: bno at: pos.
+	bno = myBno
+		ifTrue: [ list remove: myIndex ifAbsent: [  ] ].
+	^ list isEmpty
+		ifTrue: [ 0 ]
+		ifFalse: [ list anyOne ]
 ]
 
 { #category : #private }

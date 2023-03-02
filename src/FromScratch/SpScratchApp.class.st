@@ -260,11 +260,6 @@ SpScratchApp >> appName [
 ]
 
 { #category : #private }
-SpScratchApp >> backupProject [
-	self subclassResponsibility
-]
-
-{ #category : #private }
 SpScratchApp >> closeMediaEditorsAndDialogs [
 
 	(self currentWorld submorphs select: [ :each | 

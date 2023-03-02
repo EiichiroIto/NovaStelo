@@ -97,40 +97,17 @@ SpStelo >> addTurtles [
 	^ script
 ]
 
-{ #category : #variables }
-SpStelo >> addVariable: aString var: vno breed: bno [
-	sworld addVariable: aString var: vno breed: bno
-]
-
-{ #category : #private }
-SpStelo >> backupProject [
-
-	project retrieveWorld: sworld
-]
-
-{ #category : #private }
-SpStelo >> changeMicroWorld [
-	(sworld notNil and: [ self isPluginWorld not ])
-		ifTrue: [ ^ self ].
-	self sworld: self newMicroWorld
-]
-
-{ #category : #private }
-SpStelo >> changePluginWorld [
-	self isPluginWorld
-		ifTrue: [ ^ self ].
-	self sworld: self newPluginWorld
-]
-
 { #category : #'button actions' }
 SpStelo >> clearPatches [
-	sworld clearBreed: project patches breedNo.
+
+	project patches clear.
 	presenter updateDisplay
 ]
 
 { #category : #'button actions' }
 SpStelo >> clearTurtles [
-	project turtleBreeds do: [ :each | sworld clearBreed: each breedNo ].
+
+	project turtleBreeds do: [ :each | each clear ].
 	self updateStatusForced: true.
 	presenter updateDisplay
 ]
@@ -167,11 +144,6 @@ SpStelo >> copyPlotsToList [
 		set: list
 ]
 
-{ #category : #private }
-SpStelo >> defaultSWorldMode [
-	^ #SMicroWorld
-]
-
 { #category : #'button actions' }
 SpStelo >> deleteTurtles: anInteger [
 	| script |
@@ -184,6 +156,18 @@ SpStelo >> deleteTurtles: anInteger [
 { #category : #accessing }
 SpStelo >> eventIdFor: aSymbol [
 	^ events at: aSymbol
+]
+
+{ #category : #accessing }
+SpStelo >> events [
+
+	^ events
+]
+
+{ #category : #accessing }
+SpStelo >> events: anObject [
+
+	events := anObject
 ]
 
 { #category : #'menu actions' }
@@ -218,9 +202,7 @@ SpStelo >> initialize [
 SpStelo >> installNewProject: aProject [
 
 	self stopAllProcesses.
-	sworld := (sworld isNil or: [ sworld isPluginWorld not ])
-		          ifTrue: [ self newMicroWorld ]
-		          ifFalse: [ self newPluginWorld ].
+	sworld := self newMicroWorld.
 	project := aProject.
 	project application: self.
 	project setupWorld: sworld.
@@ -233,11 +215,6 @@ SpStelo >> installNewProject: aProject [
 	Smalltalk garbageCollect
 ]
 
-{ #category : #testing }
-SpStelo >> isPluginWorld [
-	^ sworld ifNil: [ false ] ifNotNil: [ sworld isPluginWorld ]
-]
-
 { #category : #processes }
 SpStelo >> isProcessRunning [
 	^ process notNil and: [ process isRunning ]
@@ -246,6 +223,30 @@ SpStelo >> isProcessRunning [
 { #category : #testing }
 SpStelo >> isRecording [
 	^ recorder notNil
+]
+
+{ #category : #accessing }
+SpStelo >> lastMSec [
+
+	^ lastMSec
+]
+
+{ #category : #accessing }
+SpStelo >> lastMSec: anObject [
+
+	lastMSec := anObject
+]
+
+{ #category : #accessing }
+SpStelo >> lastTicks [
+
+	^ lastTicks
+]
+
+{ #category : #accessing }
+SpStelo >> lastTicks: anObject [
+
+	lastTicks := anObject
 ]
 
 { #category : #processes }
@@ -278,12 +279,6 @@ SpStelo >> newPatches [
 ]
 
 { #category : #'instance creation' }
-SpStelo >> newPluginWorld [
-
-	^ SPluginWorld new
-]
-
-{ #category : #'instance creation' }
 SpStelo >> newPresenter [
 	^ SpSteloPresenter basicNew
 		application: self;
@@ -294,11 +289,6 @@ SpStelo >> newPresenter [
 { #category : #processes }
 SpStelo >> newProgram [
 	^ SProgram new
-]
-
-{ #category : #'instance creation' }
-SpStelo >> newTurtles [
-	^ sworld addNewTurtle
 ]
 
 { #category : #accessing }
@@ -321,8 +311,26 @@ SpStelo >> plotter [
 	^ presenter plotter
 ]
 
-{ #category : #private }
-SpStelo >> privRecorder: anObject [
+{ #category : #accessing }
+SpStelo >> process [
+
+	^ process
+]
+
+{ #category : #accessing }
+SpStelo >> process: anObject [
+
+	process := anObject
+]
+
+{ #category : #accessing }
+SpStelo >> recorder [
+
+	^ recorder
+]
+
+{ #category : #accessing }
+SpStelo >> recorder: anObject [
 	recorder := anObject
 ]
 
@@ -350,12 +358,6 @@ SpStelo >> runSetup [
 	process := sworld newProcess program: program.
 	process startup.
 	^ process
-]
-
-{ #category : #private }
-SpStelo >> saveProjectAs: aFileReference [
-	self backupProject.
-	^ super saveProjectAs: aFileReference
 ]
 
 { #category : #accessing }
@@ -542,27 +544,19 @@ SpStelo >> stringOfWorldName: aString [
 
 { #category : #accessing }
 SpStelo >> sworld [
+
 	^ sworld
 ]
 
 { #category : #accessing }
 SpStelo >> sworld: aWorld [
 
-	sworld := aWorld.
-	project setupWorld: sworld.
-	presenter sworld: aWorld
+	sworld := aWorld
 ]
 
 { #category : #accessing }
 SpStelo >> target: aScript [
 	presenter target: aScript
-]
-
-{ #category : #'menu actions' }
-SpStelo >> toggleSWorld [
-	self isPluginWorld
-		ifTrue: [ self changeMicroWorld ]
-		ifFalse: [ self changePluginWorld ]
 ]
 
 { #category : #'menu actions' }
@@ -597,7 +591,7 @@ SpStelo >> updateStatusForced: aBoolean [
 	lastMSec := msec
 ]
 
-{ #category : #variables }
+{ #category : #accessing }
 SpStelo >> varsAt: anInteger [
 	| stream breed v bno vno |
 	stream := WriteStream on: Array new.

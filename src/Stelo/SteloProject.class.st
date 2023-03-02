@@ -48,11 +48,6 @@ SteloProject >> addNewTurtleScriptNamed: aString [
 	^ script
 ]
 
-{ #category : #api }
-SteloProject >> addVariable: aString var: vno breed: bno [
-	application addVariable: aString var: vno breed: bno
-]
-
 { #category : #private }
 SteloProject >> assignUniqueObjNameTo: aScript [
 	| name |
@@ -173,13 +168,6 @@ SteloProject >> programOf: aDictionary [
 	self scripts
 		do: [ :each | each setupProgram: program events: aDictionary ].
 	^ program
-]
-
-{ #category : #api }
-SteloProject >> retrieveWorld: aWorld [
-
-	self setupScripts.
-	scripts do: [ :each | aWorld retrieveBreed: each breed ]
 ]
 
 { #category : #accessing }

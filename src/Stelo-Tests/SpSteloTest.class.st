@@ -71,6 +71,39 @@ SpSteloTest >> testDeleteTurtles [
 ]
 
 { #category : #test }
+SpSteloTest >> testEventIdFor [
+
+	| app |
+	app := self newApp.
+	app installNewProject: self newProject.
+	app setupEvents.
+	self assert: (app eventIdFor: #startup) equals: EventId startupEventNo.
+	self assert: (app eventIdFor: #setup) equals: EventId setupEventNo.
+	self assert: (app eventIdFor: #loop) equals: EventId loopEventNo.
+	self assert: (app eventIdFor: #single) equals: EventId singleEventNo
+]
+
+{ #category : #test }
+SpSteloTest >> testEvents [
+
+	| app d |
+	app := self newApp.
+	self assert: app events isNil.
+	d := Dictionary new.
+	app events: d.
+	self assert: app events identicalTo: d
+]
+
+{ #category : #test }
+SpSteloTest >> testInitialize [
+
+	| app |
+	app := self newApp.
+	self assert: app lastMSec equals: 0.
+	self assert: app lastTicks equals: 0
+]
+
+{ #category : #test }
 SpSteloTest >> testIsProcessRunning [
 	| app |
 	app := self newApp.
@@ -82,15 +115,165 @@ SpSteloTest >> testIsRecording [
 	| a |
 	a := self newApp.
 	self deny: a isRecording.
-	a privRecorder: true.
+	a recorder: true.
 	self assert: a isRecording.
-	a privRecorder: nil.
+	a recorder: nil.
 	self deny: a isRecording
 ]
 
 { #category : #test }
-SpSteloTest >> testPrivRecorder [
+SpSteloTest >> testLastMSec [
+
+	| app |
+	app := self newApp.
+	self assert: app lastMSec equals: 0.
+	app lastMSec: 123.
+	self assert: app lastMSec equals: 123.
+	app lastMSec: 456.
+	self assert: app lastMSec equals: 456
+]
+
+{ #category : #test }
+SpSteloTest >> testLastTicks [
+
+	| app |
+	app := self newApp.
+	self assert: app lastTicks equals: 0.
+	app lastTicks: 123.
+	self assert: app lastTicks equals: 123.
+	app lastTicks: 456.
+	self assert: app lastTicks equals: 456
+]
+
+{ #category : #test }
+SpSteloTest >> testMaxUpdateInfoCount [
+
+	self assert: self newApp maxUpdateInfoCount isInteger
+]
+
+{ #category : #test }
+SpSteloTest >> testNewCode [
+
+	| app |
+	app := self newApp.
+	self assert: (app newCode isKindOf: SteloBytecodeGenerator)
+]
+
+{ #category : #test }
+SpSteloTest >> testNewMicroWorld [
+
+	| app r |
+	app := self newApp.
+	r := app newMicroWorld.
+	self assert: (r isKindOf: SMicroWorld)
+]
+
+{ #category : #test }
+SpSteloTest >> testNewObserver [
+
+	| app r |
+	app := self newApp.
+	r := app newObserver.
+	self assert: (r isKindOf: SObserver)
+]
+
+{ #category : #test }
+SpSteloTest >> testNewPatches [
+
+	| app r |
+	app := self newApp.
+	r := app newPatches.
+	self assert: (r isKindOf: SPatches)
+]
+
+{ #category : #test }
+SpSteloTest >> testNewPresenter [
+
+	| app r |
+	app := self newApp.
+	r := app newPresenter.
+	self assert: (r isKindOf: SpSteloPresenter)
+]
+
+{ #category : #test }
+SpSteloTest >> testNewProgram [
+
+	| app |
+	app := self newApp.
+	self assert: (app newProgram isKindOf: SProgram)
+]
+
+{ #category : #test }
+SpSteloTest >> testObserverScript [
+
+	| app |
+	app := self newApp.
+	app installNewProject: self newProject.
+	self assert: (app observerScript isKindOf: ObserverScript)
+]
+
+{ #category : #test }
+SpSteloTest >> testPatchesScript [
+
+	| app |
+	app := self newApp.
+	app installNewProject: self newProject.
+	self assert: (app patchesScript isKindOf: PatchesScript)
+]
+
+{ #category : #test }
+SpSteloTest >> testPlotsExtension [
+
+	self assert: self newApp plotsExtension isString
+]
+
+{ #category : #test }
+SpSteloTest >> testProcess [
+
+	| app p |
+	app := self newApp.
+	self assert: app process isNil.
+	p := SMicroWorld new newProcess.
+	app process: p.
+	self assert: app process identicalTo: p
+]
+
+{ #category : #test }
+SpSteloTest >> testRecorder [
 	self testIsRecording
+]
+
+{ #category : #test }
+SpSteloTest >> testScriptOf [
+
+	| app s |
+	app := self newApp.
+	app installNewProject: self newProject.
+	s := app scriptOf: SBreedId observerBreedNo.
+	self assert: (s isKindOf: ObserverScript).
+	s := app scriptOf: SBreedId patchesBreedNo.
+	self assert: (s isKindOf: PatchesScript)
+]
+
+{ #category : #test }
+SpSteloTest >> testSetupEvents [
+
+	| app |
+	app := self newApp.
+	app installNewProject: self newProject.
+	self assert: app events isNil.
+	app setupEvents.
+	self assert: app events isDictionary.
+	self assert: (app events at: #startup) equals: EventId startupEventNo.
+	self assert: (app events at: #setup) equals: EventId setupEventNo.
+	self assert: (app events at: #loop) equals: EventId loopEventNo.
+	self assert: (app events at: #single) equals: EventId singleEventNo
+]
+
+{ #category : #test }
+SpSteloTest >> testSexpExtension [
+
+	self assert: self newApp sexpExtension isString
 ]
 
 { #category : #test }
@@ -107,9 +290,20 @@ SpSteloTest >> testStringOfWorldName [
 	a := self newApp.
 	r := a stringOfWorldName: 'test'.
 	self assert: r equals: ' (test)'.
-	a privRecorder: true.
+	a recorder: true.
 	r := a stringOfWorldName: 'abc'.
 	self assert: r equals: ' (abc) (Recording)'
+]
+
+{ #category : #test }
+SpSteloTest >> testSworld [
+
+	| app w |
+	app := self newApp.
+	self assert: app sworld isNil.
+	w := SMicroWorld new.
+	app sworld: w.
+	self assert: app sworld identicalTo: w
 ]
 
 { #category : #test }

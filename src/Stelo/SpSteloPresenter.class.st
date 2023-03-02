@@ -94,7 +94,7 @@ SpSteloPresenter >> addPlots: aCollection [
 	editorPane addPlots: aCollection
 ]
 
-{ #category : #private }
+{ #category : #'button actions' }
 SpSteloPresenter >> addTurtles [
 	self
 		target: application addTurtles;
@@ -399,18 +399,6 @@ SpSteloPresenter >> helpMenu [
 		grp
 			addItem: [ :item | 
 				item
-					name: 'Use Plugin World';
-					icon: (application isPluginWorld
-							 ifTrue: [ checked ]
-							 ifFalse: [ unchecked ]);
-					enabled: [ self isPluginAvailable ];
-					action: [ 
-						application toggleSWorld.
-						item icon: (application isPluginWorld
-									 ifTrue: [ checked ]
-									 ifFalse: [ unchecked ]) ] ];
-			addItem: [ :item | 
-				item
 					name: 'Display in grayscale' localized;
 					icon: (stageFrame morph isGrayscale
 							 ifTrue: [ checked ]
@@ -458,12 +446,6 @@ SpSteloPresenter >> initializePresenters [
 	self focusOrder add: editorPane
 ]
 
-{ #category : #testing }
-SpSteloPresenter >> isPluginAvailable [
-	[ SteloLibCall new getErrorMessage ] on: Error do: [ ^ false ].
-	^ true
-]
-
 { #category : #initialization }
 SpSteloPresenter >> newEditor [
 
@@ -506,13 +488,13 @@ SpSteloPresenter >> objectAt: aPoint [
 		index: 0
 ]
 
-{ #category : #private }
+{ #category : #'button actions' }
 SpSteloPresenter >> observerSelected [
 	self target: application observerScript.
 	self updateThumbnail
 ]
 
-{ #category : #private }
+{ #category : #'button actions' }
 SpSteloPresenter >> patchesSelected [
 	self target: application patchesScript
 ]
@@ -631,7 +613,7 @@ SpSteloPresenter >> thumbnailExtent [
 	^ 40 @ 40
 ]
 
-{ #category : #private }
+{ #category : #'button actions' }
 SpSteloPresenter >> turtlesDeleted: anInteger [
 	application deleteTurtles: anInteger.
 	self
@@ -639,7 +621,7 @@ SpSteloPresenter >> turtlesDeleted: anInteger [
 		target: application turtlesScripts first
 ]
 
-{ #category : #private }
+{ #category : #'button actions' }
 SpSteloPresenter >> turtlesSelected: bno [
 	self target: (application scriptOf: bno)
 ]
