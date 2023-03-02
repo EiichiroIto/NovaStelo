@@ -1,26 +1,26 @@
 Class {
 	#name : #SPluginWorld,
-	#superclass : #SWorld,
+	#superclass : #SteloWorld,
 	#instVars : [
 		'plugin'
 	],
 	#category : #'Stelo-Plugins'
 }
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginWorld >> addBreed: aBreed [
 	| bno |
 	bno := aBreed breedNo.
 	plugin setupBreed: bno.
-	bno = SBreedId patchBreedNo
+	bno = SBreedId patchesBreedNo
 		ifTrue: [ plugin createPatch: aBreed order ].
-	bno = SBreedId turtleBreedNo
+	bno = SBreedId turtlesBreedNo
 		ifTrue: [ plugin create: bno turtles: aBreed size ].
 	self addVariablesFor: aBreed.
 	self setAllVariables: aBreed
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginWorld >> addVariable: aString var: vno breed: bno [
 	plugin addVariable: vno breed: bno
 ]
@@ -33,12 +33,7 @@ SPluginWorld >> addVariablesFor: aBreed [
 		do: [ :each | plugin addVariable: each first breed: bno ].
 ]
 
-{ #category : #accessing }
-SPluginWorld >> backupBreeds: aCollection [
-	aCollection do: [ :each | self getAllVariables: each ].
-]
-
-{ #category : #accessing }
+{ #category : #api }
 SPluginWorld >> clearBreed: anInteger [
 	plugin clearBreed: anInteger.
 ]
@@ -46,7 +41,7 @@ SPluginWorld >> clearBreed: anInteger [
 { #category : #accessing }
 SPluginWorld >> colors [
 	| num ext |
-	num := self sizeOf: SBreedId patchBreedNo.
+	num := self sizeOf: SBreedId patchesBreedNo.
 	ext := plugin getScreen.
 	^ [ ext copyFrom: 1 to: num ]
 		ensure: [ ext release ]
@@ -60,19 +55,44 @@ SPluginWorld >> countAliveOf: bno [
 		id: bno) truncated
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginWorld >> create: bno turtles: anInteger [
 	plugin create: bno turtles: anInteger
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginWorld >> createPatch: anInteger [
 	plugin createPatch: anInteger.
+]
+
+{ #category : #api }
+SPluginWorld >> deleteBreed: aBreed [
+
+	self shouldBeImplemented
 ]
 
 { #category : #accessing }
 SPluginWorld >> extent [
 	^ self getCols @ self getRows
+]
+
+{ #category : #'accessing variable' }
+SPluginWorld >> flag: anInteger breed: bno at: id [
+	| v b |
+	v := self var: STurtlesVarDef flagVarNo breed: bno at: id.
+	b := 1 << anInteger.
+	^ (v bitAnd: b) > 0
+]
+
+{ #category : #'accessing variable' }
+SPluginWorld >> flag: anInteger breed: bno at: id put: aBoolean [
+	| v b |
+	v := self var: STurtlesVarDef flagVarNo breed: bno at: id.
+	b := 1 << anInteger.
+	v := aBoolean
+		ifTrue: [ v bitOr: b ]
+		ifFalse: [ v bitClear: b ].
+	self var: STurtlesVarDef flagVarNo breed: bno at: id put: v
 ]
 
 { #category : #private }
@@ -155,6 +175,12 @@ SPluginWorld >> isPluginWorld [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+SPluginWorld >> newProcess [
+
+	^ SPluginProcess sworld: self
+]
+
 { #category : #accessing }
 SPluginWorld >> patchIndexAtX: x y: y [
 	^ plugin patchIndexAtX: x y: y
@@ -170,14 +196,15 @@ SPluginWorld >> plugin [
 	^ plugin
 ]
 
-{ #category : #private }
-SPluginWorld >> processClass [
-	^ SPluginProcess
-]
-
-{ #category : #accessing }
+{ #category : #api }
 SPluginWorld >> reset [
 	plugin reset
+]
+
+{ #category : #api }
+SPluginWorld >> retrieveBreed: aBreed [
+
+	self getAllVariables: aBreed
 ]
 
 { #category : #private }
@@ -216,11 +243,6 @@ SPluginWorld >> setByteAll: vno breed: bno from: aByteArray [
 		extArray: ext
 		size: aByteArray size ]
 		ensure: [ ext free ]
-]
-
-{ #category : #accessing }
-SPluginWorld >> setDefaultTurtle: bno at: aPoint [
-	plugin setDefaultTurtle: bno x: aPoint x y: aPoint y.
 ]
 
 { #category : #private }
@@ -265,10 +287,10 @@ SPluginWorld >> sizeOf: bno [
 { #category : #private }
 SPluginWorld >> turtles: bno at: pos [
 	| xs ys flags mask list p |
-	xs := self getAllVariable: STurtleVarDef xVarNo breed: bno.
-	ys := self getAllVariable: STurtleVarDef yVarNo breed: bno.
-	flags := self getAllVariable: STurtleVarDef flagVarNo breed: bno.
-	mask := 1 << STurtleVarDef aliveFlagNo.
+	xs := self getAllVariable: STurtlesVarDef xVarNo breed: bno.
+	ys := self getAllVariable: STurtlesVarDef yVarNo breed: bno.
+	flags := self getAllVariable: STurtlesVarDef flagVarNo breed: bno.
+	mask := 1 << STurtlesVarDef aliveFlagNo.
 	list := OrderedCollection new.
 	flags
 		withIndexDo: [ :each :index | 
@@ -278,7 +300,7 @@ SPluginWorld >> turtles: bno at: pos [
 	^ list
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing variable' }
 SPluginWorld >> var: vno breed: bno at: tno [
 	| t |
 	t := plugin getType: vno breed: bno.
@@ -294,7 +316,7 @@ SPluginWorld >> var: vno breed: bno at: tno [
 		ifTrue: [ self error ]
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing variable' }
 SPluginWorld >> var: vno breed: bno at: tno put: value [
 	| t |
 	t := plugin getType: vno breed: bno.
@@ -320,6 +342,18 @@ SPluginWorld >> var: vno breed: bno at: tno put: value [
 		ifTrue: [ self error ].
 	t = SteloLibCall none
 		ifTrue: [ self error ]
+]
+
+{ #category : #'accessing variable' }
+SPluginWorld >> var: anInteger breed: bno list: id [
+
+	"self subclassResponsibility"
+]
+
+{ #category : #'accessing variable' }
+SPluginWorld >> var: anInteger breed: bno list: id set: aCollection [
+
+	"self subclassResponsibility"
 ]
 
 { #category : #accessing }

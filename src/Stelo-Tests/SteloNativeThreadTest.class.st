@@ -23,7 +23,7 @@ SteloNativeThreadTest >> newWorld [
 	w := SMicroWorld new.
 	w addBreed: SObserver new.
 	w addBreed: SPatches new.
-	w newBreed.
+	w addNewTurtle.
 	^ w
 ]
 
@@ -92,7 +92,7 @@ SteloNativeThreadTest >> testAimHigh [
 	w x: 3 at: 1 put: 0.
 	w y: 3 at: 1 put: 0.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 45.
@@ -153,17 +153,17 @@ SteloNativeThreadTest >> testAppendToList [
 	| w t v |
 	w := self newWorld.
 	t := self newThread: w.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
-	v := (w breedOf: SBreedId turtleBreedNo) addList: 'a'.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
+	v := (w breedOf: SBreedId turtlesBreedNo) addList: 'a'.
 	t push: v.
 	t push: 123.
 	t appendToList.
 	t push: v.
 	t push: 456.
 	t appendToList.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1 at: 1) equals: 123.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1 at: 2) equals: 456.
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 1) equals: 123.
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 2) equals: 456.
 	self assert: t stack size equals: 0.
 ]
 
@@ -197,6 +197,17 @@ SteloNativeThreadTest >> testAtan [
 	t atan.
 	self assert: t stack size equals: 1.
 	self assert: t pop closeTo: -45.
+]
+
+{ #category : #test }
+SteloNativeThreadTest >> testBreedId [
+	| e |
+	e := self newThread.
+	self assert: e breedId isNil.
+	e breedId: 10.
+	self assert: e breedId equals: 10.
+	e breedId: 20.
+	self assert: e breedId equals: 20.
 ]
 
 { #category : #test }
@@ -246,17 +257,17 @@ SteloNativeThreadTest >> testClearBreed [
 SteloNativeThreadTest >> testClearList [
 	| w t v |
 	w := self newWorld.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	v := (w breedOf: SBreedId turtleBreedNo) addList: 'a'.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 10.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 20.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 30.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	v := (w breedOf: SBreedId turtlesBreedNo) addList: 'a'.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 10.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 20.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 30.
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t push: v.
 	t clearList.
 	self assert: t stack size equals: 0.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1) isEmpty
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1) isEmpty
 ]
 
 { #category : #test }
@@ -356,18 +367,18 @@ SteloNativeThreadTest >> testDec [
 SteloNativeThreadTest >> testDeleteLineOfList [
 	| w t v |
 	w := self newWorld.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	v := (w breedOf: SBreedId turtleBreedNo) addList: 'a'.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 10.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 20.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 30.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	v := (w breedOf: SBreedId turtlesBreedNo) addList: 'a'.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 10.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 20.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 30.
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t push: v.
 	t push: 2.
 	t deleteLineOfList.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1 at: 1) equals: 10.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1 at: 2) equals: 30.
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 1) equals: 10.
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 2) equals: 30.
 	self assert: t stack size equals: 0.
 ]
 
@@ -437,7 +448,7 @@ SteloNativeThreadTest >> testDoOneCycle [
 	w x: 3 at: 1 put: 0.
 	w y: 3 at: 1 put: 0.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 0.
@@ -450,8 +461,8 @@ SteloNativeThreadTest >> testDoOneCycle [
 	self assert: e doOneCycle not.
 	self assert: e pc equals: c size + 1.
 	self assert: e stack isEmpty.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 3.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 3.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 0.
 	self should: [e doOneCycle] raise: Error.
 ]
 
@@ -486,7 +497,7 @@ SteloNativeThreadTest >> testDx [
 	w := self newWorld.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 0.
@@ -495,7 +506,7 @@ SteloNativeThreadTest >> testDx [
 	e dx.
 	self assert: e pop closeTo: 1.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 90.
@@ -504,7 +515,7 @@ SteloNativeThreadTest >> testDx [
 	e dx.
 	self assert: e pop closeTo: 0.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 180.
@@ -513,7 +524,7 @@ SteloNativeThreadTest >> testDx [
 	e dx.
 	self assert: e pop closeTo: -1.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 270.
@@ -529,7 +540,7 @@ SteloNativeThreadTest >> testDy [
 	w := self newWorld.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 0.
@@ -538,7 +549,7 @@ SteloNativeThreadTest >> testDy [
 	e dy.
 	self assert: e pop closeTo: 0.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 90.
@@ -547,7 +558,7 @@ SteloNativeThreadTest >> testDy [
 	e dy.
 	self assert: e pop closeTo: 1.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 180.
@@ -556,7 +567,7 @@ SteloNativeThreadTest >> testDy [
 	e dy.
 	self assert: e pop closeTo: 0.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 270.
@@ -599,7 +610,7 @@ SteloNativeThreadTest >> testEvaluate [
 	w := self newWorld.
 	t := self newThread: w.
 	w create: 3 turtles: 1.
-	w var: STurtleVarDef colorVarNo breed: 3 at: 1 put: ColorList black.
+	w var: STurtlesVarDef colorVarNo breed: 3 at: 1 put: ColorList black.
 	c := #(push1 pushShort 2 0 #plus #stop).
 	t forBreedNo: 3 index: 1.
 	t codes: c.
@@ -613,12 +624,12 @@ SteloNativeThreadTest >> testExecute [
 	w := self newWorld.
 	t := self newThread: w.
 	w create: 3 turtles: 1.
-	w var: STurtleVarDef colorVarNo breed: 3 at: 1 put: ColorList black.
+	w var: STurtlesVarDef colorVarNo breed: 3 at: 1 put: ColorList black.
 	c := {#pushShort. ColorList white. 0. #setColorTo. #stop}.
 	t forBreedNo: 3 index: 1.
 	t codes: c.
 	t execute: 1.
-	x := w var: STurtleVarDef colorVarNo breed: 3 at: 1.
+	x := w var: STurtlesVarDef colorVarNo breed: 3 at: 1.
 	self assert: x equals: ColorList white.
 ]
 
@@ -668,33 +679,33 @@ SteloNativeThreadTest >> testExp10 [
 SteloNativeThreadTest >> testForBreedNoIndex [
 	| e |
 	e := self newThread.
-	self assert: e privBreedId isNil.
-	self assert: e privId isNil.
+	self assert: e breedId isNil.
+	self assert: e id isNil.
 	e forBreedNo: 3 index: 123.
-	self assert: e privBreedId equals: 3.
-	self assert: e privId equals: 123.
+	self assert: e breedId equals: 3.
+	self assert: e id equals: 123.
 ]
 
 { #category : #test }
 SteloNativeThreadTest >> testForObserver [
 	| e |
 	e := self newThread.
-	self assert: e privBreedId isNil.
-	self assert: e privId isNil.
+	self assert: e breedId isNil.
+	self assert: e id isNil.
 	e forObserver.
-	self assert: e privBreedId equals: SBreedId observerBreedNo.
-	self assert: e privId equals: 1.
+	self assert: e breedId equals: SBreedId observerBreedNo.
+	self assert: e id equals: 1.
 ]
 
 { #category : #test }
 SteloNativeThreadTest >> testForPatchId [
 	| e |
 	e := self newThread.
-	self assert: e privBreedId isNil.
-	self assert: e privId isNil.
+	self assert: e breedId isNil.
+	self assert: e id isNil.
 	e forPatchId: 123.
-	self assert: e privBreedId equals: 2.
-	self assert: e privId equals: 123.
+	self assert: e breedId equals: 2.
+	self assert: e id equals: 123.
 ]
 
 { #category : #test }
@@ -706,7 +717,7 @@ SteloNativeThreadTest >> testForward [
 	w x: 3 at: 1 put: 0.
 	w y: 3 at: 1 put: 0.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 0.
@@ -714,14 +725,14 @@ SteloNativeThreadTest >> testForward [
 	e forBreedNo: 3 index: 1.
 	e push: 1.
 	e forward.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) closeTo: 1.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) closeTo: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: 1.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: 0.
 	e push: 2.
 	e forward.
 	self
-		assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
 		closeTo: -2.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) closeTo: 0
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: 0
 ]
 
 { #category : #test }
@@ -761,13 +772,13 @@ SteloNativeThreadTest >> testGetBreedVar [
 	v := w patches addVariable: 'a'.
 	t push: 1.
 	t push: v.
-	t push: SBreedId patchBreedNo.
+	t push: SBreedId patchesBreedNo.
 	t getBreedVar.
 	self assert: t pop equals: 0.
-	w patches privVariables var: v at: 1 put: 2.
+	w patches variables var: v at: 1 put: 2.
 	t push: 1.
 	t push: v.
-	t push: SBreedId patchBreedNo.
+	t push: SBreedId patchesBreedNo.
 	t getBreedVar.
 	self assert: t pop equals: 2
 ]
@@ -776,7 +787,7 @@ SteloNativeThreadTest >> testGetBreedVar [
 SteloNativeThreadTest >> testGetId [
 	| t |
 	t := self newThread.
-	t privId: 10.
+	t id: 10.
 	self assert: t stack size equals: 0.
 	t getId.
 	self assert: t pop equals: 10.
@@ -786,13 +797,13 @@ SteloNativeThreadTest >> testGetId [
 SteloNativeThreadTest >> testGetLineOfList [
 	| w t v |
 	w := self newWorld.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	v := (w breedOf: SBreedId turtleBreedNo) addList: 'a'.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 10.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 20.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 30.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	v := (w breedOf: SBreedId turtlesBreedNo) addList: 'a'.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 10.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 20.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 30.
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t push: v.
 	t push: 2.
 	t getLineOfList.
@@ -891,6 +902,17 @@ SteloNativeThreadTest >> testHatch [
 ]
 
 { #category : #test }
+SteloNativeThreadTest >> testId [
+	| e |
+	e := self newThread.
+	self assert: e id isNil.
+	e id: 10.
+	self assert: e id equals: 10.
+	e id: 20.
+	self assert: e id equals: 20.
+]
+
+{ #category : #test }
 SteloNativeThreadTest >> testInitialize [
 	self testPc.
 	self testStack.
@@ -915,12 +937,26 @@ SteloNativeThreadTest >> testInv [
 
 { #category : #test }
 SteloNativeThreadTest >> testIsRunning [
-	self testPrivIsRunning.
+
+	| t |
+	t := self newThread.
+	self assert: t isRunning equals: false.
+	t isRunning: true.
+	self assert: t isRunning equals: true.
+	t isRunning: false.
+	self assert: t isRunning equals: false
 ]
 
 { #category : #test }
 SteloNativeThreadTest >> testIsTerminated [
-	self testPrivIsTerminated.
+
+	| t |
+	t := self newThread.
+	self assert: t isTerminated equals: false.
+	t isTerminated: true.
+	self assert: t isTerminated equals: true.
+	t isTerminated: false.
+	self assert: t isTerminated equals: false
 ]
 
 { #category : #test }
@@ -1046,13 +1082,13 @@ SteloNativeThreadTest >> testLessEqual [
 SteloNativeThreadTest >> testLineCountOfList [
 	| w t v |
 	w := self newWorld.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	v := (w breedOf: SBreedId turtleBreedNo) addList: 'a'.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 10.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 20.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 30.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	v := (w breedOf: SBreedId turtlesBreedNo) addList: 'a'.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 10.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 20.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 30.
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t push: v.
 	t lineCountOfList.
 	self assert: t stack size equals: 1.
@@ -1063,20 +1099,20 @@ SteloNativeThreadTest >> testLineCountOfList [
 SteloNativeThreadTest >> testListContains [
 	| w t v |
 	w := self newWorld.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	v := (w breedOf: SBreedId turtleBreedNo) addList: 'a'.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 10.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 20.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 30.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	v := (w breedOf: SBreedId turtlesBreedNo) addList: 'a'.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 10.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 20.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 30.
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t push: v.
 	t push: 10.
 	t listContains.
 	self assert: t stack size equals: 1.
 	self assert: t pop equals: 1.
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t push: v.
 	t push: 40.
 	t listContains.
@@ -1293,70 +1329,6 @@ SteloNativeThreadTest >> testPop [
 ]
 
 { #category : #test }
-SteloNativeThreadTest >> testPrivBreedId [
-	| e |
-	e := self newThread.
-	self assert: e privBreedId isNil.
-	e privBreedId: 10.
-	self assert: e privBreedId equals: 10.
-	e privBreedId: 20.
-	self assert: e privBreedId equals: 20.
-]
-
-{ #category : #test }
-SteloNativeThreadTest >> testPrivId [
-	| e |
-	e := self newThread.
-	self assert: e privId isNil.
-	e privId: 10.
-	self assert: e privId equals: 10.
-	e privId: 20.
-	self assert: e privId equals: 20.
-]
-
-{ #category : #test }
-SteloNativeThreadTest >> testPrivIsRunning [
-	| t |
-	t := self newThread.
-	self assert: t isRunning equals: false.
-	t privIsRunning: true.
-	self assert: t isRunning equals: true.
-	t privIsRunning: false.
-	self assert: t isRunning equals: false.
-]
-
-{ #category : #test }
-SteloNativeThreadTest >> testPrivIsTerminated [
-	| t |
-	t := self newThread.
-	self assert: t isTerminated equals: false.
-	t privIsTerminated: true.
-	self assert: t isTerminated equals: true.
-	t privIsTerminated: false.
-	self assert: t isTerminated equals: false.
-]
-
-{ #category : #test }
-SteloNativeThreadTest >> testPrivRetVal [
-	| t |
-	t := self newThread.
-	self assert: t retVal equals: 0.
-	t privRetVal: 123.
-	self assert: t retVal equals: 123.
-]
-
-{ #category : #test }
-SteloNativeThreadTest >> testPrivSWorld [
-	| w1 w2 e |
-	w1 := self newWorld.
-	e := self newThread: w1.
-	self assert: e privSWorld equals: w1.
-	w2 := self newWorld.
-	e privSWorld: w2.
-	self assert: e privSWorld equals: w2.
-]
-
-{ #category : #test }
 SteloNativeThreadTest >> testPush [
 	| e |
 	e := self newThread.
@@ -1436,7 +1408,12 @@ SteloNativeThreadTest >> testRandomFromTo [
 
 { #category : #test }
 SteloNativeThreadTest >> testRetVal [
-	self testPrivRetVal.
+
+	| t |
+	t := self newThread.
+	self assert: t retVal equals: 0.
+	t retVal: 123.
+	self assert: t retVal equals: 123
 ]
 
 { #category : #test }
@@ -1495,21 +1472,21 @@ SteloNativeThreadTest >> testSetBreedVarTo [
 	t := self newThread: w.
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
-	self assert: (w patches privVariables var: v at: 1) equals: 0.
+	self assert: (w patches variables var: v at: 1) equals: 0.
 	self assert: t stack size equals: 0.
 	t push: 1.
 	t push: 2.
 	t push: v.
-	t push: SBreedId patchBreedNo.
+	t push: SBreedId patchesBreedNo.
 	t setBreedVarTo.
-	self assert: (w patches privVariables var: v at: 1) equals: 2.
+	self assert: (w patches variables var: v at: 1) equals: 2.
 	self assert: t stack size equals: 0.
 	t push: 1.
 	t push: 3.
 	t push: v.
-	t push: SBreedId patchBreedNo.
+	t push: SBreedId patchesBreedNo.
 	t setBreedVarTo.
-	self assert: (w patches privVariables var: v at: 1) equals: 3.
+	self assert: (w patches variables var: v at: 1) equals: 3.
 	self assert: t stack size equals: 0.
 ]
 
@@ -1534,11 +1511,11 @@ SteloNativeThreadTest >> testSetColorTo [
 	t push: 20.
 	t setColorTo.
 
-	ret := w var: STurtleVarDef colorVarNo breed: 3 at: 1.
+	ret := w var: STurtlesVarDef colorVarNo breed: 3 at: 1.
 	self assert: ret equals: 10.
-	ret := w var: STurtleVarDef colorVarNo breed: 3 at: 2.
+	ret := w var: STurtlesVarDef colorVarNo breed: 3 at: 2.
 	self assert: ret equals: 15.
-	ret := w var: STurtleVarDef colorVarNo breed: 2 at: 1.
+	ret := w var: STurtlesVarDef colorVarNo breed: 2 at: 1.
 	self assert: ret equals: 20.
 ]
 
@@ -1567,21 +1544,21 @@ SteloNativeThreadTest >> testSetHeading [
 SteloNativeThreadTest >> testSetLineOfListTo [
 	| w t v |
 	w := self newWorld.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	v := (w breedOf: SBreedId turtleBreedNo) addList: 'a'.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 10.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 20.
-	w var: v breed: SBreedId turtleBreedNo list: 1 add: 30.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	v := (w breedOf: SBreedId turtlesBreedNo) addList: 'a'.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 10.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 20.
+	w var: v breed: SBreedId turtlesBreedNo list: 1 add: 30.
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t push: 2.
 	t push: 40.
 	t push: v.
 	t setLineOfListTo.
 	self assert: t stack size equals: 0.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1 at: 1) equals: 10.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1 at: 2) equals: 40.
-	self assert: (w var: v breed: SBreedId turtleBreedNo list: 1 at: 3) equals: 30
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 1) equals: 10.
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 2) equals: 40.
+	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 3) equals: 30
 ]
 
 { #category : #test }
@@ -1608,11 +1585,11 @@ SteloNativeThreadTest >> testSetPatchColorTo [
 	t push: 20.
 	t setPatchColorTo.
 
-	ret := w var: STurtleVarDef colorVarNo breed: 2 at: 1.
+	ret := w var: STurtlesVarDef colorVarNo breed: 2 at: 1.
 	self assert: ret equals: 10.
-	ret := w var: STurtleVarDef colorVarNo breed: 2 at: 2.
+	ret := w var: STurtlesVarDef colorVarNo breed: 2 at: 2.
 	self assert: ret equals: 15.
-	ret := w var: STurtleVarDef colorVarNo breed: 2 at: 3.
+	ret := w var: STurtlesVarDef colorVarNo breed: 2 at: 3.
 	self assert: ret equals: 20.
 ]
 
@@ -1666,17 +1643,17 @@ SteloNativeThreadTest >> testSetX [
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	self assert: t stack size equals: 0.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 0.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0.
 	t push: 10.
 	t setX.
 	self assert: t stack size equals: 0.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 10.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 10.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0.
 	t push: 20.
 	t setX.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 20.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 20.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0.
 ]
 
 { #category : #test }
@@ -1687,17 +1664,17 @@ SteloNativeThreadTest >> testSetY [
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	self assert: t stack size equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0.
 	t push: 10.
 	t setY.
 	self assert: t stack size equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 10.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 10.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0.
 	t push: 20.
 	t setY.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 20.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 20.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0.
 ]
 
 { #category : #test }
@@ -1786,6 +1763,17 @@ SteloNativeThreadTest >> testSwap [
 	t swap.
 	self assert: t pop equals: 1.
 	self assert: t pop equals: 2.
+]
+
+{ #category : #test }
+SteloNativeThreadTest >> testSworld [
+	| w1 w2 e |
+	w1 := self newWorld.
+	e := self newThread: w1.
+	self assert: e sworld equals: w1.
+	w2 := self newWorld.
+	e sworld: w2.
+	self assert: e sworld equals: w2.
 ]
 
 { #category : #test }

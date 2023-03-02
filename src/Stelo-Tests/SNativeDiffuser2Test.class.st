@@ -192,3 +192,19 @@ SNativeDiffuser2Test >> testRolledUpToCols [
 			#(6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 1 2 3 4 5)
 				asFloatArray
 ]
+
+{ #category : #test }
+SNativeDiffuser2Test >> testScaleDstColorFromTo [
+
+	| obj a b |
+	obj := self newDiffuser.
+	a := #( 10 5 1 9 ).
+	b := Array new: 4.
+	obj
+		scale: a
+		dst: b
+		color: 35
+		from: 1
+		to: 9.
+	self assertCollection: b equals: #( 9 34 30 39 )
+]

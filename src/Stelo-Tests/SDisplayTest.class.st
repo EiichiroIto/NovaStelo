@@ -168,7 +168,7 @@ SDisplayTest >> testStepTime [
 SDisplayTest >> testSworld [
 	| d w |
 	d := self newDisplay.
-	self assert: (d sworld isKindOf: SWorld).
+	self assert: (d sworld isKindOf: SteloWorld).
 	w := self newWorld.
 	d sworld: w.
 	self assert: d sworld equals: w

@@ -32,24 +32,24 @@ SPluginWorldTest >> testClearBreed [
 	pluginExists ifFalse: [ ^ self ].
 	c := SPluginWorld new.
 	c createPatch: 10.
-	x := c var: SPatchVarDef colorVarNo breed: SBreedId patchBreedNo at: 1.
+	x := c var: SPatchesVarDef colorVarNo breed: SBreedId patchesBreedNo at: 1.
 	self assert: x equals: 0.
-	c var: SPatchVarDef colorVarNo breed: SBreedId patchBreedNo at: 1 put: 10.
-	x := c var: SPatchVarDef colorVarNo breed: SBreedId patchBreedNo at: 1.
+	c var: SPatchesVarDef colorVarNo breed: SBreedId patchesBreedNo at: 1 put: 10.
+	x := c var: SPatchesVarDef colorVarNo breed: SBreedId patchesBreedNo at: 1.
 	self assert: x equals: 10.
-	c clearBreed: SBreedId patchBreedNo.
-	x := c var: SPatchVarDef colorVarNo breed: SBreedId patchBreedNo at: 1.
+	c clearBreed: SBreedId patchesBreedNo.
+	x := c var: SPatchesVarDef colorVarNo breed: SBreedId patchesBreedNo at: 1.
 	self assert: x equals: 0.
 
-	self assert: (c countAliveOf: SBreedId turtleBreedNo) equals: 0.
-	t := STurtles new breedNo: SBreedId turtleBreedNo.
+	self assert: (c countAliveOf: SBreedId turtlesBreedNo) equals: 0.
+	t := STurtles new breedNo: SBreedId turtlesBreedNo.
 	c addBreed: t.
-	self assert: (c countAliveOf: SBreedId turtleBreedNo) equals: 0.
-	c create: SBreedId turtleBreedNo turtles: 50.
-	self assert: (c countAliveOf: SBreedId turtleBreedNo) equals: 50.
-	c clearBreed: SBreedId turtleBreedNo.
-	self assert: (c countAliveOf: SBreedId turtleBreedNo) equals: 0.
-	self assert: (c sizeOf: SBreedId turtleBreedNo) equals: 100.
+	self assert: (c countAliveOf: SBreedId turtlesBreedNo) equals: 0.
+	c create: SBreedId turtlesBreedNo turtles: 50.
+	self assert: (c countAliveOf: SBreedId turtlesBreedNo) equals: 50.
+	c clearBreed: SBreedId turtlesBreedNo.
+	self assert: (c countAliveOf: SBreedId turtlesBreedNo) equals: 0.
+	self assert: (c sizeOf: SBreedId turtlesBreedNo) equals: 100.
 ]
 
 { #category : #test }
@@ -87,7 +87,7 @@ SPluginWorldTest >> testGetByteAllBreed [
 	t := STurtles new breedNo: 3.
 	t create: 2.
 	w addBreed: t.
-	arr := w getByteAll: STurtleVarDef colorVarNo breed: 3.
+	arr := w getByteAll: STurtlesVarDef colorVarNo breed: 3.
 	self assert: arr size equals: 100.
 	self assert: arr first equals: (t colorAt: 1).
 	self assert: arr second equals: (t colorAt: 2).
@@ -105,11 +105,11 @@ SPluginWorldTest >> testGetFloatAllBreed [
 	w addBreed: t.
 	Transcript show: (SteloLibCall new getErrorMessage); cr.
 	"w plugin createTurtleSize: 5 breedId: 3."
-	w var: STurtleVarDef xVarNo breed: 3 at: 1 put: 10.0.
+	w var: STurtlesVarDef xVarNo breed: 3 at: 1 put: 10.0.
 	Transcript show: (SteloLibCall new getErrorMessage); cr.
-	w var: STurtleVarDef xVarNo breed: 3 at: 2 put: 20.0.
+	w var: STurtlesVarDef xVarNo breed: 3 at: 2 put: 20.0.
 	"(w plugin getFloatAll: 3 breed: 3) inspect."
-	arr := w getFloatAll: STurtleVarDef xVarNo breed: 3.
+	arr := w getFloatAll: STurtlesVarDef xVarNo breed: 3.
 	self assert: arr size equals: 100.
 	self assert: arr first closeTo: 10.
 	self assert: arr second closeTo: 20.
@@ -131,8 +131,8 @@ SPluginWorldTest >> testSetByteAllBreedFrom [
 	t create: 50.
 	w addBreed: t.
 	arr := #(10 200 30 40 50 60 7 8 9 10) asByteArray.
-	w setByteAll: STurtleVarDef colorVarNo breed: 3 from: arr.
-	r := w var: STurtleVarDef colorVarNo breed: 3 at: 1.
+	w setByteAll: STurtlesVarDef colorVarNo breed: 3 from: arr.
+	r := w var: STurtlesVarDef colorVarNo breed: 3 at: 1.
 	self assert: r equals: 10.
 ]
 

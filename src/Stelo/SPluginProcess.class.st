@@ -9,33 +9,33 @@ SPluginProcess >> isRunning [
 	^ sworld plugin isRunning
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginProcess >> loop [
 	sworld plugin loop.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginProcess >> program: aProgram [
 	super program: aProgram.
 	sworld setProgram: program.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginProcess >> single [
 	sworld plugin single.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginProcess >> startup [
 	sworld plugin startup.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginProcess >> step [
 	sworld plugin step.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SPluginProcess >> stop [
 	sworld plugin stop.
 ]

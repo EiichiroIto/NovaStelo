@@ -89,11 +89,6 @@ SpStelo class >> themesURL [
 	^ 'https://github.com/EiichiroIto/NovaStelo/raw/master/misc/Themes.zip'
 ]
 
-{ #category : #variables }
-SpStelo >> addList: aString var: vno breed: bno [
-	sworld addList: aString var: vno breed: bno
-]
-
 { #category : #'button actions' }
 SpStelo >> addTurtles [
 	| script |
@@ -109,21 +104,22 @@ SpStelo >> addVariable: aString var: vno breed: bno [
 
 { #category : #private }
 SpStelo >> backupProject [
-	sworld backupBreeds: project breeds
+
+	project retrieveWorld: sworld
 ]
 
 { #category : #private }
 SpStelo >> changeMicroWorld [
 	(sworld notNil and: [ self isPluginWorld not ])
 		ifTrue: [ ^ self ].
-	self sworld: SMicroWorld new
+	self sworld: self newMicroWorld
 ]
 
 { #category : #private }
 SpStelo >> changePluginWorld [
 	self isPluginWorld
 		ifTrue: [ ^ self ].
-	self sworld: SPluginWorld new
+	self sworld: self newPluginWorld
 ]
 
 { #category : #'button actions' }
@@ -220,17 +216,18 @@ SpStelo >> initialize [
 
 { #category : #private }
 SpStelo >> installNewProject: aProject [
+
 	self stopAllProcesses.
-	(sworld isNil or: [ sworld isPluginWorld not ])
-		ifTrue: [ self changeMicroWorld ]
-		ifFalse: [ self changePluginWorld ].
+	sworld := (sworld isNil or: [ sworld isPluginWorld not ])
+		          ifTrue: [ self newMicroWorld ]
+		          ifFalse: [ self newPluginWorld ].
 	project := aProject.
 	project application: self.
-	project setupScripts.
+	project setupWorld: sworld.
 	project setupBlockSpecs.
 	project fixVars.
 	project modified: false.
-	self restoreProject.
+	presenter sworld: sworld.
 	self setupView.
 	presenter updateTurtles.
 	Smalltalk garbageCollect
@@ -264,17 +261,29 @@ SpStelo >> newCode [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
+SpStelo >> newMicroWorld [
+
+	^ SMicroWorld new
+]
+
+{ #category : #'instance creation' }
 SpStelo >> newObserver [
 	^ SObserver new
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 SpStelo >> newPatches [
 	^ SPatches new
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
+SpStelo >> newPluginWorld [
+
+	^ SPluginWorld new
+]
+
+{ #category : #'instance creation' }
 SpStelo >> newPresenter [
 	^ SpSteloPresenter basicNew
 		application: self;
@@ -287,9 +296,9 @@ SpStelo >> newProgram [
 	^ SProgram new
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 SpStelo >> newTurtles [
-	^ sworld newBreed
+	^ sworld addNewTurtle
 ]
 
 { #category : #accessing }
@@ -299,7 +308,7 @@ SpStelo >> observerScript [
 
 { #category : #accessing }
 SpStelo >> patchesScript [
-	^ project scriptOf: SBreedId patchBreedNo
+	^ project scriptOf: SBreedId patchesBreedNo
 ]
 
 { #category : #private }
@@ -319,7 +328,8 @@ SpStelo >> privRecorder: anObject [
 
 { #category : #private }
 SpStelo >> restoreProject [
-	sworld restoreBreeds: project breeds
+
+	project setupWorld: sworld
 ]
 
 { #category : #processes }
@@ -537,9 +547,9 @@ SpStelo >> sworld [
 
 { #category : #accessing }
 SpStelo >> sworld: aWorld [
-	sworld ifNotNil: [ self backupProject ].
+
 	sworld := aWorld.
-	project ifNotNil: [ self restoreProject ].
+	project setupWorld: sworld.
 	presenter sworld: aWorld
 ]
 

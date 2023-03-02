@@ -1,5 +1,5 @@
 Class {
-	#name : #SProcess,
+	#name : #SteloNativeProcess,
 	#superclass : #SteloProcess,
 	#instVars : [
 		'runningEvents',
@@ -9,36 +9,36 @@ Class {
 }
 
 { #category : #'instance creation' }
-SProcess class >> new [
+SteloNativeProcess class >> new [
 	self shouldNotImplement
 ]
 
 { #category : #transitions }
-SProcess >> afterLoop [
+SteloNativeProcess >> afterLoop [
 	runningEvents isEmpty
 		ifTrue: [ self loop ]
 ]
 
 { #category : #transitions }
-SProcess >> afterSetup [
+SteloNativeProcess >> afterSetup [
 	runningEvents isEmpty
 		ifTrue: [ self stop ]
 ]
 
 { #category : #transitions }
-SProcess >> afterSingle [
+SteloNativeProcess >> afterSingle [
 	runningEvents isEmpty
 		ifTrue: [ self stop ]
 ]
 
 { #category : #transitions }
-SProcess >> afterStartup [
+SteloNativeProcess >> afterStartup [
 	runningEvents isEmpty
 		ifTrue: [ self setup ]
 ]
 
 { #category : #execution }
-SProcess >> doOneCycle [
+SteloNativeProcess >> doOneCycle [
 	runningEvents
 		do: [ :eventNo | 
 			| eventCodes |
@@ -51,14 +51,14 @@ SProcess >> doOneCycle [
 	^ false
 ]
 
-{ #category : #accessing }
-SProcess >> event: eno [
+{ #category : #api }
+SteloNativeProcess >> event: eno [
 	transition := #afterSingle.
 	runningEvents := {eno}
 ]
 
 { #category : #execution }
-SProcess >> executeEventCodes: anEventCodes ifTerminatedDo: aBlock [
+SteloNativeProcess >> executeEventCodes: anEventCodes ifTerminatedDo: aBlock [
 	1 to: sworld maxBreedNo do: [ :bno | 
 		| codes |
 		codes := anEventCodes forBreedNo: bno.
@@ -75,7 +75,7 @@ SProcess >> executeEventCodes: anEventCodes ifTerminatedDo: aBlock [
 ]
 
 { #category : #execution }
-SProcess >> executeThread: entryPoint breedNo: bno index: index ifTerminatedDo: aBlock [
+SteloNativeProcess >> executeThread: entryPoint breedNo: bno index: index ifTerminatedDo: aBlock [
 	| thread |
 	thread := SteloNativeThread sworld: sworld.
 	thread forBreedNo: bno index: index.
@@ -86,68 +86,58 @@ SProcess >> executeThread: entryPoint breedNo: bno index: index ifTerminatedDo: 
 ]
 
 { #category : #transitions }
-SProcess >> idle [
+SteloNativeProcess >> idle [
 	"do nothing"
 ]
 
 { #category : #initialization }
-SProcess >> initialize [
+SteloNativeProcess >> initialize [
 	super initialize.
 	self stop.
 ]
 
 { #category : #testing }
-SProcess >> isRunning [
+SteloNativeProcess >> isRunning [
 	^ transition ~= #idle
 ]
 
-{ #category : #accessing }
-SProcess >> loop [
+{ #category : #api }
+SteloNativeProcess >> loop [
 	transition := #afterLoop.
 	runningEvents := {EventId loopEventNo}.
 ]
 
-{ #category : #private }
-SProcess >> privRunningEvents [
+{ #category : #accessing }
+SteloNativeProcess >> runningEvents [
 	^ runningEvents
 ]
 
-{ #category : #private }
-SProcess >> privRunningEvents: aCollection [
+{ #category : #accessing }
+SteloNativeProcess >> runningEvents: aCollection [
 	runningEvents := aCollection.
 ]
 
-{ #category : #private }
-SProcess >> privTransition [
-	^ transition
-]
-
-{ #category : #private }
-SProcess >> privTransition: aSymbol [
-	transition := aSymbol.
-]
-
-{ #category : #accessing }
-SProcess >> setup [
+{ #category : #api }
+SteloNativeProcess >> setup [
 	transition := #afterSetup.
 	runningEvents := {EventId setupEventNo}.
 ]
 
-{ #category : #accessing }
-SProcess >> single [
+{ #category : #api }
+SteloNativeProcess >> single [
 	transition := #afterSingle.
 	runningEvents := {EventId singleEventNo}.
 ]
 
-{ #category : #accessing }
-SProcess >> startup [
+{ #category : #api }
+SteloNativeProcess >> startup [
 	transition := #afterStartup.
 	runningEvents := {EventId startupEventNo}.
 	sworld clearTicks.
 ]
 
-{ #category : #accessing }
-SProcess >> step [
+{ #category : #api }
+SteloNativeProcess >> step [
 	self isRunning
 		ifFalse: [ ^ self ].
 	sworld
@@ -160,8 +150,18 @@ SProcess >> step [
 	self perform: transition.
 ]
 
-{ #category : #accessing }
-SProcess >> stop [
+{ #category : #api }
+SteloNativeProcess >> stop [
 	transition := #idle.
 	runningEvents := #().
+]
+
+{ #category : #accessing }
+SteloNativeProcess >> transition [
+	^ transition
+]
+
+{ #category : #accessing }
+SteloNativeProcess >> transition: aSymbol [
+	transition := aSymbol.
 ]

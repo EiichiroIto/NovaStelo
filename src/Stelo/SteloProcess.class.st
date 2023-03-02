@@ -11,16 +11,16 @@ Class {
 SteloProcess class >> sworld: aSWorld [
 	^ self basicNew
 		initialize;
-		privSWorld: aSWorld;
+		sworld: aSWorld;
 		yourself
 ]
 
-{ #category : #private }
-SteloProcess >> privSWorld [
+{ #category : #accessing }
+SteloProcess >> sworld [
 	^ sworld
 ]
 
-{ #category : #private }
-SteloProcess >> privSWorld: anObject [
+{ #category : #accessing }
+SteloProcess >> sworld: anObject [
 	sworld := anObject.
 ]

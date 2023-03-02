@@ -1,5 +1,5 @@
 Class {
-	#name : #SBreed,
+	#name : #SteloBreed,
 	#superclass : #Object,
 	#instVars : [
 		'variables',
@@ -8,16 +8,18 @@ Class {
 	#category : #'Stelo-Model'
 }
 
-{ #category : #accessing }
-SBreed >> addList: aString [
+{ #category : #api }
+SteloBreed >> addList: aString [
+
 	| id |
 	id := varDef addList: aString.
 	variables updateVarDef: varDef.
+	"self livingOnesDo: [ :each | self var: id list: each set: Array new ]."
 	^ id
 ]
 
-{ #category : #accessing }
-SBreed >> addVariable: aString [
+{ #category : #api }
+SteloBreed >> addVariable: aString [
 	| id |
 	id := varDef addVariable: aString.
 	variables updateVarDef: varDef.
@@ -25,36 +27,36 @@ SBreed >> addVariable: aString [
 ]
 
 { #category : #accessing }
-SBreed >> aliveAt: anInteger [
+SteloBreed >> aliveAt: anInteger [
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-SBreed >> breedName [
+SteloBreed >> breedName [
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-SBreed >> breedNo [
+SteloBreed >> breedNo [
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-SBreed >> breedNo: anInteger [
+SteloBreed >> breedNo: anInteger [
 	self subclassResponsibility
 ]
 
-{ #category : #microworld }
-SBreed >> clear [
-	"clear means clear all variable values with keeping its definition"
+{ #category : #api }
+SteloBreed >> clear [
+
+	"this method clears all variable values with keeping its definition"
+
 	variables ifNil: [ ^ self ].
-	variables clear.
-	"self halt.
-	variables updateVarDef: varId"
+	variables clear
 ]
 
-{ #category : #accessing }
-SBreed >> clearAt: id [
+{ #category : #api }
+SteloBreed >> clearAt: id [
 
 	| varNo |
 	self userDefinedVarNames do: [ :each | 
@@ -66,49 +68,49 @@ SBreed >> clearAt: id [
 ]
 
 { #category : #'accessing variable' }
-SBreed >> colorAt: anInteger [
+SteloBreed >> colorAt: anInteger [
 	^ variables var: varDef class colorVarNo at: anInteger
 ]
 
 { #category : #'accessing variable' }
-SBreed >> colorAt: index put: anInteger [
+SteloBreed >> colorAt: index put: anInteger [
 	self var: varDef class colorVarNo at: index put: anInteger
 ]
 
 { #category : #accessing }
-SBreed >> colors [
+SteloBreed >> colors [
 	^ variables realArrayAt: varDef class colorVarNo
 ]
 
 { #category : #'accessing variable' }
-SBreed >> copyVar: var to: var2 [
+SteloBreed >> copyVar: var to: var2 [
 	variables copyVar: var to: var2
 ]
 
-{ #category : #microworld }
-SBreed >> countAlive [
+{ #category : #accessing }
+SteloBreed >> countAlive [
 	^ self size
 ]
 
-{ #category : #accessing }
-SBreed >> deleteVariable: aString [
+{ #category : #api }
+SteloBreed >> deleteVariable: aString [
 	varDef delete: aString.
 	variables updateVarDef: varDef.
 ]
 
 { #category : #'object i/o' }
-SBreed >> fieldsVersion [
+SteloBreed >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #accessing }
-SBreed >> fixVars [
+{ #category : #api }
+SteloBreed >> fixVars [
 	varDef fixVars.
 	variables ifNotNil: [ variables fixVars: varDef ].
 ]
 
 { #category : #'accessing variable' }
-SBreed >> flag: anInteger at: id [
+SteloBreed >> flag: anInteger at: id [
 	| vars v b |
 	vars := variables varAt: varDef class flagVarNo.
 	b := 1 << anInteger.
@@ -117,7 +119,7 @@ SBreed >> flag: anInteger at: id [
 ]
 
 { #category : #'accessing variable' }
-SBreed >> flag: anInteger at: id put: aBoolean [
+SteloBreed >> flag: anInteger at: id put: aBoolean [
 	| vars v b |
 	vars := variables varAt: varDef class flagVarNo.
 	b := 1 << anInteger.
@@ -129,39 +131,44 @@ SBreed >> flag: anInteger at: id put: aBoolean [
 ]
 
 { #category : #'object i/o' }
-SBreed >> initFieldsFrom: anObjStream version: classVersion [
+SteloBreed >> initFieldsFrom: anObjStream version: classVersion [
 	self initFieldsNamed: #(varDef variables) from: anObjStream.
 ]
 
 { #category : #initialization }
-SBreed >> initialize [
+SteloBreed >> initialize [
 	self reset.
 ]
 
-{ #category : #microworld }
-SBreed >> livingOnesDo: aBlock [
+{ #category : #enumerating }
+SteloBreed >> livingOnesDo: aBlock [
 	self subclassResponsibility.
 ]
 
-{ #category : #private }
-SBreed >> privVariables [
-	^ variables
+{ #category : #'instance creation' }
+SteloBreed >> newVarDef [
+
+	^ VarDef new
+		  setupVarNames;
+		  yourself
 ]
 
 { #category : #accessing }
-SBreed >> realVarNames [
+SteloBreed >> realVarNames [
 	^ varDef realVarNames
 ]
 
-{ #category : #initialization }
-SBreed >> reset [
-	"reset means clear all variable with its definitions"
-	varDef := SBreedVarDef new.
-	variables := Variables new updateVarDef: varDef.
+{ #category : #api }
+SteloBreed >> reset [
+
+	"this method clears all variable with its definitions"
+
+	varDef := self newVarDef.
+	variables := Variables new updateVarDef: varDef
 ]
 
-{ #category : #microworld }
-SBreed >> scaleVarNo: vid color: anInteger from: aNumber1 to: aNumber2 index: id [
+{ #category : #api }
+SteloBreed >> scaleVarNo: vid color: anInteger from: aNumber1 to: aNumber2 index: id [
 	| v c |
 	v := variables var: vid at: id.
 	c := ColorList
@@ -172,116 +179,133 @@ SBreed >> scaleVarNo: vid color: anInteger from: aNumber1 to: aNumber2 index: id
 	self colorAt: id put: c
 ]
 
-{ #category : #microworld }
-SBreed >> size [
+{ #category : #accessing }
+SteloBreed >> size [
 	self subclassResponsibility.
 ]
 
 { #category : #'object i/o' }
-SBreed >> storeFieldsOn: anObjStream [
+SteloBreed >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(varDef variables) on: anObjStream.
 ]
 
 { #category : #accessing }
-SBreed >> userDefinedListNames [
+SteloBreed >> userDefinedListNames [
 	^ varDef listNames
 ]
 
 { #category : #'accessing variable' }
-SBreed >> userDefinedVarNames [
+SteloBreed >> userDefinedVarNames [
 	^ (varDef userDefinedVarNames \ self userDefinedListNames) sorted
 ]
 
 { #category : #accessing }
-SBreed >> userDefinedVarNoAndNames [
+SteloBreed >> userDefinedVarNoAndNames [
 	^ varDef userDefinedVarNoAndNames
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger at: id [
+SteloBreed >> var: anInteger at: id [
 	^ variables var: anInteger at: id
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger at: id put: aNumber [
+SteloBreed >> var: anInteger at: id put: aNumber [
 	(variables varAt: anInteger) at: id put: aNumber.
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger list: id [
+SteloBreed >> var: anInteger list: id [
 	^ variables var: anInteger list: id
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger list: id add: anObject [
+SteloBreed >> var: anInteger list: id add: anObject [
 	variables var: anInteger list: id add: anObject
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger list: id at: anInteger2 [
+SteloBreed >> var: anInteger list: id at: anInteger2 [
 	^ variables var: anInteger list: id at: anInteger2
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger list: id at: anInteger2 put: aNumber [
+SteloBreed >> var: anInteger list: id at: anInteger2 put: aNumber [
 	variables var: anInteger list: id at: anInteger2 put: aNumber
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger list: id contains: anInteger2 [
+SteloBreed >> var: anInteger list: id contains: anInteger2 [
 	^ variables var: anInteger list: id contains: anInteger2
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger list: id remove: anObject [
+SteloBreed >> var: anInteger list: id remove: anObject [
 	variables var: anInteger list: id remove: anObject
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger list: id set: aCollection [
+SteloBreed >> var: anInteger list: id set: aCollection [
 	variables var: anInteger list: id set: aCollection
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger listSizeOf: id [
+SteloBreed >> var: anInteger listSizeOf: id [
 	^ variables var: anInteger listSizeOf: id
 ]
 
 { #category : #'accessing variable' }
-SBreed >> var: anInteger putAll: anObject [
+SteloBreed >> var: anInteger putAll: anObject [
 	variables setVar: anInteger toAll: anObject.
 ]
 
 { #category : #'accessing variable' }
-SBreed >> varArrayNamed: aString [
+SteloBreed >> varArrayNamed: aString [
 	| vno |
 	vno := self varNoFor: aString.
 	^ variables realArrayAt: vno
 ]
 
 { #category : #'accessing variable' }
-SBreed >> varArrayNamed: aString put: aCollection [
+SteloBreed >> varArrayNamed: aString put: aCollection [
 	| vno |
 	vno := self varNoFor: aString.
 	^ variables setVar: vno toArray: aCollection
 ]
 
 { #category : #accessing }
-SBreed >> varDef [
+SteloBreed >> varDef [
 	^ varDef
 ]
 
 { #category : #accessing }
-SBreed >> varNames [
+SteloBreed >> varDef: anObject [
+
+	varDef := anObject
+]
+
+{ #category : #accessing }
+SteloBreed >> varNames [
 	^ varDef varNames
 ]
 
 { #category : #accessing }
-SBreed >> varNoFor: aString [
+SteloBreed >> varNoFor: aString [
 	^ varDef varNoFor: aString
 ]
 
-{ #category : #accessing }
-SBreed >> variableNameInUse: aString [
+{ #category : #testing }
+SteloBreed >> variableNameInUse: aString [
 	^ varDef includes: aString
+]
+
+{ #category : #accessing }
+SteloBreed >> variables [
+	^ variables
+]
+
+{ #category : #accessing }
+SteloBreed >> variables: anObject [
+
+	variables := anObject
 ]

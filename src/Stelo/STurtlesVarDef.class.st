@@ -1,46 +1,46 @@
 Class {
-	#name : #STurtleVarDef,
-	#superclass : #SBreedVarDef,
+	#name : #STurtlesVarDef,
+	#superclass : #VarDef,
 	#category : #'Stelo-Model'
 }
 
 { #category : #accessing }
-STurtleVarDef class >> aliveFlagNo [
+STurtlesVarDef class >> aliveFlagNo [
 	^ 0
 ]
 
 { #category : #accessing }
-STurtleVarDef class >> colorVarNo [
+STurtlesVarDef class >> colorVarNo [
 	^ 1
 ]
 
 { #category : #accessing }
-STurtleVarDef class >> flagVarNo [
+STurtlesVarDef class >> flagVarNo [
 	^ 2
 ]
 
 { #category : #accessing }
-STurtleVarDef class >> headingVarNo [
+STurtlesVarDef class >> headingVarNo [
 	^ 5
 ]
 
 { #category : #accessing }
-STurtleVarDef class >> penDownFlagNo [
+STurtlesVarDef class >> penDownFlagNo [
 	^ 1
 ]
 
 { #category : #accessing }
-STurtleVarDef class >> xVarNo [
+STurtlesVarDef class >> xVarNo [
 	^ 3
 ]
 
 { #category : #accessing }
-STurtleVarDef class >> yVarNo [
+STurtlesVarDef class >> yVarNo [
 	^ 4
 ]
 
 { #category : #private }
-STurtleVarDef >> setupReservedVarNames [
+STurtlesVarDef >> setupReservedVarNames [
 	self
 		addReserved: 'color'
 		varNo: self class colorVarNo

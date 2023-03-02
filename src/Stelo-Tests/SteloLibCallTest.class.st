@@ -44,9 +44,9 @@ SteloLibCallTest >> testAddVariableNameBreedNo [
 	| c x |
 	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
-	x := c addVariable: 10 breed: SBreedId patchBreedNo.
+	x := c addVariable: 10 breed: SBreedId patchesBreedNo.
 	self assert: x.
-	x := c addVariable: 10 breed: SBreedId patchBreedNo.
+	x := c addVariable: 10 breed: SBreedId patchesBreedNo.
 	self deny: x
 ]
 
@@ -58,11 +58,11 @@ SteloLibCallTest >> testGetByteBreedId [
 	c setupBreed: 3.
 	c create: 3 turtles: 1.
 	c
-		setByte: STurtleVarDef colorVarNo
+		setByte: STurtlesVarDef colorVarNo
 		breed: 3
 		id: 1
 		value: 10.
-	x := c getByte: STurtleVarDef colorVarNo breed: 3 id: 1.
+	x := c getByte: STurtlesVarDef colorVarNo breed: 3 id: 1.
 	self assert: x equals: 10
 ]
 
@@ -81,24 +81,24 @@ SteloLibCallTest >> testGetTypeBreed [
 	| c t |
 	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
-	c setupBreed: SBreedId turtleBreedNo.
-	t := c getType: STurtleVarDef colorVarNo breed: SBreedId turtleBreedNo.
+	c setupBreed: SBreedId turtlesBreedNo.
+	t := c getType: STurtlesVarDef colorVarNo breed: SBreedId turtlesBreedNo.
 	self assert: t equals: SteloLibCall byte.
-	t := c getType: STurtleVarDef flagVarNo breed: SBreedId turtleBreedNo.
+	t := c getType: STurtlesVarDef flagVarNo breed: SBreedId turtlesBreedNo.
 	self assert: t equals: SteloLibCall byte.
-	t := c getType: STurtleVarDef xVarNo breed: SBreedId turtleBreedNo.
+	t := c getType: STurtlesVarDef xVarNo breed: SBreedId turtlesBreedNo.
 	self assert: t equals: SteloLibCall float.
-	t := c getType: STurtleVarDef yVarNo breed: SBreedId turtleBreedNo.
+	t := c getType: STurtlesVarDef yVarNo breed: SBreedId turtlesBreedNo.
 	self assert: t equals: SteloLibCall float.
-	t := c getType: STurtleVarDef headingVarNo breed: SBreedId turtleBreedNo.
+	t := c getType: STurtlesVarDef headingVarNo breed: SBreedId turtlesBreedNo.
 	self assert: t equals: SteloLibCall float.
-	t := c getType: SPatchVarDef colorVarNo breed: SBreedId patchBreedNo.
+	t := c getType: SPatchesVarDef colorVarNo breed: SBreedId patchesBreedNo.
 	self assert: t equals: SteloLibCall byte.
-	t := c getType: SPatchVarDef xVarNo breed: SBreedId patchBreedNo.
+	t := c getType: SPatchesVarDef xVarNo breed: SBreedId patchesBreedNo.
 	self assert: t equals: SteloLibCall computedFloat.
-	t := c getType: SPatchVarDef yVarNo breed: SBreedId patchBreedNo.
+	t := c getType: SPatchesVarDef yVarNo breed: SBreedId patchesBreedNo.
 	self assert: t equals: SteloLibCall computedFloat.
-	t := c getType: SPatchVarDef screenVarNo breed: SBreedId patchBreedNo.
+	t := c getType: SPatchesVarDef screenVarNo breed: SBreedId patchesBreedNo.
 	self assert: t equals: SteloLibCall byte.
 ]
 
@@ -108,18 +108,18 @@ SteloLibCallTest >> testGetWordBreedId [
 	pluginExists ifFalse: [ ^ self ].
 	c := SteloLibCall new.
 	c setupBreed: 3.
-	x := c getByte: STurtleVarDef flagVarNo breed: 3 id: 1.
+	x := c getByte: STurtlesVarDef flagVarNo breed: 3 id: 1.
 	self assert: x equals: 0.
-	x := c getByte: STurtleVarDef flagVarNo breed: 3 id: 2.
+	x := c getByte: STurtlesVarDef flagVarNo breed: 3 id: 2.
 	self assert: x equals: 0.
-	x := c getByte: STurtleVarDef flagVarNo breed: 3 id: 3.
+	x := c getByte: STurtlesVarDef flagVarNo breed: 3 id: 3.
 	self assert: x equals: 0.
 	c create: 3 turtles: 2.
-	x := c getByte: STurtleVarDef flagVarNo breed: 3 id: 1.
+	x := c getByte: STurtlesVarDef flagVarNo breed: 3 id: 1.
 	self assert: x equals: 1.
-	x := c getByte: STurtleVarDef flagVarNo breed: 3 id: 2.
+	x := c getByte: STurtlesVarDef flagVarNo breed: 3 id: 2.
 	self assert: x equals: 1.
-	x := c getByte: STurtleVarDef flagVarNo breed: 3 id: 3.
+	x := c getByte: STurtlesVarDef flagVarNo breed: 3 id: 3.
 	self assert: x equals: 0.
 ]
 
@@ -159,13 +159,13 @@ SteloLibCallTest >> testSetByteAllBreedExtArraySize [
 	ext at: 1 put: 10.
 	ext at: 2 put: 20.
 	ext at: 3 put: 30.
-	[ 	c setByteAll: STurtleVarDef colorVarNo breed: 3 extArray: ext size: 3 ]
+	[ 	c setByteAll: STurtlesVarDef colorVarNo breed: 3 extArray: ext size: 3 ]
 	ensure: [ ext release ].
-	x := c getByte: STurtleVarDef colorVarNo breed: 3 id: 1.
+	x := c getByte: STurtlesVarDef colorVarNo breed: 3 id: 1.
 	self assert: x equals: 10.
-	x := c getByte: STurtleVarDef colorVarNo breed: 3 id: 2.
+	x := c getByte: STurtlesVarDef colorVarNo breed: 3 id: 2.
 	self assert: x equals: 20.
-	x := c getByte: STurtleVarDef colorVarNo breed: 3 id: 3.
+	x := c getByte: STurtlesVarDef colorVarNo breed: 3 id: 3.
 	self assert: x equals: 30.
 ]
 
@@ -185,13 +185,13 @@ SteloLibCallTest >> testSetFloatAllBreedExtArraySize [
 	ext at: 1 put: 1.5.
 	ext at: 2 put: 2.6.
 	ext at: 3 put: 3.7.
-	[ 	c setFloatAll: STurtleVarDef xVarNo breed: 3 extArray: ext size: 3 ]
+	[ 	c setFloatAll: STurtlesVarDef xVarNo breed: 3 extArray: ext size: 3 ]
 	ensure: [ ext release ].
-	x := c getFloat: STurtleVarDef xVarNo breed: 3 id: 1.
+	x := c getFloat: STurtlesVarDef xVarNo breed: 3 id: 1.
 	self assert: x closeTo: 1.5.
-	x := c getFloat: STurtleVarDef xVarNo breed: 3 id: 2.
+	x := c getFloat: STurtlesVarDef xVarNo breed: 3 id: 2.
 	self assert: x closeTo: 2.6.
-	x := c getFloat: STurtleVarDef xVarNo breed: 3 id: 3.
+	x := c getFloat: STurtlesVarDef xVarNo breed: 3 id: 3.
 	self assert: x closeTo: 3.7.
 ]
 
@@ -202,14 +202,14 @@ SteloLibCallTest >> testSetFloatBreedIdValue [
 	c := SteloLibCall new.
 	c setupBreed: 3.
 	c create: 3 turtles: 1.
-	x := c getFloat: STurtleVarDef xVarNo breed: 3 id: 1.
+	x := c getFloat: STurtlesVarDef xVarNo breed: 3 id: 1.
 	self assert: x closeTo: 0.
 	c
-		setFloat: STurtleVarDef xVarNo
+		setFloat: STurtlesVarDef xVarNo
 		breed: 3
 		id: 1
 		value: 1.0.
-	x := c getFloat: STurtleVarDef xVarNo breed: 3 id: 1.
+	x := c getFloat: STurtlesVarDef xVarNo breed: 3 id: 1.
 	self assert: x closeTo: 1.
 	c
 		setFloat: SObserverVarDef ticksVarNo

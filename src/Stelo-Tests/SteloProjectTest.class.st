@@ -33,7 +33,7 @@ SteloProjectTest >> testAddNewTurtleScript [
 	proj := self newProject.
 	app := self newApp.
 	proj application: app.
-	proj privObserverScript: proj newObserverScript.
+	proj observerScript: proj newObserverScript.
 	s := proj addNewTurtleScript.
 	self assert: (s isKindOf: TurtlesScript).
 	self assert: s objName isString.
@@ -68,30 +68,30 @@ SteloProjectTest >> testAssignUniqueObjNameTo [
 ]
 
 { #category : #test }
-SteloProjectTest >> testPrivObserverScript [
+SteloProjectTest >> testObserverScript [
 	| app proj s |
 	proj := self newProject.
 	app := self newApp.
 	proj application: app.
-	self assert: proj privObserverScript isNil.
+	self assert: proj observerScript isNil.
 	s := proj newObserverScript.
-	proj privObserverScript: s.
+	proj observerScript: s.
 	proj addScript: s.
-	self assert: proj privObserverScript equals: s.
+	self assert: proj observerScript equals: s.
 	self assert: (proj scriptOf: 1) equals: s
 ]
 
 { #category : #test }
-SteloProjectTest >> testPrivPatchesScript [
+SteloProjectTest >> testPatchesScript [
 	| app proj s |
 	proj := self newProject.
 	app := self newApp.
 	proj application: app.
-	self assert: proj privPatchesScript isNil.
+	self assert: proj patchesScript isNil.
 	s := proj newPatchesScript.
-	proj privPatchesScript: s.
+	proj patchesScript: s.
 	proj addScript: s.
-	self assert: proj privPatchesScript equals: s.
+	self assert: proj patchesScript equals: s.
 	self assert: (proj scriptOf: 2) equals: s
 ]
 

@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #'tests-private' }
-SteloProcessTest >> testPrivSWorld [
-	| w p |
-	w := SMicroWorld new.
-	p := SteloProcess new.
-	self assert: p privSWorld isNil.
-	p privSWorld: w.
-	self assert: p privSWorld equals: w.
-]
-
-{ #category : #'tests-private' }
 SteloProcessTest >> testProgram [
 	| pr p |
 	pr := SProgram new.
 	p := SteloProcess new program: pr.
 	self assert: p program equals: pr.
+]
+
+{ #category : #'tests-private' }
+SteloProcessTest >> testSworld [
+	| w p |
+	w := SMicroWorld new.
+	p := SteloProcess new.
+	self assert: p sworld isNil.
+	p sworld: w.
+	self assert: p sworld equals: w.
 ]

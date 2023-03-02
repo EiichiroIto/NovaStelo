@@ -29,11 +29,11 @@ SpSteloTest >> testAddTurtles [
 	proj := self newProject.
 	app installNewProject: proj.
 	self assert: proj scripts size equals: 3.
-	self assert: app sworld privBreeds size equals: 3.
+	self assert: app sworld breeds size equals: 3.
 	ret := app addTurtles.
 	self assert: ret breedNo equals: 4.
 	self assert: proj scripts size equals: 4.
-	self assert: app sworld privBreeds size equals: 4.
+	self assert: app sworld breeds size equals: 4.
 	self assert: (ret isKindOf: TurtlesScript).
 	self assert: (proj scriptOf: 4) equals: ret.
 	self assert: (app sworld breedOf: 4) equals: ret breed
@@ -46,7 +46,7 @@ SpSteloTest >> testDeleteTurtles [
 	proj := self newProject.
 	app installNewProject: proj.
 	self assert: proj scripts size equals: 3.
-	self assert: app sworld privBreeds size equals: 3.
+	self assert: app sworld breeds size equals: 3.
 	ret := app addTurtles.
 	self assert: ret breedNo equals: 4.
 	t3 := proj scriptOf: 3.
@@ -55,7 +55,7 @@ SpSteloTest >> testDeleteTurtles [
 	app deleteTurtles: 4.
 	self assert: proj scripts size equals: 3.
 	self
-		assert: (app sworld privBreeds count: [ :each | each notNil ])
+		assert: (app sworld breeds count: [ :each | each notNil ])
 		equals: 3.
 	ret := app addTurtles.
 	self assert: ret breedNo equals: 5.
@@ -66,7 +66,7 @@ SpSteloTest >> testDeleteTurtles [
 	self assert: (proj scriptOf: 5) equals: t4.
 	self assert: proj scripts size equals: 3.
 	self
-		assert: (app sworld privBreeds count: [ :each | each notNil ])
+		assert: (app sworld breeds count: [ :each | each notNil ])
 		equals: 3.
 ]
 

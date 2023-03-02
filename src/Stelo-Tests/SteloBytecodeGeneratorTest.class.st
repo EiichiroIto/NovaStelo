@@ -104,7 +104,7 @@ SteloBytecodeGeneratorTest >> testAimHigh [
 	w x: 3 at: 1 put: 0.
 	w y: 3 at: 1 put: 0.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 45.
@@ -124,10 +124,10 @@ SteloBytecodeGeneratorTest >> testAimHigh [
 		at: 14
 		put: 3.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b aimHigh: (self choice: 'a').
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t codes: b code.
 	ret := t evaluate: 1.
 	self assert: ret equals: -45
@@ -215,7 +215,7 @@ SteloBytecodeGeneratorTest >> testChangeObserverVarBy [
 	b script: (app scriptOf: SBreedId observerBreedNo).
 	b changeObserverVar: (self choice: 'a') by: (self literalValue: 2).
 	t := self newThread: w.
-	t forBreedNo: SBreedId turtleBreedNo index: 1.
+	t forBreedNo: SBreedId turtlesBreedNo index: 1.
 	t codes: b code.
 	t execute: 1.
 
@@ -237,7 +237,7 @@ SteloBytecodeGeneratorTest >> testChangePatchVarAtBy [
 	w patches var: vid at: 5 put: 2.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	pno := w patchIndexAtX: 0 y: 0.
 	b
 		changePatchVar: (self choice: 'a')
@@ -252,7 +252,7 @@ SteloBytecodeGeneratorTest >> testChangePatchVarAtBy [
 	w y: 3 at: 1 put: -1.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	pno := w patchIndexAtX: 0 y: -1.
 	b
 		changePatchVar: (self choice: 'a')
@@ -274,20 +274,20 @@ SteloBytecodeGeneratorTest >> testChangePatchVarBy [
 	w := app sworld.
 	w createPatch: 5.
 	w create: 3 turtles: 2.
-	vid := (w breedOf: SBreedId patchBreedNo) addVariable: 'a'.
+	vid := (w breedOf: SBreedId patchesBreedNo) addVariable: 'a'.
 	w
 		var: vid
-		breed: SBreedId patchBreedNo
+		breed: SBreedId patchesBreedNo
 		at: 4
 		put: 6.
 	w
 		var: vid
-		breed: SBreedId patchBreedNo
+		breed: SBreedId patchesBreedNo
 		at: 5
 		put: 7.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b
 		changePatchVar: (self choice: 'a')
 		by: (self literalValue: 2).
@@ -297,10 +297,10 @@ SteloBytecodeGeneratorTest >> testChangePatchVarBy [
 	t execute: 1.
 
 	self
-		assert: (w var: vid breed: SBreedId patchBreedNo at: 4)
+		assert: (w var: vid breed: SBreedId patchesBreedNo at: 4)
 		equals: 8.
 	self
-		assert: (w var: vid breed: SBreedId patchBreedNo at: 5)
+		assert: (w var: vid breed: SBreedId patchesBreedNo at: 5)
 		equals: 9
 ]
 
@@ -318,7 +318,7 @@ SteloBytecodeGeneratorTest >> testChangeVarBy [
 		at: 1
 		put: 5.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b changeVar: (self choice: 'a') by: (self literalValue: 10).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -328,7 +328,7 @@ SteloBytecodeGeneratorTest >> testChangeVarBy [
 	self assert: (w var: vid breed: 3 at: 2) equals: 0.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b changeVar: (self choice: 'a') by: (self literalValue: -1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
@@ -344,12 +344,12 @@ SteloBytecodeGeneratorTest >> testChangeXposBy [
 	w := self newWorld.
 	w create: 3 turtles: 2.
 	w
-		var: STurtleVarDef xVarNo
+		var: STurtlesVarDef xVarNo
 		breed: 3
 		at: 1
 		put: 3.
 	w
-		var: STurtleVarDef xVarNo
+		var: STurtlesVarDef xVarNo
 		breed: 3
 		at: 2
 		put: 4.
@@ -359,8 +359,8 @@ SteloBytecodeGeneratorTest >> testChangeXposBy [
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 3.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 7
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 3.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 7
 ]
 
 { #category : #test }
@@ -369,12 +369,12 @@ SteloBytecodeGeneratorTest >> testChangeYposBy [
 	w := self newWorld.
 	w create: 3 turtles: 2.
 	w
-		var: STurtleVarDef yVarNo
+		var: STurtlesVarDef yVarNo
 		breed: 3
 		at: 1
 		put: 3.
 	w
-		var: STurtleVarDef yVarNo
+		var: STurtlesVarDef yVarNo
 		breed: 3
 		at: 2
 		put: 4.
@@ -384,8 +384,8 @@ SteloBytecodeGeneratorTest >> testChangeYposBy [
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 3.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 7
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 3.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 7
 ]
 
 { #category : #test }
@@ -395,14 +395,14 @@ SteloBytecodeGeneratorTest >> testClearAll [
 	w createPatch: 3.
 	w create: 3 turtles: 2.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 1
 		put: 3.
 	b := self newGenerator.
 	b clearAll.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 2.
@@ -411,7 +411,7 @@ SteloBytecodeGeneratorTest >> testClearAll [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 0.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 0
@@ -424,14 +424,14 @@ SteloBytecodeGeneratorTest >> testClearGraphics [
 	w createPatch: 3.
 	w create: 3 turtles: 2.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 1
 		put: 3.
 	b := self newGenerator.
 	b clearGraphics.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 2.
@@ -440,7 +440,7 @@ SteloBytecodeGeneratorTest >> testClearGraphics [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 0.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 2
@@ -474,20 +474,20 @@ SteloBytecodeGeneratorTest >> testClearTurtle [
 	| w b t |
 	w := self newWorld.
 	w createPatch: 3.
-	w create: SBreedId turtleBreedNo turtles: 2.
+	w create: SBreedId turtlesBreedNo turtles: 2.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 1
 		put: 3.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 2.
 
 	b := self newGenerator.
-	b clearTurtle: (self literalValue: SBreedId turtleBreedNo).
+	b clearTurtle: (self literalValue: SBreedId turtlesBreedNo).
 
 	t := self newThread: w.
 	t forObserver.
@@ -495,7 +495,7 @@ SteloBytecodeGeneratorTest >> testClearTurtle [
 	t execute: 1.
 
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 0
@@ -508,14 +508,14 @@ SteloBytecodeGeneratorTest >> testClearTurtles [
 	w createPatch: 3.
 	w create: 3 turtles: 2.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 1
 		put: 3.
 	b := self newGenerator.
 	b clearTurtles.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 2.
@@ -524,7 +524,7 @@ SteloBytecodeGeneratorTest >> testClearTurtles [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 0
@@ -742,21 +742,21 @@ SteloBytecodeGeneratorTest >> testCopyPatchVarTo [
 	w := app sworld.
 	w createPatch: 5.
 	w create: 3 turtles: 2.
-	vid1 := (w breedOf: SBreedId patchBreedNo) addVariable: 'a'.
-	vid2 := (w breedOf: SBreedId patchBreedNo) addVariable: 'b'.
+	vid1 := (w breedOf: SBreedId patchesBreedNo) addVariable: 'a'.
+	vid2 := (w breedOf: SBreedId patchesBreedNo) addVariable: 'b'.
 	w
 		var: vid1
-		breed: SBreedId patchBreedNo
+		breed: SBreedId patchesBreedNo
 		at: 4
 		put: 6.
 	w
 		var: vid2
-		breed: SBreedId patchBreedNo
+		breed: SBreedId patchesBreedNo
 		at: 4
 		put: 7.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b
 		copyPatchVar: (self choice: 'a')
 		to: (self choice: 'b').
@@ -766,10 +766,10 @@ SteloBytecodeGeneratorTest >> testCopyPatchVarTo [
 	t execute: 1.
 
 	self
-		assert: (w var: vid1 breed: SBreedId patchBreedNo at: 4)
+		assert: (w var: vid1 breed: SBreedId patchesBreedNo at: 4)
 		equals: 6.
 	self
-		assert: (w var: vid2 breed: SBreedId patchBreedNo at: 4)
+		assert: (w var: vid2 breed: SBreedId patchesBreedNo at: 4)
 		equals: 6
 ]
 
@@ -780,14 +780,14 @@ SteloBytecodeGeneratorTest >> testCreatePatchesSize [
 	w createPatch: 3.
 	w create: 3 turtles: 2.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 1
 		put: 3.
 	b := self newGenerator.
 	b createPatchesSize: (self literalValue: 4).
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 2.
@@ -796,7 +796,7 @@ SteloBytecodeGeneratorTest >> testCreatePatchesSize [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 0.
 	self assert: w patches size equals: 16.
 	self assert: (w breedOf: 3) countAlive equals: 0
@@ -809,14 +809,14 @@ SteloBytecodeGeneratorTest >> testCreateTurtleSizeBreedId [
 	w createPatch: 3.
 	w create: 3 turtles: 2.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 1
 		put: 3.
 	b := self newGenerator.
 	b createTurtleSize: (self literalValue: 3) breedId: (self literalValue: 3).
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 2.
@@ -825,7 +825,7 @@ SteloBytecodeGeneratorTest >> testCreateTurtleSizeBreedId [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: 3.
 	self assert: w patches size equals: 9.
 	self assert: (w breedOf: 3) countAlive equals: 5
@@ -841,18 +841,18 @@ SteloBytecodeGeneratorTest >> testDie [
 	b die.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 2).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2).
 	t codes: b code.
 	t execute: 1.
-	self deny: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 2).
+	self deny: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2).
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
 	t execute: 1.
-	self deny: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 2)
+	self deny: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2)
 ]
 
 { #category : #test }
@@ -863,7 +863,7 @@ SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b diffuse4Var: (self choice: 'a') percentage: (self literalValue: 80).
 
 	"
@@ -877,7 +877,7 @@ SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(2 2 0 2 2 0 0 0 0 0 0 0 2 0 0 0) asFloatArray.
@@ -888,13 +888,13 @@ SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
  0  0  0  0 -> 0  0  0  0
  0  0  0  0    0  0  0  2
 "
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 4 put: 10.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(2 0 2 2 0 0 0 2 0 0 0 0 0 0 0 2) asFloatArray.
@@ -905,13 +905,13 @@ SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
  0  0  0  0 -> 2  0  0  0
 10  0  0  0    2  2  0  2
 "
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 13 put: 10.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(2 0 0 0 0 0 0 0 2 0 0 0 2 2 0 2) asFloatArray.
@@ -922,24 +922,24 @@ SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
  0  0  0  0 -> 0  0  0  2
  0  0  0 10    2  0  2  2
 "
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 16 put: 10.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(0 0 0 2 0 0 0 0 0 0 0 2 2 0 2 2) asFloatArray.
 	w createPatch: 3.
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 5 put: 100.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(0 20 0 20 20 20 0 20 0) asFloatArray
@@ -953,7 +953,7 @@ SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b diffuseVar: (self choice: 'a') percentage: (self literalValue: 80).
 
 	"
@@ -967,7 +967,7 @@ SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(2 1 0 1 1 1 0 1 0 0 0 0 1 1 0 1) asFloatArray.
@@ -978,13 +978,13 @@ SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
  0  0  0  0 -> 0  0  0  0
  0  0  0  0    0  0  0  2
 "
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 4 put: 10.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(1 0 1 2 1 0 1 1 0 0 0 0 1 0 1 1) asFloatArray.
@@ -995,13 +995,13 @@ SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
  0  0  0  0 -> 2  0  0  0
 10  0  0  0    2  2  0  2
 "
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 13 put: 10.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(1 1 0 1 0 0 0 0 1 1 0 1 2 1 0 1) asFloatArray.
@@ -1012,24 +1012,24 @@ SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
  0  0  0  0 -> 0  0  0  2
  0  0  0 10    2  0  2  2
 "
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 16 put: 10.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(1 0 1 1 0 0 0 0 1 0 1 1 1 0 1 2) asFloatArray.
 	w createPatch: 3.
-	w patches privVariables clearVarNo: v.
+	w patches variables clearVarNo: v.
 	w patches var: v at: 5 put: 100.
 	t := self newThread: w.
 	t forObserver.
 	t codes: b code.
 	t execute: 1.
-	arr := w patches privVariables realArrayAt: v.
+	arr := w patches variables realArrayAt: v.
 	self
 		assertCollection: arr
 		equals: #(10 10 10 10 20 10 10 10 10) asFloatArray
@@ -1134,23 +1134,23 @@ SteloBytecodeGeneratorTest >> testDoIfBegin [
 	i := b doIfBegin: nil.
 	b die.
 	b doIfEnd: i.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	b := self newGenerator.
 	b appendValue: true.
 	i := b doIfBegin: nil.
 	b die.
 	b doIfEnd: i.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self deny: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1)
+	self deny: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1)
 ]
 
 { #category : #test }
@@ -1161,18 +1161,18 @@ SteloBytecodeGeneratorTest >> testDoIfElse [
 	w := app sworld.
 	w create: 3 turtles: 2.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 1
 		put: 0.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 2
 		put: 0.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b appendValue: false.
 	i := b doIfBegin: nil.
 	b die.
@@ -1180,20 +1180,20 @@ SteloBytecodeGeneratorTest >> testDoIfElse [
 	b setVar: (self choice: 'color') to: (self literalValue: 15).
 	b doIfEnd: i.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 1)
 		equals: 0.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 1)
 		equals: 15.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b appendValue: true.
 	i := b doIfBegin: nil.
 	b die.
@@ -1201,17 +1201,17 @@ SteloBytecodeGeneratorTest >> testDoIfElse [
 	b setVar: (self choice: 'color') to: (self literalValue: 15).
 	b doIfEnd: i.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 2)
 		equals: 0.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 2).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 2)
 		equals: 0.
-	self deny: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 2)
+	self deny: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2)
 ]
 
 { #category : #test }
@@ -1231,12 +1231,12 @@ SteloBytecodeGeneratorTest >> testDoRepeatBegin [
 	arr := b doRepeatBegin: 5.
 	b forward: (self literalValue: 1).
 	b doRepeatEndLabels: arr.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 0.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 5
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 5
 ]
 
 { #category : #test }
@@ -1257,12 +1257,12 @@ SteloBytecodeGeneratorTest >> testDoUntilBegin [
 	b getXpos.
 	b appendSymbol: #less.
 	b doUntilEnd: nil id: i.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 0.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 6
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 6
 ]
 
 { #category : #test }
@@ -1347,10 +1347,10 @@ SteloBytecodeGeneratorTest >> testForward [
 	| w b t |
 	w := self newWorld.
 	w create: 3 turtles: 2.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 0.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0.
 	(w breedOf: 3) headingAt: 1 put: 45.
 	b := self newGenerator.
 	b forward: (self literalValue: 2 sqrt).
@@ -1358,10 +1358,10 @@ SteloBytecodeGeneratorTest >> testForward [
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 1.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 1.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 1.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 1.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0
 ]
 
 { #category : #test }
@@ -1370,10 +1370,10 @@ SteloBytecodeGeneratorTest >> testFront [
 	| w b t ret x y |
 	w := self newWorld.
 	w createPatch: 5.
-	w create: SBreedId turtleBreedNo turtles: 1.
-	x := w x: SBreedId turtleBreedNo at: 1.
-	y := w x: SBreedId turtleBreedNo at: 1.
-	(w breedOf: SBreedId turtleBreedNo) headingAt: 1 put: 0.
+	w create: SBreedId turtlesBreedNo turtles: 1.
+	x := w x: SBreedId turtlesBreedNo at: 1.
+	y := w x: SBreedId turtlesBreedNo at: 1.
+	(w breedOf: SBreedId turtlesBreedNo) headingAt: 1 put: 0.
 
 	b := self newGenerator.
 	ret := b front.
@@ -1429,22 +1429,22 @@ SteloBytecodeGeneratorTest >> testGetColor [
 	w createPatch: 3.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 1
 		put: ColorList red.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 2
 		put: ColorList yellow.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 1
 		put: ColorList green.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 2
 		put: ColorList blue.
@@ -1469,10 +1469,10 @@ SteloBytecodeGeneratorTest >> testGetHeading [
 	| w b t ret |
 	w := self newWorld.
 	w createPatch: 3.
-	w create: SBreedId turtleBreedNo turtles: 1.
+	w create: SBreedId turtlesBreedNo turtles: 1.
 	w
-		var: STurtleVarDef headingVarNo
-		breed: SBreedId turtleBreedNo
+		var: STurtlesVarDef headingVarNo
+		breed: SBreedId turtlesBreedNo
 		at: 1
 		put: 123.
 
@@ -1542,27 +1542,27 @@ SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 	w createPatch: 3.
 	w create: 3 turtles: 1.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 3
 		put: ColorList green.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 5
 		put: ColorList blue.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 6
 		put: ColorList yellow.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 7
 		put: ColorList red.
 	w
-		var: SPatchVarDef colorVarNo
+		var: SPatchesVarDef colorVarNo
 		breed: 2
 		at: 9
 		put: ColorList lime.
@@ -1595,7 +1595,7 @@ SteloBytecodeGeneratorTest >> testGetPatchVarAt [
 	w patches var: vid at: 5 put: 4.
 	w patches var: vid at: 2 put: 8.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	pno := w patchIndexAtX: 0 y: 0.
 	ret := b getPatchVar: (self choice: 'a') at: (self literalValue: pno).
 	self assert: ret isNil.
@@ -1620,10 +1620,10 @@ SteloBytecodeGeneratorTest >> testGetTurtleBreedVar [
 	vid := (w breedOf: 3) addVariable: 'a'.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b
 		getTurtle: (self literalValue: 1)
-		breed: (self literalValue: SBreedId turtleBreedNo)
+		breed: (self literalValue: SBreedId turtlesBreedNo)
 		var: (self choice: 'a').
 
 	t := self newThread: w.
@@ -1650,7 +1650,7 @@ SteloBytecodeGeneratorTest >> testGetVar [
 	w create: 3 turtles: 2.
 	vid := (w breedOf: 3) addVariable: 'a'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	ret := b getVar: (self choice: 'a').
 	self assert: ret isNil.
 	t := self newThread: w.
@@ -1758,7 +1758,7 @@ SteloBytecodeGeneratorTest >> testHatch [
 	w := self newWorld.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 1
 		put: 15.
@@ -1771,10 +1771,10 @@ SteloBytecodeGeneratorTest >> testHatch [
 	t execute: 1.
 	self assert: (w breedOf: 3) countAlive equals: 2.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 1)
 		equals: 15.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 2)
 		equals: 15
 ]
 
@@ -1789,8 +1789,8 @@ SteloBytecodeGeneratorTest >> testHere [
  4 5 6
  7 8 9"
 
-	w var: STurtleVarDef xVarNo breed: SBreedId turtleBreedNo at: 1 put: 0.
-	w var: STurtleVarDef yVarNo breed: SBreedId turtleBreedNo at: 1 put: 0.
+	w var: STurtlesVarDef xVarNo breed: SBreedId turtlesBreedNo at: 1 put: 0.
+	w var: STurtlesVarDef yVarNo breed: SBreedId turtlesBreedNo at: 1 put: 0.
 
 	b := self newGenerator.
 	b here.
@@ -1799,7 +1799,7 @@ SteloBytecodeGeneratorTest >> testHere [
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 5.
 
-	w var: STurtleVarDef xVarNo breed: SBreedId turtleBreedNo at: 1 put: 1.
+	w var: STurtlesVarDef xVarNo breed: SBreedId turtlesBreedNo at: 1 put: 1.
 
 	b := self newGenerator.
 	b here.
@@ -1808,7 +1808,7 @@ SteloBytecodeGeneratorTest >> testHere [
 	t codes: b code.
 	self assert: (t evaluate: 1) equals: 6.
 
-	w var: STurtleVarDef yVarNo breed: SBreedId turtleBreedNo at: 1 put: -1.
+	w var: STurtlesVarDef yVarNo breed: SBreedId turtlesBreedNo at: 1 put: -1.
 
 	b := self newGenerator.
 	b here.
@@ -1863,12 +1863,12 @@ SteloBytecodeGeneratorTest >> testIsPenDown [
 	w := self newWorld.
 	w create: 3 turtles: 2.
 	w
-		var: STurtleVarDef flagVarNo
+		var: STurtlesVarDef flagVarNo
 		breed: 3
 		at: 1
 		put: 1.
 	w
-		var: STurtleVarDef flagVarNo
+		var: STurtlesVarDef flagVarNo
 		breed: 3
 		at: 2
 		put: 3.
@@ -1896,14 +1896,14 @@ SteloBytecodeGeneratorTest >> testKillBreed [
 	b kill: (self literalValue: 2) breed: (self literalValue: 3).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 3.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 2).
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 3).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 3).
 	t codes: b code.
 	t execute: 1.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
-	self deny: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 2).
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 3)
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
+	self deny: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 3)
 ]
 
 { #category : #test }
@@ -2153,7 +2153,7 @@ SteloBytecodeGeneratorTest >> testMultiplyVarBy [
 	w createPatch: 3.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b multiplyVar: (self choice: 'a') by: (self literalValue: 2).
 	w patches var: v at: 1 put: 1.
 	w patches var: v at: 5 put: 2.
@@ -2164,7 +2164,7 @@ SteloBytecodeGeneratorTest >> testMultiplyVarBy [
 	t codes: b code.
 	t execute: 1.
 	self
-		assertCollection: (w patches privVariables realArrayAt: v)
+		assertCollection: (w patches variables realArrayAt: v)
 		equals: #(2 0 0 0 4 0 6 8 0) asFloatArray
 ]
 
@@ -2215,7 +2215,7 @@ SteloBytecodeGeneratorTest >> testNsum4VarTo [
 	v1 := w patches addVariable: 'a'.
 	v2 := w patches addVariable: 'b'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b nsum4Var: (self choice: 'a') to: (self choice: 'b').
 	"
 0 1 0 0     1 0 2 3
@@ -2232,7 +2232,7 @@ SteloBytecodeGeneratorTest >> testNsum4VarTo [
 	t codes: b code.
 	t execute: 1.
 	self
-		assertCollection: (w patches privVariables realArrayAt: v2)
+		assertCollection: (w patches variables realArrayAt: v2)
 		equals: #(1 0 2 3 0 4 0 1 2 0 3 3 3 3 3 0) asFloatArray
 ]
 
@@ -2246,7 +2246,7 @@ SteloBytecodeGeneratorTest >> testNsumVarTo [
 	v1 := w patches addVariable: 'a'.
 	v2 := w patches addVariable: 'b'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b nsumVar: (self choice: 'a') to: (self choice: 'b').
 	"
 0 1 0 0     4 1 5 4
@@ -2263,7 +2263,7 @@ SteloBytecodeGeneratorTest >> testNsumVarTo [
 	t codes: b code.
 	t execute: 1.
 	self
-		assertCollection: (w patches privVariables realArrayAt: v2)
+		assertCollection: (w patches variables realArrayAt: v2)
 		equals: #(4 1 5 4 3 4 3 1 5 1 6 4 6 3 6 0) asFloatArray
 ]
 
@@ -2326,7 +2326,7 @@ SteloBytecodeGeneratorTest >> testPenDown [
 	w := self newWorld.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef flagVarNo
+		var: STurtlesVarDef flagVarNo
 		breed: 3
 		at: 1
 		put: 1.
@@ -2336,8 +2336,8 @@ SteloBytecodeGeneratorTest >> testPenDown [
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	r := w var: STurtleVarDef flagVarNo breed: 3 at: 1.
-	self assert: r equals: 1 + (1 << STurtleVarDef penDownFlagNo)
+	r := w var: STurtlesVarDef flagVarNo breed: 3 at: 1.
+	self assert: r equals: 1 + (1 << STurtlesVarDef penDownFlagNo)
 ]
 
 { #category : #test }
@@ -2347,7 +2347,7 @@ SteloBytecodeGeneratorTest >> testPenDown2 [
 	w := self newWorld.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef flagVarNo
+		var: STurtlesVarDef flagVarNo
 		breed: 3
 		at: 1
 		put: 1.
@@ -2357,15 +2357,15 @@ SteloBytecodeGeneratorTest >> testPenDown2 [
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	r := w var: STurtleVarDef flagVarNo breed: 3 at: 1.
-	self assert: r equals: 1 + (1 << STurtleVarDef penDownFlagNo).
+	r := w var: STurtlesVarDef flagVarNo breed: 3 at: 1.
+	self assert: r equals: 1 + (1 << STurtlesVarDef penDownFlagNo).
 	b := self newGenerator.
 	b penDown: false.
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	r := w var: STurtleVarDef flagVarNo breed: 3 at: 1.
+	r := w var: STurtlesVarDef flagVarNo breed: 3 at: 1.
 	self assert: r equals: 1
 ]
 
@@ -2376,7 +2376,7 @@ SteloBytecodeGeneratorTest >> testPenUp [
 	w := self newWorld.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef flagVarNo
+		var: STurtlesVarDef flagVarNo
 		breed: 3
 		at: 1
 		put: 1.
@@ -2386,7 +2386,7 @@ SteloBytecodeGeneratorTest >> testPenUp [
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	r := w var: STurtleVarDef flagVarNo breed: 3 at: 1.
+	r := w var: STurtlesVarDef flagVarNo breed: 3 at: 1.
 	self assert: r equals: 1
 ]
 
@@ -2614,7 +2614,7 @@ SteloBytecodeGeneratorTest >> testScalePatchColorFromTo [
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b
 		scalePatch: (self choice: 'a')
 		color: (self literalValue: 15)
@@ -2636,34 +2636,34 @@ SteloBytecodeGeneratorTest >> testScalePatchColorFromTo [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 1)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 1)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 6)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 6)
 		equals: ColorList red - 1.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 7)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 7)
 		equals: ColorList red.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 8)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 8)
 		equals: ColorList red + 1.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 11)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 11)
 		equals: ColorList white.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 12)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 12)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 13)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 13)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 14)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 14)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 15)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 15)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 16)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 16)
 		equals: ColorList black
 ]
 
@@ -2676,7 +2676,7 @@ SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
 	w createPatch: 4.
 	v := w patches addVariable: 'a'.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b
 		scaleValue: (self choice: 'a')
 		color: (self literalValue: 15)
@@ -2698,34 +2698,34 @@ SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 1)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 1)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 6)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 6)
 		equals: ColorList red - 1.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 7)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 7)
 		equals: ColorList red.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 8)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 8)
 		equals: ColorList red + 1.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 11)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 11)
 		equals: ColorList white.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 12)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 12)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 13)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 13)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 14)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 14)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 15)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 15)
 		equals: ColorList black.
 	self
-		assert: (w patches var: SPatchVarDef colorVarNo at: 16)
+		assert: (w patches var: SPatchesVarDef colorVarNo at: 16)
 		equals: ColorList black
 ]
 
@@ -2738,7 +2738,7 @@ SteloBytecodeGeneratorTest >> testScreenHeight [
 	w createPatch: 10.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b screenHeight.
 
 	t := self newThread: w.
@@ -2756,7 +2756,7 @@ SteloBytecodeGeneratorTest >> testScreenWidth [
 	w createPatch: 10.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b screenWidth.
 
 	t := self newThread: w.
@@ -2772,26 +2772,26 @@ SteloBytecodeGeneratorTest >> testSetColor [
 	w createPatch: 3.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 1
 		put: ColorList red.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 2
 		put: ColorList red.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 1)
 		equals: ColorList red.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 2)
 		equals: ColorList red.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: ColorList black.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 2)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 2)
 		equals: ColorList black.
 	b := self newGenerator.
 	b setColor: (self literalValue: ColorList yellow).
@@ -2800,20 +2800,20 @@ SteloBytecodeGeneratorTest >> testSetColor [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 1)
 		equals: ColorList yellow.
 	self
-		assert: (w var: STurtleVarDef colorVarNo breed: 3 at: 2)
+		assert: (w var: STurtlesVarDef colorVarNo breed: 3 at: 2)
 		equals: ColorList red.
 	t := self newThread: w.
 	t forPatchId: 2.
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: ColorList black.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 2)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 2)
 		equals: ColorList yellow
 ]
 
@@ -2823,12 +2823,12 @@ SteloBytecodeGeneratorTest >> testSetHeading [
 	w := self newWorld.
 	w create: 3 turtles: 2.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 5.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 2
 		put: 5.
@@ -2839,10 +2839,10 @@ SteloBytecodeGeneratorTest >> testSetHeading [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: STurtleVarDef headingVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef headingVarNo breed: 3 at: 1)
 		equals: 15.
 	self
-		assert: (w var: STurtleVarDef headingVarNo breed: 3 at: 2)
+		assert: (w var: STurtlesVarDef headingVarNo breed: 3 at: 2)
 		equals: 5
 ]
 
@@ -2865,7 +2865,7 @@ SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 3)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 3)
 		equals: ColorList red.
 	b := self newGenerator.
 	b setPatchColorAt: (self literalValue: 9) to: (self literalValue: ColorList red).
@@ -2874,10 +2874,10 @@ SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 9)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 9)
 		equals: ColorList red.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 1)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 1)
 		equals: ColorList black
 ]
 
@@ -2894,7 +2894,7 @@ SteloBytecodeGeneratorTest >> testSetPatchVarAtTo [
 	self assert: (w patches var: vid at: 5) equals: 0.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	pno := w patchIndexAtX: 0 y: 0.
 	b setPatchVar: (self choice: 'a') at: (self literalValue: pno) to: (self literalValue: 5).
 	t := self newThread: w.
@@ -2905,7 +2905,7 @@ SteloBytecodeGeneratorTest >> testSetPatchVarAtTo [
 	self assert: (w patches var: vid at: 5) equals: 5.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	pno := w patchIndexAtX: 0 y: -1.
 	b setPatchVar: (self choice: 'a') at: (self literalValue: pno) to: (self literalValue: 5).
 	t := self newThread: w.
@@ -2989,7 +2989,7 @@ SteloBytecodeGeneratorTest >> testSetVarTo [
 	self assert: (w var: vid breed: 3 at: 1) equals: 0.
 	self assert: (w var: vid breed: 3 at: 2) equals: 0.
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId turtlesBreedNo).
 	b setVar: (self choice: 'a') to: (self literalValue: 10).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
@@ -3004,16 +3004,16 @@ SteloBytecodeGeneratorTest >> testSetXpos [
 	| w b t |
 	w := self newWorld.
 	w create: 3 turtles: 2.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 0.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0.
 	b := self newGenerator.
 	b setXpos: (self literalValue: 3).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 1) equals: 3.
-	self assert: (w var: STurtleVarDef xVarNo breed: 3 at: 2) equals: 0
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 3.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0
 ]
 
 { #category : #test }
@@ -3021,16 +3021,16 @@ SteloBytecodeGeneratorTest >> testSetYpos [
 	| w b t |
 	w := self newWorld.
 	w create: 3 turtles: 2.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0.
 	b := self newGenerator.
 	b setYpos: (self literalValue: 5).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 2.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 1) equals: 0.
-	self assert: (w var: STurtleVarDef yVarNo breed: 3 at: 2) equals: 5
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) equals: 0.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 5
 ]
 
 { #category : #test }
@@ -3040,15 +3040,15 @@ SteloBytecodeGeneratorTest >> testStamp [
 	w createPatch: 3.
 	w create: 3 turtles: 1.
 	w
-		var: STurtleVarDef colorVarNo
+		var: STurtlesVarDef colorVarNo
 		breed: 3
 		at: 1
 		put: 15.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 5)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 5)
 		equals: 0.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 6)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 6)
 		equals: 0.
 	b := self newGenerator.
 	b stamp.
@@ -3057,10 +3057,10 @@ SteloBytecodeGeneratorTest >> testStamp [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 5)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 5)
 		equals: 15.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 6)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 6)
 		equals: 0.
 	w x: 3 at: 1 put: 1.
 	t := self newThread: w.
@@ -3068,10 +3068,10 @@ SteloBytecodeGeneratorTest >> testStamp [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 5)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 5)
 		equals: 15.
 	self
-		assert: (w var: SPatchVarDef colorVarNo breed: 2 at: 6)
+		assert: (w var: SPatchesVarDef colorVarNo breed: 2 at: 6)
 		equals: 15
 ]
 
@@ -3083,12 +3083,12 @@ SteloBytecodeGeneratorTest >> testStopAll [
 	b := self newGenerator.
 	b stopAll.
 	b die.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	self assert: t isTerminated.
 ]
 
@@ -3100,12 +3100,12 @@ SteloBytecodeGeneratorTest >> testStopThread [
 	b := self newGenerator.
 	b stopThread.
 	b die.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	t := self newThread: w.
 	t forBreedNo: 3 index: 1.
 	t codes: b code.
 	t execute: 1.
-	self assert: (w flag: STurtleVarDef aliveFlagNo breed: 3 at: 1).
+	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1).
 	self deny: t isTerminated.
 ]
 
@@ -3127,7 +3127,7 @@ SteloBytecodeGeneratorTest >> testTicks [
 	w := app sworld.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
 	b ticks.
 
 	t := self newThread: w.
@@ -3183,12 +3183,12 @@ SteloBytecodeGeneratorTest >> testTurn [
 	w := self newWorld.
 	w create: 3 turtles: 2.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 1
 		put: 5.
 	w
-		var: STurtleVarDef headingVarNo
+		var: STurtlesVarDef headingVarNo
 		breed: 3
 		at: 2
 		put: 5.
@@ -3199,10 +3199,10 @@ SteloBytecodeGeneratorTest >> testTurn [
 	t codes: b code.
 	t execute: 1.
 	self
-		assert: (w var: STurtleVarDef headingVarNo breed: 3 at: 1)
+		assert: (w var: STurtlesVarDef headingVarNo breed: 3 at: 1)
 		equals: 5.
 	self
-		assert: (w var: STurtleVarDef headingVarNo breed: 3 at: 2)
+		assert: (w var: STurtlesVarDef headingVarNo breed: 3 at: 2)
 		equals: 350
 ]
 
@@ -3255,11 +3255,11 @@ SteloBytecodeGeneratorTest >> testTurtlesCount [
 	| app w b t |
 	app := self newApplication.
 	w := app sworld.
-	w create: SBreedId turtleBreedNo turtles: 10.
+	w create: SBreedId turtlesBreedNo turtles: 10.
 
 	b := self newGenerator.
-	b script: (app scriptOf: SBreedId patchBreedNo).
-	b turtlesCount: (self literalValue: SBreedId turtleBreedNo).
+	b script: (app scriptOf: SBreedId patchesBreedNo).
+	b turtlesCount: (self literalValue: SBreedId turtlesBreedNo).
 
 	t := self newThread: w.
 	t forObserver.

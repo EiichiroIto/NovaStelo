@@ -13,16 +13,16 @@ SBreedIdTest >> testObserverBreedNo [
 ]
 
 { #category : #'tests-accessing' }
-SBreedIdTest >> testPatchBreedNo [
-	self assert: SBreedId patchBreedNo equals: 2.
+SBreedIdTest >> testPatchesBreedNo [
+	self assert: SBreedId patchesBreedNo equals: 2.
 ]
 
 { #category : #'tests-accessing' }
 SBreedIdTest >> testReservedNo [
-	self assert: SBreedId reservedNo equals: SBreedId patchBreedNo.
+	self assert: SBreedId reservedNo equals: SBreedId patchesBreedNo.
 ]
 
 { #category : #'tests-accessing' }
-SBreedIdTest >> testTurtleBreedNo [
-	self assert: SBreedId turtleBreedNo equals: 3.
+SBreedIdTest >> testTurtlesBreedNo [
+	self assert: SBreedId turtlesBreedNo equals: 3.
 ]

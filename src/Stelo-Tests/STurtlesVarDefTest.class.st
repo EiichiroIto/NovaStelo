@@ -2,20 +2,20 @@
 A STurtleVarIdTest is a test class for testing the behavior of STurtleVarId
 "
 Class {
-	#name : #STurtleVarDefTest,
+	#name : #STurtlesVarDefTest,
 	#superclass : #TestCase,
 	#category : #'Stelo-Tests'
 }
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testAliveFlagNo [
-	self assert: STurtleVarDef aliveFlagNo equals: 0.
+STurtlesVarDefTest >> testAliveFlagNo [
+	self assert: STurtlesVarDef aliveFlagNo equals: 0.
 ]
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testClassNameFor [
+STurtlesVarDefTest >> testClassNameFor [
 	| pv |
-	pv := STurtleVarDef new.
+	pv := STurtlesVarDef new.
 	self assert: (pv classNameFor: 'color') equals: #ByteArray.
 	self assert: (pv classNameFor: 'flag') equals: #ByteArray.
 	self assert: (pv classNameFor: 'x') equals: #FloatArray.
@@ -24,32 +24,32 @@ STurtleVarDefTest >> testClassNameFor [
 ]
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testColorVarNo [
+STurtlesVarDefTest >> testColorVarNo [
 
 	| v |
-	v := STurtleVarDef new.
-	self assert: (v varNoFor: 'color') equals: STurtleVarDef colorVarNo.
-	self assert: STurtleVarDef colorVarNo equals: 1
+	v := STurtlesVarDef new.
+	self assert: (v varNoFor: 'color') equals: STurtlesVarDef colorVarNo.
+	self assert: STurtlesVarDef colorVarNo equals: 1
 ]
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testFlagVarNo [
+STurtlesVarDefTest >> testFlagVarNo [
 	| v |
-	v := STurtleVarDef new.
-	self assert: (v varNoFor: 'flag') equals: STurtleVarDef flagVarNo.
+	v := STurtlesVarDef new.
+	self assert: (v varNoFor: 'flag') equals: STurtlesVarDef flagVarNo.
 ]
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testHeadingVarNo [
+STurtlesVarDefTest >> testHeadingVarNo [
 	| v |
-	v := STurtleVarDef new.
-	self assert: (v varNoFor: 'heading') equals: STurtleVarDef headingVarNo.
+	v := STurtlesVarDef new.
+	self assert: (v varNoFor: 'heading') equals: STurtlesVarDef headingVarNo.
 ]
 
 { #category : #'tests-initialization' }
-STurtleVarDefTest >> testInitialize [
+STurtlesVarDefTest >> testInitialize [
 	| v |
-	v := STurtleVarDef new.
+	v := STurtlesVarDef new.
 	self assert: v privVarNames size equals: 5.
 	self assert: (v includes: 'color').
 	self assert: (v includes: 'flag').
@@ -59,20 +59,20 @@ STurtleVarDefTest >> testInitialize [
 ]
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testPenDownFlagNo [
-	self assert: STurtleVarDef penDownFlagNo equals: 1.
+STurtlesVarDefTest >> testPenDownFlagNo [
+	self assert: STurtlesVarDef penDownFlagNo equals: 1.
 ]
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testXVarNo [
+STurtlesVarDefTest >> testXVarNo [
 	| v |
-	v := STurtleVarDef new.
-	self assert: (v varNoFor: 'x') equals: STurtleVarDef xVarNo.
+	v := STurtlesVarDef new.
+	self assert: (v varNoFor: 'x') equals: STurtlesVarDef xVarNo.
 ]
 
 { #category : #'tests-accessing' }
-STurtleVarDefTest >> testYVarNo [
+STurtlesVarDefTest >> testYVarNo [
 	| v |
-	v := STurtleVarDef new.
-	self assert: (v varNoFor: 'y') equals: STurtleVarDef yVarNo.
+	v := STurtlesVarDef new.
+	self assert: (v varNoFor: 'y') equals: STurtlesVarDef yVarNo.
 ]

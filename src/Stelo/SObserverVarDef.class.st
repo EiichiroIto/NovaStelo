@@ -1,6 +1,6 @@
 Class {
 	#name : #SObserverVarDef,
-	#superclass : #SBreedVarDef,
+	#superclass : #VarDef,
 	#category : #'Stelo-Model'
 }
 

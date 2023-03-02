@@ -19,6 +19,11 @@ SEntryPoints >> breedNoList [
 	^ breeds keys
 ]
 
+{ #category : #private }
+SEntryPoints >> breeds [
+	^ breeds
+]
+
 { #category : #accessing }
 SEntryPoints >> entryPointList [
 	| stream list |
@@ -60,9 +65,4 @@ SEntryPoints >> printOn: aStream [
 			aStream nextPut: $) ]
 		separatedBy: [ aStream nextPut: Character space ].
 	aStream nextPut: $)
-]
-
-{ #category : #private }
-SEntryPoints >> privBreeds [
-	^ breeds
 ]

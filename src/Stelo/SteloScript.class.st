@@ -120,9 +120,8 @@ SteloScript >> addControlBlocks [
 
 { #category : #variables }
 SteloScript >> addList: aString [
-	| vno |
-	vno := breed addList: aString.
-	project addList: aString var: vno breed: breed breedNo
+
+	breed addList: aString
 ]
 
 { #category : #'block specs' }
@@ -230,7 +229,7 @@ SteloScript >> colorMenu [
 	^ ColorList colorNames collect: [ :each | Array with: each localized with: (ColorList perform: each) ].
 ]
 
-{ #category : #blocks }
+{ #category : #'block building' }
 SteloScript >> defaultArgsFor: blockSpec [
 	| selector turtles lists args |
 	selector := blockSpec selector.
@@ -343,7 +342,7 @@ SteloScript >> setupBlockCategory [
 		setCategory: 'patch' color: (Color h: 296 s: 0.66 v: 0.85)
 ]
 
-{ #category : #program }
+{ #category : #api }
 SteloScript >> setupEvent: aHatBlock program: aProgram table: aDictionary events: aDictionary2 [
 
 	| code addr |
@@ -361,7 +360,7 @@ SteloScript >> setupEvent: aHatBlock program: aProgram table: aDictionary events
 				addEntryPoint: addr eventNo: eventNo breedNo: self breedNo ]
 ]
 
-{ #category : #program }
+{ #category : #api }
 SteloScript >> setupProgram: aProgram events: aDictionary [
 
 	| subTable |
@@ -382,7 +381,7 @@ SteloScript >> setupProgram: aProgram events: aDictionary [
 			events: aDictionary ]
 ]
 
-{ #category : #program }
+{ #category : #api }
 SteloScript >> setupStart: aHatBlock program: aProgram table: aDictionary events: aDictionary2 [
 
 	| code addr |
@@ -398,7 +397,7 @@ SteloScript >> setupStart: aHatBlock program: aProgram table: aDictionary events
 			addEntryPoint: addr eventNo: eventNo breedNo: self breedNo ]
 ]
 
-{ #category : #program }
+{ #category : #api }
 SteloScript >> setupSub: aHatBlock program: aProgram table: aDictionary [
 
 	| code addr |
@@ -449,7 +448,7 @@ SteloScript >> useVariableWatcher [
 	^ false
 ]
 
-{ #category : #variables }
+{ #category : #accessing }
 SteloScript >> varNames [
 	^ breed userDefinedVarNames
 ]

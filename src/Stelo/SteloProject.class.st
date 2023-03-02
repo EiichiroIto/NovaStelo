@@ -23,15 +23,10 @@ SteloProject class >> objStreamClass [
 	^ SteloObjStream
 ]
 
-{ #category : #variables }
-SteloProject >> addList: aString var: vno breed: bno [
-	application addList: aString var: vno breed: bno
-]
-
-{ #category : #accessing }
+{ #category : #api }
 SteloProject >> addNewTurtleScript [
 	| breed script |
-	breed := self observer newTurtle.
+	breed := self observer newTurtles.
 	script := self newTurtlesScript
 		breed: breed;
 		yourself.
@@ -41,10 +36,10 @@ SteloProject >> addNewTurtleScript [
 	^ script
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SteloProject >> addNewTurtleScriptNamed: aString [
 	| breed script |
-	breed := self observer newTurtle.
+	breed := self observer newTurtles.
 	script := self newTurtlesScript
 		breed: breed;
 		objName: aString;
@@ -53,7 +48,7 @@ SteloProject >> addNewTurtleScriptNamed: aString [
 	^ script
 ]
 
-{ #category : #variables }
+{ #category : #api }
 SteloProject >> addVariable: aString var: vno breed: bno [
 	application addVariable: aString var: vno breed: bno
 ]
@@ -68,7 +63,7 @@ SteloProject >> assignUniqueObjNameTo: aScript [
 	name := name , 'x' ] repeat
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SteloProject >> assureExistsBreed: aString [
 	((self scripts collect: #objName) includes: aString)
 		ifTrue: [ ^ self ].
@@ -90,7 +85,7 @@ SteloProject >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 SteloProject >> fixVars [
 	self breeds do: #fixVars
 ]
@@ -103,7 +98,7 @@ SteloProject >> initFieldsFrom: anObjStream version: classVersion [
 		from: anObjStream
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 SteloProject >> newObserverScript [
 	^ ObserverScript new
 		breed: application newObserver;
@@ -111,7 +106,7 @@ SteloProject >> newObserverScript [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 SteloProject >> newPatchesScript [
 	^ PatchesScript new
 		breed: application newPatches;
@@ -119,12 +114,12 @@ SteloProject >> newPatchesScript [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 SteloProject >> newProgram [
 	^ SProgram new
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 SteloProject >> newTurtlesScript [
 	^ TurtlesScript new
 		project: self;
@@ -134,6 +129,16 @@ SteloProject >> newTurtlesScript [
 { #category : #accessing }
 SteloProject >> observer [
 	^ observerScript breed
+]
+
+{ #category : #accessing }
+SteloProject >> observerScript [
+	^ observerScript
+]
+
+{ #category : #accessing }
+SteloProject >> observerScript: aScript [
+	observerScript := aScript
 ]
 
 { #category : #'argument menus' }
@@ -151,23 +156,13 @@ SteloProject >> patches [
 	^ patchesScript breed
 ]
 
-{ #category : #private }
-SteloProject >> privObserverScript [
-	^ observerScript
-]
-
-{ #category : #private }
-SteloProject >> privObserverScript: aScript [
-	observerScript := aScript
-]
-
-{ #category : #private }
-SteloProject >> privPatchesScript [
+{ #category : #accessing }
+SteloProject >> patchesScript [
 	^ patchesScript
 ]
 
-{ #category : #private }
-SteloProject >> privPatchesScript: aScript [
+{ #category : #accessing }
+SteloProject >> patchesScript: aScript [
 	patchesScript := aScript
 ]
 
@@ -180,6 +175,13 @@ SteloProject >> programOf: aDictionary [
 	^ program
 ]
 
+{ #category : #api }
+SteloProject >> retrieveWorld: aWorld [
+
+	self setupScripts.
+	scripts do: [ :each | aWorld retrieveBreed: each breed ]
+]
+
 { #category : #accessing }
 SteloProject >> scriptOf: bno [
 	^ scripts detect: [ :each | each breed breedNo = bno ]
@@ -187,7 +189,7 @@ SteloProject >> scriptOf: bno [
 
 { #category : #accessing }
 SteloProject >> scriptsForMenu [
-	^ self scripts reject: [ :each | each breedNo < SBreedId turtleBreedNo ]
+	^ self scripts reject: [ :each | each breedNo < SBreedId turtlesBreedNo ]
 ]
 
 { #category : #private }
@@ -202,6 +204,14 @@ SteloProject >> setupScripts [
 		ifTrue: [ self addNewTurtleScript ]
 ]
 
+{ #category : #api }
+SteloProject >> setupWorld: aWorld [
+
+	self setupScripts.
+	aWorld reset.
+	scripts do: [ :each | aWorld addBreed: each breed ]
+]
+
 { #category : #'object i/o' }
 SteloProject >> storeFieldsOn: anObjStream [
 	super storeFieldsOn: anObjStream.
@@ -210,7 +220,7 @@ SteloProject >> storeFieldsOn: anObjStream [
 
 { #category : #accessing }
 SteloProject >> turtleBreeds [
-	^ self breeds reject: [ :each | each breedNo < SBreedId turtleBreedNo ]
+	^ self breeds reject: [ :each | each breedNo < SBreedId turtlesBreedNo ]
 ]
 
 { #category : #'argument menus' }

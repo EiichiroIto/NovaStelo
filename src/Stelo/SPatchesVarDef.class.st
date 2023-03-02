@@ -1,31 +1,31 @@
 Class {
-	#name : #SPatchVarDef,
-	#superclass : #SBreedVarDef,
+	#name : #SPatchesVarDef,
+	#superclass : #VarDef,
 	#category : #'Stelo-Model'
 }
 
 { #category : #accessing }
-SPatchVarDef class >> colorVarNo [
+SPatchesVarDef class >> colorVarNo [
 	^ 1
 ]
 
 { #category : #accessing }
-SPatchVarDef class >> screenVarNo [
+SPatchesVarDef class >> screenVarNo [
 	^ 2
 ]
 
 { #category : #accessing }
-SPatchVarDef class >> xVarNo [
+SPatchesVarDef class >> xVarNo [
 	^ 3
 ]
 
 { #category : #accessing }
-SPatchVarDef class >> yVarNo [
+SPatchesVarDef class >> yVarNo [
 	^ 4
 ]
 
 { #category : #private }
-SPatchVarDef >> setupReservedVarNames [
+SPatchesVarDef >> setupReservedVarNames [
 	self
 		addReserved: 'color'
 		varNo: self class colorVarNo

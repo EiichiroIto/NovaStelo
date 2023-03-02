@@ -1,6 +1,6 @@
 Class {
 	#name : #SObserver,
-	#superclass : #SBreed,
+	#superclass : #SteloBreed,
 	#instVars : [
 		'breedId',
 		'ticks'
@@ -19,6 +19,12 @@ SObserver >> breedId [
 ]
 
 { #category : #accessing }
+SObserver >> breedId: anObject [
+
+	breedId := anObject
+]
+
+{ #category : #accessing }
 SObserver >> breedName [
 	^ 'Observer'
 ]
@@ -33,7 +39,7 @@ SObserver >> breedNo: anInteger [
 	"do nothing"
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SObserver >> clearTicks [
 	ticks := 0.
 ]
@@ -48,7 +54,7 @@ SObserver >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SObserver >> incrementTicks [
 	ticks := ticks + 1.
 ]
@@ -71,21 +77,21 @@ SObserver >> livingOnesDo: aBlock [
 	aBlock value: 1.
 ]
 
-{ #category : #accessing }
-SObserver >> newTurtle [
+{ #category : #'instance creation' }
+SObserver >> newTurtles [
 	| bid breed |
 	bid := breedId newNo.
 	breed := STurtles new breedNo: bid.
 	^ breed
 ]
 
-{ #category : #initialization }
-SObserver >> reset [
-	varDef := SObserverVarDef new.
-	variables := Variables new updateVarDef: varDef
+{ #category : #'instance creation' }
+SObserver >> newVarDef [
+
+	^ SObserverVarDef new
 ]
 
-{ #category : #microworld }
+{ #category : #accessing }
 SObserver >> size [
 	^ 1
 ]
@@ -96,35 +102,28 @@ SObserver >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(breedId ticks) on: anObjStream.
 ]
 
-{ #category : #microworld }
+{ #category : #accessing }
 SObserver >> ticks [
 	^ ticks
 ]
 
-{ #category : #microworld }
-SObserver >> var: anInteger at: dummy put: anObject sworld: aWorld [
-	anInteger = varDef class ticksVarNo
-		ifTrue: [ ^ ticks := anObject ].
-	self var: anInteger at: dummy put: anObject
+{ #category : #accessing }
+SObserver >> ticks: anObject [
+
+	^ ticks := anObject
 ]
 
-{ #category : #microworld }
-SObserver >> var: anInteger at: id sworld: aWorld [
-	| v |
-	v := varDef class.
-	anInteger = v widthVarNo
-		ifTrue: [ ^ aWorld extent x ].
-	anInteger = v heightVarNo
-		ifTrue: [ ^ aWorld extent y ].
-	anInteger = v maxBreedNoVarNo
-		ifTrue: [ ^ aWorld maxBreedNo ].
-	anInteger = v ticksVarNo
-		ifTrue: [ ^ ticks ].
-	anInteger = v countAliveVarNo
-		ifTrue: [ ^ aWorld countAliveOf: id ].
-	anInteger = v sizeVarNo
-		ifTrue: [ ^ aWorld sizeOf: id ].
-	anInteger = v maxVarVarNo
-		ifTrue: [ ^ varDef size ].
-	^ self var: anInteger at: id
+{ #category : #'accessing variable' }
+SObserver >> var: anInteger at: id [
+
+	anInteger = SObserverVarDef ticksVarNo ifTrue: [ ^ ticks ].
+	anInteger = SObserverVarDef maxVarVarNo ifTrue: [ ^ varDef size ].
+	^ super var: anInteger at: id
+]
+
+{ #category : #'accessing variable' }
+SObserver >> var: anInteger at: id put: anObject [
+
+	anInteger = SObserverVarDef ticksVarNo ifTrue: [ ^ ticks := anObject ].
+	super var: anInteger at: id put: anObject
 ]

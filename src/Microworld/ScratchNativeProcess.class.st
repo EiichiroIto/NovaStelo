@@ -12,7 +12,7 @@ ScratchNativeProcess >> isRunning [
 	self subclassResponsibility.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchNativeProcess >> loop [
 	self subclassResponsibility.
 ]
@@ -27,22 +27,22 @@ ScratchNativeProcess >> program: aProgram [
 	program := aProgram.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchNativeProcess >> single [
 	self subclassResponsibility.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchNativeProcess >> startup [
 	self subclassResponsibility.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchNativeProcess >> step [
 	self subclassResponsibility.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchNativeProcess >> stop [
 	self subclassResponsibility.
 ]

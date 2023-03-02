@@ -33,6 +33,14 @@ SEntryPointsTest >> testBreedNoList [
 	self assertCollection: e breedNoList sort equals: #(2 7).
 ]
 
+{ #category : #'tests-private' }
+SEntryPointsTest >> testBreeds [
+	| c |
+	c := SEntryPoints new.
+	self assert: c breeds isDictionary.
+	self assert: c breeds isEmpty.
+]
+
 { #category : #test }
 SEntryPointsTest >> testEntryPointList [
 	| e ret |
@@ -73,7 +81,7 @@ SEntryPointsTest >> testForBreedNo [
 
 { #category : #'tests-initialization' }
 SEntryPointsTest >> testInitialize [
-	self testPrivBreeds.
+	self testBreeds.
 ]
 
 { #category : #'tests-testing' }
@@ -97,12 +105,4 @@ SEntryPointsTest >> testPrintOn [
 	w := WriteStream on: String new.
 	p printOn: w.
 	self assert: w contents equals: '(1->(5 8) 2->(6) 3->(7 9))'
-]
-
-{ #category : #'tests-private' }
-SEntryPointsTest >> testPrivBreeds [
-	| c |
-	c := SEntryPoints new.
-	self assert: c privBreeds isDictionary.
-	self assert: c privBreeds isEmpty.
 ]

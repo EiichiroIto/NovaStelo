@@ -10,7 +10,7 @@ SBreedId class >> observerBreedNo [
 ]
 
 { #category : #accessing }
-SBreedId class >> patchBreedNo [
+SBreedId class >> patchesBreedNo [
 	^ 2
 ]
 
@@ -20,6 +20,6 @@ SBreedId class >> reservedNo [
 ]
 
 { #category : #accessing }
-SBreedId class >> turtleBreedNo [
+SBreedId class >> turtlesBreedNo [
 	^ 3
 ]

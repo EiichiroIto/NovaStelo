@@ -497,7 +497,7 @@ SpSteloPresenter >> objectAt: aPoint [
 	bno = SBreedId observerBreedNo
 		ifTrue: [ ^ 1 ].
 	pos := application project patches indexAtPoint: aPoint.
-	bno = SBreedId patchBreedNo
+	bno = SBreedId patchesBreedNo
 		ifTrue: [ ^ pos ].
 	^ application sworld
 		turtle: bno

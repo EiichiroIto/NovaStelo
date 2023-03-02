@@ -220,6 +220,16 @@ ScratchNativeThread >> getId [
 	self push: id.
 ]
 
+{ #category : #accessing }
+ScratchNativeThread >> id [
+	^ id
+]
+
+{ #category : #accessing }
+ScratchNativeThread >> id: anInteger [
+	id := anInteger
+]
+
 { #category : #initialization }
 ScratchNativeThread >> initialize [
 	super initialize.
@@ -242,9 +252,19 @@ ScratchNativeThread >> isRunning [
 	^ isRunning
 ]
 
+{ #category : #private }
+ScratchNativeThread >> isRunning: aBoolean [
+	isRunning := aBoolean.
+]
+
 { #category : #testing }
 ScratchNativeThread >> isTerminated [
 	^ isTerminated
+]
+
+{ #category : #private }
+ScratchNativeThread >> isTerminated: aBoolean [
+	isTerminated := aBoolean.
 ]
 
 { #category : #'control ops' }
@@ -367,31 +387,6 @@ ScratchNativeThread >> pop [
 ]
 
 { #category : #private }
-ScratchNativeThread >> privId [
-	^ id
-]
-
-{ #category : #private }
-ScratchNativeThread >> privId: anInteger [
-	id := anInteger
-]
-
-{ #category : #private }
-ScratchNativeThread >> privIsRunning: aBoolean [
-	isRunning := aBoolean.
-]
-
-{ #category : #private }
-ScratchNativeThread >> privIsTerminated: aBoolean [
-	isTerminated := aBoolean.
-]
-
-{ #category : #private }
-ScratchNativeThread >> privRetVal: anInteger [
-	retVal := anInteger.
-]
-
-{ #category : #private }
 ScratchNativeThread >> push0 [
 	self push: 0.
 ]
@@ -453,6 +448,11 @@ ScratchNativeThread >> retVal [
 	^ retVal
 ]
 
+{ #category : #accessing }
+ScratchNativeThread >> retVal: anInteger [
+	retVal := anInteger.
+]
+
 { #category : #'control ops' }
 ScratchNativeThread >> return [
 	retVal := self pop.
@@ -501,6 +501,12 @@ ScratchNativeThread >> sqrt [
 { #category : #accessing }
 ScratchNativeThread >> stack [
 	^ stack
+]
+
+{ #category : #accessing }
+ScratchNativeThread >> stack: anObject [
+
+	stack := anObject
 ]
 
 { #category : #'control ops' }

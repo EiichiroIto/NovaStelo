@@ -9,7 +9,7 @@ SteloBytecodeGenerator >> aimHigh: var [
 
 	^ self
 		  unaryCommand: #aimHigh
-		  arg: (script varNoFor: var choice breed: SBreedId patchBreedNo)
+		  arg: (script varNoFor: var choice breed: SBreedId patchesBreedNo)
 ]
 
 { #category : #'arithmetic ops' }
@@ -72,16 +72,16 @@ SteloBytecodeGenerator >> changeObserverVar: var by: num [
 SteloBytecodeGenerator >> changePatchVar: var at: pno by: num [
 
 	| v |
-	v := script varNoFor: var choice breed: SBreedId patchBreedNo.
+	v := script varNoFor: var choice breed: SBreedId patchesBreedNo.
 	self appendValue: [ pno argString: parser ].
 	self appendSymbol: #dup.
 	self appendValue: v.
-	self appendValue: SBreedId patchBreedNo.
+	self appendValue: SBreedId patchesBreedNo.
 	self appendSymbol: #getBreedVar.
 	self appendValue: [ num argString: parser ].
 	self appendSymbol: #plus.
 	self appendValue: v.
-	self appendValue: SBreedId patchBreedNo.
+	self appendValue: SBreedId patchesBreedNo.
 	self appendSymbol: #setBreedVarTo
 ]
 
@@ -89,8 +89,8 @@ SteloBytecodeGenerator >> changePatchVar: var at: pno by: num [
 SteloBytecodeGenerator >> changePatchVar: var by: num [
 
 	self appendValue: [ num argString: parser ].
-	self appendValue: (script varNoFor: var choice breed: SBreedId patchBreedNo).
-	self appendValue: SBreedId patchBreedNo.
+	self appendValue: (script varNoFor: var choice breed: SBreedId patchesBreedNo).
+	self appendValue: SBreedId patchesBreedNo.
 	self appendSymbol: #changeBreedVarBy
 ]
 
@@ -129,14 +129,14 @@ SteloBytecodeGenerator >> changeYposBy: aNumber [
 { #category : #'observer ops' }
 SteloBytecodeGenerator >> clearAll [
 
-	self unaryCommand: #clearBreed arg: SBreedId patchBreedNo.
+	self unaryCommand: #clearBreed arg: SBreedId patchesBreedNo.
 	self nullaryCommand: #clearTurtles
 ]
 
 { #category : #'observer ops' }
 SteloBytecodeGenerator >> clearGraphics [
 
-	self unaryCommand: #clearBreed arg: SBreedId patchBreedNo
+	self unaryCommand: #clearBreed arg: SBreedId patchesBreedNo
 ]
 
 { #category : #'list ops' }
@@ -289,9 +289,9 @@ SteloBytecodeGenerator >> computeFunction: aSymbol of: aNumber [
 { #category : #'patch ops' }
 SteloBytecodeGenerator >> copyPatchVar: var to: var2 [
 
-	self appendValue: (script varNoFor: var2 choice breed: SBreedId patchBreedNo)..
-	self appendValue: (script varNoFor: var choice breed: SBreedId patchBreedNo).
-	self appendValue: SBreedId patchBreedNo.
+	self appendValue: (script varNoFor: var2 choice breed: SBreedId patchesBreedNo)..
+	self appendValue: (script varNoFor: var choice breed: SBreedId patchesBreedNo).
+	self appendValue: SBreedId patchesBreedNo.
 	self appendSymbol: #copyBreedVarTo
 ]
 
@@ -334,7 +334,7 @@ SteloBytecodeGenerator >> diffuse4Var: var percentage: num [
 
 	self
 		binaryCommand: #diffuse4
-		arg1: (script varNoFor: var choice breed: SBreedId patchBreedNo)
+		arg1: (script varNoFor: var choice breed: SBreedId patchesBreedNo)
 		arg2: [ num argString: parser ]
 ]
 
@@ -343,7 +343,7 @@ SteloBytecodeGenerator >> diffuseVar: var percentage: num [
 
 	self
 		binaryCommand: #diffuse
-		arg1: (script varNoFor: var choice breed: SBreedId patchBreedNo)
+		arg1: (script varNoFor: var choice breed: SBreedId patchesBreedNo)
 		arg2: [ num argString: parser ]
 ]
 
@@ -603,7 +603,7 @@ SteloBytecodeGenerator >> getColor [
 { #category : #'sensing ops' }
 SteloBytecodeGenerator >> getHeading [
 
-	^ self unaryCommand: #getVar arg: STurtleVarDef headingVarNo
+	^ self unaryCommand: #getVar arg: STurtlesVarDef headingVarNo
 ]
 
 { #category : #'sensing ops' }
@@ -637,8 +637,8 @@ SteloBytecodeGenerator >> getObserverVar: var [
 SteloBytecodeGenerator >> getPatchColorAt: pno [
 
 	^ self
-		  getBreed: SBreedId patchBreedNo
-		  var: SPatchVarDef colorVarNo
+		  getBreed: SBreedId patchesBreedNo
+		  var: SPatchesVarDef colorVarNo
 		  at: [ pno argString: parser ]
 ]
 
@@ -646,8 +646,8 @@ SteloBytecodeGenerator >> getPatchColorAt: pno [
 SteloBytecodeGenerator >> getPatchVar: var at: pno [
 
 	^ self
-		  getBreed: SBreedId patchBreedNo
-		  var: (script varNoFor: var choice breed: SBreedId patchBreedNo)
+		  getBreed: SBreedId patchesBreedNo
+		  var: (script varNoFor: var choice breed: SBreedId patchesBreedNo)
 		  at: [ pno argString: parser ]
 ]
 
@@ -726,8 +726,8 @@ SteloBytecodeGenerator >> is: x between: from and: to [
 SteloBytecodeGenerator >> isPenDown [
 
 	self appendValue: 0.
-	self unaryCommand: #getVar arg: STurtleVarDef flagVarNo.
-	self appendValue: 1 << STurtleVarDef penDownFlagNo.
+	self unaryCommand: #getVar arg: STurtlesVarDef flagVarNo.
+	self appendValue: 1 << STurtlesVarDef penDownFlagNo.
 	self appendSymbol: #and.
 	self appendSymbol: #less.
 	^ nil
@@ -833,8 +833,8 @@ SteloBytecodeGenerator >> multiplyVar: var by: num [
 
 	self appendValue: [ num argString: parser ].
 	self appendValue:
-		(script varNoFor: var choice breed: SBreedId patchBreedNo).
-	self appendValue: SBreedId patchBreedNo.
+		(script varNoFor: var choice breed: SBreedId patchesBreedNo).
+	self appendValue: SBreedId patchesBreedNo.
 	self appendSymbol: #multiplyBreedVarBy
 ]
 
@@ -855,8 +855,8 @@ SteloBytecodeGenerator >> nsum4Var: var to: var2 [
 
 	self
 		binaryCommand: #nsum4
-		arg1: (script varNoFor: var choice breed: SBreedId patchBreedNo)
-		arg2: (script varNoFor: var2 choice breed: SBreedId patchBreedNo)
+		arg1: (script varNoFor: var choice breed: SBreedId patchesBreedNo)
+		arg2: (script varNoFor: var2 choice breed: SBreedId patchesBreedNo)
 ]
 
 { #category : #'observer ops' }
@@ -864,8 +864,8 @@ SteloBytecodeGenerator >> nsumVar: var to: var2 [
 
 	self
 		binaryCommand: #nsum
-		arg1: (script varNoFor: var choice breed: SBreedId patchBreedNo)
-		arg2: (script varNoFor: var2 choice breed: SBreedId patchBreedNo)
+		arg1: (script varNoFor: var choice breed: SBreedId patchesBreedNo)
+		arg2: (script varNoFor: var2 choice breed: SBreedId patchesBreedNo)
 ]
 
 { #category : #'arithmetic ops' }
@@ -895,9 +895,9 @@ SteloBytecodeGenerator >> penDown [
 { #category : #'code injection' }
 SteloBytecodeGenerator >> penDown: aBoolean [
 
-	self appendValue: STurtleVarDef flagVarNo.
-	self unaryCommand: #getVar arg: STurtleVarDef flagVarNo.
-	self appendValue: 1 << STurtleVarDef penDownFlagNo.
+	self appendValue: STurtlesVarDef flagVarNo.
+	self unaryCommand: #getVar arg: STurtlesVarDef flagVarNo.
+	self appendValue: 1 << STurtlesVarDef penDownFlagNo.
 	aBoolean
 		ifTrue: [ self appendSymbol: #or ]
 		ifFalse: [ self appendSymbol: #inv.
@@ -1003,7 +1003,7 @@ SteloBytecodeGenerator >> rounded: x [
 { #category : #'color ops' }
 SteloBytecodeGenerator >> scalePatch: var color: color from: from to: to [
 
-	self appendValue: (script varNoFor: var choice breed: SBreedId patchBreedNo).
+	self appendValue: (script varNoFor: var choice breed: SBreedId patchesBreedNo).
 	self appendValue: [ color argString: parser ].
 	self appendValue: [ from argString: parser ].
 	self appendValue: [ to argString: parser ].
@@ -1071,8 +1071,8 @@ SteloBytecodeGenerator >> setPatchColorAt: pos to: color [
 
 	self appendValue: [ pos argString: parser ].
 	self appendValue: [ color argString: parser ].
-	self appendValue: SPatchVarDef colorVarNo.
-	self appendValue: SBreedId patchBreedNo.
+	self appendValue: SPatchesVarDef colorVarNo.
+	self appendValue: SBreedId patchesBreedNo.
 	self appendSymbol: #setBreedVarTo
 ]
 
@@ -1082,8 +1082,8 @@ SteloBytecodeGenerator >> setPatchVar: var at: index to: aNumber [
 	self appendValue: [ index argString: parser ].
 	self appendValue: [ aNumber argString: parser ].
 	self appendValue:
-		(script varNoFor: var choice breed: SBreedId patchBreedNo).
-	self appendValue: SBreedId patchBreedNo.
+		(script varNoFor: var choice breed: SBreedId patchesBreedNo).
+	self appendValue: SBreedId patchesBreedNo.
 	self appendSymbol: #setBreedVarTo
 ]
 
@@ -1132,10 +1132,10 @@ SteloBytecodeGenerator >> setYpos: num [
 { #category : #'color ops' }
 SteloBytecodeGenerator >> stamp [
 
-	self unaryCommand: #getVar arg: STurtleVarDef xVarNo.
-	self unaryCommand: #getVar arg: STurtleVarDef yVarNo.
+	self unaryCommand: #getVar arg: STurtlesVarDef xVarNo.
+	self unaryCommand: #getVar arg: STurtlesVarDef yVarNo.
 	self appendSymbol: #patchAt.
-	self unaryCommand: #getVar arg: STurtleVarDef colorVarNo.
+	self unaryCommand: #getVar arg: STurtlesVarDef colorVarNo.
 	self appendSymbol: #setPatchColorTo
 ]
 
@@ -1170,7 +1170,7 @@ SteloBytecodeGenerator >> truncated: x [
 SteloBytecodeGenerator >> turn: angle [
 
 	self appendValue: [ angle argString: parser ].
-	self unaryCommand: #getVar arg: STurtleVarDef headingVarNo.
+	self unaryCommand: #getVar arg: STurtlesVarDef headingVarNo.
 	self appendSymbol: #plus.
 	self appendSymbol: #setHeading
 ]

@@ -1,16 +1,14 @@
 Class {
 	#name : #SPatches,
-	#superclass : #SBreed,
+	#superclass : #SteloBreed,
 	#instVars : [
 		'order',
-		'diffuser',
-		'halfOrder',
-		'negatedHalfOrder'
+		'diffuser'
 	],
 	#category : #'Stelo-Model'
 }
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> aimHighVarNo: vid atPoint: aPoint direction: heading [
 	| pos id delta forward left right |
 	delta := Point r: 1.5 degrees: heading \\ 360.
@@ -44,7 +42,7 @@ SPatches >> breedName [
 
 { #category : #accessing }
 SPatches >> breedNo [
-	^ SBreedId patchBreedNo
+	^ SBreedId patchesBreedNo
 ]
 
 { #category : #accessing }
@@ -52,12 +50,12 @@ SPatches >> breedNo: anInteger [
 	"do nothing"
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> change: anInteger by: aNumber [
 	variables change: anInteger by: aNumber
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> clear [
 	super clear.
 	variables forceSize: self size.
@@ -82,11 +80,11 @@ SPatches >> cols [
 	^ order
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> create: anInteger [
+
 	order := anInteger.
-	self setupCaches.
-	self clear.
+	self clear
 ]
 
 { #category : #private }
@@ -94,18 +92,30 @@ SPatches >> defaultOrder [
 	^ 100
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> diffuse4: anInteger1 varNo: anInteger2 [
 	| buf |
 	buf := variables realArrayAt: anInteger2.
 	diffuser diffuse4: buf cols: order rows: order percent: anInteger1
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> diffuse8: anInteger1 varNo: anInteger2 [
 	| buf |
 	buf := variables realArrayAt: anInteger2.
 	diffuser diffuse8: buf cols: order rows: order percent: anInteger1
+]
+
+{ #category : #accessing }
+SPatches >> diffuser [
+
+	^ diffuser
+]
+
+{ #category : #accessing }
+SPatches >> diffuser: anObject [
+
+	diffuser := anObject
 ]
 
 { #category : #accessing }
@@ -125,7 +135,7 @@ SPatches >> indexAtCol: c row: r [
 	^ ((i - 1) \\ self size) + 1
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 SPatches >> indexAtPoint: aPoint [
 	| r c |
 	c := aPoint x floor + (order // 2) + 1.
@@ -143,9 +153,9 @@ SPatches >> indexAtX: x y: y [
 
 { #category : #'object i/o' }
 SPatches >> initFieldsFrom: anObjStream version: classVersion [
+
 	super initFieldsFrom: anObjStream version: classVersion.
-	self initFieldsNamed: #(order) from: anObjStream.
-	self setupCaches.
+	self initFieldsNamed: #( order ) from: anObjStream
 ]
 
 { #category : #initialization }
@@ -156,14 +166,20 @@ SPatches >> initialize [
 	self create: self defaultOrder
 ]
 
-{ #category : #microworld }
+{ #category : #enumerating }
 SPatches >> livingOnesDo: aBlock [
 	1 to: self size do: [ :each | aBlock value: each ].
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> multiply: anInteger by: aNumber [
 	variables multiply: anInteger by: aNumber
+]
+
+{ #category : #'instance creation' }
+SPatches >> newVarDef [
+
+	^ SPatchesVarDef new
 ]
 
 { #category : #accessing }
@@ -176,7 +192,7 @@ SPatches >> normalize: aNumber [
 	^ x
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> nsum4: anInteger1 to: anInteger2 [
 	| src dst |
 	src := variables realArrayAt: anInteger1.
@@ -184,7 +200,7 @@ SPatches >> nsum4: anInteger1 to: anInteger2 [
 	diffuser nsum4: src dst: dst cols: order rows: order
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> nsum8: anInteger1 to: anInteger2 [
 	| src dst |
 	src := variables realArrayAt: anInteger1.
@@ -197,6 +213,12 @@ SPatches >> order [
 	^ order
 ]
 
+{ #category : #accessing }
+SPatches >> order: anObject [
+
+	order := anObject
+]
+
 { #category : #printing }
 SPatches >> printOn: aStream [
 	aStream
@@ -207,32 +229,20 @@ SPatches >> printOn: aStream [
 		nextPut: $).
 ]
 
-{ #category : #initialization }
-SPatches >> reset [
-	varDef := SPatchVarDef new.
-	variables := Variables new updateVarDef: varDef.
-]
-
 { #category : #accessing }
 SPatches >> rows [
 	^ order
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 SPatches >> scaleVarNo: vid color: baseColor from: from to: to [
 	| v c |
 	v := variables realArrayAt: vid.
-	c := variables realArrayAt: SPatchVarDef colorVarNo.
+	c := variables realArrayAt: SPatchesVarDef colorVarNo.
 	diffuser scale: v dst: c color: baseColor from: from to: to
 ]
 
-{ #category : #private }
-SPatches >> setupCaches [
-	halfOrder := (order / 2) asFloat.
-	negatedHalfOrder := halfOrder negated.
-]
-
-{ #category : #microworld }
+{ #category : #accessing }
 SPatches >> size [
 	^ order * order
 ]

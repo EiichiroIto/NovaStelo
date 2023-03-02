@@ -1,6 +1,6 @@
 Class {
 	#name : #STurtles,
-	#superclass : #SBreed,
+	#superclass : #SteloBreed,
 	#instVars : [
 		'defaultColor',
 		'breedNo',
@@ -36,12 +36,12 @@ STurtles >> breedNo: anInteger [
 	breedNo := anInteger.
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 STurtles >> copyTurtleFrom: anInteger1 to: anInteger2 [
 	variables copyElementFrom: anInteger1 to: anInteger2
 ]
 
-{ #category : #microworld }
+{ #category : #accessing }
 STurtles >> countAlive [
 	| ret |
 	ret := 0.
@@ -49,7 +49,7 @@ STurtles >> countAlive [
 	^ ret
 ]
 
-{ #category : #microworld }
+{ #category : #api }
 STurtles >> create: anInteger [
 	| rest tno list |
 	rest := anInteger.
@@ -69,12 +69,18 @@ STurtles >> defaultColor [
 	^ defaultColor
 ]
 
-{ #category : #microworld }
+{ #category : #accessing }
+STurtles >> defaultColor: anObject [
+
+	defaultColor := anObject
+]
+
+{ #category : #accessing }
 STurtles >> defaultPosition [
 	^ defaultPosition
 ]
 
-{ #category : #microworld }
+{ #category : #accessing }
 STurtles >> defaultPosition: aPoint [
 	defaultPosition := aPoint.
 ]
@@ -115,11 +121,17 @@ STurtles >> initialize [
 	self clear.
 ]
 
-{ #category : #microworld }
+{ #category : #enumerating }
 STurtles >> livingOnesDo: aBlock [
 	1 to: self size do: [ :each | 
 		(self flag: varDef class aliveFlagNo at: each)
 			ifTrue: [ aBlock cull: each cull: self ] ]
+]
+
+{ #category : #'instance creation' }
+STurtles >> newVarDef [
+
+	^ STurtlesVarDef new
 ]
 
 { #category : #'accessing variable' }
@@ -140,13 +152,7 @@ STurtles >> printOn: aStream [
 		nextPut: $).
 ]
 
-{ #category : #initialization }
-STurtles >> reset [
-	varDef := STurtleVarDef new.
-	variables := Variables new updateVarDef: varDef.
-]
-
-{ #category : #microworld }
+{ #category : #private }
 STurtles >> setupAt: index [
 	self clearAt: index.
 	self colorAt: index put: self defaultColor.
@@ -157,7 +163,7 @@ STurtles >> setupAt: index [
 	self penDownAt: index put: false
 ]
 
-{ #category : #microworld }
+{ #category : #accessing }
 STurtles >> size [
 	^ variables max
 ]

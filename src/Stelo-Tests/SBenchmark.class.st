@@ -25,6 +25,7 @@ SBenchmark >> diffuse2: anInteger [
 
 { #category : #accessing }
 SBenchmark >> diffuseAndMultiply: anInteger [
+
 	"SBenchmark new diffuseAndMultiply: 100000. --> "
 
 	"SBenchmark new diffuseAndMultiply: 1000. --> 16237"
@@ -59,17 +60,21 @@ SBenchmark >> diffuseAndMultiply: anInteger [
 	w addBreed: SPatches new.
 	w createPatch: 100.
 	v := w patches addVariable: 'a'.
-	w var: v breed: SBreedId patchBreedNo putAll: 100.
+	w livingBreed: SBreedId patchesBreedNo do: [ :each | 
+		w
+			var: v
+			breed: SBreedId patchesBreedNo
+			at: each
+			put: 100 ].
 	pr := SProgram new.
-	pr
-		addCode:
-			{v.
+	pr addCode: { 
+			v.
 			20.
 			#diffuse.
 			0.95.
 			v.
-			SBreedId patchBreedNo.
-			#multiplyBreedVarBy}.
+			SBreedId patchesBreedNo.
+			#multiplyBreedVarBy }.
 	pr
 		addEntryPoint: 1
 		eventNo: EventId loopEventNo
