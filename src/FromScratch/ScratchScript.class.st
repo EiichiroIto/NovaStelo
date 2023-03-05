@@ -75,7 +75,7 @@ ScratchScript >> addBlockSpecs [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchScript >> addEventNamesTo: aSet [
 	"Add the names of all events implemented by this morph, excluding keyboard events. Suppress duplicates (ignoring case differences)."
 
@@ -345,26 +345,6 @@ ScratchScript >> convertTuplesToStacks [
 		blocksBin addMorph: stack ]
 ]
 
-{ #category : #private }
-ScratchScript >> countBlockMorph: aMorph [
-	| list |
-	list := aMorph submorphs
-		collect: [ :each | self countBlockMorph: each ].
-	^ (list isEmpty ifTrue: [ 0 ] ifFalse: [ list sum ])
-		+
-			(aMorph isBlockMorph
-				ifTrue: [ 1 ]
-				ifFalse: [ 0 ])
-]
-
-{ #category : #accessing }
-ScratchScript >> countBlockMorphs [
-	| list |
-	list := self hatBlocks collect: [ :each | self countBlockMorph: each ].
-	list isEmpty ifTrue: [ ^ 0 ].
-	^ list sum
-]
-
 { #category : #'block building' }
 ScratchScript >> createBlock: block atPosition: pos onPage: page [
 	"Creates a block on the given page. If the block is one that can become a watcher, then a toggle button is created as well."
@@ -470,14 +450,14 @@ ScratchScript >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchScript >> fixScriptBeforeWriting [
 
 	blocksBin allMorphsDo: [ :each | 
 		each isBlockMorph ifTrue: [ each stopProcess ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchScript >> fixUnsavedFields [
 	blocksBin allMorphs
 		do: [ :each | 
@@ -548,13 +528,13 @@ ScratchScript >> loopBlockSelectors [
 	^ #( doForever doForeverIf doRepeat doUntil )
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 ScratchScript >> newArgMorphBuilder [
 
 	^ ArgMorphBuilder new
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 ScratchScript >> newBlockMorphBuilder [
 
 	^ BlockMorphBuilder new
@@ -562,14 +542,14 @@ ScratchScript >> newBlockMorphBuilder [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 ScratchScript >> newBlockPaletteMorph [
 	^ ScratchBlockPaletteMorph new
 		project: project;
 		yourself
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 ScratchScript >> newScriptsMorph [
 
 	^ ScratchScriptsMorph new

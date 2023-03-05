@@ -59,15 +59,16 @@ SteloProject >> assignUniqueObjNameTo: aScript [
 ]
 
 { #category : #api }
-SteloProject >> assureExistsBreed: aString [
-	((self scripts collect: #objName) includes: aString)
-		ifTrue: [ ^ self ].
+SteloProject >> assureExistsScriptNamed: aString [
+
+	(self scriptNames includes: aString) ifTrue: [ ^ self ].
 	self addNewTurtleScriptNamed: aString
 ]
 
 { #category : #accessing }
 SteloProject >> breeds [
-	^ self scripts collect: #breed
+
+	^ scripts collect: #breed
 ]
 
 { #category : #accessing }
@@ -163,10 +164,10 @@ SteloProject >> patchesScript: aScript [
 
 { #category : #accessing }
 SteloProject >> programOf: aDictionary [
+
 	| program |
 	program := self newProgram.
-	self scripts
-		do: [ :each | each setupProgram: program events: aDictionary ].
+	scripts do: [ :each | each setupProgram: program events: aDictionary ].
 	^ program
 ]
 
@@ -177,7 +178,8 @@ SteloProject >> scriptOf: bno [
 
 { #category : #accessing }
 SteloProject >> scriptsForMenu [
-	^ self scripts reject: [ :each | each breedNo < SBreedId turtlesBreedNo ]
+
+	^ scripts reject: [ :each | each breedNo < SBreedId turtlesBreedNo ]
 ]
 
 { #category : #private }

@@ -60,7 +60,7 @@ SpriteArgMorph >> evaluate [
 
 	self checkForDeletedMorph.
 	morph isString
-		ifTrue: [ morph := owner receiver project findObjName: morph ].
+		ifTrue: [ morph := owner receiver project scriptNamed: morph ].
 	^ morph
 ]
 

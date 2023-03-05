@@ -166,7 +166,7 @@ ScratchSexpImporter >> importScripts: aCollection [
 	aCollection
 		do: [ :each | 
 			each first = 'for'
-				ifTrue: [ script := project findObjName: each second.
+				ifTrue: [ script := project scriptNamed: each second.
 					each third do: [ :v | self importVarOrList: v to: script ].
 					self importScripts: each fourth for: script ] ]
 ]
@@ -205,7 +205,7 @@ ScratchSexpImporter >> importVarOrList: anObject to: aScript [
 ScratchSexpImporter >> importWorld: aCollection [
 	aCollection first = appName
 		ifFalse: [ self error ].
-	aCollection second do: [ :each | project assureExistsBreed: each ].
+	aCollection second do: [ :each | project assureExistsScriptNamed: each ].
 	self importScripts: aCollection third
 ]
 

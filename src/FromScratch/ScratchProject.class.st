@@ -48,20 +48,22 @@ ScratchProject >> addScript: aScript [
 
 { #category : #accessing }
 ScratchProject >> allEventNames [
+
 	"Answer a list of all events that have been defined in this project."
 
 	| result |
 	result := Set new: 100.
-	self scripts do: [ :m | m addEventNamesTo: result ].
+	scripts do: [ :m | m addEventNamesTo: result ].
 	result remove: '' ifAbsent: [  ].
 	^ result asArray sort
 ]
 
 { #category : #accessing }
 ScratchProject >> allSubNames [
+
 	| result |
 	result := Set new.
-	self scripts do: [ :each | result addAll: each subNames ].
+	scripts do: [ :each | result addAll: each subNames ].
 	^ result asArray sort
 ]
 
@@ -75,8 +77,8 @@ ScratchProject >> application: anApplication [
 	application := anApplication
 ]
 
-{ #category : #accessing }
-ScratchProject >> assureExistsBreed: aString [
+{ #category : #api }
+ScratchProject >> assureExistsScriptNamed: aString [
 	self subclassResponsibility
 ]
 
@@ -128,12 +130,7 @@ ScratchProject >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #accessing }
-ScratchProject >> findObjName: aString [
-	^ self scripts detect: [ :each | each objName = aString ] ifNone: [ nil ]
-]
-
-{ #category : #accessing }
+{ #category : #api }
 ScratchProject >> fixUnsavedFields [
 	scripts do: #fixUnsavedFields
 ]
@@ -186,17 +183,17 @@ ScratchProject >> modified: aBoolean [
 	application ifNotNil: [ application projectModified ]
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 ScratchProject >> newCode [
 	^ application newCode
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 ScratchProject >> newObjStream [
 	^ self class objStreamClass new
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 ScratchProject >> newProjectReadWriter [
 
 	^ ScratchProjectReadWriter new
@@ -204,6 +201,18 @@ ScratchProject >> newProjectReadWriter [
 		  fileVersion: self class fileVersion;
 		  fileVersionTag: self class fileVersionTag;
 		  yourself
+]
+
+{ #category : #accessing }
+ScratchProject >> scriptNamed: aString [
+
+	^ scripts detect: [ :each | each objName = aString ] ifNone: [ nil ]
+]
+
+{ #category : #accessing }
+ScratchProject >> scriptNames [
+
+	^ scripts collect: #objName
 ]
 
 { #category : #accessing }
@@ -222,12 +231,18 @@ ScratchProject >> setupBlockSpecs [
 	scripts do: #setupBlockSpecs
 ]
 
+{ #category : #api }
+ScratchProject >> setupScripts [
+
+	self subclassResponsibility
+]
+
 { #category : #'object i/o' }
 ScratchProject >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(scripts info) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : #api }
 ScratchProject >> thumbnailForm: aForm [
 	info at: 'thumbnail' put: aForm
 ]
