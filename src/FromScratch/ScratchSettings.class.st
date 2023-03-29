@@ -73,7 +73,8 @@ ScratchSettings >> initialize [
 	self stickyWindow: false.
 	self useErrorCatcher: false.
 	self fullscreen: false.
-	self resizable: true
+	self resizable: true.
+	self useSingleClick: false
 ]
 
 { #category : #accessing }
@@ -109,9 +110,11 @@ ScratchSettings >> loadFile: aFileReference [
 	aFileReference isFile ifFalse: [ ^ self ].
 	dict := STON fromString: aFileReference contents.
 	dict isDictionary ifFalse: [ ^ self ].
-	dict keysDo: [ :each | 
-		(self respondsTo: each asSymbol) ifFalse: [ dict removeKey: each ] ].
-	dictionary := dict
+	dict keysAndValuesDo: [ :key :value | 
+		(self respondsTo: key asSymbol) ifTrue: [ 
+			self perform: (key , ':') asSymbol with: value ] ].
+	dictionary keysAndValuesRemove: [ :key :value | 
+		(dict keys includes: key) not ]
 ]
 
 { #category : #accessing }
@@ -133,6 +136,8 @@ ScratchSettings >> optionsFor: aSymbol [
 	aSymbol = #resizable
 		ifTrue: [ ^ {true . false} ].
 	aSymbol = #hideDebugMenu
+		ifTrue: [ ^ {true . false} ].
+	aSymbol = #useSingleClick
 		ifTrue: [ ^ {true . false} ].
 	^ #()
 ]
@@ -187,4 +192,17 @@ ScratchSettings >> useErrorCatcher [
 ScratchSettings >> useErrorCatcher: aBoolean [
 	dictionary at: #useErrorCatcher put: aBoolean.
 	SpScratchApp useErrorCatcher: aBoolean
+]
+
+{ #category : #accessing }
+ScratchSettings >> useSingleClick [
+
+	^ dictionary at: #useSingleClick ifAbsent: [ false ]
+]
+
+{ #category : #accessing }
+ScratchSettings >> useSingleClick: aBoolean [
+
+	dictionary at: #useSingleClick put: aBoolean.
+	SpScratchApp useSingleClick: aBoolean
 ]

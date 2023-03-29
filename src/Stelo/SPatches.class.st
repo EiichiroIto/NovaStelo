@@ -145,10 +145,13 @@ SPatches >> indexAtPoint: aPoint [
 
 { #category : #accessing }
 SPatches >> indexAtX: x y: y [
-	| x1 y1 |
+
+	| x1 y1 c r |
 	x1 := self normalize: x.
 	y1 := self normalize: y.
-	^ self indexAtPoint: x1 @ y1
+	c := x1 floor + (order // 2) + 1.
+	r := y1 floor + (order // 2) + 1.
+	^ self indexAtCol: c row: r
 ]
 
 { #category : #'object i/o' }
@@ -184,10 +187,10 @@ SPatches >> newVarDef [
 
 { #category : #accessing }
 SPatches >> normalize: aNumber [
+
 	| h x |
-	x := aNumber.
 	h := order / 2.
-	x := x \\ order.
+	x := aNumber \\ order.
 	x >= h ifTrue: [ x := x - order ].
 	^ x
 ]

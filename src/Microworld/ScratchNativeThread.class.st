@@ -10,9 +10,6 @@ Class {
 		'isTerminated',
 		'retVal'
 	],
-	#classVars : [
-		'OpTable'
-	],
 	#classInstVars : [
 		'cachedSymbols'
 	],
@@ -32,21 +29,14 @@ ScratchNativeThread class >> indexOfSymbol: aSymbol [
 
 { #category : #'class initialization' }
 ScratchNativeThread class >> initialize [
-	"self initialize."
-	self setupCachedSymbols.
-	self setupOpTable.
+
+	"ScratchNativeThread initialize."
+	self setupCachedSymbols
 ]
 
 { #category : #private }
 ScratchNativeThread class >> setupCachedSymbols [
 	cachedSymbols := #(#push0 #push1 #pushShort #pushFloat) , self symbols
-]
-
-{ #category : #private }
-ScratchNativeThread class >> setupOpTable [
-	OpTable := Array new: cachedSymbols size.
-	cachedSymbols
-		withIndexDo: [ :each :index | OpTable at: index put: each ].
 ]
 
 { #category : #private }

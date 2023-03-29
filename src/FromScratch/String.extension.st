@@ -56,11 +56,6 @@ String >> isNumberString [
 ]
 
 { #category : #'*FromScratch' }
-String >> isScriptable [
-	^ false
-]
-
-{ #category : #'*FromScratch' }
 String >> localized [
 	"Answer myself translated into the current Scratch language. If there is no translation for me, then answer myself."
 

@@ -101,12 +101,6 @@ ScratchScriptTest >> testInitialize [
 ]
 
 { #category : #test }
-ScratchScriptTest >> testIsScriptable [
-
-	self assert: self newScript isScriptable
-]
-
-{ #category : #test }
 ScratchScriptTest >> testLoopBlockSelectors [
 
 	| script r |

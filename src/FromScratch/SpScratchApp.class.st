@@ -10,7 +10,8 @@ Class {
 	],
 	#classVars : [
 		'Clipboard',
-		'UseErrorCatcher'
+		'UseErrorCatcher',
+		'UseSingleClick'
 	],
 	#category : #'FromScratch-Spec2'
 }
@@ -127,8 +128,10 @@ SpScratchApp class >> icon [
 
 { #category : #'class initialization' }
 SpScratchApp class >> initialize [
+
 	Clipboard := nil.
-	UseErrorCatcher := false
+	UseErrorCatcher := false.
+	UseSingleClick := false
 ]
 
 { #category : #'instance creation' }
@@ -204,9 +207,27 @@ SpScratchApp class >> try: aBlock onFailure: anErrorBlock [
 ]
 
 { #category : #accessing }
+SpScratchApp class >> useErrorCatcher [
+
+	^ UseErrorCatcher
+]
+
+{ #category : #accessing }
 SpScratchApp class >> useErrorCatcher: aBoolean [
 
 	UseErrorCatcher := aBoolean
+]
+
+{ #category : #accessing }
+SpScratchApp class >> useSingleClick [
+
+	^ UseSingleClick
+]
+
+{ #category : #accessing }
+SpScratchApp class >> useSingleClick: aBoolean [
+
+	UseSingleClick := aBoolean
 ]
 
 { #category : #'button actions' }
@@ -475,6 +496,12 @@ SpScratchApp >> fixUnsavedFields [
 ]
 
 { #category : #private }
+SpScratchApp >> handleDropFile: aFileReference in: aMorph event: anEvent [
+
+	self openProject: aFileReference
+]
+
+{ #category : #private }
 SpScratchApp >> imageExtension [
 	^ 'png'
 ]
@@ -581,6 +608,7 @@ SpScratchApp >> open [
 	presenter := self newPresenter: self class presentationClass.
 	window := presenter open.
 	self newProject. 
+	self registerDropHandler.
 	presenter updateWindowSettings.
 	window maximize.
 	presenter whenStepsDo: [ self stepProcesses ].
@@ -589,20 +617,27 @@ SpScratchApp >> open [
 
 { #category : #'menu actions' }
 SpScratchApp >> openProject [
-	| file newProj |
-	self confirmForNewProject
-		ifFalse: [ ^ self ].
+
+	| file |
+	self confirmForNewProject ifFalse: [ ^ self ].
 	file := presenter
-		chooseExistingFileReference: 'Open Project' localized
-		extensions: {self class extension}
-		path: self projectDirectory
-		preview: self class previewClass.
+		        chooseExistingFileReference: 'Open Project' localized
+		        extensions: { self class extension }
+		        path: self projectDirectory
+		        preview: self class previewClass.
 	file ifNil: [ ^ self ].
 	file isFile ifFalse: [ ^ self ].
-	newProj := self readProjectFrom: file.
+	self openProject: file
+]
+
+{ #category : #'menu actions' }
+SpScratchApp >> openProject: aFileReference [
+
+	| newProj |
+	newProj := self readProjectFrom: aFileReference.
 	newProj ifNil: [ ^ self ].
-	self projectDirectory: file parent.
-	self projectName: file base.
+	self projectDirectory: aFileReference parent.
+	self projectName: aFileReference base.
 	self installNewProject: newProj
 ]
 
@@ -715,6 +750,19 @@ SpScratchApp >> readProjectFrom: aFileReference [
 		  onFailure: [ :err | 
 			  presenter alert: err messageText.
 			  nil ]
+]
+
+{ #category : #private }
+SpScratchApp >> registerDropHandler [
+
+	| handler |
+	self unregisterDropHandler.
+	handler := ExternalDropHandler
+		           type: nil
+		           extension: self extension
+		           action: [ :file :morph :event | 
+			           self handleDropFile: file in: morph event: event ].
+	ExternalDropHandler registerHandler: handler
 ]
 
 { #category : #private }
@@ -888,6 +936,13 @@ SpScratchApp >> target [
 	^ presenter target
 ]
 
+{ #category : #private }
+SpScratchApp >> unregisterDropHandler [
+
+	ExternalDropHandler registeredHandlers removeAllSuchThat: [ :each | 
+		each extension = self extension ]
+]
+
 { #category : #'file read/write' }
 SpScratchApp >> unusedNameStartingWith: prefix in: aFileReference [
 	| usedNames i result |
@@ -907,7 +962,8 @@ SpScratchApp >> updateContents [
 
 { #category : #private }
 SpScratchApp >> windowClosing [
-	"do nothing"
+
+	self unregisterDropHandler
 ]
 
 { #category : #'file read/write' }

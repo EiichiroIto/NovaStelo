@@ -508,11 +508,6 @@ ScratchScript >> initialize [
 ]
 
 { #category : #testing }
-ScratchScript >> isScriptable [
-	^ true
-]
-
-{ #category : #testing }
 ScratchScript >> isValidSubName: aString [
 	self subclassResponsibility
 ]

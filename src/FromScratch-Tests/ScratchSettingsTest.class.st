@@ -93,7 +93,8 @@ ScratchSettingsTest >> testInitialize [
 	self deny: obj useErrorCatcher.
 	self deny: obj fullscreen.
 	self assert: obj resizable.
-	self assert: obj projectDir isEmpty
+	self assert: obj projectDir isEmpty.
+	self deny: obj useSingleClick
 ]
 
 { #category : #test }
@@ -117,7 +118,7 @@ ScratchSettingsTest >> testKeys [
 		assertCollection: obj keys
 		equals:
 			#( dontClose fullscreen hideDebugMenu keepMaximize projectDir
-			   resizable stickyWindow useErrorCatcher )
+			   resizable stickyWindow useErrorCatcher useSingleClick )
 ]
 
 { #category : #test }
@@ -184,4 +185,16 @@ ScratchSettingsTest >> testUseErrorCatcher [
 	self assert: obj useErrorCatcher.
 	obj useErrorCatcher: false.
 	self deny: obj useErrorCatcher
+]
+
+{ #category : #test }
+ScratchSettingsTest >> testUseSingleClick [
+
+	| obj |
+	obj := self newObj.
+	self deny: obj useSingleClick.
+	obj useSingleClick: true.
+	self assert: obj useSingleClick.
+	obj useSingleClick: false.
+	self deny: obj useSingleClick
 ]

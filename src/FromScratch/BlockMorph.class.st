@@ -148,6 +148,12 @@ BlockMorph >> clearProcess [
 
 ]
 
+{ #category : #'event handling' }
+BlockMorph >> click: evt [
+
+	SpScratchApp useSingleClick ifTrue: [ self topBlock toggleProcess ]
+]
+
 { #category : #accessing }
 BlockMorph >> closestAttachTargetIn: newOwner [
 	"Answer the closest block attachment point among the blocks and stack submorphs of the given morph. Answer nil if there are no blocks close enough to attach myself to."
@@ -284,10 +290,8 @@ BlockMorph >> delete [
 
 { #category : #'event handling' }
 BlockMorph >> doubleClick: evt [
-	"If I'm a block with a receiver that's in a Scratch window, execute me."
 
-	self topBlock toggleProcess.
-
+	SpScratchApp useSingleClick ifFalse: [ self topBlock toggleProcess ]
 ]
 
 { #category : #drawing }
@@ -973,6 +977,12 @@ BlockMorph >> selector: aSymbol [
 
 	selector := aSymbol.
 
+]
+
+{ #category : #asserting }
+BlockMorph >> shouldDropOnMouseUp [
+
+	^ true
 ]
 
 { #category : #processes }

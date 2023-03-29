@@ -93,6 +93,7 @@ SpStelo class >> themesURL [
 SpStelo >> addTurtles [
 	| script |
 	script := project addNewTurtleScript.
+	script setupBlockSpecs.
 	sworld addBreed: script breed.
 	^ script
 ]
