@@ -41,9 +41,12 @@ ScriptArgMorph >> argString: aGenerator [
 ScriptArgMorph >> checkForDeletedScript [
 
 	selectedScript ifNil: [ ^ self ].
-	self project ifNotNil: [ :project | 
-		(project scripts includes: selectedScript) ifTrue: [ ^ self ].
-		selectedScript := nil ]
+	self project ifNotNil: [ :project |
+		selectedScript isString
+			ifTrue: [ selectedScript := project scriptNamed: selectedScript ]
+			ifFalse: [
+				(project scripts includes: selectedScript) ifTrue: [ ^ self ].
+				selectedScript := nil ] ]
 ]
 
 { #category : #other }
@@ -126,6 +129,12 @@ ScriptArgMorph >> presentMenu [
 	tmp ifNil: [ ^ self ].
 	selectedScript := tmp.
 	self updateLabel
+]
+
+{ #category : #accessing }
+ScriptArgMorph >> selectedScript [
+
+	^ selectedScript
 ]
 
 { #category : #stepping }

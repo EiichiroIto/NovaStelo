@@ -44,12 +44,12 @@ VarDef >> addReserved: aString varNo: anInteger className: aSymbol [
 
 { #category : #accessing }
 VarDef >> addReservedVariable: aString varNo: anInteger [
-	^ self addReserved: aString varNo: anInteger className: #FloatArray
+	^ self addReserved: aString varNo: anInteger className: #Float32Array
 ]
 
 { #category : #accessing }
 VarDef >> addVariable: aString [
-	^ self add: aString className: #FloatArray
+	^ self add: aString className: #Float32Array
 ]
 
 { #category : #accessing }
@@ -94,7 +94,7 @@ VarDef >> includes: aString [
 { #category : #'object i/o' }
 VarDef >> initFieldsFrom: anObjStream version: classVersion [
 	self initFieldsNamed: #(varNames varClasses) from: anObjStream.
-	varNames ifNotNil: [ self regularize ]
+	self regularize
 ]
 
 { #category : #initialization }
@@ -163,9 +163,15 @@ VarDef >> realVarNames [
 
 { #category : #accessing }
 VarDef >> regularize [
-	varNames := varNames copyWithoutAll: reservedVarNames.
-	varNames := reservedVarNames , varNames.
-	varNames := varNames asArray
+
+	varNames ifNotNil: [
+		varNames := varNames copyWithoutAll: reservedVarNames.
+		varNames := reservedVarNames , varNames.
+		varNames := varNames asArray ].
+	varClasses ifNotNil: [
+		varClasses keysAndValuesDo: [ :key :value |
+			value = #FloatArray ifTrue: [
+				varClasses at: key put: #Float32Array ] ] ]
 ]
 
 { #category : #private }

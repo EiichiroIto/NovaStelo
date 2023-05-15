@@ -18,9 +18,9 @@ STurtlesVarDefTest >> testClassNameFor [
 	pv := STurtlesVarDef new.
 	self assert: (pv classNameFor: 'color') equals: #ByteArray.
 	self assert: (pv classNameFor: 'flag') equals: #ByteArray.
-	self assert: (pv classNameFor: 'x') equals: #FloatArray.
-	self assert: (pv classNameFor: 'y') equals: #FloatArray.
-	self assert: (pv classNameFor: 'heading') equals: #FloatArray
+	self assert: (pv classNameFor: 'x') equals: #Float32Array.
+	self assert: (pv classNameFor: 'y') equals: #Float32Array.
+	self assert: (pv classNameFor: 'heading') equals: #Float32Array
 ]
 
 { #category : #'tests-accessing' }

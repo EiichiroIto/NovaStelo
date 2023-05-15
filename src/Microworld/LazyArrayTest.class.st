@@ -15,23 +15,23 @@ LazyArrayTest >> newArray: aSymbol [
 { #category : #test }
 LazyArrayTest >> testAllocateMore [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	l allocateMore: 10.
-	self assert: (l privArray isKindOf: FloatArray).
+	self assert: (l privArray isKindOf: Float32Array).
 	self assert: l privArray size equals: l defaultAllocationSize.
 	l allocateMore: 10.
-	self assert: (l privArray isKindOf: FloatArray).
+	self assert: (l privArray isKindOf: Float32Array).
 	self assert: l privArray size equals: l defaultAllocationSize * 2.
 ]
 
 { #category : #test }
 LazyArrayTest >> testArray [
 	| a |
-	a := self newArray: #FloatArray.
-	self assert: a array class equals: FloatArray.
+	a := self newArray: #Float32Array.
+	self assert: a array class equals: Float32Array.
 	self assert: a array size equals: 0.
 	a at: 10 put: 1.
-	self assert: a array class equals: FloatArray.
+	self assert: a array class equals: Float32Array.
 	self assert: a array size equals: 100.
 	self assert: (a array at: 10) equals: 1
 ]
@@ -40,8 +40,8 @@ LazyArrayTest >> testArray [
 LazyArrayTest >> testArrayClass [
 	| l |
 	l := LazyArray basicNew.
-	l className: #FloatArray.
-	self assert: l arrayClass equals: FloatArray.
+	l className: #Float32Array.
+	self assert: l arrayClass equals: Float32Array.
 	l := LazyArray basicNew.
 	l className: #ByteArray.
 	self assert: l arrayClass equals: ByteArray.
@@ -82,7 +82,7 @@ LazyArrayTest >> testAssureExistsIndexAnd [
 { #category : #test }
 LazyArrayTest >> testAt [
 	| a |
-	a := self newArray: #FloatArray.
+	a := self newArray: #Float32Array.
 	self assert: (a at: 1) equals: 0.
 	a at: 2 put: 3.
 	a at: 5 put: 9.
@@ -97,7 +97,7 @@ LazyArrayTest >> testAt [
 { #category : #test }
 LazyArrayTest >> testAtPut [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	self assert: l privArray isNil.
 	l at: 1 put: 1.
 	self assert: l privArray size equals: l defaultAllocationSize.
@@ -118,7 +118,7 @@ LazyArrayTest >> testAtPut [
 { #category : #test }
 LazyArrayTest >> testChangeBy [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	l at: 1 put: 10.
 	l at: 2 put: 20.
 	l at: 3 put: 30.
@@ -136,8 +136,8 @@ LazyArrayTest >> testClassName [
 	| l |
 	l := LazyArray basicNew.
 	self assert: l className isNil.
-	l className: #FloatArray.
-	self assert: l className equals: #FloatArray
+	l className: #Float32Array.
+	self assert: l className equals: #Float32Array
 ]
 
 { #category : #test }
@@ -150,7 +150,7 @@ LazyArrayTest >> testDefaultAllocationSize [
 { #category : #test }
 LazyArrayTest >> testDefaultValue [
 	| a |
-	a := self newArray: #FloatArray.
+	a := self newArray: #Float32Array.
 	self assert: a defaultValue equals: 0.
 	a defaultValue: 12.
 	self assert: a defaultValue equals: 12.
@@ -167,7 +167,7 @@ LazyArrayTest >> testFixedSize [
 { #category : #test }
 LazyArrayTest >> testForceSize [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	self assert: l size equals: 0.
 	l at: 20 put: 1.
 	self assert: l size equals: l defaultAllocationSize.
@@ -182,7 +182,7 @@ LazyArrayTest >> testForceSize [
 { #category : #test }
 LazyArrayTest >> testIsEmpty [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	self assert: l isEmpty.
 	l at: 1 put: 2.
 	self deny: l isEmpty.
@@ -193,7 +193,7 @@ LazyArrayTest >> testIsEmpty [
 { #category : #test }
 LazyArrayTest >> testIsFixed [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	self deny: l isFixed.
 	l at: 20 put: 1.
 	self deny: l isFixed.
@@ -320,7 +320,7 @@ LazyArrayTest >> testListSizeOf [
 { #category : #test }
 LazyArrayTest >> testMultiplyBy [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	l at: 1 put: 10.
 	l at: 2 put: 20.
 	l at: 3 put: 30.
@@ -336,18 +336,18 @@ LazyArrayTest >> testMultiplyBy [
 { #category : #test }
 LazyArrayTest >> testPrintOn [
 	| a st |
-	a := self newArray: #FloatArray.
+	a := self newArray: #Float32Array.
 	st := WriteStream on: ''.
 	a printOn: st.
-	self assert: st contents equals: 'LazyArray(FloatArray,0)'.
+	self assert: st contents equals: 'LazyArray(Float32Array,0)'.
 	a at: 3 put: 10.
 	st := WriteStream on: ''.
 	a printOn: st.
-	self assert: st contents equals: 'LazyArray(FloatArray,100)'.
+	self assert: st contents equals: 'LazyArray(Float32Array,100)'.
 	a forceSize: 10.
 	st := WriteStream on: ''.
 	a printOn: st.
-	self assert: st contents equals: 'LazyArray(FloatArray,*10)'.
+	self assert: st contents equals: 'LazyArray(Float32Array,*10)'.
 ]
 
 { #category : #test }
@@ -366,7 +366,7 @@ LazyArrayTest >> testPrivArray [
 { #category : #test }
 LazyArrayTest >> testPrivFixedSize [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	self assert: l fixedSize isNil.
 	l privFixedSize: 10.
 	self assert: l fixedSize equals: 10.
@@ -377,7 +377,7 @@ LazyArrayTest >> testPrivFixedSize [
 { #category : #test }
 LazyArrayTest >> testReset [
 	| l |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	self assert: l privArray isNil.
 	l at: 1 put: 1.
 	self assert: l privArray notNil.
@@ -390,7 +390,7 @@ LazyArrayTest >> testReset [
 { #category : #test }
 LazyArrayTest >> testSetArray [
 	| l a b |
-	l := LazyArray className: #FloatArray.
+	l := LazyArray className: #Float32Array.
 	self assert: l privArray isNil.
 	a := #(1 2 3) asFloatArray.
 	b := #(4 5 6) asFloatArray.
@@ -406,7 +406,7 @@ LazyArrayTest >> testSize [
 	| l a |
 	l := LazyArray basicNew.
 	self assert: l size equals: 0.
-	a := FloatArray new: 5.
+	a := Float32Array new: 5.
 	a at: 2 put: 3.
 	a at: 5 put: 9.
 	l privArray: a.

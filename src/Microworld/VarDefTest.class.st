@@ -36,7 +36,7 @@ VarDefTest >> testAddComputedVariableVarNo [
 	self assert: v privReservedVarNames size equals: 1.
 	self assert: (v privReservedVarNames includes: 'b').
 	self assertCollection: v privVarClasses size equals: 2.
-	self assert: (v privVarClasses at: 'a') equals: #FloatArray.
+	self assert: (v privVarClasses at: 'a') equals: #Float32Array.
 	self assert: (v privVarClasses at: 'b') equals: nil
 ]
 
@@ -79,8 +79,8 @@ VarDefTest >> testAddReservedVariableVarNo [
 	self assert: v privReservedVarNames size equals: 1.
 	self assert: (v privReservedVarNames includes: 'b').
 	self assertCollection: v privVarClasses size equals: 2.
-	self assert: (v privVarClasses at: 'a') equals: #FloatArray.
-	self assert: (v privVarClasses at: 'b') equals: #FloatArray.
+	self assert: (v privVarClasses at: 'a') equals: #Float32Array.
+	self assert: (v privVarClasses at: 'b') equals: #Float32Array.
 ]
 
 { #category : #test }
@@ -90,11 +90,11 @@ VarDefTest >> testAddVariable [
 	x := v addVariable: 'a'.
 	self assert: x equals: 1.
 	self assert: v privVarClasses size equals: 1.
-	self assert: (v privVarClasses at: 'a') equals: #FloatArray.
+	self assert: (v privVarClasses at: 'a') equals: #Float32Array.
 	x := v addVariable: 'b'.
 	self assert: x equals: 2.
 	self assert: v privVarClasses size equals: 2.
-	self assert: (v privVarClasses at: 'b') equals: #FloatArray
+	self assert: (v privVarClasses at: 'b') equals: #Float32Array
 ]
 
 { #category : #test }
@@ -104,7 +104,7 @@ VarDefTest >> testClassFor [
 	v addVariable: 'a'.
 	c := v classFor: 'a'.
 	self assert: (c isKindOf: LazyArray).
-	self assert: c className equals: #FloatArray
+	self assert: c className equals: #Float32Array
 ]
 
 { #category : #test }
@@ -248,16 +248,27 @@ VarDefTest >> testRealVarNames [
 
 { #category : #test }
 VarDefTest >> testRegularize [
+
 	| v |
 	v := VarDef new.
 	v addReservedVariable: 'x' varNo: 1.
 	v addVariable: 'a'.
 	v addVariable: 'b'.
 	v addVariable: 'c'.
-	self assertCollection: v privVarNames asArray equals: #(x a b c).
-	v privVarNames: #('a' 'b' 'x' 'c') asOrderedCollection.
+	self assertCollection: v privVarNames asArray equals: #( x a b c ).
+	v privVarNames: #( 'a' 'b' 'x' 'c' ) asOrderedCollection.
 	v regularize.
-	self assertCollection: v privVarNames asArray equals: #('x' 'a' 'b' 'c')
+	self
+		assertCollection: v privVarNames asArray
+		equals: #( 'x' 'a' 'b' 'c' ).
+	v := VarDef new.
+	v add: 'a' className: #FloatArray.
+	v add: 'b' className: #Array.
+	self assert: (v classNameFor: 'a') equals: #FloatArray.
+	self assert: (v classNameFor: 'b') equals: #Array.
+	v regularize.
+	self assert: (v classNameFor: 'a') equals: #Float32Array.
+	self assert: (v classNameFor: 'b') equals: #Array
 ]
 
 { #category : #test }

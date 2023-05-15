@@ -50,7 +50,8 @@ ObjStream class >> arrayFor: id size: size [
 	| classSymbol |
 	classSymbol := (IDToClassEntry at: id) second.
 	classSymbol = #Array ifTrue: [ ^ Array new: size ].
-	classSymbol = #FloatArray ifTrue: [ ^ FloatArray new: size ].
+	classSymbol = #FloatArray ifTrue: [ ^ Float32Array new: size ].
+	classSymbol = #Float32Array ifTrue: [ ^ Float32Array new: size ].
 	classSymbol = #IntegerArray ifTrue: [ ^ IntegerArray new: size ].
 	self error: 'Invalid Array'
 ]
@@ -76,7 +77,7 @@ ObjStream class >> fixedFormatClasses [
 		(12	BoxedFloat64					getFloat:id:			putFloat:id:)
 		(13	Bitmap					getBitmap:id:		putBitmap:id:)
 		(14	ByteString				getBytes:id:			putBytes:id:)
-		(15	FloatArray					getArray:id:			putArray:id:)
+		(15	Float32Array					getArray:id:			putArray:id:)
 		(16	ColorArray					getArray:id:			putArray:id:)
 		(17	WideString				getBytes:id:			putBytes:id:)
 		(18	IntegerArray				getArray:id:			putArray:id:)

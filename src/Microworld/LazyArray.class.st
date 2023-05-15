@@ -139,7 +139,9 @@ LazyArray >> initFieldsFrom: anObjStream version: classVersion [
 	classVersion = 2
 		ifTrue: [ self
 				initFieldsNamed: #(array className fixedSize defaultValue)
-				from: anObjStream ]
+				from: anObjStream ].
+	className = #FloatArray
+		ifTrue: [ className := #Float32Array ]
 ]
 
 { #category : #testing }
