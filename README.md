@@ -9,12 +9,12 @@ NovaStelo is inspired from StarLogo and Scratch, more precisely
 StarLogo on the book "Turtles, Termites, and Traffic Jams" and Scratch 1.4.
 Both are of Resnick's great works.
 
-NovaStelo is now built on [Pharo Smalltalk 10.0](https://pharo.org/). Almost all Model and UI are rewritten using Spec2.
+NovaStelo is now built on [Pharo Smalltalk 11.0](https://pharo.org/). Almost all Model and UI are rewritten using Spec2.
 
 ## Install and Play on Windows
 1. Go to [release page](https://github.com/EiichiroIto/NovaStelo/releases), and download a latest release file.
 2. Extract the zipped release file.
-3. Start Pharo.exe application.
+3. Start NovaStelo.exe application.
 4. Click NovaStelo on a menu bar to start NovaStelo.
 
 ## Install repository on Pharo
