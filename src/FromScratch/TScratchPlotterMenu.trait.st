@@ -1,9 +1,11 @@
 Trait {
-	#name : #TScratchPlotterMenu,
-	#category : #'FromScratch-Plotter'
+	#name : 'TScratchPlotterMenu',
+	#category : 'FromScratch-Plotter',
+	#package : 'FromScratch',
+	#tag : 'Plotter'
 }
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 TScratchPlotterMenu >> savePlotImage: aPlotter [
 
 	| file saveForm |
@@ -18,7 +20,7 @@ TScratchPlotterMenu >> savePlotImage: aPlotter [
 	saveForm writePNGFileNamed: file pathString
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 TScratchPlotterMenu >> setMaxPlotSize: aPlotter [
 
 	| ret |
@@ -32,7 +34,7 @@ TScratchPlotterMenu >> setMaxPlotSize: aPlotter [
 	aPlotter maxSize: ret
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 TScratchPlotterMenu >> setMaxValue: aPlotter [
 
 	| ret |
@@ -46,7 +48,7 @@ TScratchPlotterMenu >> setMaxValue: aPlotter [
 	aPlotter max: ret
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 TScratchPlotterMenu >> setMinValue: aPlotter [
 
 	| ret |
@@ -60,7 +62,7 @@ TScratchPlotterMenu >> setMinValue: aPlotter [
 	aPlotter min: ret
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 TScratchPlotterMenu >> setPlotPeriod: aPlotter [
 
 	| ret |
@@ -72,7 +74,7 @@ TScratchPlotterMenu >> setPlotPeriod: aPlotter [
 	aPlotter updatePeriod: ret
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 TScratchPlotterMenu >> showMenuForPlotter: aPlotter event: anEvent [
 	| m checked unchecked |
 	checked := Smalltalk ui iconNamed: #smallOk.

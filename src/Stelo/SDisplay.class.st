@@ -1,6 +1,6 @@
 Class {
-	#name : #SDisplay,
-	#superclass : #Morph,
+	#name : 'SDisplay',
+	#superclass : 'Morph',
 	#instVars : [
 		'modelExtent',
 		'cell',
@@ -13,10 +13,12 @@ Class {
 		'whenClickDo',
 		'isGrayscale'
 	],
-	#category : #'Stelo-Morphic'
+	#category : 'Stelo-Morphic',
+	#package : 'Stelo',
+	#tag : 'Morphic'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SDisplay class >> sworld: aWorld [
 	^ self basicNew
 		initialize;
@@ -24,17 +26,17 @@ SDisplay class >> sworld: aWorld [
 		yourself.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplay >> cell [
 	^ cell
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplay >> cell: aPoint [
 	cell := aPoint
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 SDisplay >> click: evt [
 	| p |
 	p := evt cursorPoint - self topLeft.
@@ -42,12 +44,12 @@ SDisplay >> click: evt [
 	whenClickDo ifNotNil: [ whenClickDo cull: p ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplay >> defaultExtent [
 	^ 220 @ 220
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 SDisplay >> drawInfoOn: aCanvas [
 	info ifNil: [ ^ self ].
 	aCanvas
@@ -62,7 +64,7 @@ SDisplay >> drawInfoOn: aCanvas [
 		color: self borderColor
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 SDisplay >> drawOn: aCanvas [
 	super drawOn: aCanvas.
 	sworld ifNil: [ ^ aCanvas frameRectangle: self bounds color: Color red ].
@@ -74,7 +76,7 @@ SDisplay >> drawOn: aCanvas [
 	self drawInfoOn: aCanvas.
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 SDisplay >> drawWorldOn: aCanvas [
 	| x0 x y colors index block |
 	block := isGrayscale
@@ -95,33 +97,33 @@ SDisplay >> drawWorldOn: aCanvas [
 			y := y - cell y ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 SDisplay >> extent: aPoint [
 	super extent: aPoint.
 	forceModelChanged := true.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SDisplay >> forceModelChanged [
 	^ forceModelChanged
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 SDisplay >> handlesMouseDown: evt [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> info [
 	^ info
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> info: aString [
 	info := aString.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SDisplay >> initialize [
 	super initialize.
 	self extent: self defaultExtent.
@@ -133,92 +135,92 @@ SDisplay >> initialize [
 	self stepTime: 1000
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> isGrayscale [
 	^ isGrayscale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> isGrayscale: aBoolean [
 	isGrayscale := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> modelBounds [
 	offset ifNil: [ ^ self bounds ].
 	^ self topLeft + offset extent: modelExtent * cell
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SDisplay >> modelChanged [
 	^ forceModelChanged or: [ modelExtent ~= sworld extent ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> modelExtent [
 	^ modelExtent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> modelExtent: aPoint [
 	modelExtent := aPoint
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 SDisplay >> mouseDown: evt [
 	evt hand newKeyboardFocus: nil.
 	evt hand waitForClicksOrDrag: self event: evt
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplay >> offset [
 	^ offset
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplay >> offset: aPoint [
 	offset := aPoint
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplay >> pointOf: aPoint [
 	| p |
 	p := (aPoint - offset) // cell - (modelExtent // 2) + (0 @ 1).
 	^ p x @ p y negated
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 SDisplay >> step [
 	whenStepsDo ifNotNil: [ whenStepsDo value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> stepTime [
 	^ stepTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> stepTime: anInteger [
 	stepTime := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> sworld [
 	^ sworld
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> sworld: aWorld [
 	sworld := aWorld.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> toggleGrayscale [
 	isGrayscale := isGrayscale not.
 	self changed
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplay >> updateCache [
 	forceModelChanged := false.
 	modelExtent := sworld extent.
@@ -227,27 +229,27 @@ SDisplay >> updateCache [
 	offset := (self extent - (modelExtent * cell)) // 2
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 SDisplay >> wantsSteps [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> whenClickDo [
 	^ whenClickDo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> whenClickDo: aBlock [
 	whenClickDo := aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> whenStepsDo [
 	^ whenStepsDo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SDisplay >> whenStepsDo: aBlock [
 	whenStepsDo := aBlock
 ]

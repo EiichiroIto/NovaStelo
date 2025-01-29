@@ -1,22 +1,24 @@
 Class {
-	#name : #SpSteloConvDialog,
-	#superclass : #SpPresenter,
+	#name : 'SpSteloConvDialog',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'dropListNames',
 		'dropPlots',
 		'labelListNames',
 		'labelPlots'
 	],
-	#category : #'Stelo-Spec2'
+	#category : 'Stelo-Spec2',
+	#package : 'Stelo',
+	#tag : 'Spec2'
 }
 
-{ #category : #specs }
+{ #category : 'specs' }
 SpSteloConvDialog class >> defaultLayout [
 
 	^ self listToPlotSpec
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpSteloConvDialog class >> listNames: listNames plots: plots [
 
 	| dialog |
@@ -31,7 +33,7 @@ SpSteloConvDialog class >> listNames: listNames plots: plots [
 		  dialog plot }
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 SpSteloConvDialog class >> listToPlotSpec [
 	^ SpBoxLayout newVertical
 		spacing: 4;
@@ -42,7 +44,7 @@ SpSteloConvDialog class >> listToPlotSpec [
 		yourself
 ]
 
-{ #category : #specs }
+{ #category : 'specs' }
 SpSteloConvDialog class >> plotToListSpec [
 	^ SpBoxLayout newVertical
 		spacing: 4;
@@ -53,7 +55,7 @@ SpSteloConvDialog class >> plotToListSpec [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpSteloConvDialog class >> plots: plots listNames: listNames [
 
 	| dialog |
@@ -68,12 +70,12 @@ SpSteloConvDialog class >> plots: plots listNames: listNames [
 		  dialog listName }
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloConvDialog >> connectPresenters [
 	dropPlots display: [ :m | self showPlotsNumber: m ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloConvDialog >> initializePresenters [
 	dropListNames := self newDropList.
 	dropPlots := self newDropList.
@@ -86,31 +88,31 @@ SpSteloConvDialog >> initializePresenters [
 		add: dropPlots
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloConvDialog >> listName [
 	^ dropListNames selectedItem
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloConvDialog >> listNames: aCollection [
 	dropListNames
 		selectIndex: 0;
 		items: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloConvDialog >> plot [
 	^ dropPlots selectedItem
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloConvDialog >> plots: aCollection [
 	dropPlots
 		selectIndex: 0;
 		items: aCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloConvDialog >> showPlotsNumber: anInteger [
 	^ anInteger asString
 ]

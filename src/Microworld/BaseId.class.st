@@ -1,39 +1,41 @@
 Class {
-	#name : #BaseId,
-	#superclass : #Object,
+	#name : 'BaseId',
+	#superclass : 'Object',
 	#instVars : [
 		'nextNo'
 	],
-	#category : #'Microworld-Core'
+	#category : 'Microworld-Core',
+	#package : 'Microworld',
+	#tag : 'Core'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 BaseId class >> defaultUserNo [
 	^ self reservedNo + 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BaseId class >> reservedNo [
 	^ 0
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 BaseId >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 BaseId >> initFieldsFrom: anObjStream version: classVersion [
 	self initFieldsNamed: #(nextNo) from: anObjStream.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BaseId >> initialize [
 	super initialize.
 	self rewind.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaseId >> newNo [
 	| v |
 	v := nextNo.
@@ -41,32 +43,32 @@ BaseId >> newNo [
 	^ v
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BaseId >> privNextNo [
 	^ nextNo
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BaseId >> privNextNo: anInteger [
 	nextNo := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaseId >> rewind [
 	nextNo := self class defaultUserNo.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaseId >> size [
 	^ nextNo - 1
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 BaseId >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(nextNo) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaseId >> userDefinedVarNos [
 	^ (self class defaultUserNo to: self size) asArray
 ]

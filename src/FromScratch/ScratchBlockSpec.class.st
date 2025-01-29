@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchBlockSpec,
-	#superclass : #AbstractBlockSpec,
+	#name : 'ScratchBlockSpec',
+	#superclass : 'AbstractBlockSpec',
 	#instVars : [
 		'label',
 		'type',
@@ -8,106 +8,108 @@ Class {
 		'arguments',
 		'color'
 	],
-	#category : #'FromScratch-Project'
+	#category : 'FromScratch-Project',
+	#package : 'FromScratch',
+	#tag : 'Project'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> arguments [
 
 	^ arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> arguments: anObject [
 
 	arguments := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> color [
 
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> color: anObject [
 
 	color := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isBlockSpec [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isBooleanReporter [
 
 	^ type = #isBooleanReporter
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isCBlock [
 
 	^ type = #isCBlock
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isCommandBlock [
 
 	^ type = #isCommandBlock
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isEventHatBlock [
 
 	^ type = #isEventHatBlock
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isNativeBlock [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isReporterBlock [
 
 	^ #(isReporterBlock isBooleanReporter) includes: type
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isSpecialForm [
 
 	^ type = #isSpecialForm
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isStartHatBlock [
 
 	^ type = #isStartHatBlock
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockSpec >> isTimedBlock [
 
 	^ type = #isTimedBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> label [
 
 	^ label
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> label: anObject [
 
 	label := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchBlockSpec >> printOn: aStream [
 
 	aStream
@@ -121,25 +123,25 @@ ScratchBlockSpec >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> selector [
 
 	^ selector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> selector: anObject [
 
 	selector := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> type [
 
 	^ type
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockSpec >> type: anObject [
 
 	type := anObject

@@ -2,24 +2,26 @@
 A SCodeSymbolTest is a test class for testing the behavior of SCodeSymbol
 "
 Class {
-	#name : #ScratchBytecodeSymbolTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchBytecodeSymbolTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeSymbolTest >> newSymbol: aSymbol [
 	^ ScratchBytecodeSymbol selector: aSymbol
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolTest >> testPrintOn [
 	| c |
 	c := self newSymbol: #abc.
 	self assert: c asString equals: '<symbol=abc>'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolTest >> testPutOn [
 	| c stream |
 	c := self newSymbol: #abc.
@@ -28,7 +30,7 @@ ScratchBytecodeSymbolTest >> testPutOn [
 	self assertCollection: stream contents equals: #(abc).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolTest >> testSelector [
 	| c |
 	c := self newSymbol: #abc.

@@ -1,13 +1,15 @@
 Class {
-	#name : #ScratchBlockParser,
-	#superclass : #Object,
+	#name : 'ScratchBlockParser',
+	#superclass : 'Object',
 	#instVars : [
 		'generator'
 	],
-	#category : #'FromScratch-Process'
+	#category : 'FromScratch-Process',
+	#package : 'FromScratch',
+	#tag : 'Process'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockParser class >> allSymbols [
 
 	"self allSymbols inspect."
@@ -25,47 +27,47 @@ ScratchBlockParser class >> allSymbols [
 	^ list asArray
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> argString: anArgMorph [ 
 	^ generator argString: anArgMorph.
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> booleanArgString: anArgMorph [ 
 	^ generator falseString.
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> choiceArgString: aMorph [
 	^ generator choiceString: aMorph
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitBlock: aMorph indent: indent [
 	self emitBlockCode: aMorph
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitBlockBegin: aMorph [ 
 	generator generateBegin: aMorph selector morph: aMorph.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitBlockCenter: aMorph [ 
 	generator generateCenter: aMorph selector morph: aMorph.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitBlockCode: aMorph [ 
 	generator generateCode: aMorph selector morph: aMorph.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitBlockEnd: aMorph [ 
 	generator generateEnd: aMorph selector morph: aMorph.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitCBlock: aMorph indent: indent [ 
 	self emitBlockBegin: aMorph.
 	aMorph nestedBlock ifNil: [self emitPassIndent: indent + 1]
@@ -73,7 +75,7 @@ ScratchBlockParser >> emitCBlock: aMorph indent: indent [
 	self emitBlockEnd: aMorph.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitCode: aMorph indent: indent [ 
 	self emitIndent: indent.
 	aMorph emitCode: self indent: indent.
@@ -83,12 +85,12 @@ ScratchBlockParser >> emitCode: aMorph indent: indent [
 				indent: indent]
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitCodeHat: aHatBlock [
 	aHatBlock emitCode: self indent: 0.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitEventHatBlock: aMorph indent: indent [
 	| str |
 	str := aMorph eventName.
@@ -101,7 +103,7 @@ ScratchBlockParser >> emitEventHatBlock: aMorph indent: indent [
 	generator generateEventFooter: str.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitIfElseBlock: aMorph indent: indent [ 
 	self emitBlockBegin: aMorph.
 	aMorph trueBlock ifNil: [self emitPassIndent: indent + 1]
@@ -113,18 +115,18 @@ ScratchBlockParser >> emitIfElseBlock: aMorph indent: indent [
 	self emitBlockEnd: aMorph.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitIndent: anInteger [
 	generator generateIndent: anInteger
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitPassIndent: indent [
 	self emitIndent: indent.
 	generator generatePass.
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitStartHatBlock: aStartHatMorph indent: anInteger [
 
 	| str |
@@ -138,7 +140,7 @@ ScratchBlockParser >> emitStartHatBlock: aStartHatMorph indent: anInteger [
 	generator generateEventFooter: str
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitSubHatBlock: aMorph indent: indent [
 
 	| str i2 |
@@ -157,7 +159,7 @@ ScratchBlockParser >> emitSubHatBlock: aMorph indent: indent [
 	generator generateSubFooter: str
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchBlockParser >> emitSubVarDeclaration: aMorph indent: indent [
 
 	| list |
@@ -169,33 +171,33 @@ ScratchBlockParser >> emitSubVarDeclaration: aMorph indent: indent [
 		generateSubVars: list
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> eventTitleArgString: aMorph [
 	^ generator eventTitleString: aMorph eventName
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> expressionArgWithMenuString: t1 [ 
 	^ generator expressionArgWithMenuString: t1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockParser >> generator [
 
 	^ generator
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockParser >> generator: aCodeGenerator [
 	generator := aCodeGenerator.
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> localVarArgString: aVariableMorph [
 	^ generator localVarArgString: aVariableMorph variable.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockParser >> parseBlock: aTopBlock [
 	aTopBlock emitCode: self indent: 0.
 	aTopBlock isHatBlock
@@ -203,30 +205,30 @@ ScratchBlockParser >> parseBlock: aTopBlock [
 				ifNotNil: [ self emitCode: aTopBlock nextBlock indent: 0 ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockParser >> parseReporter: aMorph [
 	| str |
 	str := self reporterArgString: aMorph.
 	generator generateReporter: str
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> reporterArgString: aReporterMorph [
 
 	^ generator generateReporter: aReporterMorph selector morph: aReporterMorph
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> spriteArgString: aSpriteArgMorph [
 	^ generator spriteArgString: aSpriteArgMorph evaluate
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> valueString: aMorph [
 	^ aMorph argString: self
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchBlockParser >> variableArgString: aVariableMorph [
 	^ generator variableArgString: aVariableMorph variable.
 ]

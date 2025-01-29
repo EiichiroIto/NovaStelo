@@ -1,38 +1,40 @@
 Class {
-	#name : #SubHatMorph,
-	#superclass : #HatBlockMorph,
+	#name : 'SubHatMorph',
+	#superclass : 'HatBlockMorph',
 	#instVars : [
 		'subName'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 SubHatMorph >> asBlockTuple [
 
 	^ Array with: selector with: subName
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 SubHatMorph >> emitCode: aGenerator indent: indent [
 
 	aGenerator emitSubHatBlock: self indent: indent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SubHatMorph >> initialize [
 
 	super initialize.
 	subName := ''
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SubHatMorph >> isSubHatMorph [
 
 	^ true
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SubHatMorph >> startProcess [
 
 	| proc |
@@ -42,13 +44,13 @@ SubHatMorph >> startProcess [
 	^ proc
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SubHatMorph >> subName [
 
 	^ subName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SubHatMorph >> subName: aString [
 
 	subName := aString.
@@ -57,7 +59,7 @@ SubHatMorph >> subName: aString [
 	self applicationDo: [ :app | app updateContents ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SubHatMorph >> varNames [
 
 	^ self receiver varNames

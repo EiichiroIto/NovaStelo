@@ -1,27 +1,29 @@
 Class {
-	#name : #SexpLexer,
-	#superclass : #Object,
-	#category : #'FromScratch-Converter'
+	#name : 'SexpLexer',
+	#superclass : 'Object',
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #acccessing }
+{ #category : 'acccessing' }
 SexpLexer class >> quotedString: aString [
 	^ '"' , aString , '"'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SexpLexer >> delimiters [
 	^ '!@#$%^&*()_+`~=[]{}\|;'',<>/?', self whiteSpaces
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SexpLexer >> literal: aString [
 	aString isNumberString
 		ifTrue: [ ^ aString asNumber ].
 	^ aString
 ]
 
-{ #category : #acccessing }
+{ #category : 'acccessing' }
 SexpLexer >> read: aString [
 	| in out c token |
 	in := ReadStream on: aString.
@@ -43,7 +45,7 @@ SexpLexer >> read: aString [
 	^ out contents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SexpLexer >> whiteSpaces [
 	^ String cr, String lf, String space, String tab
 ]

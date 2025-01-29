@@ -1,6 +1,6 @@
 Class {
-	#name : #SpScratchApp,
-	#superclass : #SpApplication,
+	#name : 'SpScratchApp',
+	#superclass : 'SpApplication',
 	#instVars : [
 		'presenter',
 		'project',
@@ -13,15 +13,17 @@ Class {
 		'UseErrorCatcher',
 		'UseSingleClick'
 	],
-	#category : #'FromScratch-Spec2'
+	#category : 'FromScratch-Spec2',
+	#package : 'FromScratch',
+	#tag : 'Spec2'
 }
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> aboutAppString [
 	self subclassResponsibility
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 SpScratchApp class >> addBlockDefsTo: aSet [
 
 	| list |
@@ -32,7 +34,7 @@ SpScratchApp class >> addBlockDefsTo: aSet [
 	ScratchTranslator addBlockDefs: list to: aSet
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchApp class >> allBlockSymbols [
 
 	| list |
@@ -49,32 +51,32 @@ SpScratchApp class >> allBlockSymbols [
 	^ (list collect: #selector) asSet
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> appFolderName [
 	self subclassResponsibility
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> appName [
 	self subclassResponsibility
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> basedVersion [
 	^ '1.4 (source code of 23-Sep-09)'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> clipboard [
 	^ Clipboard
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> clipboard: anObject [
 	Clipboard := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> deploySystem [
 
 	"self deploySystem"
@@ -100,12 +102,12 @@ SpScratchApp class >> deploySystem [
 	Smalltalk snapshot: true andQuit: true
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> extension [
 	self subclassResponsibility
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchApp class >> generatePOTFile [
 
 	| strings file |
@@ -117,7 +119,7 @@ SpScratchApp class >> generatePOTFile [
 	ScratchTranslator writePOT: strings file: file
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> icon [
 	^ (Form
 	extent: (16@16)
@@ -126,7 +128,7 @@ SpScratchApp class >> icon [
 	offset: (0@0))
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 SpScratchApp class >> initialize [
 
 	Clipboard := nil.
@@ -134,7 +136,7 @@ SpScratchApp class >> initialize [
 	UseSingleClick := false
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpScratchApp class >> open [
 
 	| settings |
@@ -144,7 +146,7 @@ SpScratchApp class >> open [
 	self openWithSettings: settings
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpScratchApp class >> openWithSettings: aSettings [
 
 	ScratchTranslator setLocale: aSettings language.
@@ -153,23 +155,23 @@ SpScratchApp class >> openWithSettings: aSettings [
 		open
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> presentationClass [
 	self subclassResponsibility
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> previewClass [
 	"self projectClass if use preview"
 	^ nil
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> projectClass [
 	self subclassResponsibility
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp class >> quit [
 
 	(SpScratchPresenter confirm: 'Quit Application?' localized) ifFalse: [ 
@@ -177,27 +179,27 @@ SpScratchApp class >> quit [
 	Smalltalk snapshot: false andQuit: true
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> screenshotExtent [
 	^ 400 @ 400
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> settingsClass [
 	^ ScratchSettings
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> settingsFilename [
 	^ 'settings.ston'
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpScratchApp class >> thumbnailExtent [
 	^ 120 @ 120
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> try: aBlock onFailure: anErrorBlock [
 	^ UseErrorCatcher
 		ifTrue: [ aBlock
@@ -206,31 +208,31 @@ SpScratchApp class >> try: aBlock onFailure: anErrorBlock [
 		ifFalse: [ aBlock value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> useErrorCatcher [
 
 	^ UseErrorCatcher
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> useErrorCatcher: aBoolean [
 
 	UseErrorCatcher := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> useSingleClick [
 
 	^ UseSingleClick
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp class >> useSingleClick: aBoolean [
 
 	UseSingleClick := aBoolean
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpScratchApp >> addList: aScript [
 
 	| listName |
@@ -243,7 +245,7 @@ SpScratchApp >> addList: aScript [
 	presenter currentCategory: #variables
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> addSubBlock: aPoint script: aScript [
 
 	| subName |
@@ -257,7 +259,7 @@ SpScratchApp >> addSubBlock: aPoint script: aScript [
 	aScript addSubBlock: aPoint name: subName
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpScratchApp >> addVariable: aScript [
 
 	| varName |
@@ -270,24 +272,24 @@ SpScratchApp >> addVariable: aScript [
 	presenter currentCategory: #variables
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> appFolderName [
 	^ self class appFolderName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> appName [
 	^ self class appName
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> closeMediaEditorsAndDialogs [
 
 	(self currentWorld submorphs select: [ :each | 
 		 each isKindOf: DialogWindowMorph ]) do: #delete
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> confirmForNewProject [
 
 	| response |
@@ -299,25 +301,25 @@ SpScratchApp >> confirmForNewProject [
 	^ true
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> copyBlock: aBlockMorph [
 	| code |
 	code := self serializeBlocks: aBlockMorph.
 	self class clipboard: code
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> createProject [
 	^ self class projectClass new
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> cutBlock: aBlockMorph [
 	self copyBlock: aBlockMorph.
 	aBlockMorph delete
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpScratchApp >> deleteList: aScript [
 
 	"Ask the user which user variable to delete, then remove it."
@@ -331,7 +333,7 @@ SpScratchApp >> deleteList: aScript [
 	presenter currentCategory: #variables
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpScratchApp >> deleteVariable: aScript [
 	"Ask the user which user variable to delete, then remove it."
 
@@ -345,7 +347,7 @@ SpScratchApp >> deleteVariable: aScript [
 	presenter currentCategory: #variables
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> deserializeFrom: aString [
 
 	| lex list obj |
@@ -359,14 +361,14 @@ SpScratchApp >> deserializeFrom: aString [
 	^ obj
 ]
 
-{ #category : #'change reporting' }
+{ #category : 'change reporting' }
 SpScratchApp >> displayExtentChanged [
 	settings keepMaximize
 		ifFalse: [ ^ self ].
 	presenter window window fullscreen
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> duplicateBlock: aBlockMorph [
 	| code obj |
 	code := self serializeBlocks: aBlockMorph.
@@ -375,7 +377,7 @@ SpScratchApp >> duplicateBlock: aBlockMorph [
 	aBlockMorph activeHand grabMorph: obj
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> editNotes [
 
 	| ret |
@@ -388,19 +390,19 @@ SpScratchApp >> editNotes [
 	project modified: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> exampleFiles [
 	| list |
 	list := self examplesDirectory filesMatching: '*.' , self class extension.
 	^ list sorted
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> examplesDirectory [
 	^ FileSystem workingDirectory / 'Examples'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> export: anExporter extension: aString isBinary: aBoolean [
 
 	| str |
@@ -412,7 +414,7 @@ SpScratchApp >> export: anExporter extension: aString isBinary: aBoolean [
 	self exportString: str extension: aString isBinary: aBoolean
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> exportScriptImage [
 
 	| file saveForm |
@@ -427,7 +429,7 @@ SpScratchApp >> exportScriptImage [
 	saveForm writePNGFileNamed: file pathString
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> exportStageImage [
 
 	| file saveForm |
@@ -442,7 +444,7 @@ SpScratchApp >> exportStageImage [
 	saveForm writePNGFileNamed: file pathString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> exportString: aContentsString extension: aString isBinary: aBoolean [
 
 	| file f |
@@ -467,46 +469,46 @@ SpScratchApp >> exportString: aContentsString extension: aString isBinary: aBool
 			presenter alert: 'Could not write file: ' localized , file basename ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> extension [
 	^ self class extension
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> extraDirectory [
 
 	extraDirectory ifNotNil: [ ^ extraDirectory ].
 	^ self projectDirectory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> extraDirectory: anObject [
 
 	extraDirectory := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> extraPath [
 	^ self extraDirectory / self projectName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> fixUnsavedFields [
 	project ifNotNil: #fixUnsavedFields
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> handleDropFile: aFileReference in: aMorph event: anEvent [
 
 	self openProject: aFileReference
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> imageExtension [
 	^ 'png'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> import: anImporter extension: aString isBinary: aBoolean [
 	| code |
 	code := self importFileWithExtension: aString isBinary: aBoolean.
@@ -516,7 +518,7 @@ SpScratchApp >> import: anImporter extension: aString isBinary: aBoolean [
 	presenter updateDisplay
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> importFileWithExtension: aString isBinary: aBoolean [
 
 	| file f code |
@@ -546,17 +548,17 @@ SpScratchApp >> importFileWithExtension: aString isBinary: aBoolean [
 			  nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> installNewProject: aProject [
 	self subclassResponsibility
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpScratchApp >> isProcessRunning [
 	self subclassResponsibility
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> loadExample: aFileReference [
 
 	| newProj |
@@ -568,12 +570,12 @@ SpScratchApp >> loadExample: aFileReference [
 	self installNewProject: newProj
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpScratchApp >> newCode [
 	self subclassResponsibility
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> newProject [
 	self confirmForNewProject
 		ifFalse: [ ^ self ].
@@ -582,25 +584,25 @@ SpScratchApp >> newProject [
 	self installNewProject: self createProject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> newSerializer [
 
 	^ ScratchSexpGenerator new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> normalizeModuleName: aString [
 
 	^ aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> normalizeVariableName: aString [
 
 	^ aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> open [
 
 	| window |
@@ -615,7 +617,7 @@ SpScratchApp >> open [
 	^ self
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> openProject [
 
 	| file |
@@ -630,7 +632,7 @@ SpScratchApp >> openProject [
 	self openProject: file
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> openProject: aFileReference [
 
 	| newProj |
@@ -641,7 +643,7 @@ SpScratchApp >> openProject: aFileReference [
 	self installNewProject: newProj
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> pasteBlock [
 	| code |
 	code := self class clipboard.
@@ -650,29 +652,29 @@ SpScratchApp >> pasteBlock [
 	self deserializeFrom: code
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> prepareForOpening [
 	"do nothing"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> presenter [
 
 	^ presenter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> presenter: anObject [
 
 	presenter := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> project [
 	^ project
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> projectDirectory [
 
 	| file dict |
@@ -690,17 +692,17 @@ SpScratchApp >> projectDirectory [
 	^ file
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> projectDirectory: aFileReference [
 	projectDirectory := aFileReference
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SpScratchApp >> projectIsEmpty [
 	^ true
 ]
 
-{ #category : #'change reporting' }
+{ #category : 'change reporting' }
 SpScratchApp >> projectModified [
 
 	presenter ifNil: [ ^ self ].
@@ -709,12 +711,12 @@ SpScratchApp >> projectModified [
 			 ifFalse: [ '' ])
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> projectName [
 	^ presenter projectName
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> projectName: aString [
 	| text |
 	presenter projectName: aString.
@@ -726,12 +728,12 @@ SpScratchApp >> projectName: aString [
 		updateTitle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> projectPath [
 	^ self projectDirectory / self projectName
 ]
 
-{ #category : #'file read/write' }
+{ #category : 'file read/write' }
 SpScratchApp >> readProjectFrom: aFileReference [
 
 	| f projData newProj reader |
@@ -752,7 +754,7 @@ SpScratchApp >> readProjectFrom: aFileReference [
 			  nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> registerDropHandler [
 
 	| handler |
@@ -765,12 +767,12 @@ SpScratchApp >> registerDropHandler [
 	ExternalDropHandler registerHandler: handler
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> restoreProject [
 	self subclassResponsibility
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> saveProject [
 	| file |
 	self closeMediaEditorsAndDialogs.
@@ -780,7 +782,7 @@ SpScratchApp >> saveProject [
 	^ self saveProjectAs: file
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> saveProjectAs: aFileReference [
 	| targetName |
 	targetName := presenter target objName.
@@ -794,7 +796,7 @@ SpScratchApp >> saveProjectAs: aFileReference [
 	^ true
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> saveProjectNoDialog [
 	| file |
 	self closeMediaEditorsAndDialogs.
@@ -804,7 +806,7 @@ SpScratchApp >> saveProjectNoDialog [
 	^ self saveProjectAs: file
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> saveScratchFileFor: aProject [
 
 	^ presenter
@@ -813,14 +815,14 @@ SpScratchApp >> saveScratchFileFor: aProject [
 		  path: self projectPath
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 SpScratchApp >> saveSettings [
 
 	settings saveFile:
 		FileSystem workingDirectory / self class settingsFilename
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 SpScratchApp >> selectSetting: aSymbol [
 
 	| list ret old |
@@ -840,7 +842,7 @@ SpScratchApp >> selectSetting: aSymbol [
 	ret = (self settingAt: aSymbol) ifTrue: [ ^ self ].
 	self settingAt: aSymbol put: ret.
 	aSymbol = #language ifFalse: [ ^ self ].
-	(presenter confirm: 'Language settings has changed. Restart application?') 
+	(presenter confirm: 'Language settings has changed. Restart application?' localized) 
 		ifFalse: [ ^ self ].
 	old := self settingAt: #dontClose.
 	self settingAt: #dontClose put: false.
@@ -850,7 +852,7 @@ SpScratchApp >> selectSetting: aSymbol [
 	self class openWithSettings: settings
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> serializeBlocks: aTopBlock [
 	| code |
 	code := self newSerializer parseBlock: aTopBlock initialIndent: 1.
@@ -859,37 +861,37 @@ SpScratchApp >> serializeBlocks: aTopBlock [
 	^ code
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 SpScratchApp >> settingAt: aSymbol [
 
 	^ settings at: aSymbol
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 SpScratchApp >> settingAt: aSymbol put: anObject [
 
 	settings at: aSymbol put: anObject
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 SpScratchApp >> settingKeys [
 
 	^ settings keys
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> settings [
 
 	^ settings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> settings: anObject [
 
 	settings := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> setupView [
 	| viewTarget |
 	viewTarget := project scripts first.
@@ -900,7 +902,7 @@ SpScratchApp >> setupView [
 	presenter target: viewTarget
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> showBlockMenu: aBlockMorph event: anEvent [
 	| menu |
 	menu := presenter
@@ -910,40 +912,40 @@ SpScratchApp >> showBlockMenu: aBlockMorph event: anEvent [
 	menu openWithSpecAt: anEvent cursorPoint
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpScratchApp >> showScriptMenu: aScript event: anEvent [
 	(presenter scriptMenuFor: aScript)
 		openWithSpecAt: anEvent cursorPoint
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpScratchApp >> startProcessFor: topBlock [
 	self subclassResponsibility
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpScratchApp >> stepProcesses [
 	self subclassResponsibility
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpScratchApp >> stopAllProcesses [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> target [
 	^ presenter target
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> unregisterDropHandler [
 
 	ExternalDropHandler registeredHandlers removeAllSuchThat: [ :each | 
 		each extension = self extension ]
 ]
 
-{ #category : #'file read/write' }
+{ #category : 'file read/write' }
 SpScratchApp >> unusedNameStartingWith: prefix in: aFileReference [
 	| usedNames i result |
 	usedNames := (aFileReference entries
@@ -955,23 +957,26 @@ SpScratchApp >> unusedNameStartingWith: prefix in: aFileReference [
 	^ aFileReference / result
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchApp >> updateContents [
 	presenter updateContents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchApp >> windowClosing [
 
 	self unregisterDropHandler
 ]
 
-{ #category : #'file read/write' }
+{ #category : 'file read/write' }
 SpScratchApp >> writeProjectAs: aFileReference [
 
 	| saveError out tmpFile writer |
 	writer := project newProjectReadWriter.
 	saveError := nil.
+	aFileReference parent isDirectory ifFalse: [ 
+		presenter alert: 'Invalid file name.' localized.
+		^ false ].
 	tmpFile := (self
 		            unusedNameStartingWith: 'tmp'
 		            in: aFileReference parent) asFileReference.

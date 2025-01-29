@@ -1,13 +1,15 @@
 Class {
-	#name : #ReporterBlockMorph,
-	#superclass : #CommandBlockMorph,
+	#name : 'ReporterBlockMorph',
+	#superclass : 'CommandBlockMorph',
 	#instVars : [
 		'isBoolean'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #other }
+{ #category : 'other' }
 ReporterBlockMorph >> acceptsTypeOf: aBlockMorph [
 	"Answer true if I can accept a dropped reporter of the given type. Answer false by default."
 
@@ -16,17 +18,17 @@ ReporterBlockMorph >> acceptsTypeOf: aBlockMorph [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ReporterBlockMorph >> argOf: aParser [
 	^ [ self argString: aParser ]
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ReporterBlockMorph >> argString: aGenerator [
 	^ aGenerator reporterArgString: self.
 ]
 
-{ #category : #watcher }
+{ #category : 'watcher' }
 ReporterBlockMorph >> canBecomeWatcher [
 	^ self isReporter
 		and: [ self argumentCount <= 1
@@ -34,7 +36,7 @@ ReporterBlockMorph >> canBecomeWatcher [
 					[ receiver watcherSelectors includes: selector ] ]
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ReporterBlockMorph >> computeHighlightColors [
 
 	| h s v |
@@ -47,7 +49,7 @@ ReporterBlockMorph >> computeHighlightColors [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ReporterBlockMorph >> drawBooleanOn: aCanvas [ 
 
 	| right topY bottomY xInset c |
@@ -79,7 +81,7 @@ ReporterBlockMorph >> drawBooleanOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ReporterBlockMorph >> drawNumericOn: aCanvas [ 
 
 	| right topY bottomY radius xInset c |
@@ -110,7 +112,7 @@ ReporterBlockMorph >> drawNumericOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ReporterBlockMorph >> drawOn: aCanvas [ 
 
 	self computeHighlightColors.
@@ -120,12 +122,12 @@ ReporterBlockMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ReporterBlockMorph >> evaluate [
 	^ receiver evaluateBlock: self
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ReporterBlockMorph >> fixBlockLayout [
 	"Update the positions of my submorphs."
 
@@ -158,7 +160,7 @@ ReporterBlockMorph >> fixBlockLayout [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ReporterBlockMorph >> initialize [
 
 	super initialize.
@@ -167,21 +169,21 @@ ReporterBlockMorph >> initialize [
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ReporterBlockMorph >> isBoolean: aBoolean [
 
 	isBoolean := aBoolean.
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ReporterBlockMorph >> isBooleanReporter [
 
 	^ isBoolean
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ReporterBlockMorph >> isReporter [
 	"Answer true if this block reports a value."
 
@@ -189,12 +191,12 @@ ReporterBlockMorph >> isReporter [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ReporterBlockMorph >> parseUsing: aParser [
 	^ aParser parseReporter: self
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ReporterBlockMorph >> showValue [
 	| msg |
 	msg := SpScratchApp
@@ -207,7 +209,7 @@ ReporterBlockMorph >> showValue [
 	self showBalloon: msg
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 ReporterBlockMorph >> toggleProcess [
 	self showValue
 ]

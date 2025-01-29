@@ -1,6 +1,6 @@
-Extension { #name : #OSSDL2Driver }
+Extension { #name : 'OSSDL2Driver' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 OSSDL2Driver >> visitDropEvent: dropEvent [
 
 	"The dragged file name comes as a C-string of utf8 encoded bytes.

@@ -5,8 +5,8 @@ I am a frame for scrollable contents. I can independently show or hide my horizo
 
 "
 Class {
-	#name : #ScrollFrameMorph,
-	#superclass : #BorderedMorph,
+	#name : 'ScrollFrameMorph',
+	#superclass : 'BorderedMorph',
 	#instVars : [
 		'contents',
 		'hScrollbar',
@@ -14,10 +14,12 @@ Class {
 		'contentsChanged',
 		'growthFraction'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScrollFrameMorph >> contents [
 	"Answer my contents morph."
 
@@ -25,7 +27,7 @@ ScrollFrameMorph >> contents [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScrollFrameMorph >> contents: aMorph [
 	"Replace my contents morph. The argument can be any morph. Typically it is a BorderedMorph or a PasteUpMorph."
 
@@ -37,7 +39,7 @@ ScrollFrameMorph >> contents: aMorph [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> contentsBounds [
 	"Answer a rectangle that encloses the bounds of all my submorphs."
 
@@ -50,7 +52,7 @@ ScrollFrameMorph >> contentsBounds [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScrollFrameMorph >> drawSubmorphsOn: aCanvas [
 	"If my contents has changed, fix it's extent and update my scrollbar ranges. Clip submorph drawing to my bounds."
 
@@ -73,7 +75,7 @@ ScrollFrameMorph >> drawSubmorphsOn: aCanvas [
 
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ScrollFrameMorph >> extent: aPoint [
 
 	"After setting my size, position and size my scrollbars and grow box. Also update my contents and scrollbar ranges."
@@ -101,7 +103,7 @@ ScrollFrameMorph >> extent: aPoint [
 	self updateScrollbars
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ScrollFrameMorph >> fullBounds [
 	"Overridden to clip submorph hit detection to my bounds."
 
@@ -109,7 +111,7 @@ ScrollFrameMorph >> fullBounds [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScrollFrameMorph >> growthFraction: aNumber [
 	"Set the amount to grow when contents do not fit, expressed as a fraction of the current size. For example, 0.5 makes the contains pane 50% larger if any submorph extends over the edge."
 
@@ -117,14 +119,14 @@ ScrollFrameMorph >> growthFraction: aNumber [
 
 ]
 
-{ #category : #layout }
+{ #category : 'layout' }
 ScrollFrameMorph >> hResizing [
 
 	^ #spaceFill
 
 ]
 
-{ #category : #scrolling }
+{ #category : 'scrolling' }
 ScrollFrameMorph >> hScrollPixels [
 	"Answer the current horizontal scroll offset in pixels."
 
@@ -133,7 +135,7 @@ ScrollFrameMorph >> hScrollPixels [
 
 ]
 
-{ #category : #scrolling }
+{ #category : 'scrolling' }
 ScrollFrameMorph >> hScrollPixels: hOffset [
 	"Scroll to the given horizontal offset in pixels. Zero is scrolled to the left and increasing values scroll right."
 
@@ -146,7 +148,7 @@ ScrollFrameMorph >> hScrollPixels: hOffset [
 
 ]
 
-{ #category : #scrolling }
+{ #category : 'scrolling' }
 ScrollFrameMorph >> hScrollRelative: aFloat [
 	"Sent by the horizontal scrollbar. Scroll to the given relative postion between 0.0 and 1.0."
 
@@ -154,12 +156,12 @@ ScrollFrameMorph >> hScrollRelative: aFloat [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> hbarInset [
 	^ 30
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScrollFrameMorph >> initialize [
 
 	super initialize.
@@ -186,7 +188,7 @@ ScrollFrameMorph >> initialize [
 	self extent: 160 @ 120
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ScrollFrameMorph >> invalidRect: damageRect [
 	"Clip damage reports to my bounds, since drawing is clipped to my bounds."
 
@@ -196,7 +198,7 @@ ScrollFrameMorph >> invalidRect: damageRect [
 
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ScrollFrameMorph >> layoutChanged [
 	"If my contents morph's layout has changed, record that fact."
 
@@ -205,7 +207,7 @@ ScrollFrameMorph >> layoutChanged [
 
 ]
 
-{ #category : #scrolling }
+{ #category : 'scrolling' }
 ScrollFrameMorph >> maxScroll [
 	"Answer a point representing the maximum horizontal and vertical scroll offsets in pixels."
 
@@ -213,31 +215,31 @@ ScrollFrameMorph >> maxScroll [
 
 ]
 
-{ #category : #layout }
+{ #category : 'layout' }
 ScrollFrameMorph >> minHeight [
 
 	^ 45
 
 ]
 
-{ #category : #layout }
+{ #category : 'layout' }
 ScrollFrameMorph >> minWidth [
 
 	^ 60
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> scrollBarEndInset [
 	^ 14
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> scrollBarStartInset [
 	^ 10
 ]
 
-{ #category : #'scrollbar visibility' }
+{ #category : 'scrollbar visibility' }
 ScrollFrameMorph >> showHorizontalScrollbar: aBoolean [
 	"Show or hide my horizontal scrollbar."
 
@@ -251,7 +253,7 @@ ScrollFrameMorph >> showHorizontalScrollbar: aBoolean [
 
 ]
 
-{ #category : #'scrollbar visibility' }
+{ #category : 'scrollbar visibility' }
 ScrollFrameMorph >> showVerticalScrollbar: aBoolean [
 	"Show or hide my vertical scrollbar."
 
@@ -265,7 +267,7 @@ ScrollFrameMorph >> showVerticalScrollbar: aBoolean [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> updateContentsExtent [
 	"Make sure my content morph is large enough to both enclose all it's submorphs and to fill me. Adjust the scroll offsets if my bounds have shrunk."
 
@@ -286,7 +288,7 @@ ScrollFrameMorph >> updateContentsExtent [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> updateScrollbars [
 	"Update my scrollbars based on my current contents."
 
@@ -324,14 +326,14 @@ ScrollFrameMorph >> updateScrollbars [
 
 ]
 
-{ #category : #layout }
+{ #category : 'layout' }
 ScrollFrameMorph >> vResizing [
 
 	^ #spaceFill
 
 ]
 
-{ #category : #scrolling }
+{ #category : 'scrolling' }
 ScrollFrameMorph >> vScrollPixels [
 	"Answer the current vertical scroll offset in pixels."
 
@@ -340,7 +342,7 @@ ScrollFrameMorph >> vScrollPixels [
 
 ]
 
-{ #category : #scrolling }
+{ #category : 'scrolling' }
 ScrollFrameMorph >> vScrollPixels: vOffset [
 	"Scroll to the given vertical offset in pixels. Zero is scrolled to the top and increasing values scroll down."
 
@@ -353,7 +355,7 @@ ScrollFrameMorph >> vScrollPixels: vOffset [
 
 ]
 
-{ #category : #scrolling }
+{ #category : 'scrolling' }
 ScrollFrameMorph >> vScrollRelative: aFloat [
 	"Sent by the vertical scrollbar. Scroll to the given relative postion between 0.0 and 1.0."
 
@@ -361,12 +363,12 @@ ScrollFrameMorph >> vScrollRelative: aFloat [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> vbarInset [
 	^ 25
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScrollFrameMorph >> visibleExtent [
 	"Answer the extent of my visible area. That is, the area within my borders minus the space used for scrollbars."
 

@@ -1,10 +1,12 @@
 Class {
-	#name : #PatchesScript,
-	#superclass : #SteloScript,
-	#category : #'Stelo-Project'
+	#name : 'PatchesScript',
+	#superclass : 'SteloScript',
+	#category : 'Stelo-Project',
+	#package : 'Stelo',
+	#tag : 'Project'
 }
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 PatchesScript >> addBlockSpecs [
 
 	self
@@ -15,7 +17,7 @@ PatchesScript >> addBlockSpecs [
 	super addBlockSpecs
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 PatchesScript >> addSensingBlocks [
 
 	blockMorphBuilder
@@ -33,12 +35,12 @@ PatchesScript >> addSensingBlocks [
 	super addSensingBlocks
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 PatchesScript >> isPatches [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PatchesScript >> objName [
 	^ 'Patches'
 ]

@@ -1,6 +1,6 @@
-Extension { #name : #Form }
+Extension { #name : 'Form' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Form >> findShapeAroundSeedBlock: seedBlock [
 	"Build a shape that is black in any region marked by seedBlock. 
 	SeedBlock will be supplied a form, in which to blacken various
@@ -36,7 +36,7 @@ Form >> findShapeAroundSeedBlock: seedBlock [
 	^ smearForm
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Form >> outlineWidth: w color: outlineColor depth: resultDepth [
 	"Answer a Form containing the outline of this Form."
 
@@ -75,7 +75,7 @@ Form >> outlineWidth: w color: outlineColor depth: resultDepth [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Form >> privateOffset [
 	^ offset
 ]

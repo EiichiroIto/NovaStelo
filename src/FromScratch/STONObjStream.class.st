@@ -1,17 +1,19 @@
 Class {
-	#name : #STONObjStream,
-	#superclass : #Object,
-	#category : #'FromScratch-Converter'
+	#name : 'STONObjStream',
+	#superclass : 'Object',
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #'entry points' }
+{ #category : 'entry points' }
 STONObjStream >> readObjFrom: aStream [
 	"Read the root object from the given binary stream."
 
 	^ self readObjFrom: aStream showProgress: false
 ]
 
-{ #category : #'entry points' }
+{ #category : 'entry points' }
 STONObjStream >> readObjFrom: aStream showProgress: aBoolean [
 	| str |
 	str := aStream upToEnd.
@@ -19,7 +21,7 @@ STONObjStream >> readObjFrom: aStream showProgress: aBoolean [
 	^ STON fromString: str
 ]
 
-{ #category : #'entry points' }
+{ #category : 'entry points' }
 STONObjStream >> storeObj: anObject on: aStream [
 	| str |
 	str := STON toString: anObject.

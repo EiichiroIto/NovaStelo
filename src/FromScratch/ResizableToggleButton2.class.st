@@ -1,6 +1,6 @@
 Class {
-	#name : #ResizableToggleButton2,
-	#superclass : #SimpleButtonMorph,
+	#name : 'ResizableToggleButton2',
+	#superclass : 'SimpleButtonMorph',
 	#instVars : [
 		'label2',
 		'iconMorph',
@@ -20,17 +20,19 @@ Class {
 		'hOffset',
 		'vOffset'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> action [
 
 	^ actionSelector
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> color [
 
 	current ifNil: [^ Color white].
@@ -38,7 +40,7 @@ ResizableToggleButton2 >> color [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> copyRecordingIn: dict [
 	"Copy frame morphs for all states."
 
@@ -50,7 +52,7 @@ ResizableToggleButton2 >> copyRecordingIn: dict [
 	^ result
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ResizableToggleButton2 >> extent: aPoint [
 
 	super extent: aPoint.
@@ -61,14 +63,14 @@ ResizableToggleButton2 >> extent: aPoint [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> handlesMouseOver: evt [
 	
 	^ true
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> icon: aForm [
 	"Add an icon to this button."
 
@@ -80,7 +82,7 @@ ResizableToggleButton2 >> icon: aForm [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ResizableToggleButton2 >> initialize [
 
 	super initialize.
@@ -102,14 +104,14 @@ ResizableToggleButton2 >> initialize [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> isOn [
 
 	^ isOn
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> keyboardFocusChange: aBoolean [
 
 	aBoolean
@@ -119,14 +121,14 @@ ResizableToggleButton2 >> keyboardFocusChange: aBoolean [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> label [
 
 	^ label2
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ResizableToggleButton2 >> label: aString font: font [
 
 	label2 delete.
@@ -139,7 +141,7 @@ ResizableToggleButton2 >> label: aString font: font [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ResizableToggleButton2 >> labelColorOn: onColor labelColorOff: offColor labelColorOver: overColor [
 	
 	labelColorOn := onColor.
@@ -149,7 +151,7 @@ ResizableToggleButton2 >> labelColorOn: onColor labelColorOff: offColor labelCol
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> mouseDown: evt [
 
 	"evt hand toolType: nil."
@@ -181,21 +183,21 @@ ResizableToggleButton2 >> mouseDown: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> mouseEnter: evt [
 
 	self over.
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> mouseLeave: evt [
 
 	isOn ifFalse: [ over ifNotNil: [self off] ].
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> mouseMove: evt [
  
 	| containsPoint |
@@ -232,7 +234,7 @@ ResizableToggleButton2 >> mouseMove: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ResizableToggleButton2 >> mouseUp: evt [
 	
 	(actWhen = #buttonUp and:
@@ -243,14 +245,14 @@ ResizableToggleButton2 >> mouseUp: evt [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ResizableToggleButton2 >> normal: aMorph [
 
 	normal := aMorph.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> off [
 	"Turn myself off."
 
@@ -261,7 +263,7 @@ ResizableToggleButton2 >> off [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ResizableToggleButton2 >> offForm: offForm onForm: onForm [
 
 	normal := ImageFrameMorph new initFromForm: offForm.
@@ -276,7 +278,7 @@ ResizableToggleButton2 >> offForm: offForm onForm: onForm [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> on [
 	"Turn myself on."
 
@@ -287,7 +289,7 @@ ResizableToggleButton2 >> on [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> over [
 	"Show my over skin."
 
@@ -300,28 +302,28 @@ ResizableToggleButton2 >> over [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ResizableToggleButton2 >> over: aMorph [
 
 	over := aMorph.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> padding: aPoint [
 
 	padding := aPoint.
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ResizableToggleButton2 >> pressed: aMorph [
 
 	pressed := aMorph.
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ResizableToggleButton2 >> setCurrent: aMorph [
 	"Make the given morph be the one currently displayed."
 
@@ -337,13 +339,13 @@ ResizableToggleButton2 >> setCurrent: aMorph [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ResizableToggleButton2 >> setDefaultLabel [
 	"Overridden to do nothing. I have no label by default, although a label can be added."
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ResizableToggleButton2 >> toggleMode: mode [
 	"The same as ToggleButton's toggleMode. If set to true, clicking the button when turns it from on to off. If false, clicking the button when on does nothing."
 
@@ -351,7 +353,7 @@ ResizableToggleButton2 >> toggleMode: mode [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ResizableToggleButton2 >> updateLayout [
 	"Update the label position within the button."
 
@@ -373,7 +375,7 @@ ResizableToggleButton2 >> updateLayout [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ResizableToggleButton2 >> updateSize [
 	"Set this button size based on the label size. Assume the label has already been set."
 

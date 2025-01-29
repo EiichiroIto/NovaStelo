@@ -1,15 +1,17 @@
 Class {
-	#name : #StaticChoiceArgMorph,
-	#superclass : #ArgMorph,
+	#name : 'StaticChoiceArgMorph',
+	#superclass : 'ArgMorph',
 	#instVars : [
 		'menuIconMorph',
 		'choice',
 		'options'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 StaticChoiceArgMorph >> argList [
 
 	| list |
@@ -18,20 +20,20 @@ StaticChoiceArgMorph >> argList [
 	^ list collect: #localized
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 StaticChoiceArgMorph >> argOf: aParser [
 
 	^ aParser choiceArgString: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StaticChoiceArgMorph >> choice [
 
 	^ choice
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StaticChoiceArgMorph >> choice: aSymbol [
 
 	"Update the toggle button when an argument is changed within a block."
@@ -50,7 +52,7 @@ StaticChoiceArgMorph >> choice: aSymbol [
 		block fixBlockLayout ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StaticChoiceArgMorph >> defaultValue: aString [
 
 	"Set my default value."
@@ -58,7 +60,7 @@ StaticChoiceArgMorph >> defaultValue: aString [
 	self choice: aString
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 StaticChoiceArgMorph >> evaluate [
 
 	"Answer my value."
@@ -66,7 +68,7 @@ StaticChoiceArgMorph >> evaluate [
 	^ choice
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StaticChoiceArgMorph >> fixArgLayout [
 
 	"Set my color to my owner's color."
@@ -74,14 +76,14 @@ StaticChoiceArgMorph >> fixArgLayout [
 	self color: (owner color mixed: 0.75 with: (Color gray: 0.45))
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StaticChoiceArgMorph >> handlesMouseDown: evt [
 
 	^ (self topRight - (14 @ 0) corner: self bottomRight) containsPoint:
 		  evt cursorPoint
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 StaticChoiceArgMorph >> initialize [
 
 	super initialize.
@@ -98,44 +100,44 @@ StaticChoiceArgMorph >> initialize [
 	options := #()
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 StaticChoiceArgMorph >> isChoiceArg [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 StaticChoiceArgMorph >> isSquareArg [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StaticChoiceArgMorph >> labelMorphContents: aString [
 
 	labelMorph contents: aString localized
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StaticChoiceArgMorph >> mouseDown: evt [
 
 	self presentMenu.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StaticChoiceArgMorph >> options [
 
 	^ options
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StaticChoiceArgMorph >> options: aCollection [
 
 	options := aCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StaticChoiceArgMorph >> presentMenu [
 
 	"Pop up a menu of choices."

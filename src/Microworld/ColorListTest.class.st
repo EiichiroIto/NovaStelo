@@ -2,17 +2,19 @@
 A ColorListTest is a test class for testing the behavior of ColorList
 "
 Class {
-	#name : #ColorListTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ColorListTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ColorListTest >> newColorList [
 	^ ColorList default
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ColorListTest >> testNearestColor [
 	| c |
 	c := self newColorList.
@@ -23,7 +25,7 @@ ColorListTest >> testNearestColor [
 	self assert: (c nearestColor: Color blue) equals: ColorList blue.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ColorListTest >> testScaleGrayscaleFromTo [
 	| br c |
 	br := ColorList.
@@ -45,7 +47,7 @@ ColorListTest >> testScaleGrayscaleFromTo [
 	self assert: c equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ColorListTest >> testScaleValueColorFromTo [
 	| br c |
 	br := ColorList.

@@ -2,17 +2,19 @@
 A SCodeValueTest is a test class for testing the behavior of SCodeValue
 "
 Class {
-	#name : #ScratchBytecodeValueTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchBytecodeValueTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeValueTest >> newValue: aNumber [
 	^ ScratchBytecodeValue data: aNumber
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeValueTest >> testCodeSize [
 	| c |
 	c := self newValue: 0.
@@ -33,7 +35,7 @@ ScratchBytecodeValueTest >> testCodeSize [
 	self assert: c codeSize equals: 5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeValueTest >> testData [
 	| c |
 	c := self newValue: 1.
@@ -42,14 +44,14 @@ ScratchBytecodeValueTest >> testData [
 	self assert: c data equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeValueTest >> testPrintOn [
 	| c |
 	c := self newValue: 123.
 	self assert: c asString equals: '<value=123>'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeValueTest >> testPutFloatOn [
 	| c stream |
 	c := self newValue: 123.0.
@@ -66,7 +68,7 @@ ScratchBytecodeValueTest >> testPutFloatOn [
 		equals: #(pushFloat 16r9A 16r99 16rA9 16rC0)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeValueTest >> testPutOn [
 	| c stream |
 	c := self newValue: 0.
@@ -105,7 +107,7 @@ ScratchBytecodeValueTest >> testPutOn [
 		equals: #(pushFloat 16r9A 16r99 16rA9 16rC0)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeValueTest >> testPutShortOn [
 	| c stream |
 	c := self newValue: 123.

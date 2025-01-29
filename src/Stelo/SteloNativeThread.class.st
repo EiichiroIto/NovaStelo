@@ -1,14 +1,16 @@
 Class {
-	#name : #SteloNativeThread,
-	#superclass : #ScratchNativeThread,
+	#name : 'SteloNativeThread',
+	#superclass : 'ScratchNativeThread',
 	#instVars : [
 		'world',
 		'breedId'
 	],
-	#category : #'Stelo-Process'
+	#category : 'Stelo-Process',
+	#package : 'Stelo',
+	#tag : 'Process'
 }
 
-{ #category : #acccessing }
+{ #category : 'acccessing' }
 SteloNativeThread class >> generateSymbols [
 	"self generateSymbols inspect."
 	| w |
@@ -35,12 +37,12 @@ SteloNativeThread class >> generateSymbols [
 	^ w contents
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloNativeThread class >> new [
 	self shouldNotImplement
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloNativeThread class >> sworld: aMicroWorld [
 	^ self basicNew
 		initialize;
@@ -48,7 +50,7 @@ SteloNativeThread class >> sworld: aMicroWorld [
 		yourself.
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> aimHigh [
 	| var ret |
 	var := self pop.
@@ -56,7 +58,7 @@ SteloNativeThread >> aimHigh [
 	self push: ret.
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloNativeThread >> appendToList [
 	| vno val |
 	val := self pop.
@@ -68,24 +70,24 @@ SteloNativeThread >> appendToList [
 		add: val
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeThread >> breedId [
 	^ breedId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeThread >> breedId: anObject [
 	breedId := anObject
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloNativeThread >> broadcast [
 	| eventId |
 	eventId := self pop.
 	world raiseEvent: eventId asInteger.
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> changeBreedVarBy [
 	| var p bid |
 	bid := self pop.
@@ -94,14 +96,14 @@ SteloNativeThread >> changeBreedVarBy [
 	world changeBreed: bid var: var by: p
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> clearBreed [
 	| bno |
 	bno := self pop.
 	world clearBreed: bno.
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloNativeThread >> clearList [
 	| vno |
 	vno := self pop.
@@ -112,17 +114,17 @@ SteloNativeThread >> clearList [
 		set: #()
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloNativeThread >> clearPlots [
 	world clearPlots
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> clearTurtles [
 	world clearTurtles.
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> copyBreedVarTo [
 	| bid var var2 |
 	bid := self pop.
@@ -131,14 +133,14 @@ SteloNativeThread >> copyBreedVarTo [
 	world copyBreed: bid var: var to: var2
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> createPatch [
 	| count |
 	count := self pop.
 	world createPatch: count asInteger.
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> createTurtles [
 	| count bid |
 	bid := self pop.
@@ -146,7 +148,7 @@ SteloNativeThread >> createTurtles [
 	world create: bid asInteger turtles: count asInteger.
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloNativeThread >> deleteLineOfList [
 	| vno index |
 	index := self pop.
@@ -158,7 +160,7 @@ SteloNativeThread >> deleteLineOfList [
 		remove: index
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> diffuse [
 	| v p |
 	p := self pop.
@@ -166,7 +168,7 @@ SteloNativeThread >> diffuse [
 	world diffuse8: p varNo: v.
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> diffuse4 [
 	| v p |
 	p := self pop.
@@ -174,49 +176,49 @@ SteloNativeThread >> diffuse4 [
 	world diffuse4: p varNo: v.
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> dx [
 	| delta |
 	delta := world delta: breedId at: id.
 	self push: delta x
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> dy [
 	| delta |
 	delta := world delta: breedId at: id.
 	self push: delta y
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeThread >> forBreedNo: bno index: anInteger [
 	breedId := bno.
 	id := anInteger.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeThread >> forObserver [
 	self forBreedNo: SBreedId observerBreedNo index: 1.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeThread >> forPatchId: anInteger [
 	self forBreedNo: SBreedId patchesBreedNo index: anInteger.
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> forward [
 	| step |
 	step := self pop.
 	world forward: step breed: breedId id: id.
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> getBreedId [
 	self push: breedId.
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> getBreedVar [
 	| var index bno ret |
 	bno := self pop.
@@ -226,7 +228,7 @@ SteloNativeThread >> getBreedVar [
 	self push: ret.
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloNativeThread >> getLineOfList [
 	| vno index ret |
 	index := self pop.
@@ -239,7 +241,7 @@ SteloNativeThread >> getLineOfList [
 	self push: ret
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> getVar [
 	| var ret |
 	var := self pop.
@@ -247,26 +249,26 @@ SteloNativeThread >> getVar [
 	self push: ret.
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> getX [
 	| ret |
 	ret := world x: breedId at: id.
 	self push: ret.
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> getY [
 	| ret |
 	ret := world y: breedId at: id.
 	self push: ret.
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> hatch [
 	world hatch: breedId id: id.
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> kill [
 	| tid bid |
 	tid := self pop.
@@ -276,7 +278,7 @@ SteloNativeThread >> kill [
 		ifTrue: [ self stop ]
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloNativeThread >> lineCountOfList [
 	| vno ret |
 	vno := self pop.
@@ -287,7 +289,7 @@ SteloNativeThread >> lineCountOfList [
 	self push: ret
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloNativeThread >> listContains [
 	| vno val ret |
 	val := self pop.
@@ -300,7 +302,7 @@ SteloNativeThread >> listContains [
 	self push: ret
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> multiplyBreedVarBy [
 	| var p bid |
 	bid := self pop.
@@ -309,7 +311,7 @@ SteloNativeThread >> multiplyBreedVarBy [
 	world multiplyBreed: bid var: var by: p
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> nsum [
 	| v1 v2 |
 	v2 := self pop.
@@ -317,7 +319,7 @@ SteloNativeThread >> nsum [
 	world nsum8: v1 to: v2.
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> nsum4 [
 	| v1 v2 |
 	v2 := self pop.
@@ -325,7 +327,7 @@ SteloNativeThread >> nsum4 [
 	world nsum4: v1 to: v2.
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloNativeThread >> patchAt [
 	| x y ret |
 	y := self pop.
@@ -334,7 +336,7 @@ SteloNativeThread >> patchAt [
 	self push: ret.
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloNativeThread >> plotColor [
 	| num color |
 	color := self pop.
@@ -342,7 +344,7 @@ SteloNativeThread >> plotColor [
 	world plot: num asInteger color: color asInteger
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloNativeThread >> plotData [
 	| num data |
 	data := self pop.
@@ -350,7 +352,7 @@ SteloNativeThread >> plotData [
 	world plot: num asInteger data: data
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloNativeThread >> randomFromTo [
 	| to from result |
 	to := self pop.
@@ -359,7 +361,7 @@ SteloNativeThread >> randomFromTo [
 	self push: result.
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> scaleColorFromTo [
 	| v c f t |
 	t := self pop.
@@ -369,7 +371,7 @@ SteloNativeThread >> scaleColorFromTo [
 	world scaleVar: v color: c breed: breedId from: f to: t id: id.
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> setBreedVarTo [
 	| var val index bno |
 	bno := self pop.
@@ -383,14 +385,14 @@ SteloNativeThread >> setBreedVarTo [
 		put: val
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> setColorTo [
 	| color |
 	color := self pop.
 	world var: STurtlesVarDef colorVarNo breed: breedId at: id put: color.
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> setHeading [
 	| degrees |
 	breedId <= SBreedId patchesBreedNo
@@ -399,7 +401,7 @@ SteloNativeThread >> setHeading [
 	world var: STurtlesVarDef headingVarNo breed: SBreedId turtlesBreedNo at: id put: degrees.
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloNativeThread >> setLineOfListTo [
 	| vno val index |
 	vno := self pop.
@@ -413,7 +415,7 @@ SteloNativeThread >> setLineOfListTo [
 		put: val
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> setPatchColorTo [
 	| color pid |
 	color := self pop.
@@ -421,28 +423,28 @@ SteloNativeThread >> setPatchColorTo [
 	world var: SPatchesVarDef colorVarNo breed: SBreedId patchesBreedNo at: pid put: color.
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloNativeThread >> setPlotYMax [
 	| n |
 	n := self pop.
 	world setPlotYMax: n
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloNativeThread >> setPlotYMin [
 	| n |
 	n := self pop.
 	world setPlotYMin: n
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloNativeThread >> setRandomSeed [
 	| num |
 	num := self pop.
 	world setRandomSeed: num asInteger
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloNativeThread >> setVarTo [
 	| var val |
 	val := self pop.
@@ -454,7 +456,7 @@ SteloNativeThread >> setVarTo [
 		put: val
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> setX [
 	| v |
 	breedId <= SBreedId patchesBreedNo
@@ -463,7 +465,7 @@ SteloNativeThread >> setX [
 	world x: breedId at: id put: v
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> setY [
 	| v |
 	breedId <= SBreedId patchesBreedNo
@@ -472,17 +474,17 @@ SteloNativeThread >> setY [
 	world y: breedId at: id put: v
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeThread >> sworld [
 	^ world
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeThread >> sworld: anObject [
 	world := anObject
 ]
 
-{ #category : #'turtle ops' }
+{ #category : 'turtle ops' }
 SteloNativeThread >> turtleAt [
 	| ret bid pno |
 	bid := self pop.
@@ -495,7 +497,7 @@ SteloNativeThread >> turtleAt [
 	self push: ret
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloNativeThread >> xyOf [
 
 	| pno x y |

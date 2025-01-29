@@ -1,19 +1,21 @@
 Class {
-	#name : #SpSteloEditor,
-	#superclass : #SpScratchEditor,
+	#name : 'SpSteloEditor',
+	#superclass : 'SpScratchEditor',
 	#instVars : [
 		'plotter'
 	],
-	#category : #'Stelo-Spec2'
+	#category : 'Stelo-Spec2',
+	#package : 'Stelo',
+	#tag : 'Spec2'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloEditor >> addPlots: aCollection [
 	self plotter
 		ifNotNil: [ :morph | morph addPlots: aCollection ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloEditor >> createPlotterPage [
 	plotter := self newMorph.
 	plotter morph: self newPlotter.
@@ -23,30 +25,30 @@ SpSteloEditor >> createPlotterPage [
 		provider: [ plotter ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloEditor >> initializePresenters [
 	super initializePresenters.
 	notebook addPage: self createPlotterPage
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloEditor >> newPlotter [
 	^ ScratchPlotterMorph new
 		updatePeriod: 3000;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloEditor >> plotter [
 	^ plotter morph
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloEditor >> plotterLabel [
 	^ 'Plotter' localized
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloEditor >> whenPlotterClicked: aBlock [
 	self plotter whenMouseClicked: aBlock
 ]

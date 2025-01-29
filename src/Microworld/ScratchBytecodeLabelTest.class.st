@@ -2,24 +2,26 @@
 A SCodeLabelTest is a test class for testing the behavior of SCodeLabel
 "
 Class {
-	#name : #ScratchBytecodeLabelTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchBytecodeLabelTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeLabelTest >> newLabel: anInteger [
 	^ ScratchBytecodeLabel id: anInteger
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeLabelTest >> testCodeSize [
 	| c |
 	c := self newLabel: 1.
 	self assert: c codeSize equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeLabelTest >> testId [
 	| c |
 	c := self newLabel: 1.
@@ -28,21 +30,21 @@ ScratchBytecodeLabelTest >> testId [
 	self assert: c id equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeLabelTest >> testIsLabel [
 	| c |
 	c := self newLabel: 1.
 	self assert: c isLabel.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeLabelTest >> testPrintOn [
 	| c |
 	c := self newLabel: 1.
 	self assert: c asString equals: '<label=1>'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeLabelTest >> testPutOn [
 	| c stream |
 	c := self newLabel: 1.

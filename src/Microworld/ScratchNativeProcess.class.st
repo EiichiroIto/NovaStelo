@@ -1,48 +1,50 @@
 Class {
-	#name : #ScratchNativeProcess,
-	#superclass : #Object,
+	#name : 'ScratchNativeProcess',
+	#superclass : 'Object',
 	#instVars : [
 		'program'
 	],
-	#category : #'Microworld-Process'
+	#category : 'Microworld-Process',
+	#package : 'Microworld',
+	#tag : 'Process'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchNativeProcess >> isRunning [
 	self subclassResponsibility.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchNativeProcess >> loop [
 	self subclassResponsibility.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchNativeProcess >> program [
 	^ program
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchNativeProcess >> program: aProgram [
 	program := aProgram.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchNativeProcess >> single [
 	self subclassResponsibility.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchNativeProcess >> startup [
 	self subclassResponsibility.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchNativeProcess >> step [
 	self subclassResponsibility.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchNativeProcess >> stop [
 	self subclassResponsibility.
 ]

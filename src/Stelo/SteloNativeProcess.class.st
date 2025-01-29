@@ -1,43 +1,45 @@
 Class {
-	#name : #SteloNativeProcess,
-	#superclass : #SteloProcess,
+	#name : 'SteloNativeProcess',
+	#superclass : 'SteloProcess',
 	#instVars : [
 		'runningEvents',
 		'transition'
 	],
-	#category : #'Stelo-Process'
+	#category : 'Stelo-Process',
+	#package : 'Stelo',
+	#tag : 'Process'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloNativeProcess class >> new [
 	self shouldNotImplement
 ]
 
-{ #category : #transitions }
+{ #category : 'transitions' }
 SteloNativeProcess >> afterLoop [
 	runningEvents isEmpty
 		ifTrue: [ self loop ]
 ]
 
-{ #category : #transitions }
+{ #category : 'transitions' }
 SteloNativeProcess >> afterSetup [
 	runningEvents isEmpty
 		ifTrue: [ self stop ]
 ]
 
-{ #category : #transitions }
+{ #category : 'transitions' }
 SteloNativeProcess >> afterSingle [
 	runningEvents isEmpty
 		ifTrue: [ self stop ]
 ]
 
-{ #category : #transitions }
+{ #category : 'transitions' }
 SteloNativeProcess >> afterStartup [
 	runningEvents isEmpty
 		ifTrue: [ self setup ]
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 SteloNativeProcess >> doOneCycle [
 	runningEvents
 		do: [ :eventNo | 
@@ -51,13 +53,13 @@ SteloNativeProcess >> doOneCycle [
 	^ false
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeProcess >> event: eno [
 	transition := #afterSingle.
 	runningEvents := {eno}
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 SteloNativeProcess >> executeEventCodes: anEventCodes ifTerminatedDo: aBlock [
 	1 to: sworld maxBreedNo do: [ :bno | 
 		| codes |
@@ -74,7 +76,7 @@ SteloNativeProcess >> executeEventCodes: anEventCodes ifTerminatedDo: aBlock [
 							ifTerminatedDo: aBlock ] ] ].
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 SteloNativeProcess >> executeThread: entryPoint breedNo: bno index: index ifTerminatedDo: aBlock [
 	| thread |
 	thread := SteloNativeThread sworld: sworld.
@@ -85,58 +87,58 @@ SteloNativeProcess >> executeThread: entryPoint breedNo: bno index: index ifTerm
 		ifTrue: [ aBlock value ].
 ]
 
-{ #category : #transitions }
+{ #category : 'transitions' }
 SteloNativeProcess >> idle [
 	"do nothing"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SteloNativeProcess >> initialize [
 	super initialize.
 	self stop.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloNativeProcess >> isRunning [
 	^ transition ~= #idle
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeProcess >> loop [
 	transition := #afterLoop.
 	runningEvents := {EventId loopEventNo}.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeProcess >> runningEvents [
 	^ runningEvents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeProcess >> runningEvents: aCollection [
 	runningEvents := aCollection.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeProcess >> setup [
 	transition := #afterSetup.
 	runningEvents := {EventId setupEventNo}.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeProcess >> single [
 	transition := #afterSingle.
 	runningEvents := {EventId singleEventNo}.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeProcess >> startup [
 	transition := #afterStartup.
 	runningEvents := {EventId startupEventNo}.
 	sworld clearTicks.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeProcess >> step [
 	self isRunning
 		ifFalse: [ ^ self ].
@@ -150,18 +152,18 @@ SteloNativeProcess >> step [
 	self perform: transition.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloNativeProcess >> stop [
 	transition := #idle.
 	runningEvents := #().
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeProcess >> transition [
 	^ transition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloNativeProcess >> transition: aSymbol [
 	transition := aSymbol.
 ]

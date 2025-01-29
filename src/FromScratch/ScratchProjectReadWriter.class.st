@@ -1,15 +1,17 @@
 Class {
-	#name : #ScratchProjectReadWriter,
-	#superclass : #Object,
+	#name : 'ScratchProjectReadWriter',
+	#superclass : 'Object',
 	#instVars : [
 		'objStream',
 		'fileVersion',
 		'fileVersionTag'
 	],
-	#category : #'FromScratch-Converter'
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchProjectReadWriter >> extractFileVersionOn: aStream [
 
 	"Answer the Scratch file version number from the given string. If the string is of the form: 'ScratchVxx', were xx is a two-digit integer, answer the value of xx. Otherwise, answer 0."
@@ -21,7 +23,7 @@ ScratchProjectReadWriter >> extractFileVersionOn: aStream [
 		  asNumberNoError
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchProjectReadWriter >> extractFormOn: aStream [
 
 	| version info |
@@ -32,7 +34,7 @@ ScratchProjectReadWriter >> extractFormOn: aStream [
 	^ info at: 'thumbnail'
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchProjectReadWriter >> extractInfoFrom: aByteArray [
 
 	| s version ret |
@@ -46,7 +48,7 @@ ScratchProjectReadWriter >> extractInfoFrom: aByteArray [
 	^ ret
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchProjectReadWriter >> extractProjectFrom: aByteArray [
 
 	| s version project |
@@ -69,49 +71,49 @@ ScratchProjectReadWriter >> extractProjectFrom: aByteArray [
 	^ project
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchProjectReadWriter >> fileVersion [
 
 	^ fileVersion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchProjectReadWriter >> fileVersion: anObject [
 
 	fileVersion := anObject
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchProjectReadWriter >> fileVersionString [
 
 	^ fileVersionTag , fileVersion asTwoCharacterString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchProjectReadWriter >> fileVersionTag [
 
 	^ fileVersionTag
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchProjectReadWriter >> fileVersionTag: anObject [
 
 	fileVersionTag := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchProjectReadWriter >> objStream [
 
 	^ objStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchProjectReadWriter >> objStream: anObject [
 
 	objStream := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchProjectReadWriter >> storeProjectInfo: aDictionary on: aBinaryStream [
 
 	| s |
@@ -121,7 +123,7 @@ ScratchProjectReadWriter >> storeProjectInfo: aDictionary on: aBinaryStream [
 	aBinaryStream nextPutAll: s contents
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchProjectReadWriter >> writeProject: aProject to: aStream [
 
 	aProject scripts do: [ :script | 

@@ -1,11 +1,11 @@
-Extension { #name : #ImageMorph }
+Extension { #name : 'ImageMorph' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 ImageMorph >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 ImageMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 	super initFieldsFrom: anObjStream version: classVersion.
@@ -16,7 +16,7 @@ ImageMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 ImageMorph >> storeFieldsOn: anObjStream [
 
 	super storeFieldsOn: anObjStream.

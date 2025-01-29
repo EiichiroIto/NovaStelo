@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchConsoleMorph,
-	#superclass : #Morph,
+	#name : 'ScratchConsoleMorph',
+	#superclass : 'Morph',
 	#instVars : [
 		'font',
 		'charExtent',
@@ -8,22 +8,24 @@ Class {
 		'screenSize',
 		'cursor'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> charExtent [
 
 	^ charExtent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> charExtent: anObject [
 
 	charExtent := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> characterAt: aPoint [
 
 	| line |
@@ -33,7 +35,7 @@ ScratchConsoleMorph >> characterAt: aPoint [
 	^ line at: aPoint x + 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> characterAt: aPoint put: aCharacter [
 
 	| line |
@@ -49,46 +51,46 @@ ScratchConsoleMorph >> characterAt: aPoint put: aCharacter [
 	screen at: aPoint y + 1 put: line
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchConsoleMorph >> clearScreen [
 
 	screen := Array new: screenSize y withAll: ''.
 	cursor := 0 @ 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> currentLine [
 	^ screen at: cursor y + 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> currentLine: aString [
 	screen at: cursor y + 1 put: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> cursor [
 
 	^ cursor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> cursor: anObject [
 
 	cursor := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> defaultFont [
 	^ StandardFonts codeFont
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> defaultScreenSize [
 	^ 80 @ 25
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchConsoleMorph >> drawCursorOn: aCanvas [
 
 	| pos c |
@@ -102,14 +104,14 @@ ScratchConsoleMorph >> drawCursorOn: aCanvas [
 		color: self color
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchConsoleMorph >> drawOn: aCanvas [
 	super drawOn: aCanvas.
 	self drawScreenOn: aCanvas.
 	self drawCursorOn: aCanvas
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchConsoleMorph >> drawScreenOn: aCanvas [
 
 	| pos |
@@ -123,7 +125,7 @@ ScratchConsoleMorph >> drawScreenOn: aCanvas [
 		pos := pos x @ (pos y + charExtent y) ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ScratchConsoleMorph >> extent: aPoint [
 
 	| old |
@@ -134,13 +136,13 @@ ScratchConsoleMorph >> extent: aPoint [
 	self clearScreen
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> font [
 
 	^ font
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> font: anObject [
 
 	font := anObject.
@@ -148,19 +150,19 @@ ScratchConsoleMorph >> font: anObject [
 	self updateExtent
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchConsoleMorph >> goto: aPoint [
 
 	(self withinScreen: aPoint) ifFalse: [ ^ cursor := 0 @ 0 ].
 	cursor := aPoint
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchConsoleMorph >> handlesMouseDown: evt [
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchConsoleMorph >> initialize [
 	super initialize.
 	self color: Color black.
@@ -171,12 +173,12 @@ ScratchConsoleMorph >> initialize [
 	self updateExtent
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchConsoleMorph >> mouseDown: evt [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> newLine [
 
 	| line |
@@ -190,7 +192,7 @@ ScratchConsoleMorph >> newLine [
 	cursor := 0 @ (screenSize y - 1)
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchConsoleMorph >> put: aString [
 
 	aString do: [ :each | 
@@ -199,7 +201,7 @@ ScratchConsoleMorph >> put: aString [
 			ifFalse: [ self putChar: each ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> putChar: aCharacter [
 
 	self characterAt: cursor put: aCharacter.
@@ -211,25 +213,25 @@ ScratchConsoleMorph >> putChar: aCharacter [
 	cursor := 0 @ (screenSize y - 1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> screen [
 
 	^ screen
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> screen: anObject [
 
 	screen := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> screenSize [
 
 	^ screenSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchConsoleMorph >> screenSize: anObject [
 
 	screenSize := anObject.
@@ -237,7 +239,7 @@ ScratchConsoleMorph >> screenSize: anObject [
 	self updateExtent
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> scroll: anInteger [
 
 	anInteger >= screenSize y ifTrue: [ ^ self clearScreen ].
@@ -246,23 +248,23 @@ ScratchConsoleMorph >> scroll: anInteger [
 		           to: screen size) , (Array new: anInteger withAll: '')
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> textColor [
 	^ Color green
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> updateCharExtent [
 	charExtent := (font linearWidthOf: $M) @ font height
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorph >> updateExtent [
 
 	super extent: screenSize * charExtent
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchConsoleMorph >> withinScreen: aPoint [
 
 	^ aPoint >= (0 @ 0) and: [ aPoint < screenSize ]

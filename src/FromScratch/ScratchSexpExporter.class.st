@@ -1,13 +1,15 @@
 Class {
-	#name : #ScratchSexpExporter,
-	#superclass : #ScratchExporter,
+	#name : 'ScratchSexpExporter',
+	#superclass : 'ScratchExporter',
 	#instVars : [
 		'appName'
 	],
-	#category : #'FromScratch-Converter'
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchSexpExporter class >> appName: aString [
 	^ self basicNew
 		initialize;
@@ -15,27 +17,27 @@ ScratchSexpExporter class >> appName: aString [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchSexpExporter class >> new [
 	self shouldNotImplement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpExporter >> appName [
 	^ appName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpExporter >> appName: anObject [
 	appName := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporter >> writeFooter: aProject [
 	stream nextPutAll: '))'.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporter >> writeHeader: aProject [
 	stream
 		nextPut: $(;
@@ -48,7 +50,7 @@ ScratchSexpExporter >> writeHeader: aProject [
 		nextPut: $(
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporter >> writeIndent [
 	stream
 		nextPut: Character lf;
@@ -57,7 +59,7 @@ ScratchSexpExporter >> writeIndent [
 		nextPut: Character space
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporter >> writeScript: aScript [
 
 	| code |
@@ -78,7 +80,7 @@ ScratchSexpExporter >> writeScript: aScript [
 	stream nextPutAll: '))'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporter >> writeScriptNames: aProject [
 	stream nextPut: $(.
 	aProject scripts
@@ -87,7 +89,7 @@ ScratchSexpExporter >> writeScriptNames: aProject [
 	stream nextPut: $)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporter >> writeScriptSeparator [
 	stream
 		nextPut: Character lf;
@@ -95,7 +97,7 @@ ScratchSexpExporter >> writeScriptSeparator [
 		nextPut: Character space
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporter >> writeVarNames: aScript [
 	aScript varNames
 		do: [ :each | 

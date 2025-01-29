@@ -1,6 +1,6 @@
 Class {
-	#name : #SpSteloPresenter,
-	#superclass : #SpScratchPresenter,
+	#name : 'SpSteloPresenter',
+	#superclass : 'SpScratchPresenter',
 	#traits : 'TScratchPlotterMenu',
 	#classTraits : 'TScratchPlotterMenu classTrait',
 	#instVars : [
@@ -18,15 +18,17 @@ Class {
 		'clearPatchesButton',
 		'clearTurtlesButton'
 	],
-	#category : #'Stelo-Spec2'
+	#category : 'Stelo-Spec2',
+	#package : 'Stelo',
+	#tag : 'Spec2'
 }
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 SpSteloPresenter class >> buttonWidth [
 	^ (ScratchTheme formAt: #saveButton) width + 10
 ]
 
-{ #category : #layout }
+{ #category : 'layout' }
 SpSteloPresenter class >> defaultLayout [
 
 	^ SpBoxLayout newVertical
@@ -77,7 +79,7 @@ SpSteloPresenter class >> defaultLayout [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloPresenter >> addBlockMenu: aMenu for: aBlockMorph [
 	super addBlockMenu: aMenu for: aBlockMorph.
 	aMenu
@@ -89,19 +91,19 @@ SpSteloPresenter >> addBlockMenu: aMenu for: aBlockMorph [
 						action: [ application showBytecode: aBlockMorph ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> addPlots: aCollection [
 	editorPane addPlots: aCollection
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpSteloPresenter >> addTurtles [
 	self
 		target: application addTurtles;
 		updateTurtles
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> changeColor: vno breed: bno at: id [
 
 	| selection cno |
@@ -130,7 +132,7 @@ SpSteloPresenter >> changeColor: vno breed: bno at: id [
 	self updateDisplay
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> changeNumberVar: vno breed: bno at: id [
 
 	| val ret |
@@ -146,7 +148,7 @@ SpSteloPresenter >> changeNumberVar: vno breed: bno at: id [
 		put: ret asNumberNoError
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> changeValue: anArray [
 	| var vno bno id |
 	inspectorTarget = 0
@@ -164,7 +166,7 @@ SpSteloPresenter >> changeValue: anArray [
 	self updateInspector
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> clearInspector [
 	inspectorTarget := 0.
 	inspectorPane
@@ -172,7 +174,7 @@ SpSteloPresenter >> clearInspector [
 		selectedIndex: 0
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloPresenter >> connectPresenters [
 
 	buttonSave action: [ application saveProjectNoDialog ].
@@ -200,12 +202,12 @@ SpSteloPresenter >> connectPresenters [
 	eventButton action: [ application startEvent ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloPresenter >> currentBreedNo [
 	^ self target breedNo
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpSteloPresenter >> dataMenu [
 
 	^ self newMenu
@@ -233,12 +235,12 @@ SpSteloPresenter >> dataMenu [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloPresenter >> defaultExtent [
 	^ 1024 @ 768
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> deleteObject [
 	inspectorTarget = 0 ifTrue: [ ^ self ].
 	application sworld kill: self currentBreedNo at: inspectorTarget.
@@ -246,12 +248,12 @@ SpSteloPresenter >> deleteObject [
 	self clearInspector
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloPresenter >> display [
 	^ stageFrame morph
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> eventMenuFrom: aDictionary whenSelected: aBlock [
 	| m list |
 	m := self newMenu.
@@ -269,7 +271,7 @@ SpSteloPresenter >> eventMenuFrom: aDictionary whenSelected: aBlock [
 	^ m
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpSteloPresenter >> exportMenu [
 	^ self newMenu
 		addItem: [ :item | 
@@ -291,7 +293,7 @@ SpSteloPresenter >> exportMenu [
 		yourself
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpSteloPresenter >> fileMenu [
 
 	| m |
@@ -352,7 +354,7 @@ SpSteloPresenter >> fileMenu [
 	^ m
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> findObject: aString [
 
 	| bno ret id |
@@ -369,7 +371,7 @@ SpSteloPresenter >> findObject: aString [
 	self updateInspector
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpSteloPresenter >> helpMenu [
 
 	| checked unchecked m |
@@ -411,7 +413,7 @@ SpSteloPresenter >> helpMenu [
 	^ m
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpSteloPresenter >> importMenu [
 	^ self newMenu
 		addItem: [ :item | 
@@ -425,7 +427,7 @@ SpSteloPresenter >> importMenu [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloPresenter >> initializePresenters [
 
 	super initializePresenters.
@@ -446,25 +448,25 @@ SpSteloPresenter >> initializePresenters [
 	self focusOrder add: editorPane
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloPresenter >> newEditor [
 
 	^ self instantiate: SpSteloEditor
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloPresenter >> newInspector [
 
 	^ self instantiate: SpSteloInspector
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloPresenter >> newLibrary [
 
 	^ self instantiate: SpSteloLibrary
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloPresenter >> newStage [
 
 	^ self newMorph
@@ -472,7 +474,7 @@ SpSteloPresenter >> newStage [
 		  yourself
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> objectAt: aPoint [
 	| bno pos |
 	bno := self currentBreedNo.
@@ -488,35 +490,41 @@ SpSteloPresenter >> objectAt: aPoint [
 		index: 0
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpSteloPresenter >> observerSelected [
 	self target: application observerScript.
 	self updateThumbnail
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpSteloPresenter >> patchesSelected [
 	self target: application patchesScript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> plotter [
 	^ editorPane plotter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> projectName [
 
 	^ projectNameLabel label asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> projectName: aString [
 
 	projectNameLabel ifNotNil: [ projectNameLabel label: aString ]
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+SpSteloPresenter >> scriptForm [
+
+	^ editorPane screenshot
+]
+
+{ #category : 'initialization' }
 SpSteloPresenter >> setupButtons [
 
 	buttonOpen
@@ -559,7 +567,7 @@ SpSteloPresenter >> setupButtons [
 		help: 'Loop' localized
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloPresenter >> setupMenu [
 
 	menu
@@ -577,7 +585,7 @@ SpSteloPresenter >> setupMenu [
 				subMenu: self helpMenu ]
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> showBreedView: aPoint [
 	| id |
 	id := aPoint ifNil: [ 0 ] ifNotNil: [ self objectAt: aPoint ].
@@ -587,12 +595,12 @@ SpSteloPresenter >> showBreedView: aPoint [
 			self updateInspector ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> status: aString [
 	editorPane status: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> sworld: aWorld [
 	stageFrame morph
 		sworld: aWorld;
@@ -600,7 +608,7 @@ SpSteloPresenter >> sworld: aWorld [
 	self clearInspector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloPresenter >> target: anObject [
 	super target: anObject.
 	libraryPane selectButton: anObject objName.
@@ -608,12 +616,12 @@ SpSteloPresenter >> target: anObject [
 	self clearInspector
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloPresenter >> thumbnailExtent [
 	^ 40 @ 40
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpSteloPresenter >> turtlesDeleted: anInteger [
 	application deleteTurtles: anInteger.
 	self
@@ -621,12 +629,12 @@ SpSteloPresenter >> turtlesDeleted: anInteger [
 		target: application turtlesScripts first
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpSteloPresenter >> turtlesSelected: bno [
 	self target: (application scriptOf: bno)
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 SpSteloPresenter >> updateInspector [
 	| list index |
 	inspectorTarget = 0
@@ -640,12 +648,12 @@ SpSteloPresenter >> updateInspector [
 		selectedIndex: index
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloPresenter >> updateThumbnail [
 	libraryPane thumbnail: (self stageShotExtent: self thumbnailExtent)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloPresenter >> updateTurtles [
 	libraryPane turtles: application turtlesScripts.
 	stageFrame morph changed

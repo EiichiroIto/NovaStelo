@@ -3,18 +3,20 @@ I am an abstract superclass for all kinds of argument morphs--morphs that are us
 
 "
 Class {
-	#name : #ArgMorph,
-	#superclass : #BorderedMorph,
+	#name : 'ArgMorph',
+	#superclass : 'BorderedMorph',
 	#instVars : [
 		'labelMorph'
 	],
 	#classVars : [
 		'DropDownMenuForm'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 ArgMorph class >> initialize [
 	"self initialize"
 
@@ -30,7 +32,7 @@ ArgMorph class >> initialize [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> acceptsDroppedReporters [
 	"Answer true if I accept dropped reporter blocks. Answer false by default."
 
@@ -38,7 +40,7 @@ ArgMorph >> acceptsDroppedReporters [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> acceptsTypeOf: aBlockMorph [
 	"Answer true if I can accept a dropped reporter of the given type. Answer false by default."
 
@@ -46,29 +48,29 @@ ArgMorph >> acceptsTypeOf: aBlockMorph [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ArgMorph >> argOf: aParser [
 	^ [ self argString: aParser ]
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ArgMorph >> argString: aGenerator [
 	^ aGenerator argString: self.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ArgMorph >> blockPalette [
 	owner ifNil: [ ^ nil ].
 	^ owner blockPalette
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ArgMorph >> defaultValue: anObject [
 	"Set my default value. This default implementation does nothing."
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ArgMorph >> drawHLineFrom: startX to: endX y: yOffset color: c on: aCanvas [
 
 	| y |
@@ -79,12 +81,12 @@ ArgMorph >> drawHLineFrom: startX to: endX y: yOffset color: c on: aCanvas [
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ArgMorph >> fixArgLayout [
 	"Fix my layout. This default implementation does nothing."
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> isArgMorph [
 	"True only for ArgMorphs."
 
@@ -92,23 +94,23 @@ ArgMorph >> isArgMorph [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> isChoiceArg [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> isExpressionArg [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> isNumberExpression [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> isReporter [
 	"Answer true since every ArgMorph reports a value."
 
@@ -116,20 +118,20 @@ ArgMorph >> isReporter [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgMorph >> isSquareArg [
 
 	^ false
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ArgMorph >> labelMorph [
 
 	^ labelMorph
 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ArgMorph >> printOn: aStream [
 	aStream
 		nextPutAll: self class name;
@@ -138,7 +140,7 @@ ArgMorph >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ArgMorph >> project [
 	^ owner ifNotNil: [ owner project ]
 ]

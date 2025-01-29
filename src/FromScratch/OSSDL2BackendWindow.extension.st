@@ -1,6 +1,6 @@
-Extension { #name : #OSSDL2BackendWindow }
+Extension { #name : 'OSSDL2BackendWindow' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 OSSDL2BackendWindow >> visitTextInputEvent: event [
 
 	| osEvent text last |

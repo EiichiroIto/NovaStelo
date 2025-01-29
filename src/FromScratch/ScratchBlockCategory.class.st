@@ -1,31 +1,33 @@
 Class {
-	#name : #ScratchBlockCategory,
-	#superclass : #AbstractBlockSpec,
+	#name : 'ScratchBlockCategory',
+	#superclass : 'AbstractBlockSpec',
 	#instVars : [
 		'categoryName'
 	],
-	#category : #'FromScratch-Project'
+	#category : 'FromScratch-Project',
+	#package : 'FromScratch',
+	#tag : 'Project'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockCategory >> categoryName [
 
 	^ categoryName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBlockCategory >> categoryName: anObject [
 
 	categoryName := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockCategory >> isCategory [
 
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchBlockCategory >> printOn: aStream [
 
 	aStream

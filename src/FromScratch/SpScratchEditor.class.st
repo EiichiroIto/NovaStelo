@@ -1,6 +1,6 @@
 Class {
-	#name : #SpScratchEditor,
-	#superclass : #SpPresenter,
+	#name : 'SpScratchEditor',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'labelStatus',
 		'editor',
@@ -8,10 +8,12 @@ Class {
 		'labelName',
 		'notebook'
 	],
-	#category : #'FromScratch-Spec2'
+	#category : 'FromScratch-Spec2',
+	#package : 'FromScratch',
+	#tag : 'Spec2'
 }
 
-{ #category : #layout }
+{ #category : 'layout' }
 SpScratchEditor class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		add:
@@ -24,7 +26,7 @@ SpScratchEditor class >> defaultLayout [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchEditor >> createEditorPage [
 	editor := self newMorph.
 	editor
@@ -38,17 +40,17 @@ SpScratchEditor >> createEditorPage [
 		provider: [ editor ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchEditor >> editorContents [
 	^ editor morph contents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchEditor >> editorContents: aMorph [
 	editor morph contents: aMorph
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchEditor >> initializePresenters [
 	labelName := self newLabel.
 	labelStatus := self newLabel.
@@ -56,27 +58,27 @@ SpScratchEditor >> initializePresenters [
 	notebook addPage: self createEditorPage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchEditor >> screenshot [
 	^ self editorContents screenshot
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchEditor >> scriptsLabel [
 	^ 'Scripts' localized
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchEditor >> status [
 	^ labelStatus label asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchEditor >> status: aString [
 	labelStatus label: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchEditor >> tab: aString [
 	self target ifNil: [ ^ self ].
 	self editorContents: self target blocksBin.
@@ -86,12 +88,12 @@ SpScratchEditor >> tab: aString [
 		ifFound: [ :page | notebook selectPage: page ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchEditor >> target [
 	^ target
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchEditor >> target: aScratchObjectOrNil [
 	target := aScratchObjectOrNil.
 	aScratchObjectOrNil

@@ -2,22 +2,24 @@
 A SVariablesTest is a test class for testing the behavior of SVariables
 "
 Class {
-	#name : #VariablesTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'VariablesTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 VariablesTest >> newVarDef [
 	^ VarDef new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VariablesTest >> newVariables [
 	^ Variables new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testChangeBy [
 	| var varId v1 v2 |
 	var := self newVariables.
@@ -35,7 +37,7 @@ VariablesTest >> testChangeBy [
 	self assert: (var var: v2 at: 1) equals: 23
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testClear [
 	| v varId v1 v2 |
 	v := self newVariables.
@@ -54,7 +56,7 @@ VariablesTest >> testClear [
 	self assert: (v privVars at: v2) array isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testClearVarNo [
 	| v varId v1 |
 	v := self newVariables.
@@ -72,7 +74,7 @@ VariablesTest >> testClearVarNo [
 	self assert: (v var: v1 at: 2) equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testCopyElementFromTo [
 	| v varId v1 v2 |
 	v := self newVariables.
@@ -100,7 +102,7 @@ VariablesTest >> testCopyElementFromTo [
 	self assert: (v var: v2 at: 2) equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testCopyVarTo [
 	| var varId v1 v2 |
 	var := self newVariables.
@@ -123,7 +125,7 @@ VariablesTest >> testCopyVarTo [
 	self assert: (var var: v2 at: 2) equals: 11
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testForceSize [
 	| v varId v1 v2 |
 	v := self newVariables.
@@ -148,7 +150,7 @@ VariablesTest >> testForceSize [
 	self assert: (v var: v2 at: 10) equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testInitialize [
 	| v |
 	v := self newVariables.
@@ -156,7 +158,7 @@ VariablesTest >> testInitialize [
 	self assert: v privVarNames isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testMax [
 	| v varId v1 v2 |
 	v := self newVariables.
@@ -171,7 +173,7 @@ VariablesTest >> testMax [
 	self assert: v max equals: 100
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testMultiplyBy [
 	| var varId v1 v2 |
 	var := self newVariables.
@@ -189,7 +191,7 @@ VariablesTest >> testMultiplyBy [
 	self assert: (var var: v2 at: 1) equals: 60
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testPrivVarNames [
 	| v |
 	v := self newVariables.
@@ -200,7 +202,7 @@ VariablesTest >> testPrivVarNames [
 	self assert: v privVarNames equals: 234.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testPrivVars [
 	| v |
 	v := self newVariables.
@@ -211,7 +213,7 @@ VariablesTest >> testPrivVars [
 	self assert: v privVars equals: 234.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testRealArrayAt [
 	| v varId |
 	v := self newVariables.
@@ -231,7 +233,7 @@ VariablesTest >> testRealArrayAt [
 	self assert: (v realArrayAt: 2) second equals: 20.0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testSetVarToAll [
 	| v varId v1 |
 	v := self newVariables.
@@ -246,7 +248,7 @@ VariablesTest >> testSetVarToAll [
 	self assert: (v var: v1 at: 2) equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testSetVarToArray [
 	| v varId v1 a |
 	v := self newVariables.
@@ -259,17 +261,17 @@ VariablesTest >> testSetVarToArray [
 	self assertCollection: (v realArrayAt: v1) equals: a.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testSize [
 	self testMax
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testStringAt [
 	self testStringAtPut
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testStringAtPut [
 	| vid var v |
 	vid := self newVarDef.
@@ -284,7 +286,7 @@ VariablesTest >> testStringAtPut [
 	self assert: (var string: v at: 2) equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testUpdateVarDef [
 	| v varId1 varId2 |
 	varId1 := self newVarDef.
@@ -315,7 +317,7 @@ VariablesTest >> testUpdateVarDef [
 	self assert: (v privVars at: 3) isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarAt [
 	| vid var v |
 	vid := self newVarDef.
@@ -329,7 +331,7 @@ VariablesTest >> testVarAt [
 	self assert: (var var: v at: 2) equals: 5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarAt2 [
 	| v varId |
 	v := self newVariables.
@@ -345,7 +347,7 @@ VariablesTest >> testVarAt2 [
 	self assert: (v varAt: 2) equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarAtPut [
 	| vid var v |
 	vid := self newVarDef.
@@ -360,7 +362,7 @@ VariablesTest >> testVarAtPut [
 	self assert: (var var: v at: 2) equals: 5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarList [
 	| v varDef v1 |
 	v := self newVariables.
@@ -372,7 +374,7 @@ VariablesTest >> testVarList [
 	self assertCollection: (v var: v1 list: 1) equals: #(10 20 30 40)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarListAdd [
 	| v varDef v1 |
 	v := self newVariables.
@@ -389,12 +391,12 @@ VariablesTest >> testVarListAdd [
 	self assert: (v var: v1 list: 2 at: 2) equals: 6
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarListAt [
 	self testVarListAtPut
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarListAtPut [
 	| v varDef v1 |
 	v := self newVariables.
@@ -411,7 +413,7 @@ VariablesTest >> testVarListAtPut [
 	self assert: (v var: v1 list: 2 at: 2) equals: 6
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarListContains [
 	| v varDef v1 |
 	v := self newVariables.
@@ -430,7 +432,7 @@ VariablesTest >> testVarListContains [
 	self deny: (v var: v1 list: 2 contains: 7)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarListRemove [
 	| v varDef v1 |
 	v := self newVariables.
@@ -445,7 +447,7 @@ VariablesTest >> testVarListRemove [
 	self assert: (v var: v1 list: 1 at: 2) equals: 30
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarListSet [
 	| v varDef v1 |
 	v := self newVariables.
@@ -460,7 +462,7 @@ VariablesTest >> testVarListSet [
 	self assert: (v var: v1 list: 1 at: 4) equals: 40
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VariablesTest >> testVarListSizeOf [
 	| v varDef v1 |
 	v := self newVariables.

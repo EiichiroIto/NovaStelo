@@ -1,45 +1,47 @@
 Class {
-	#name : #STurtlesVarDef,
-	#superclass : #VarDef,
-	#category : #'Stelo-Model'
+	#name : 'STurtlesVarDef',
+	#superclass : 'VarDef',
+	#category : 'Stelo-Model',
+	#package : 'Stelo',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtlesVarDef class >> aliveFlagNo [
 	^ 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtlesVarDef class >> colorVarNo [
 	^ 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtlesVarDef class >> flagVarNo [
 	^ 2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtlesVarDef class >> headingVarNo [
 	^ 5
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtlesVarDef class >> penDownFlagNo [
 	^ 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtlesVarDef class >> xVarNo [
 	^ 3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtlesVarDef class >> yVarNo [
 	^ 4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 STurtlesVarDef >> setupReservedVarNames [
 	self
 		addReserved: 'color'

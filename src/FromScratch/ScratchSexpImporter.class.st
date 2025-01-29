@@ -1,13 +1,15 @@
 Class {
-	#name : #ScratchSexpImporter,
-	#superclass : #ScratchImporter,
+	#name : 'ScratchSexpImporter',
+	#superclass : 'ScratchImporter',
 	#instVars : [
 		'appName'
 	],
-	#category : #'FromScratch-Converter'
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchSexpImporter class >> appName: aString [
 	^ self basicNew
 		initialize;
@@ -15,22 +17,22 @@ ScratchSexpImporter class >> appName: aString [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchSexpImporter class >> new [
 	self shouldNotImplement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpImporter >> appName [
 	^ appName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpImporter >> appName: anObject [
 	appName := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> cBlockTupleFrom: anArray script: aScript [
 	| tuple innerBlock |
 	tuple := anArray copy.
@@ -49,7 +51,7 @@ ScratchSexpImporter >> cBlockTupleFrom: anArray script: aScript [
 	^ tuple
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> evaluateArg: anObject script: aScript [
 	anObject isArray
 		ifTrue: [ ^ self tupleFrom: anObject script: aScript ]
@@ -59,7 +61,7 @@ ScratchSexpImporter >> evaluateArg: anObject script: aScript [
 	^ anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> eventBlockTupleFor: aString [
 
 	^ { 
@@ -67,7 +69,7 @@ ScratchSexpImporter >> eventBlockTupleFor: aString [
 		  aString }
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> getVarTupleFrom: aCollection script: aScript [
 
 	^ { 
@@ -75,7 +77,7 @@ ScratchSexpImporter >> getVarTupleFrom: aCollection script: aScript [
 		  aCollection second }
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> ifElseTupleFrom: anArray script: aScript [
 	| cond trueBlock falseBlock |
 	cond := self tupleFrom: anArray second script: aScript.
@@ -93,7 +95,7 @@ ScratchSexpImporter >> ifElseTupleFrom: anArray script: aScript [
 	falseBlock}
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpImporter >> import: aString to: anApplication [
 	| lex list |
 	project := anApplication project.
@@ -102,7 +104,7 @@ ScratchSexpImporter >> import: aString to: anApplication [
 	self importWorld: list.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpImporter >> importCode: anArray into: aScript [
 	anArray first = 'when'
 		ifTrue: [ ^ self
@@ -118,7 +120,7 @@ ScratchSexpImporter >> importCode: anArray into: aScript [
 	^ nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importCodes: aCollection into: aScript [
 	| block prev tuple top |
 	prev := aScript blocksBin.
@@ -135,7 +137,7 @@ ScratchSexpImporter >> importCodes: aCollection into: aScript [
 	^ top
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importEvent: aCollection for: aScript eventName: aString [
 
 	| tuple |
@@ -143,7 +145,7 @@ ScratchSexpImporter >> importEvent: aCollection for: aScript eventName: aString 
 	^ self importHat: aCollection for: aScript tuple: tuple
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importHat: aCollection for: aScript tuple: anArray [
 
 	| block prev tuple top |
@@ -160,7 +162,7 @@ ScratchSexpImporter >> importHat: aCollection for: aScript tuple: anArray [
 	^ top
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importScripts: aCollection [
 	| script |
 	aCollection
@@ -171,7 +173,7 @@ ScratchSexpImporter >> importScripts: aCollection [
 					self importScripts: each fourth for: script ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importScripts: aCollection for: aScript [
 	aCollection
 		do: [ :each | 
@@ -182,7 +184,7 @@ ScratchSexpImporter >> importScripts: aCollection for: aScript [
 	aScript cleanUp
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importSub: aCollection for: aScript subName: aString [
 
 	| tuple |
@@ -190,7 +192,7 @@ ScratchSexpImporter >> importSub: aCollection for: aScript subName: aString [
 	^ self importHat: aCollection for: aScript tuple: tuple
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importVarOrList: anObject to: aScript [
 	anObject isString
 		ifTrue: [ ^ aScript addVariable: anObject ].
@@ -201,7 +203,7 @@ ScratchSexpImporter >> importVarOrList: anObject to: aScript [
 		ifTrue: [ ^ aScript addList: anObject second ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> importWorld: aCollection [
 	aCollection first = appName
 		ifFalse: [ self error ].
@@ -209,7 +211,7 @@ ScratchSexpImporter >> importWorld: aCollection [
 	self importScripts: aCollection third
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> operatorTupleFrom: aCollection script: aScript [
 
 	| tuple |
@@ -218,7 +220,7 @@ ScratchSexpImporter >> operatorTupleFrom: aCollection script: aScript [
 	^ tuple
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> setVarTupleFrom: aCollection script: aScript [
 	| arg |
 	arg := aCollection third.
@@ -229,19 +231,19 @@ ScratchSexpImporter >> setVarTupleFrom: aCollection script: aScript [
 	arg}
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> startBlockTupleFor: aString [
 
 	^ { aString asSymbol }
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> subBlockTupleFor: aString [
 
 	^ { #sub:. aString }
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> tupleFrom: aCollection script: aScript [
 
 	| selector tuple |
@@ -259,7 +261,7 @@ ScratchSexpImporter >> tupleFrom: aCollection script: aScript [
 	^ tuple
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporter >> updateArgs: anArray script: aScript [
 	anArray at: 1 put: (anArray at: 1) asSymbol.
 	2 to: anArray size do: [ :each | 

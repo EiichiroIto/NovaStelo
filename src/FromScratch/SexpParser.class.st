@@ -1,17 +1,19 @@
 Class {
-	#name : #SexpParser,
-	#superclass : #Object,
-	#category : #'FromScratch-Converter'
+	#name : 'SexpParser',
+	#superclass : 'Object',
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SexpParser >> parse: aCollection [
 	| in |
 	in := ReadStream on: aCollection.
 	^ self parseItem: in
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SexpParser >> parseItem: aStream [
 	| token |
 	aStream atEnd
@@ -22,7 +24,7 @@ SexpParser >> parseItem: aStream [
 	^ token
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SexpParser >> parseItems: aStream delimiter: aCharacter [
 	| list item |
 	list := OrderedCollection new.

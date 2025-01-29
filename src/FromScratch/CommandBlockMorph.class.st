@@ -16,8 +16,8 @@ Examples:
 
 "
 Class {
-	#name : #CommandBlockMorph,
-	#superclass : #BlockMorph,
+	#name : 'CommandBlockMorph',
+	#superclass : 'BlockMorph',
 	#instVars : [
 		'commandSpec',
 		'argPermutation',
@@ -26,10 +26,12 @@ Class {
 		'numberArgFlags',
 		'labelId'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 CommandBlockMorph class >> argPermutationForSpec: spec withTranslation: translatedSpec [
 
 	| parsedSpec parsedTranslatedSpec parsedSpecArgs parsedTranslatedSpecArgs permutation copiesSize n originalPermutation |
@@ -60,7 +62,7 @@ CommandBlockMorph class >> argPermutationForSpec: spec withTranslation: translat
 	^ permutation
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 CommandBlockMorph class >> isArgSpec: aString [
 	"Answer true if the given string is an argument specification."
 
@@ -68,7 +70,7 @@ CommandBlockMorph class >> isArgSpec: aString [
 
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 CommandBlockMorph class >> parseCommandSpec: aCommandSpec [
 	"Answer an array of token strings containing my keywords and argument specs."
 
@@ -108,7 +110,7 @@ CommandBlockMorph class >> parseCommandSpec: aCommandSpec [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> addCommandIcons [
 	"Add additional icons to certain blocks. Do nothing if this isn't one of those blocks."
 
@@ -131,7 +133,7 @@ CommandBlockMorph >> addCommandIcons [
 			^ self ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> addLabel [
 	"Add a label for my command and arguments. This is the method that really creates the whole block."
 
@@ -175,7 +177,7 @@ CommandBlockMorph >> addLabel [
 		ifTrue: [ self addMorphBack: self newSpacer ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> argMorphFor: specString [
 	"Answer an argument morph for the given argument specification string. Set it's color appropriately."
 
@@ -187,7 +189,7 @@ CommandBlockMorph >> argMorphFor: specString [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> argMorphToReplace: aMorph [
 	"Answer a new argument morph to be used to replace the given morph. Answer nil if the given morph is not one of my argMorphs."
 
@@ -212,27 +214,27 @@ CommandBlockMorph >> argMorphToReplace: aMorph [
 	^ argM
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> argMorphs [
 
 	^ argMorphs
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> argPermutation: aSet [
 
 	argPermutation := aSet
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> argSpecs [
 	^ (self class parseCommandSpec: commandSpec)
 		select: [ :s | self class isArgSpec: s ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> args [
 	"Answer my arguments evaluated and permuted into the order expected by the underlying Squeak method."
 
@@ -240,7 +242,7 @@ CommandBlockMorph >> args [
 
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 CommandBlockMorph >> argumentAt: index [
 	"Returns the argument morph at the given index."
 
@@ -248,7 +250,7 @@ CommandBlockMorph >> argumentAt: index [
 
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 CommandBlockMorph >> argumentCount [
 	"Returns the number of arguments to this command block."
 
@@ -256,7 +258,7 @@ CommandBlockMorph >> argumentCount [
 
 ]
 
-{ #category : #'stack/tuple conversion' }
+{ #category : 'stack/tuple conversion' }
 CommandBlockMorph >> asBlockTuple [
 	"Answer a tuple (Array) describing this block and its arguments."
 
@@ -273,25 +275,25 @@ CommandBlockMorph >> asBlockTuple [
 	^ stream contents
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 CommandBlockMorph >> blockArgs [
 	"^ submorphs select: [:m | (m isKindOf: ArgMorph) or: [m isKindOf: ReporterBlockMorph] ]"
 	^ self organizeArgs: argMorphs asArray
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 CommandBlockMorph >> blockSpec [
 
 	^ receiver blockSpecAt: selector
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 CommandBlockMorph >> coerceArgs [
 	^ self coerceArgs: self args
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 CommandBlockMorph >> coerceArgs: argList [
 	"Answer an arugments array in which all arguments that should be numbers have been coerced to numbers if necessary."
 
@@ -308,7 +310,7 @@ CommandBlockMorph >> coerceArgs: argList [
 	^ args
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> color: aColor [
 
 	super color: aColor.
@@ -316,14 +318,14 @@ CommandBlockMorph >> color: aColor [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> commandSpec [
 
 	^ commandSpec
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> commandSpec: aString [
 	"Set my command spec string. See my class comment."
 	"CommandBlockMorph new commandSpec: 'forward %n'"
@@ -335,7 +337,7 @@ CommandBlockMorph >> commandSpec: aString [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> defaultArgs: defaultValues [
 	"Set the default values of my arguments from the given list."
 
@@ -348,12 +350,12 @@ CommandBlockMorph >> defaultArgs: defaultValues [
 			ifFalse: [ argM defaultValue: defaultValue ] ]
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 CommandBlockMorph >> evaluate [
 	^ self evaluateWithArgs: self args
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 CommandBlockMorph >> evaluateWithArgs: rawArgs [
 
 	"Evalue this block with the given argument list."
@@ -363,7 +365,7 @@ CommandBlockMorph >> evaluateWithArgs: rawArgs [
 	^ receiver evaluateFunction: selector withArgs: args
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> fixBlockLayout [
 
 	"Update the positions of my submorphs."
@@ -411,7 +413,7 @@ CommandBlockMorph >> fixBlockLayout [
 		nextB fixBlockLayout ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CommandBlockMorph >> initialize [
 
 	super initialize.
@@ -420,47 +422,47 @@ CommandBlockMorph >> initialize [
 	isTimed := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CommandBlockMorph >> isCommandBlock [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CommandBlockMorph >> isForever [
 
 	^ receiver foreverBlockSelectors includes: selector
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CommandBlockMorph >> isStop [
 	^ receiver stopBlockSelectors includes: selector
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CommandBlockMorph >> isTimed [
 
 	^ isTimed
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CommandBlockMorph >> isTimed: aBoolean [
 	"Indicates that this block's evaluate method will be called repeatedly throughout some time interval."
 
 	isTimed := aBoolean.
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 CommandBlockMorph >> labelId [
 	^ labelId
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 CommandBlockMorph >> labelId: anInteger [
 	labelId := anInteger.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> labelMorphFor: aString [
 	| s |
 	s := aString.
@@ -469,7 +471,7 @@ CommandBlockMorph >> labelMorphFor: aString [
 		color: self labelColor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> newSpacer [
 	^ Morph new
 		color: Color transparent;
@@ -477,7 +479,7 @@ CommandBlockMorph >> newSpacer [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> nextBlock [
 	"Answer the block following myself in the block sequence or nil if I am the last block in the sequence. Each block is a submorph of the previous block."
 
@@ -487,7 +489,7 @@ CommandBlockMorph >> nextBlock [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> nextBlock: aBlock [
 	"Add the given block as the block following me. Delete old nextBlock, if any."
 
@@ -496,7 +498,7 @@ CommandBlockMorph >> nextBlock: aBlock [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CommandBlockMorph >> numberArgFlags [
 	"Answer an array of booleans indicating which of my arguments must be numbers. Compute on first use and cache the result."
 
@@ -511,7 +513,7 @@ CommandBlockMorph >> numberArgFlags [
 	^ numberArgFlags
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 CommandBlockMorph >> organizeArgs: argList [
 	"Answer an arugments array in which all arguments have been rearranged to the original English permutation"
 
@@ -521,7 +523,7 @@ CommandBlockMorph >> organizeArgs: argList [
 	^ argPermutation collect: [ :each | argList at: each ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> replaceArgMorph: oldMorph by: newMorph [
 	"Replace oldMorph with newMorph in my argMorphs and submorphs lists. This is done when dropping a reporter block onto one of my arguments."
 
@@ -532,7 +534,7 @@ CommandBlockMorph >> replaceArgMorph: oldMorph by: newMorph [
 
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 CommandBlockMorph >> startProcess [
 	self stopProcess.
 	receiver ifNil: [ ^ self ].
@@ -540,7 +542,7 @@ CommandBlockMorph >> startProcess [
 	self changed
 ]
 
-{ #category : #menus }
+{ #category : 'menus' }
 CommandBlockMorph >> tabToNextField: evt [
 	"Move the keyboard focus to the next submorph that responds to keyboard events."
 
@@ -553,7 +555,7 @@ CommandBlockMorph >> tabToNextField: evt [
 		newKeyboardFocus: (fields at: current \\ fields size + 1) labelMorph
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CommandBlockMorph >> updateReferencesUsing: deepCopier [
 	"Update my arg morphs."
 

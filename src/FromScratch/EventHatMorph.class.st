@@ -3,15 +3,17 @@ I am a hat block for stacks triggered by Scratch events.
 
 "
 Class {
-	#name : #EventHatMorph,
-	#superclass : #HatBlockMorph,
+	#name : 'EventHatMorph',
+	#superclass : 'HatBlockMorph',
 	#instVars : [
 		'labelMorph'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventHatMorph >> asBlockTuple [
 
 	"Answer a tuple (Array) describing this block and its event name."
@@ -19,38 +21,38 @@ EventHatMorph >> asBlockTuple [
 	^ Array with: selector with: self eventName
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EventHatMorph >> commandSpec [
 
 	^ labelMorph contents asString
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EventHatMorph >> commandSpec: aString [
 
 	labelMorph contents: aString.
 	self fixBlockLayout
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventHatMorph >> defaultArgs: defaultValues [
 
 	self eventName: defaultValues first
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 EventHatMorph >> emitCode: aGenerator indent: indent [
 
 	aGenerator emitEventHatBlock: self indent: indent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventHatMorph >> eventName [
 
 	^ scriptNameMorph eventName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventHatMorph >> eventName: aString [
 
 	scriptNameMorph eventName: aString.
@@ -58,7 +60,7 @@ EventHatMorph >> eventName: aString [
 	self applicationDo: [ :app | app updateContents ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EventHatMorph >> initialize [
 
 	super initialize.
@@ -72,7 +74,7 @@ EventHatMorph >> initialize [
 	self addMorphBack: scriptNameMorph
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EventHatMorph >> newLabelString [
 
 	^ StringMorph new

@@ -1,6 +1,6 @@
-Extension { #name : #True }
+Extension { #name : 'True' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 True >> asNumberNoError [
 
 	^ 1

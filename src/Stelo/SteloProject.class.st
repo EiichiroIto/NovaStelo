@@ -1,29 +1,31 @@
 Class {
-	#name : #SteloProject,
-	#superclass : #ScratchProject,
+	#name : 'SteloProject',
+	#superclass : 'ScratchProject',
 	#instVars : [
 		'observerScript',
 		'patchesScript'
 	],
-	#category : #'Stelo-Project'
+	#category : 'Stelo-Project',
+	#package : 'Stelo',
+	#tag : 'Project'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject class >> fileVersion [
 	^ 2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject class >> fileVersionTag [
 	^ 'SteloV'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject class >> objStreamClass [
 	^ SteloObjStream
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloProject >> addNewTurtleScript [
 	| breed script |
 	breed := self observer newTurtles.
@@ -36,7 +38,7 @@ SteloProject >> addNewTurtleScript [
 	^ script
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloProject >> addNewTurtleScriptNamed: aString [
 	| breed script |
 	breed := self observer newTurtles.
@@ -48,7 +50,7 @@ SteloProject >> addNewTurtleScriptNamed: aString [
 	^ script
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloProject >> assignUniqueObjNameTo: aScript [
 	| name |
 	aScript objName ifNotNil: [ ^ self ].
@@ -58,35 +60,35 @@ SteloProject >> assignUniqueObjNameTo: aScript [
 	name := name , 'x' ] repeat
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloProject >> assureExistsScriptNamed: aString [
 
 	(self scriptNames includes: aString) ifTrue: [ ^ self ].
 	self addNewTurtleScriptNamed: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> breeds [
 
 	^ scripts collect: #breed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> eventIdFor: aSymbol [
 	^ self application eventIdFor: aSymbol
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloProject >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloProject >> fixVars [
 	self breeds do: #fixVars
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloProject >> initFieldsFrom: anObjStream version: classVersion [
 	super initFieldsFrom: anObjStream version: classVersion.
 	self
@@ -94,7 +96,7 @@ SteloProject >> initFieldsFrom: anObjStream version: classVersion [
 		from: anObjStream
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloProject >> newObserverScript [
 	^ ObserverScript new
 		breed: application newObserver;
@@ -102,7 +104,7 @@ SteloProject >> newObserverScript [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloProject >> newPatchesScript [
 	^ PatchesScript new
 		breed: application newPatches;
@@ -110,59 +112,59 @@ SteloProject >> newPatchesScript [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloProject >> newProgram [
 	^ SProgram new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloProject >> newTurtlesScript [
 	^ TurtlesScript new
 		project: self;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> observer [
 	^ observerScript breed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> observerScript [
 	^ observerScript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> observerScript: aScript [
 	observerScript := aScript
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloProject >> observerVarNamesMenu [
 	^ self observer userDefinedVarNames
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloProject >> patchVarNamesMenu [
 	^ self patches userDefinedVarNames
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> patches [
 	^ patchesScript breed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> patchesScript [
 	^ patchesScript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> patchesScript: aScript [
 	patchesScript := aScript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> programOf: aDictionary [
 
 	| program |
@@ -171,18 +173,18 @@ SteloProject >> programOf: aDictionary [
 	^ program
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> scriptOf: bno [
 	^ scripts detect: [ :each | each breed breedNo = bno ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> scriptsForMenu [
 
 	^ scripts reject: [ :each | each breedNo < SBreedId turtlesBreedNo ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloProject >> setupScripts [
 	observerScript
 		ifNil: [ observerScript := self newObserverScript.
@@ -194,7 +196,7 @@ SteloProject >> setupScripts [
 		ifTrue: [ self addNewTurtleScript ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloProject >> setupWorld: aWorld [
 
 	self setupScripts.
@@ -202,18 +204,18 @@ SteloProject >> setupWorld: aWorld [
 	scripts do: [ :each | aWorld addBreed: each breed ]
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloProject >> storeFieldsOn: anObjStream [
 	super storeFieldsOn: anObjStream.
 	self storeFieldsNamed: #(observerScript patchesScript) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> turtleBreeds [
 	^ self breeds reject: [ :each | each breedNo < SBreedId turtlesBreedNo ]
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloProject >> turtleVarNamesMenu [
 	| list |
 	list := Set new.
@@ -222,7 +224,7 @@ SteloProject >> turtleVarNamesMenu [
 	^ list asSortedCollection asArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProject >> varNoFor: vno breed: bno [
 
 	^ (self scriptOf: bno) varNoFor: vno

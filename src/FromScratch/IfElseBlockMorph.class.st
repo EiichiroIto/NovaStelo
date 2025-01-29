@@ -3,8 +3,8 @@ I am an ""E"" shaped block used for the if-then-else control structure.
 
 "
 Class {
-	#name : #IfElseBlockMorph,
-	#superclass : #CommandBlockMorph,
+	#name : 'IfElseBlockMorph',
+	#superclass : 'CommandBlockMorph',
 	#instVars : [
 		'trueBlock',
 		'falseBlock',
@@ -14,10 +14,12 @@ Class {
 		'blockBottom',
 		'elseMorph'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> addLabel [
 	"Also add the else label"
 
@@ -27,7 +29,7 @@ IfElseBlockMorph >> addLabel [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> asBlockTuple [
 	"Answer a tuple (Array) describing this block and its arguments."
 
@@ -55,7 +57,7 @@ IfElseBlockMorph >> asBlockTuple [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> attachBlock: aBlockMorph [
 	"Attach the given block to me. Assume the block has been positioned correctly."
 
@@ -69,7 +71,7 @@ IfElseBlockMorph >> attachBlock: aBlockMorph [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> blockAttachPoints: aSet [
 	"Answer a collection of possible attachment points for me. Each entry is an Association mapping a point to the morph to which a dropping command block could be attached."
 
@@ -93,7 +95,7 @@ IfElseBlockMorph >> blockAttachPoints: aSet [
 	aSet addAll: result
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 IfElseBlockMorph >> containsPoint: aPoint [
 
 	cachedForm ifNil: [self updateCachedForm].
@@ -102,7 +104,7 @@ IfElseBlockMorph >> containsPoint: aPoint [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 IfElseBlockMorph >> drawBottomBarOn: aCanvas [ 
 
 	self drawInnerBottomY: self bottom - self cBlockBracketThickness - 4 on: aCanvas.
@@ -111,7 +113,7 @@ IfElseBlockMorph >> drawBottomBarOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 IfElseBlockMorph >> drawElseBarOn: aCanvas [
 
 	| left y |
@@ -132,7 +134,7 @@ IfElseBlockMorph >> drawElseBarOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 IfElseBlockMorph >> drawInnerBottomY: y on: aCanvas [
 
 	| left barBottom |
@@ -158,7 +160,7 @@ IfElseBlockMorph >> drawInnerBottomY: y on: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 IfElseBlockMorph >> drawInnerTopY: y on: aCanvas [
 
 	| left right gapStart gapEnd |
@@ -198,7 +200,7 @@ IfElseBlockMorph >> drawInnerTopY: y on: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 IfElseBlockMorph >> drawOn: aCanvas [ 
 
 	| c |
@@ -218,7 +220,7 @@ IfElseBlockMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 IfElseBlockMorph >> drawTopBarOn: aCanvas [ 
 
 	aCanvas
@@ -233,7 +235,7 @@ IfElseBlockMorph >> drawTopBarOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 IfElseBlockMorph >> drawVerticalBarOn: aCanvas [ 
 
 	| left top barRight |
@@ -254,24 +256,24 @@ IfElseBlockMorph >> drawVerticalBarOn: aCanvas [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> elseBarHeight [
 	^ (ScratchTranslator
 		stringExtent: 'else' localized
 		font: ScratchTranslator labelFont) y
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 IfElseBlockMorph >> emitCode: aGenerator indent: indent [
 	aGenerator emitIfElseBlock: self indent: indent.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> falseBlock [
 	^ falseBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> falseBlock: aBlockMorph [
 	"Add the given block as my false nested block sequence. Delete the old nested blocks, if any."
 
@@ -281,14 +283,14 @@ IfElseBlockMorph >> falseBlock: aBlockMorph [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> falseBlockList [
 	"Answer an array containing the block sequence false-case nested stack."
 
 	^ falseBlock ifNil: [ #() ] ifNotNil: [ falseBlock blockSequence ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> fixBlockLayout [
 	"Update the positions of my submorphs."
 
@@ -337,7 +339,7 @@ IfElseBlockMorph >> fixBlockLayout [
 								// 4))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 IfElseBlockMorph >> initialize [
 
 	super initialize.
@@ -345,12 +347,12 @@ IfElseBlockMorph >> initialize [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 IfElseBlockMorph >> isIfElseBlock [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> nestedBlockAt: aPoint [
 
 	| dist |
@@ -365,7 +367,7 @@ IfElseBlockMorph >> nestedBlockAt: aPoint [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> nextBlock [
 	"Answer the block myself in the block sequence or nil if I am the last block in the sequence. Each block is a submorph of the previous block."
 
@@ -373,7 +375,7 @@ IfElseBlockMorph >> nextBlock [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> nextBlock: aBlockMorph [
 	"Add the given block as the block following me. Delete old nextBlock, if any."
 
@@ -383,7 +385,7 @@ IfElseBlockMorph >> nextBlock: aBlockMorph [
 
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 IfElseBlockMorph >> nextOrInnerBlocks [
 
 	| set |
@@ -394,7 +396,7 @@ IfElseBlockMorph >> nextOrInnerBlocks [
 	^ set asArray
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> nonControlFlowSubmorphs [
 	"Answer a collection of submorphs minus any blocks that are part of the control flow. For example, command blocks omit their submorph that is the next block in the block sequence, C-blocks omit both their next block and the first block of their nested block list, etc."
 
@@ -405,7 +407,7 @@ IfElseBlockMorph >> nonControlFlowSubmorphs [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> stretchHeight: aNumber [
 	"Temporary"
 
@@ -413,7 +415,7 @@ IfElseBlockMorph >> stretchHeight: aNumber [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorph >> topBarHeight [
 	"Answer the height of the top bar."
 
@@ -425,12 +427,12 @@ IfElseBlockMorph >> topBarHeight [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> trueBlock [
 	^ trueBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> trueBlock: aBlockMorph [
 	"Add the given block as my true nested block sequence. Delete the old nested blocks, if any."
 
@@ -440,7 +442,7 @@ IfElseBlockMorph >> trueBlock: aBlockMorph [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IfElseBlockMorph >> trueBlockList [
 	"Answer an array containing the block sequence true-case nested stack."
 

@@ -3,15 +3,17 @@ I hold the scripts and partially assembled scripts for a ScriptableScratchMorph.
 
 "
 Class {
-	#name : #ScratchScriptsMorph,
-	#superclass : #BlockPlateMorph,
+	#name : 'ScratchScriptsMorph',
+	#superclass : 'BlockPlateMorph',
 	#instVars : [
 		'feedbackMorph'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScriptsMorph >> cleanUp [
 	"Align all scripts vertically in alphabetical order"
 
@@ -29,12 +31,12 @@ ScratchScriptsMorph >> cleanUp [
 	self layoutChanged
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScriptsMorph >> click: evt [
 	self showMenu: evt
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchScriptsMorph >> drawOn: aCanvas [
 	"Fill with my texture patch. Fill with a solid color if there is no texture in the current skin dictionary."
 
@@ -53,7 +55,7 @@ ScratchScriptsMorph >> drawOn: aCanvas [
 			y := y + patchF height ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchScriptsMorph >> initialize [
 
 	super initialize.
@@ -61,19 +63,19 @@ ScratchScriptsMorph >> initialize [
 	self enableDragNDrop: true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchScriptsMorph >> isScriptEditor [
 	^ true
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScriptsMorph >> showMenu: anEvent [
 	self project
 		ifNotNil:
 			[ :p | p application showScriptMenu: p application target event: anEvent ]
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 ScratchScriptsMorph >> step [
 	"Give feedback about possible drop targets."
 
@@ -126,14 +128,14 @@ ScratchScriptsMorph >> step [
 	self addMorphFront: (feedbackMorph position: targetP)
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 ScratchScriptsMorph >> stepTime [
 
 	^ 50
 
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 ScratchScriptsMorph >> topArgMorphAt: aRectangle exclude: aMorph [
 	"Give feedback about possible drop targets."
 
@@ -156,7 +158,7 @@ ScratchScriptsMorph >> topArgMorphAt: aRectangle exclude: aMorph [
 	^ nil
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 ScratchScriptsMorph >> wantsSteps [
 	^ true
 ]

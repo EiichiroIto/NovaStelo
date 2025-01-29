@@ -3,18 +3,20 @@ I represent a color argument for a command block. Clicking on me allows the user
 
 "
 Class {
-	#name : #ColorArgMorph,
-	#superclass : #ArgMorph,
+	#name : 'ColorArgMorph',
+	#superclass : 'ArgMorph',
 	#instVars : [
 		'showPalette'
 	],
 	#classVars : [
 		'ColorPalette'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 ColorArgMorph class >> colorPaletteExtent: extent [
 	"Answer a form containing a palette of colors sorted horizontally by hue and vertically by lightness."
 	"(self colorPaletteExtent: 180@100) display"
@@ -49,7 +51,7 @@ ColorArgMorph class >> colorPaletteExtent: extent [
 
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 ColorArgMorph class >> initialize [
 	"self initialize. ColorPalette display"
 
@@ -57,14 +59,14 @@ ColorArgMorph class >> initialize [
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ColorArgMorph >> defaultValue: aColor [
 
 	self setColor: aColor.
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ColorArgMorph >> evaluate [
 	"Answer my color."
 
@@ -72,14 +74,14 @@ ColorArgMorph >> evaluate [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ColorArgMorph >> handlesMouseDown: evt [
 
 	^ true "evt hand toolType isNil"
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ColorArgMorph >> hexFor: aNumber [
 	"Answer a string representing the given number, rounded, in hexadecimal."
 
@@ -91,7 +93,7 @@ ColorArgMorph >> hexFor: aNumber [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ColorArgMorph >> initialize [
 
 	super initialize.
@@ -102,7 +104,7 @@ ColorArgMorph >> initialize [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ColorArgMorph >> mouseUp: evt [
 
 	| w palette |
@@ -121,7 +123,7 @@ ColorArgMorph >> mouseUp: evt [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ColorArgMorph >> pickColor [
 	"Pick a colour from the screen."
 
@@ -141,7 +143,7 @@ ColorArgMorph >> pickColor [
 	hand showTemporaryCursor: nil
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ColorArgMorph >> setColor: aColor [
 	"Make sure the color is not translucent."
 
@@ -149,7 +151,7 @@ ColorArgMorph >> setColor: aColor [
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 ColorArgMorph >> showPalette: aBoolean [
 
 	showPalette := aBoolean.

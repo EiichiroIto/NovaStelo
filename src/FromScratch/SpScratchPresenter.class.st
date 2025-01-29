@@ -1,6 +1,6 @@
 Class {
-	#name : #SpScratchPresenter,
-	#superclass : #SpPresenter,
+	#name : 'SpScratchPresenter',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'viewerPane',
 		'stageFrame',
@@ -10,10 +10,12 @@ Class {
 		'logo',
 		'menu'
 	],
-	#category : #'FromScratch-Spec2'
+	#category : 'FromScratch-Spec2',
+	#package : 'FromScratch',
+	#tag : 'Spec2'
 }
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> alert: aString [
 
 	SpInformDialog new
@@ -23,13 +25,13 @@ SpScratchPresenter class >> alert: aString [
 		openModal
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> chooseDirectory: aString [
 
 	^ UIManager default chooseDirectory: aString
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ UIManager default
@@ -38,7 +40,7 @@ SpScratchPresenter class >> chooseExistingFileReference: aString extensions: aCo
 		  path: aFileReference
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
 
 	^ UIManager default
@@ -48,7 +50,7 @@ SpScratchPresenter class >> chooseExistingFileReference: aString extensions: aCo
 		  preview: aClass
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ UIManager default
@@ -57,7 +59,7 @@ SpScratchPresenter class >> chooseForSaveFileReference: aString extensions: aCol
 		  path: aFileReference
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> confirm: aString [
 
 	^ SpConfirmDialog new
@@ -68,18 +70,18 @@ SpScratchPresenter class >> confirm: aString [
 		  openModal
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter class >> libraryPaneHeight [
 	^ self buttonHeight + 23
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> longMessage: aString title: aString2 [
 
 	UIManager default longMessage: aString title: aString2
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> multiLineRequest: aString initialAnswer: aString2 [
 
 	^ SpRequestTextDialog new
@@ -92,7 +94,7 @@ SpScratchPresenter class >> multiLineRequest: aString initialAnswer: aString2 [
 		  openModal
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
 
 	^ SpMultiSelectDialog new
@@ -106,30 +108,37 @@ SpScratchPresenter class >> multiSelect: aString chooseFrom: aCollection selecte
 		  openModal
 ]
 
-{ #category : #utilities }
+{ #category : 'private' }
+SpScratchPresenter class >> newRequest [
+
+	| dialog |
+	dialog := SpRequestDialog new.
+	dialog
+		acceptLabel: 'OK' localized;
+		cancelLabel: 'Cancel' localized.
+	^ dialog
+]
+
+{ #category : 'utilities' }
 SpScratchPresenter class >> request: aString [
 
-	^ SpRequestDialog new
+	^ self newRequest
 		  title: 'Information request' localized;
 		  label: aString;
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
 		  openModal
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> request: aString initialAnswer: aString2 [
 
-	^ SpRequestDialog new
+	^ self newRequest
 		  title: 'Information request' localized;
 		  label: aString;
 		  text: aString2;
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
 		  openModal
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter class >> select: aString chooseFrom: aCollection [
 
 	^ SpSelectDialog new
@@ -141,32 +150,32 @@ SpScratchPresenter class >> select: aString chooseFrom: aCollection [
 		  openModal
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter class >> titleButtonHeight [
 	^ 23 + 10
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter class >> viewerPaneWidth [
 	^ 214
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter class >> workPaneHeight [
 	^ 600
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter class >> workPaneWidth [
 	^ 600
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> aboutTitle [
 	^ application appName
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpScratchPresenter >> addBlockMenu: aMenu for: aBlockMorph [
 	aMenu
 		addGroup: [ :grp | 
@@ -191,7 +200,7 @@ SpScratchPresenter >> addBlockMenu: aMenu for: aBlockMorph [
 						action: [ application duplicateBlock: aBlockMorph ] ] ]
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpScratchPresenter >> addScriptMenu: aMenu for: aScript [
 
 	SpScratchApp clipboard isString ifTrue: [ 
@@ -215,13 +224,13 @@ SpScratchPresenter >> addScriptMenu: aMenu for: aScript [
 					action: [ aScript cleanUp ] ] ]
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> alert: aString [
 
 	self class alert: aString
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpScratchPresenter >> blockMenuFor: aBlockMorph inScriptEditor: aBoolean [
 
 	aBoolean ifFalse: [ ^ nil ].
@@ -230,13 +239,13 @@ SpScratchPresenter >> blockMenuFor: aBlockMorph inScriptEditor: aBoolean [
 		  m ]
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> chooseDirectory: aString [
 
 	^ self class chooseDirectory: aString
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ self class
@@ -245,7 +254,7 @@ SpScratchPresenter >> chooseExistingFileReference: aString extensions: aCollecti
 		  path: aFileReference
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> chooseExistingFileReference: aString extensions: aCollection path: aFileReference preview: aClass [
 
 	^ self class
@@ -255,7 +264,7 @@ SpScratchPresenter >> chooseExistingFileReference: aString extensions: aCollecti
 		  preview: aClass
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> chooseForSaveFileReference: aString extensions: aCollection path: aFileReference [
 
 	^ self class
@@ -264,34 +273,34 @@ SpScratchPresenter >> chooseForSaveFileReference: aString extensions: aCollectio
 		  path: aFileReference
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> confirm: aString [
 
 	^ self class confirm: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> currentCategory [
 
 	^ viewerPane currentCategory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> currentCategory: aString [
 	viewerPane currentCategory: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> defaultExtent [
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> display [
 	^ stageFrame display
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpScratchPresenter >> examplesMenu [
 	| m |
 	m := self newMenu.
@@ -305,7 +314,7 @@ SpScratchPresenter >> examplesMenu [
 	^ m
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> formFrom: aMorph extent: size [
 	| canvas thumbForm bounds |
 	bounds := aMorph modelBounds.
@@ -323,7 +332,7 @@ SpScratchPresenter >> formFrom: aMorph extent: size [
 	^ thumbForm
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpScratchPresenter >> helpMenu [
 
 	^ self newMenu
@@ -348,12 +357,12 @@ SpScratchPresenter >> helpMenu [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> info: aString [
 	self display info: aString
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> initializePresenters [
 
 	logo := self newLogo.
@@ -366,7 +375,7 @@ SpScratchPresenter >> initializePresenters [
 	self setupMenu
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> initializeWindow: aWindow [
 	aWindow
 		initialExtent: self defaultExtent;
@@ -374,37 +383,37 @@ SpScratchPresenter >> initializeWindow: aWindow [
 		whenClosedDo: [ application windowClosing ]
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> longMessage: aString title: aString2 [
 
 	self class longMessage: aString title: aString2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> modifiedText [
 
 	^ modifiedProjectLabel label
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> modifiedText: aString [
 
 	modifiedProjectLabel label: aString
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> multiLineRequest: aString initialAnswer: aString2 [
 
 	^ self class multiLineRequest: aString initialAnswer: aString2
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
 
 	^ self class multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> newEditor [
 
 	^ self newMorph
@@ -412,7 +421,7 @@ SpScratchPresenter >> newEditor [
 		  yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> newEditorMorph [
 
 	^ ScrollFrameMorph new
@@ -421,7 +430,7 @@ SpScratchPresenter >> newEditorMorph [
 		  yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> newLogo [
 
 	^ self newImage
@@ -429,58 +438,59 @@ SpScratchPresenter >> newLogo [
 		  yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> newStage [
 
 	self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> newViewer [
 
 	^ self instantiate: SpScratchListViewer
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> privEditor [
 	^ editorPane
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> privStage [
 	^ stageFrame
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> projectName [
 
 	^ projectNameLabel label
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> projectName: aString [
 
 	projectNameLabel label: aString
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> request: aString [
 
 	^ self class request: aString
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> request: aString initialAnswer: aString2 [
 
 	^ self class request: aString initialAnswer: aString2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> scriptForm [
-	^ editorPane screenshot
+
+	self subclassResponsibility
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpScratchPresenter >> scriptMenuFor: aScript [
 
 	^ self newMenu in: [ :m | 
@@ -488,19 +498,19 @@ SpScratchPresenter >> scriptMenuFor: aScript [
 		  m ]
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 SpScratchPresenter >> select: aString chooseFrom: aCollection [
 
 	^ self class select: aString chooseFrom: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> settings [
 
 	^ self application settings
 ]
 
-{ #category : #'menu building' }
+{ #category : 'menu building' }
 SpScratchPresenter >> settingsMenu [
 
 	| m |
@@ -522,64 +532,61 @@ SpScratchPresenter >> settingsMenu [
 	^ m
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchPresenter >> setupMenu [
 
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> stageShotExtent: size [
 	^ self formFrom: self display extent: size
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 SpScratchPresenter >> stepTime [
 	^ self display stepTime
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 SpScratchPresenter >> stepTime: anInteger [
 	self display
 		stepTime: anInteger;
 		startStepping
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> tab: aString [
 	editorPane tab: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> target [
 	^ viewerPane target
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> target: aScript [
 	viewerPane target: aScript.
 	editorPane target: aScript
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> updateContents [
 	viewerPane updateContents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchPresenter >> updateDisplay [
 	self display changed
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchPresenter >> updateWindowSettings [
 
 	| win |
-	Display isFullscreen
-		ifTrue: [ 
-		self settings fullscreen ifFalse: [ Display fullscreenOff ] ]
-		ifFalse: [ 
-		self settings fullscreen ifTrue: [ Display fullscreenOn ] ].
+	WorldMorph isFullscreen ~= self settings fullscreen ifTrue: [ 
+		WorldMorph fullscreen: self settings fullscreen ].
 	win := self window window.
 	self settings dontClose
 		ifTrue: [ win makeUnclosable ]
@@ -596,7 +603,7 @@ SpScratchPresenter >> updateWindowSettings [
 			self window withoutDecorations ]
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 SpScratchPresenter >> whenStepsDo: aBlock [
 	self display
 		whenStepsDo: aBlock;

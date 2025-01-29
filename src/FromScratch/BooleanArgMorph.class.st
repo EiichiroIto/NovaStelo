@@ -1,17 +1,19 @@
 Class {
-	#name : #BooleanArgMorph,
-	#superclass : #ArgMorph,
-	#category : #'FromScratch-Blocks'
+	#name : 'BooleanArgMorph',
+	#superclass : 'ArgMorph',
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #other }
+{ #category : 'other' }
 BooleanArgMorph >> acceptsDroppedReporters [
 
 	^ true
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 BooleanArgMorph >> acceptsTypeOf: aBlockMorph [
 	"Answer true if I can accept a dropped reporter of the givent type."
 
@@ -19,12 +21,12 @@ BooleanArgMorph >> acceptsTypeOf: aBlockMorph [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 BooleanArgMorph >> argString: aGenerator [
 	^ aGenerator booleanArgString: self.
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BooleanArgMorph >> drawOn: aCanvas [ 
 
 	| h s v darkerC lighterC right topY bottomY xInset c |
@@ -56,7 +58,7 @@ BooleanArgMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 BooleanArgMorph >> evaluate [
 	"Answer false by default."
 
@@ -64,7 +66,7 @@ BooleanArgMorph >> evaluate [
 
 ]
 
-{ #category : #other }
+{ #category : 'other' }
 BooleanArgMorph >> fixArgLayout [
 	"Set my color to my owner's color."
 
@@ -72,7 +74,7 @@ BooleanArgMorph >> fixArgLayout [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BooleanArgMorph >> initialize [
 
 	super initialize.

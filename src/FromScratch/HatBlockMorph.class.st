@@ -4,21 +4,23 @@ I represent a script consisting of a sequence of blocks.
 
 "
 Class {
-	#name : #HatBlockMorph,
-	#superclass : #BlockMorph,
+	#name : 'HatBlockMorph',
+	#superclass : 'BlockMorph',
 	#instVars : [
 		'scriptNameMorph'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HatBlockMorph >> argPermutation: anArray [
 
 	"do nothing"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HatBlockMorph >> blockAttachPoints: aSet [
 	"Answer a collection of possible attachment points for me. Each entry is an Association mapping a point to the morph to which a dropping block could be attached."
 
@@ -29,13 +31,13 @@ HatBlockMorph >> blockAttachPoints: aSet [
 		ifNotNil: [ nextB blockAttachPoints: aSet ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HatBlockMorph >> defaultArgs: defaultValues [
 
 	"do nothing"
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HatBlockMorph >> drawArchOn: aCanvas [ 
 
 	| archForm stretchX leftForm midForm rightForm y x |
@@ -56,7 +58,7 @@ HatBlockMorph >> drawArchOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HatBlockMorph >> drawBodyOn: aCanvas [ 
 
 	| archBottom |
@@ -76,7 +78,7 @@ HatBlockMorph >> drawBodyOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HatBlockMorph >> drawOn: aCanvas [ 
 
 	| c |
@@ -90,7 +92,7 @@ HatBlockMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 HatBlockMorph >> duplicate [
 	"Overridden to pick an unused script name for the duplicate."
 
@@ -101,7 +103,7 @@ HatBlockMorph >> duplicate [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HatBlockMorph >> fixBlockLayout [
 	"Update the positions of my submorphs."
 
@@ -136,14 +138,14 @@ HatBlockMorph >> fixBlockLayout [
 			nextB fixBlockLayout ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HatBlockMorph >> hatTopForm [
 
 	^ ScratchTheme formAt: #hatBlockTop
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HatBlockMorph >> initialize [
 
 	super initialize.
@@ -156,14 +158,14 @@ HatBlockMorph >> initialize [
 	self addMorph: scriptNameMorph
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HatBlockMorph >> isHatBlock [
 
 	^ true
 
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 HatBlockMorph >> startProcess [
 	self stopProcess.
 	receiver ifNil: [ ^ self ].

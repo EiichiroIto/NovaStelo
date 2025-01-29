@@ -1,34 +1,36 @@
 Class {
-	#name : #ScratchPlotColor,
-	#superclass : #ScratchPlot,
+	#name : 'ScratchPlotColor',
+	#superclass : 'ScratchPlot',
 	#instVars : [
 		'channel',
 		'color'
 	],
-	#category : #'FromScratch-Plotter'
+	#category : 'FromScratch-Plotter',
+	#package : 'FromScratch',
+	#tag : 'Plotter'
 }
 
-{ #category : #operations }
+{ #category : 'operations' }
 ScratchPlotColor >> applyTo: aPlotter [
 	aPlotter addPen: channel color: color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotColor >> channel [
 	^ channel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotColor >> channel: anObject [
 	channel := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotColor >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotColor >> color: anObject [
 	color := anObject
 ]

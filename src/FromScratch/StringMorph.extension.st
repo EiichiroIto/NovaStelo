@@ -1,11 +1,11 @@
-Extension { #name : #StringMorph }
+Extension { #name : 'StringMorph' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 	| fontSpec |
@@ -21,26 +21,26 @@ StringMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> isChoiceArg [
 
 	^ false
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> isSquareArg [
 
 	^ true
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> leftMargin [
 	"Answer the left edge of this StringMorph. For a left-justified string, this the left edge of its bounding box, but for a right-justified string it may be inset."
 
 	^ self left "+ (self justificationOffsetFor: contents)"
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> storeFieldsOn: anObjStream [
 
 	"self closeEditor."
@@ -55,13 +55,13 @@ StringMorph >> storeFieldsOn: anObjStream [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> stringHeight: aString [
 
 	^ self fontToUse height ceiling
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 StringMorph >> xRangesFor: s [
 	"Anwer an array of (leftX, rightX) pairs for the given string. For Unicode, there will be an entry in the resulting array for each UTF character in the input string, even when characters combine, so the x ranges for characters may overlap."
 	"StringMorph new xRangesFor: 'Hello' asUTF8"

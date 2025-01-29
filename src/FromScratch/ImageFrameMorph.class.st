@@ -3,8 +3,8 @@ I am draw a rectangular frame using Forms. I have Forms for my four corners and 
 
 "
 Class {
-	#name : #ImageFrameMorph,
-	#superclass : #Morph,
+	#name : 'ImageFrameMorph',
+	#superclass : 'Morph',
 	#instVars : [
 		'frameInFront',
 		'topLeftForm',
@@ -18,10 +18,12 @@ Class {
 		'myBox',
 		'edgeCache'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> areasRemainingToFill: aRectangle [
 	"Drawing optimization. Since I completely fill my bounds with opaque pixels, this method tells Morphic that it isn't necessary to draw any morphs covered by me."
 	
@@ -29,7 +31,7 @@ ImageFrameMorph >> areasRemainingToFill: aRectangle [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawBackgroundOn: aCanvas [
 	"Draw my background."
 
@@ -41,7 +43,7 @@ ImageFrameMorph >> drawBackgroundOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawBottomEdgeOn: aCanvas [
 	"Draw my bottom edge."
 
@@ -59,7 +61,7 @@ ImageFrameMorph >> drawBottomEdgeOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawCornersOn: aCanvas [
 	"Draw my corners if they intersect the canvas clipping box."
 
@@ -84,7 +86,7 @@ ImageFrameMorph >> drawCornersOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawFrameOn: aCanvas [
 	"Draw my edges and corners. Draw a simple border if any of my forms is nil."
 
@@ -103,7 +105,7 @@ ImageFrameMorph >> drawFrameOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawLeftEdgeOn: aCanvas [
 	"Draw my left edge."
 
@@ -121,7 +123,7 @@ ImageFrameMorph >> drawLeftEdgeOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawOn: aCanvas [
 	"Draw my background."
 
@@ -134,7 +136,7 @@ ImageFrameMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawRightEdgeOn: aCanvas [
 	"Draw my right edge."
 
@@ -153,7 +155,7 @@ ImageFrameMorph >> drawRightEdgeOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> drawTopEdgeOn: aCanvas [
 	"Draw my top edge."
 
@@ -171,7 +173,7 @@ ImageFrameMorph >> drawTopEdgeOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> fullDrawOn: aCanvas [
 	"Draw my frame in front of my submorphs."
 
@@ -195,7 +197,7 @@ ImageFrameMorph >> fullDrawOn: aCanvas [
 
 ]
 
-{ #category : #intialization }
+{ #category : 'intialization' }
 ImageFrameMorph >> initFromForm: aForm [
 	"Initialize myself by cutting up the given Form. The corners are taken to extend to one pixel short of the center in each dimension. A one-pixel strip from the center of each edge will be replicated to stretch the edge. The color of the center pixel of the rectangle will be used as the fill color. (You can suppress color filling by setting my color to transparent after calling this method)."
 
@@ -217,7 +219,7 @@ ImageFrameMorph >> initFromForm: aForm [
 
 ]
 
-{ #category : #intialization }
+{ #category : 'intialization' }
 ImageFrameMorph >> initialize [
 
 	super initialize.
@@ -228,14 +230,14 @@ ImageFrameMorph >> initialize [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ImageFrameMorph >> insetBottom [
 
 	^ self bottom
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ImageFrameMorph >> minExtent [
 	"Answer my minimum extent."
 

@@ -1,6 +1,6 @@
-Extension { #name : #String }
+Extension { #name : 'String' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 String >> asNumberNoError [
 	"Convert the given string to a number without giving errors about its format. Ignore non-digit characters and allow a leading '+', which kids sometimes type. Answer zero if empty."
 
@@ -35,7 +35,7 @@ String >> asNumberNoError [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 String >> isNumberString [
 	| aStream d pointNumber digitAppears |
 	pointNumber := false.
@@ -55,7 +55,7 @@ String >> isNumberString [
 	^ digitAppears
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 String >> localized [
 	"Answer myself translated into the current Scratch language. If there is no translation for me, then answer myself."
 

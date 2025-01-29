@@ -1,10 +1,12 @@
 Class {
-	#name : #AbstractBlockSpec,
-	#superclass : #Object,
-	#category : #'FromScratch-Project'
+	#name : 'AbstractBlockSpec',
+	#superclass : 'Object',
+	#category : 'FromScratch-Project',
+	#package : 'FromScratch',
+	#tag : 'Project'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> blockCategory: aString [
 
 	^ ScratchBlockCategory new
@@ -12,7 +14,7 @@ AbstractBlockSpec class >> blockCategory: aString [
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> booleanReporter: aString selector: aSymbol arguments: aCollection [
 
 	^ ScratchBlockSpec new
@@ -23,7 +25,7 @@ AbstractBlockSpec class >> booleanReporter: aString selector: aSymbol arguments:
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> cBlock: aString selector: aSymbol arguments: aCollection [
 
 	^ ScratchBlockSpec new
@@ -34,7 +36,7 @@ AbstractBlockSpec class >> cBlock: aString selector: aSymbol arguments: aCollect
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> command: aString selector: aSymbol arguments: aCollection [
 
 	^ ScratchBlockSpec new
@@ -45,7 +47,7 @@ AbstractBlockSpec class >> command: aString selector: aSymbol arguments: aCollec
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> eventHatBlock: aString selector: aSymbol eventName: aString2 [
 
 	self assert: [ aSymbol isSymbol ].
@@ -57,7 +59,7 @@ AbstractBlockSpec class >> eventHatBlock: aString selector: aSymbol eventName: a
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> reporter: aString selector: aSymbol arguments: aCollection [
 
 	^ ScratchBlockSpec new
@@ -68,13 +70,13 @@ AbstractBlockSpec class >> reporter: aString selector: aSymbol arguments: aColle
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> separator [
 
 	^ ScratchBlockSeparator new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> special: aString selector: aSymbol arguments: aCollection [
 
 	^ ScratchBlockSpec new
@@ -85,7 +87,7 @@ AbstractBlockSpec class >> special: aString selector: aSymbol arguments: aCollec
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> startHatBlock: aString selector: aSymbol [
 
 	self assert: [ aSymbol isSymbol ].
@@ -97,7 +99,7 @@ AbstractBlockSpec class >> startHatBlock: aString selector: aSymbol [
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AbstractBlockSpec class >> timed: aString selector: aSymbol arguments: aCollection [
 
 	^ ScratchBlockSpec new
@@ -108,31 +110,31 @@ AbstractBlockSpec class >> timed: aString selector: aSymbol arguments: aCollecti
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AbstractBlockSpec >> isBlockMorph [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AbstractBlockSpec >> isBlockSpec [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AbstractBlockSpec >> isCategory [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AbstractBlockSpec >> isChoiceArg [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AbstractBlockSpec >> isSeparator [
 
 	^ false

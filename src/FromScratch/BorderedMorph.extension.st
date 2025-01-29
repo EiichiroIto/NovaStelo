@@ -1,11 +1,11 @@
-Extension { #name : #BorderedMorph }
+Extension { #name : 'BorderedMorph' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 BorderedMorph >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 BorderedMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 	super initFieldsFrom: anObjStream version: classVersion.
@@ -16,7 +16,7 @@ BorderedMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 BorderedMorph >> storeFieldsOn: anObjStream [
 
 	super storeFieldsOn: anObjStream.

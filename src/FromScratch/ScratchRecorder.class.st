@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchRecorder,
-	#superclass : #Object,
+	#name : 'ScratchRecorder',
+	#superclass : 'Object',
 	#instVars : [
 		'writer',
 		'rate',
@@ -8,10 +8,12 @@ Class {
 		'extent',
 		'model'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> close [
 	self isOpen
 		ifFalse: [ ^ self ].
@@ -19,34 +21,34 @@ ScratchRecorder >> close [
 	writer := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchRecorder >> defaultFrameDelay [
 	^ 10
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> extent [
 	^ extent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> extent: aPoint [
 	extent := aPoint.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchRecorder >> initialize [
 	super initialize.
 	rate := 1.
 	count := 0.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchRecorder >> isOpen [
 	^ writer notNil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchRecorder >> makeForm [
 	| form frame |
 	form := model stageShotExtent: extent.
@@ -57,17 +59,17 @@ ScratchRecorder >> makeForm [
 	^ frame
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> model [
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> model: aSpPresenter [
 	model := aSpPresenter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> openFileNamed: aString [
 	self close.
 	writer := GIFReadWriter on: aString asFileReference binaryWriteStream.
@@ -75,13 +77,13 @@ ScratchRecorder >> openFileNamed: aString [
 	count := 0.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> rate: anInteger [
 	rate := anInteger.
 	count := 0.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchRecorder >> writeForced: aBoolean [
 	self isOpen
 		ifFalse: [ ^ self ].

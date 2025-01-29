@@ -1,6 +1,6 @@
 Class {
-	#name : #SpMultiSelectDialog,
-	#superclass : #SpDialogPresenter,
+	#name : 'SpMultiSelectDialog',
+	#superclass : 'SpDialogPresenter',
 	#instVars : [
 		'label',
 		'title',
@@ -10,16 +10,18 @@ Class {
 		'table',
 		'selectedItems'
 	],
-	#category : #'FromScratch-Spec2'
+	#category : 'FromScratch-Spec2',
+	#package : 'FromScratch',
+	#tag : 'Spec2'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpMultiSelectDialog class >> defaultExtent [
 
 	^ 450@300
 ]
 
-{ #category : #layout }
+{ #category : 'layout' }
 SpMultiSelectDialog class >> defaultLayout [
 
 	^ SpBoxLayout newTopToBottom
@@ -30,13 +32,13 @@ SpMultiSelectDialog class >> defaultLayout [
 		yourself
 ]
 
-{ #category : #documentation }
+{ #category : 'documentation' }
 SpMultiSelectDialog class >> documentFactoryMethodSelector [
 	
 	^ #newMultiSelect
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 SpMultiSelectDialog class >> example [
 
 	self new
@@ -49,7 +51,7 @@ SpMultiSelectDialog class >> example [
 		openDialog
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 SpMultiSelectDialog class >> exampleModal [
 
 	| selections |
@@ -64,49 +66,49 @@ SpMultiSelectDialog class >> exampleModal [
 	selections ifNotNil: [ self inform: selections asString ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> acceptLabel [
 
 	^ acceptLabel ifNil: [ self class defaultAcceptLabel ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> acceptLabel: aString [
 
 	acceptLabel := aString
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> cancelLabel [
 
 	^ cancelLabel ifNil: [ self class defaultCancelLabel ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> cancelLabel: aString [
 
 	cancelLabel := aString
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> display: aBlock [
 
 	table columns second evaluated: aBlock
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> extent [
 
 	^ initialExtent ifNil: [ self class defaultExtent ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> extent: aPoint [
 
 	initialExtent := aPoint
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpMultiSelectDialog >> initialize [
 	
 	super initialize.
@@ -114,7 +116,7 @@ SpMultiSelectDialog >> initialize [
 	selectedItems := Set new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpMultiSelectDialog >> initializeDialogWindow: aDialogWindowPresenter [
 
 	super initializeDialogWindow: aDialogWindowPresenter.
@@ -123,7 +125,7 @@ SpMultiSelectDialog >> initializeDialogWindow: aDialogWindowPresenter [
 		addDefaultButton: self acceptLabel do: [ :presenter | self accept ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpMultiSelectDialog >> initializePresenters [
 
 	label := self newLabel.
@@ -141,7 +143,7 @@ SpMultiSelectDialog >> initializePresenters [
 		beResizable
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpMultiSelectDialog >> initializeWindow: aWindowPresenter [
 
 	aWindowPresenter
@@ -150,25 +152,25 @@ SpMultiSelectDialog >> initializeWindow: aWindowPresenter [
 		whenOpenedDo: [ table takeKeyboardFocus ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> items [
 
 	^ table items
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> items: aCollection [
 
 	table items: aCollection
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> label: aString [
 
 	label label: aString
 ]
 
-{ #category : #'api - showing' }
+{ #category : 'api - showing' }
 SpMultiSelectDialog >> openModal [
 	| dialog |
 	
@@ -178,25 +180,25 @@ SpMultiSelectDialog >> openModal [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpMultiSelectDialog >> selectedItems [
 
 	^ selectedItems
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpMultiSelectDialog >> selectedItems: anObject [
 
 	selectedItems := anObject asSet copy
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> title [
 
 	^ title
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SpMultiSelectDialog >> title: aString [
 
 	title := aString

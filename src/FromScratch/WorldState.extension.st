@@ -1,6 +1,6 @@
-Extension { #name : #WorldState }
+Extension { #name : 'WorldState' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 WorldState class >> quitSession [
 
 	SpScratchApp quit

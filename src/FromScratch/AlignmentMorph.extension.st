@@ -1,6 +1,6 @@
-Extension { #name : #AlignmentMorph }
+Extension { #name : 'AlignmentMorph' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 AlignmentMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 	super initFieldsFrom: anObjStream version: classVersion.
@@ -13,7 +13,7 @@ AlignmentMorph >> initFieldsFrom: anObjStream version: classVersion [
 	) from: anObjStream.
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 AlignmentMorph >> rootForGrabOf: aMorph [
 
 	| root |
@@ -25,7 +25,7 @@ AlignmentMorph >> rootForGrabOf: aMorph [
 	^ super rootForGrabOf: aMorph
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 AlignmentMorph >> storeFieldsOn: anObjStream [
 
 	super storeFieldsOn: anObjStream.

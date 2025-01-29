@@ -1,6 +1,6 @@
-Extension { #name : #FileDialogWindow }
+Extension { #name : 'FileDialogWindow' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 FileDialogWindow >> newPreviewMorph [
 	"Answer a new preview morph."
 
@@ -13,7 +13,7 @@ FileDialogWindow >> newPreviewMorph [
 	^ nil
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 FileDialogWindow >> openSelectedFileAsBinary [
 	"Open a stream on the selected file if available and return it."
 
@@ -25,7 +25,7 @@ FileDialogWindow >> openSelectedFileAsBinary [
 	^ fileRef exists ifTrue: [ fileRef binaryReadStream ] ifFalse: nil  
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 FileDialogWindow >> updateImagePreview [
 	"Update the image preview."
 
@@ -42,7 +42,7 @@ FileDialogWindow >> updateImagePreview [
 	self previewMorph image: form size: self previewSize
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 FileDialogWindow >> updatePreview [
 	"Update the preview."
 
@@ -54,7 +54,7 @@ FileDialogWindow >> updatePreview [
 		ifTrue: [ self updatePreviewClass: self previewType ]
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 FileDialogWindow >> updatePreviewClass: aClass [
 	"Update the image preview."
 

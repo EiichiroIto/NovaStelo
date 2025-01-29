@@ -1,6 +1,6 @@
-Extension { #name : #AbstractFont }
+Extension { #name : 'AbstractFont' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 AbstractFont >> xRangesFor: aString [
 	"Anwer an array of (leftX, rightX) pairs for the given string."
 	"(StrikeFont fontName: 'New York' size: 12) xRangesFor: 'Hello'"

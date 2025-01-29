@@ -1,6 +1,6 @@
 Class {
-	#name : #SpSteloLibrary,
-	#superclass : #SpPresenter,
+	#name : 'SpSteloLibrary',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'buttonObserver',
 		'buttonPatches',
@@ -12,10 +12,12 @@ Class {
 		'whenTurtlesAddedDo',
 		'whenTurtlesDeletedDo'
 	],
-	#category : #'Stelo-Spec2'
+	#category : 'Stelo-Spec2',
+	#package : 'Stelo',
+	#tag : 'Spec2'
 }
 
-{ #category : #layout }
+{ #category : 'layout' }
 SpSteloLibrary class >> defaultLayout [
 	^ SpBoxLayout newHorizontal
 		add: #buttonObserver;
@@ -30,26 +32,26 @@ SpSteloLibrary class >> defaultLayout [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloLibrary >> addTurtles [
 	whenTurtlesAddedDo value
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloLibrary >> connectPresenters [
 	buttonTurtles action: [ self selectTurtles ].
 	buttonAddTurtles action: [ self addTurtles ].
 	buttonDeleteTurtles action: [ self deleteTurtles ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloLibrary >> deleteTurtles [
 	turtles size = 1
 		ifTrue: [ self inform: 'Can''t delete all turtles' localized ]
 		ifFalse: [ self deleteTurtlesMenu openWithSpecAt: self currentWorld cursorPoint ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloLibrary >> deleteTurtlesMenu [
 	| menu |
 	menu := self newMenu.
@@ -63,7 +65,7 @@ SpSteloLibrary >> deleteTurtlesMenu [
 	^ menu
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloLibrary >> initializePresenters [
 	buttonObserver := self newButton.
 	buttonPatches := self newButton.
@@ -89,35 +91,35 @@ SpSteloLibrary >> initializePresenters [
 		add: buttonDeleteTurtles
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> observerAction: aBlock [
 	buttonObserver
 		action: [ self selectButton: buttonObserver label asString.
 			aBlock cull: SBreedId observerBreedNo ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> patchesAction: aBlock [
 	buttonPatches
 		action: [ self selectButton: buttonPatches label asString.
 			aBlock cull: SBreedId patchesBreedNo ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> selectButton: aString [
 	buttonObserver state: aString = buttonObserver label asString.
 	buttonPatches state: aString = buttonPatches label asString.
 	buttonTurtles state: (aString beginsWith: buttonTurtles label asString)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloLibrary >> selectTurtles [
 	turtles size = 1
 		ifTrue: [ self turtlesSelected: turtles first breedNo ]
 		ifFalse: [ self selectTurtlesMenu openWithSpecAt: self currentWorld cursorPoint ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloLibrary >> selectTurtlesMenu [
 	| menu |
 	menu := self newMenu.
@@ -131,43 +133,43 @@ SpSteloLibrary >> selectTurtlesMenu [
 	^ menu
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> thumbnail: aForm [
 	buttonObserver icon: aForm
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> turtles [
 	^ turtles
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> turtles: aCollection [
 	turtles := aCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloLibrary >> turtlesDeleted: anInteger [
 	whenTurtlesDeletedDo cull: anInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloLibrary >> turtlesSelected: anInteger [
 	self selectButton: buttonTurtles label asString.
 	whenTurtlesSelectedDo cull: anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> whenTurtlesAddedDo: aBlock [
 	whenTurtlesAddedDo := aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> whenTurtlesDeletedDo: aBlock [
 	whenTurtlesDeletedDo := aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloLibrary >> whenTurtlesSelectedDo: aBlock [
 	whenTurtlesSelectedDo := aBlock
 ]

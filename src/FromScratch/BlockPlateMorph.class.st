@@ -1,34 +1,36 @@
 Class {
-	#name : #BlockPlateMorph,
-	#superclass : #PasteUpMorph,
+	#name : 'BlockPlateMorph',
+	#superclass : 'PasteUpMorph',
 	#instVars : [
 		'draggingPoint',
 		'scrollPoint',
 		'project',
 		'screenshooting'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> draggingPoint [
 
 	^ draggingPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> draggingPoint: anObject [
 
 	draggingPoint := anObject
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockPlateMorph >> handlesMouseWheel: anEvent [
 
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BlockPlateMorph >> initialize [
 
 	super initialize.
@@ -36,14 +38,14 @@ BlockPlateMorph >> initialize [
 	screenshooting := false
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockPlateMorph >> mouseDown: evt [
 
 	evt hand newKeyboardFocus: nil.
 	evt hand waitForClicksOrDrag: self event: evt
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockPlateMorph >> mouseMove: evt [
 
 	| range diff newPoint |
@@ -58,14 +60,14 @@ BlockPlateMorph >> mouseMove: evt [
 		vScrollPixels: newPoint y
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockPlateMorph >> mouseUp: evt [
 
 	draggingPoint := nil.
 	evt hand showTemporaryCursor: nil
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockPlateMorph >> mouseWheel: event [
 
 	| v |
@@ -74,31 +76,31 @@ BlockPlateMorph >> mouseWheel: event [
 	event isDown ifTrue: [ owner vScrollPixels: v + 5 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> project [
 
 	^ project
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> project: aProject [
 
 	project := aProject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> screenshooting [
 
 	^ screenshooting
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> screenshooting: anObject [
 
 	^ screenshooting := anObject
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockPlateMorph >> screenshot [
 
 	"answer a Form of myself apt for exporting"
@@ -125,19 +127,19 @@ BlockPlateMorph >> screenshot [
 	^ saveForm
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> scrollPoint [
 
 	^ scrollPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockPlateMorph >> scrollPoint: anObject [
 
 	scrollPoint := anObject
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockPlateMorph >> startDrag: evt [
 
 	draggingPoint := evt cursorPoint.
@@ -145,7 +147,7 @@ BlockPlateMorph >> startDrag: evt [
 	evt hand showTemporaryCursor: Cursor move
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockPlateMorph >> wantsDroppedMorph: aMorph event: evt [
 
 	^ aMorph isBlockMorph

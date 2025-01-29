@@ -16,8 +16,8 @@ Either the control or command key can be used to type the editing keys. That is,
 
 "
 Class {
-	#name : #StringFieldMorph,
-	#superclass : #BorderedMorph,
+	#name : 'StringFieldMorph',
+	#superclass : 'BorderedMorph',
 	#instVars : [
 		'stringMorph',
 		'insetY',
@@ -29,10 +29,12 @@ Class {
 		'blinkState',
 		'lastContents'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> backspace [
 
 	"Delete the current selection. If there is no selection, delete the character before the cursor."
@@ -49,7 +51,7 @@ StringFieldMorph >> backspace [
 	self stringChanged
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> borderWidth: aNumber [
 
 	"Adjust the position of my stringMorph to the new border size."
@@ -59,7 +61,7 @@ StringFieldMorph >> borderWidth: aNumber [
 		self position + borderWidth + (self insetX @ insetY)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> characterOffsetForXOffset: screenX [
 	"Answer the character offset at the given width into the string."
 
@@ -97,7 +99,7 @@ StringFieldMorph >> characterOffsetForXOffset: screenX [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> clear [
 
 	stringMorph contents: ''.
@@ -105,7 +107,7 @@ StringFieldMorph >> clear [
 	self stringChanged
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> click: evt [
 
 	| hadFocus |
@@ -121,7 +123,7 @@ StringFieldMorph >> click: evt [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> color [
 
 	^ color = Color transparent
@@ -129,21 +131,21 @@ StringFieldMorph >> color [
 		  ifFalse: [ color ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> contents [
 
 	^ stringMorph contents
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> contents: aString [
 
 	stringMorph contents: aString.
 	self stringChanged
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> copySelection [
 	"Save the current selection in the clipboard."
 
@@ -156,7 +158,7 @@ StringFieldMorph >> copySelection [
 	ScratchTranslator unicodeClipboardPut: s
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> currsorOffsetFor: characterOffset [
 	"Answer the insertion cursor x offset for the given character offset."
 
@@ -189,7 +191,7 @@ StringFieldMorph >> currsorOffsetFor: characterOffset [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> cutSelection [
 	"Cut the current selection."
 
@@ -199,7 +201,7 @@ StringFieldMorph >> cutSelection [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> deleteSelection [
 
 	"Delete the current selection. If there is no selection, delete the character after the cursor."
@@ -216,7 +218,7 @@ StringFieldMorph >> deleteSelection [
 	self stringChanged
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> doubleClick: evt [
 	"Select word or entire contents."
 
@@ -229,7 +231,7 @@ StringFieldMorph >> doubleClick: evt [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 StringFieldMorph >> drawOn: aCanvas [
 
 	"Draw the background then the selection."
@@ -238,7 +240,7 @@ StringFieldMorph >> drawOn: aCanvas [
 	isKeyboardFocus ifTrue: [ self drawSelectionOn: aCanvas ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 StringFieldMorph >> drawSelectionOn: aCanvas [
 
 	| xRanges clipC vInset offset selectionH rect start end |
@@ -274,7 +276,7 @@ StringFieldMorph >> drawSelectionOn: aCanvas [
 		color: self selectionColor
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 StringFieldMorph >> drawSubmorphsOn: aCanvas [
 
 	"Clip submorph drawing to my bounds."
@@ -282,7 +284,7 @@ StringFieldMorph >> drawSubmorphsOn: aCanvas [
 	super drawSubmorphsOn: (aCanvas copyClipRect: self innerBounds)
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 StringFieldMorph >> extent: aPoint [
 
 	super extent: aPoint.
@@ -290,14 +292,14 @@ StringFieldMorph >> extent: aPoint [
 		(self width - (2 * borderWidth) - self insetX max: 0)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> font [
 
 	^ stringMorph font
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> font: aFont [
 
 	stringMorph font: aFont.
@@ -311,7 +313,7 @@ StringFieldMorph >> font: aFont [
 	self borderWidth: borderWidth "re-position string"
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 StringFieldMorph >> fullBounds [
 	"Overridden to clip submorph hit detection to my bounds."
 
@@ -320,24 +322,24 @@ StringFieldMorph >> fullBounds [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> handlesKeyboard: evt [
 	^ true
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> handlesMouseDown: evt [
 
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> heightPadding [
 
 	^ 3
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 StringFieldMorph >> initialize [
 
 	super initialize.
@@ -365,7 +367,7 @@ StringFieldMorph >> initialize [
 	self font: ScratchTranslator argFont
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> insertCharacter: unicodeChar [
 
 	"Insert the given character at the cursor position."
@@ -384,13 +386,13 @@ StringFieldMorph >> insertCharacter: unicodeChar [
 	self stringChanged
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> insetX [
 
 	^ 2
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> isLTRAt: index in: xRange [
 	"True if the character at the given index in the given xRange is LTR."
 	"Note: we decide direction based on the following character if possible."
@@ -404,7 +406,7 @@ StringFieldMorph >> isLTRAt: index in: xRange [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> isNumeric: aBoolean [
 	"If true, then only allow typing digits and decimal point."
 
@@ -412,7 +414,7 @@ StringFieldMorph >> isNumeric: aBoolean [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> keyDown: evt [
 
 	| ch m |
@@ -453,7 +455,7 @@ StringFieldMorph >> keyDown: evt [
 	self stringChanged
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> keyStroke: evt [
 
 	| ch |
@@ -461,7 +463,7 @@ StringFieldMorph >> keyStroke: evt [
 	ch >= 32 ifTrue: [ self insertCharacter: ch ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> keyboardFocusChange: amGettingFocus [
 
 	"Set my color to show whether I have focus."
@@ -482,13 +484,13 @@ StringFieldMorph >> keyboardFocusChange: amGettingFocus [
 	self stringChanged
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> leftSelection [
 
 	^ selectionStart min: selectionEnd
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> mouseDown: evt [
 
 	dragStartIndex := self characterOffsetForXOffset: evt cursorPoint x.
@@ -496,7 +498,7 @@ StringFieldMorph >> mouseDown: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> mouseMove: evt [
 
 	| currIndex |
@@ -508,7 +510,7 @@ StringFieldMorph >> mouseMove: evt [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorEnd [
 	"Move the cursor (selectionStart) to the end of the current line."
 
@@ -518,7 +520,7 @@ StringFieldMorph >> moveCursorEnd [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorEndAndSelect [
 
 	"Move the cursor (selectionStart), and select contents, to the end of the current line."
@@ -527,7 +529,7 @@ StringFieldMorph >> moveCursorEndAndSelect [
 	self changed
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorHome [
 	"Move the cursor (selectionStart) to the beginning of the current line."
 
@@ -537,7 +539,7 @@ StringFieldMorph >> moveCursorHome [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorHomeAndSelect [
 
 	"Move the cursor (selectionStart), and select contents, to the beginning of the current line."
@@ -546,7 +548,7 @@ StringFieldMorph >> moveCursorHomeAndSelect [
 	self changed
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorLeft [
 	"Move the cursor (selectionStart) left by one character."
 
@@ -556,7 +558,7 @@ StringFieldMorph >> moveCursorLeft [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorLeftAndSelect [
 
 	"Move the cursor (selectionStart), and select, left by one character."
@@ -565,7 +567,7 @@ StringFieldMorph >> moveCursorLeftAndSelect [
 	self changed
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorRight [
 
 	"Move the cursor (selectionStart) right by one character."
@@ -575,7 +577,7 @@ StringFieldMorph >> moveCursorRight [
 	self changed
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> moveCursorRightAndSelect [
 
 	"Move the cursor (selectionStart), and select, right by one character."
@@ -584,14 +586,14 @@ StringFieldMorph >> moveCursorRightAndSelect [
 	self changed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> passwordMode: aBoolean [
 
 	stringMorph passwordMode: aBoolean.
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> paste [
 
 	"Paste the last cut or copy over the current selection."
@@ -608,7 +610,7 @@ StringFieldMorph >> paste [
 	self stringChanged
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> removeSelection [
 
 	"Cut the current selection."
@@ -622,13 +624,13 @@ StringFieldMorph >> removeSelection [
 	self stringChanged
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> rightSelection [
 
 	^ selectionStart max: selectionEnd
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> savedContents [
 	"If the user is editing, return the last contents before editing. Otherwise, return my contents."
 
@@ -637,7 +639,7 @@ StringFieldMorph >> savedContents [
 
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> selectAll [
 
 	"Select my entire contents."
@@ -647,7 +649,7 @@ StringFieldMorph >> selectAll [
 	self changed
 ]
 
-{ #category : #'text editing' }
+{ #category : 'text editing' }
 StringFieldMorph >> selectWordOrAll: index [
 
 	| str wordStart wordEnd |
@@ -667,13 +669,13 @@ StringFieldMorph >> selectWordOrAll: index [
 	self stringChanged
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> selectionColor [
 
 	^ ScratchTheme textSelectionColor
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 StringFieldMorph >> startDrag: evt [
 	"Do nothing if have keyboard focus. Otherwise, allow myself to be grabbed."
 
@@ -686,7 +688,7 @@ StringFieldMorph >> startDrag: evt [
 
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 StringFieldMorph >> step [
 
 	isKeyboardFocus ifFalse: [^ self].
@@ -695,14 +697,14 @@ StringFieldMorph >> step [
 
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 StringFieldMorph >> stepTime [
 
 	^ 600
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringFieldMorph >> stringChanged [
 
 	"My string has changed. Resize myself if necessary and report the change."
@@ -713,7 +715,7 @@ StringFieldMorph >> stringChanged [
 	self changed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringFieldMorph >> textColor: aColor [
 	"Set the color of my text."
 

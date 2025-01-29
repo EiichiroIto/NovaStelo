@@ -1,20 +1,22 @@
 Class {
-	#name : #ScratchBytecodeSymbol,
-	#superclass : #ScratchBytecode,
+	#name : 'ScratchBytecodeSymbol',
+	#superclass : 'ScratchBytecode',
 	#instVars : [
 		'selector'
 	],
-	#category : #'Microworld-Bytecode'
+	#category : 'Microworld-Bytecode',
+	#package : 'Microworld',
+	#tag : 'Bytecode'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchBytecodeSymbol class >> selector: aSymbol [
 	^ self basicNew initialize
 		selector: aSymbol;
 		yourself.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchBytecodeSymbol >> printOn: aStream [
 	aStream
 		nextPutAll: '<symbol=';
@@ -22,17 +24,17 @@ ScratchBytecodeSymbol >> printOn: aStream [
 		nextPut: $>.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbol >> putOn: aStream [
 	aStream nextPut: selector.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbol >> selector [
 	^ selector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbol >> selector: aSymbol [
 	selector := aSymbol.
 ]

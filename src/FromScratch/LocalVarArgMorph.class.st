@@ -1,28 +1,30 @@
 Class {
-	#name : #LocalVarArgMorph,
-	#superclass : #ArgMorph,
+	#name : 'LocalVarArgMorph',
+	#superclass : 'ArgMorph',
 	#instVars : [
 		'iconMorph'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #other }
+{ #category : 'other' }
 LocalVarArgMorph >> defaultValue: aString [
 	self varName: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LocalVarArgMorph >> defaultValueFromSpec: aString [ 
 	self varName: aString
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 LocalVarArgMorph >> evaluate [
 	^ labelMorph savedContents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LocalVarArgMorph >> fixArgLayout [
 	| xInset |
 	self extent: labelMorph extent + (2 @ 0) + (iconMorph width @ 0).
@@ -31,7 +33,7 @@ LocalVarArgMorph >> fixArgLayout [
 	iconMorph position: labelMorph right @ self top
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 LocalVarArgMorph >> iconMouseDown: anEvent [
 	| morph |
 	self blockPalette ifNotNil: [ ^ self ].
@@ -40,7 +42,7 @@ LocalVarArgMorph >> iconMouseDown: anEvent [
 	morph center: anEvent hand position
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LocalVarArgMorph >> initialize [
 	super initialize.
 	self borderWidth: 1.
@@ -56,12 +58,12 @@ LocalVarArgMorph >> initialize [
 	iconMorph on: #mouseDown send: #iconMouseDown: to: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LocalVarArgMorph >> isExpressionArg [
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LocalVarArgMorph >> newIconMorph [
 	^ Morph new
 		color: ScratchTheme variableBlockColor;
@@ -69,7 +71,7 @@ LocalVarArgMorph >> newIconMorph [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LocalVarArgMorph >> newLabelMorph [
 	^ StringFieldMorph new
 		font: ScratchTranslator argFont;
@@ -78,19 +80,19 @@ LocalVarArgMorph >> newLabelMorph [
 		contents: ''
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LocalVarArgMorph >> newLocalVarBlockMorph [
 	^ LocalVarBlockMorph new
 		commandSpec: self varName;
 		receiver: owner receiver
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LocalVarArgMorph >> varName [
 	^ labelMorph contents asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LocalVarArgMorph >> varName: aString [
 	labelMorph contents: aString.
 	self fixArgLayout

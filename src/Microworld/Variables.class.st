@@ -1,37 +1,39 @@
 Class {
-	#name : #Variables,
-	#superclass : #Object,
+	#name : 'Variables',
+	#superclass : 'Object',
 	#instVars : [
 		'vars',
 		'varNames'
 	],
-	#category : #'Microworld-Core'
+	#category : 'Microworld-Core',
+	#package : 'Microworld',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> change: vno by: aNumber [
 	vno = 0
 		ifTrue: [ ^ self ].
 	^ (self varAt: vno) changeBy: aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> clear [
 	vars ifNil: [ ^ self ].
 	vars do: [ :each | each ifNotNil: #reset ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> clearVarNo: anInteger [
 	(self varAt: anInteger) reset.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> copyElementFrom: anInteger1 to: anInteger2 [
 	vars do: [ :each | each at: anInteger2 put: (each at: anInteger1) ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> copyVar: var to: var2 [
 	| v v2 |
 	v := self varAt: var.
@@ -39,107 +41,107 @@ Variables >> copyVar: var to: var2 [
 	v2 setArray: v array
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 Variables >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 Variables >> fixVars: varId [
 	self updateVarDef: varId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> forceSize: anInteger [
 	vars
 		withIndexDo: [ :each :index | each ifNotNil: [ each forceSize: anInteger ] ]
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 Variables >> initFieldsFrom: anObjStream version: classVersion [
 	self initFieldsNamed: #(vars varNames) from: anObjStream.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Variables >> initialize [
 	varNames := #().
 	vars := nil.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> max [
 	^ (vars collect: #size) max
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> multiply: vno by: aNumber [
 	vno = 0
 		ifTrue: [ ^ self ].
 	^ (self varAt: vno) multiplyBy: aNumber
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 Variables >> privVarNames [
 	^ varNames
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 Variables >> privVarNames: aCollection [
 	varNames := aCollection.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 Variables >> privVars [
 	^ vars
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 Variables >> privVars: aCollection [
 	vars := aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> realArrayAt: anInteger [
 	^ (self varAt: anInteger) array
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> setVar: anInteger toAll: anObject [
 	(self varAt: anInteger asInteger)
 		in:
 			[ :variable | 1 to: variable size do: [ :each | variable at: each put: anObject ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> setVar: anInteger toArray: aCollection [
 	(self varAt: anInteger) setArray: aCollection.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> size [
 	^ self max
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 Variables >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(vars varNames) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> string: anInteger at: id [
 	id = 0
 		ifTrue: [ ^ 0 ].
 	^ (self varAt: anInteger asInteger) stringAt: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> string: anInteger at: id put: aString [
 	id = 0
 		ifTrue: [ ^ self ].
 	(self varAt: anInteger asInteger) stringAt: id put: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> updateVarDef: aVarId [
 	| newVarNames newVars index class size |
 	size := nil.
@@ -161,61 +163,61 @@ Variables >> updateVarDef: aVarId [
 	varNames := newVarNames
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger at: id [
 	id = 0
 		ifTrue: [ ^ 0 ].
 	^ (self varAt: anInteger asInteger) at: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger at: id put: anObject [
 	id = 0
 		ifTrue: [ ^ self ].
 	(self varAt: anInteger asInteger) at: id put: anObject.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger list: id [
 	^ (self varAt: anInteger asInteger) list: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger list: id add: anObject [
 	(self varAt: anInteger asInteger) list: id add: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger list: id at: anInteger2 [
 	^ (self varAt: anInteger asInteger) list: id at: anInteger2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger list: id at: anInteger2 put: aNumber [
 	(self varAt: anInteger asInteger) list: id at: anInteger2 put: aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger list: id contains: anInteger2 [
 	^ (self varAt: anInteger asInteger) list: id contains: anInteger2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger list: id remove: anObject [
 	(self varAt: anInteger asInteger) list: id remove: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger list: id set: aCollection [
 	(self varAt: anInteger asInteger) list: id set: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> var: anInteger listSizeOf: id [
 	^ (self varAt: anInteger asInteger) listSizeOf: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Variables >> varAt: anInteger [
 	^ vars at: anInteger
 ]

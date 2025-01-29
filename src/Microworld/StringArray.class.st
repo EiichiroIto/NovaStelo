@@ -1,44 +1,46 @@
 Class {
-	#name : #StringArray,
-	#superclass : #Object,
-	#type : #variable,
+	#name : 'StringArray',
+	#superclass : 'Object',
+	#type : 'variable',
 	#instVars : [
 		'literals',
 		'array',
 		'nextId',
 		'invLiterals'
 	],
-	#category : #'Microworld-Core'
+	#category : 'Microworld-Core',
+	#package : 'Microworld',
+	#tag : 'Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 StringArray class >> new: anInteger [
 	^ self new
 		forceTo: anInteger paddingWith: '';
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> at: anInteger [
 	^ array at: anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> at: anInteger put: anObject [
 	^ array at: anInteger put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> defaultElement [
 	^ ''
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 StringArray >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 StringArray >> forceTo: anInteger paddingWith: aString [
 	| id |
 	id := self idOf: aString.
@@ -46,7 +48,7 @@ StringArray >> forceTo: anInteger paddingWith: aString [
 	^ self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringArray >> generateInvLiterals [
 	| dict |
 	dict := Dictionary new.
@@ -54,13 +56,13 @@ StringArray >> generateInvLiterals [
 	^ dict
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 StringArray >> grownBy: anInteger [
 	array := array grownBy: anInteger.
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> idOf: aString [
 	self assert: aString isString.
 	^ self invLiterals
@@ -72,73 +74,73 @@ StringArray >> idOf: aString [
 			id ]
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 StringArray >> initFieldsFrom: anObjStream version: classVersion [
 	self initFieldsNamed: #(literals array) from: anObjStream
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 StringArray >> initialize [
 	array := IntegerArray new.
 	literals := Array new.
 	invLiterals := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 StringArray >> invLiterals [
 	^ invLiterals ifNil: [ invLiterals := self generateInvLiterals ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 StringArray >> isEmpty [
 	^ array isEmpty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> privArray [
 	^ array
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> privInvLiterals [
 	^ invLiterals
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> privInvLiterals: aDictionary [
 	invLiterals := aDictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> privLiterals [
 	^ literals
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> size [
 	^ array size
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 StringArray >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(literals array) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> stringAt: anInteger [
 	| id |
 	id := self at: anInteger.
 	^ self stringOf: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> stringAt: anInteger put: aString [
 	| id |
 	id := self idOf: aString.
 	^ self at: anInteger put: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 StringArray >> stringOf: anInteger [
 	^ anInteger = 0
 		ifTrue: [ '' ]

@@ -1,6 +1,6 @@
-Extension { #name : #Morph }
+Extension { #name : 'Morph' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> allowSubmorphExtraction [
 	"Return true if this morph allows its submorphs to be extracted just by grabbing them."
 
@@ -8,12 +8,12 @@ Morph >> allowSubmorphExtraction [
 	^ self dragNDropEnabled or: [self dragEnabled]
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> beep [
 	"do nothing"
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> copyRecordingIn: deepCopier [
 	"Recursively copy this entire composite morph, recording the correspondence between old and new morphs in the given dictionary. This dictionary will be used to update intra-composite references in the copy. See updateReferencesUsing:.
 	Note: This default implementation copies ONLY morphs in the submorph hierarchy. If a subclass stores morphs in instance variables that it wants to copy, then it should override this method to do so. The same goes for subclasses that contain other data that should be copied when the morph is duplicated."
@@ -30,7 +30,7 @@ Morph >> copyRecordingIn: deepCopier [
 	^ new
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> copyWithoutSubmorphs [
 
 	^ self shallowCopy
@@ -40,12 +40,12 @@ Morph >> copyWithoutSubmorphs [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> fullCopy [
 	"Produce a copy of me with my entire tree of submorphs. Morphs mentioned more than once are all directed to a single new copy. Simple
 inst vars are not copied, so you must override to copy Arrays, Forms, editable text, etc."
@@ -57,7 +57,7 @@ inst vars are not copied, so you must override to copy Arrays, Forms, editable t
 	^ new
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> initFieldsFrom: anObjStream version: classVersion [
 	"Set my instance variables from the given object stream."
 
@@ -73,7 +73,7 @@ Morph >> initFieldsFrom: anObjStream version: classVersion [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> isArgMorph [
 	"True only for ArgMorphs."
 
@@ -81,7 +81,7 @@ Morph >> isArgMorph [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> isBlockMorph [
 	"True only for BlockMorphs."
 
@@ -89,32 +89,32 @@ Morph >> isBlockMorph [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> isBlockPalette [
 	^ false
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> isCommandBlock [
 	^ false
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> isCommentMorph [
 	^ false
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> isScriptEditor [
 	^ false
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> isStageMorph [
 	^ false
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> mayNeedLayout [
 	"Answer true if something has occured that might require my layout to change That is, if layoutChanged has been sent to me or any of my submorphs."
 
@@ -122,7 +122,7 @@ Morph >> mayNeedLayout [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> meOrOwnerThatIsA: aClass [
 	"Answer this the first morph in the owner chain of the given class, or nil if there isn't one."
 
@@ -136,12 +136,12 @@ Morph >> meOrOwnerThatIsA: aClass [
 	^ current
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> project [
 	^ nil
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> rootForGrabOf: aMorph [
 	"Answer the root of the morph structure to be picked up when the given morph is grabbed."
 
@@ -154,7 +154,7 @@ Morph >> rootForGrabOf: aMorph [
 	^ owner rootForGrabOf: aMorph
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> storeFieldsOn: anObjStream [
 
 	self storeFieldsNamed: #(
@@ -167,7 +167,7 @@ Morph >> storeFieldsOn: anObjStream [
 	anObjStream putField: nil.  "placeholder for properties"
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Morph >> updateReferencesUsing: deepCopier [
 	"Update intra-morph references within a composite morph that has
 been copied. For example, if a button refers to morph X in the orginal

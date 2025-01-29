@@ -1,29 +1,31 @@
 Class {
-	#name : #ScratchPlotCommand,
-	#superclass : #ScratchPlot,
+	#name : 'ScratchPlotCommand',
+	#superclass : 'ScratchPlot',
 	#instVars : [
 		'command',
 		'args'
 	],
-	#category : #'FromScratch-Plotter'
+	#category : 'FromScratch-Plotter',
+	#package : 'FromScratch',
+	#tag : 'Plotter'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotCommand class >> clearPlotNo [
 	^ 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotCommand class >> setPlotYMax [
 	^ 3
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotCommand class >> setPlotYMin [
 	^ 2
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 ScratchPlotCommand >> applyTo: aPlotter [
 	self isClearPlot
 		ifTrue: [ ^ aPlotter clearPlots ].
@@ -33,37 +35,37 @@ ScratchPlotCommand >> applyTo: aPlotter [
 		ifTrue: [ ^ aPlotter min: args first ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotCommand >> args [
 	^ args
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotCommand >> args: aCollection [
 	args := aCollection copy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotCommand >> command [
 	^ command
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotCommand >> command: anObject [
 	command := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchPlotCommand >> isClearPlot [
 	^ self command = self class clearPlotNo
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchPlotCommand >> isSetPlotYMax [
 	^ self command = self class setPlotYMax
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchPlotCommand >> isSetPlotYMin [
 	^ self command = self class setPlotYMin
 ]

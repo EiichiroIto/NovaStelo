@@ -1,10 +1,12 @@
 Class {
-	#name : #ObserverScript,
-	#superclass : #SteloScript,
-	#category : #'Stelo-Project'
+	#name : 'ObserverScript',
+	#superclass : 'SteloScript',
+	#category : 'Stelo-Project',
+	#package : 'Stelo',
+	#tag : 'Project'
 }
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ObserverScript >> addBasicBlocks [
 
 	blockMorphBuilder
@@ -22,7 +24,7 @@ ObserverScript >> addBasicBlocks [
 		addCommand: 'set random seed %n' selector: #setRandomSeed: arguments: #( 0 )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ObserverScript >> addBlockSpecs [
 
 	super addBlockSpecs.
@@ -32,7 +34,7 @@ ObserverScript >> addBlockSpecs [
 		addListBlocks
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ObserverScript >> addControlBlocks [
 
 	blockMorphBuilder
@@ -41,7 +43,7 @@ ObserverScript >> addControlBlocks [
 	super addControlBlocks
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ObserverScript >> addPatchBlocks [
 
 	blockMorphBuilder
@@ -57,7 +59,7 @@ ObserverScript >> addPatchBlocks [
 		addCommand: 'nsum4 patch''s %p to %p' selector: #nsum4Var:to: arguments: #( '' '' )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ObserverScript >> addPenBlocks [
 
 	blockMorphBuilder
@@ -70,17 +72,17 @@ ObserverScript >> addPenBlocks [
 		addCommand: 'plot %n data %n' selector: #plot:data: arguments: #( 1 10 )
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ObserverScript >> isObserver [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ObserverScript >> objName [
 	^ 'Observer'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ObserverScript >> useList [
 	^ true
 ]

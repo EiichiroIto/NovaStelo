@@ -1,20 +1,22 @@
 Class {
-	#name : #ScratchBytecodeCallTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchBytecodeCallTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeCallTest >> newCall: aString [
 	^ ScratchBytecodeCall subName: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeCallTest >> newCall: aString address: anInteger [
 	^ ScratchBytecodeCall subName: aString address: anInteger
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeCallTest >> testAddress [
 	| c |
 	c := self newCall: 'abc'.
@@ -25,21 +27,21 @@ ScratchBytecodeCallTest >> testAddress [
 	self assert: c address equals: 456.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeCallTest >> testCodeSize [
 	| c |
 	c := self newCall: 'abc'.
 	self assert: c codeSize equals: 4.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeCallTest >> testIsCall [
 	| c |
 	c := self newCall: 'abc'.
 	self assert: c isCall.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeCallTest >> testPrintOn [
 	| c |
 	c := self newCall: 'abc'.
@@ -48,7 +50,7 @@ ScratchBytecodeCallTest >> testPrintOn [
 	self assert: c asString equals: '<call=abc,to=2>'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeCallTest >> testPutOn [
 	| c stream |
 	stream := WriteStream on: Array new.
@@ -59,7 +61,7 @@ ScratchBytecodeCallTest >> testPutOn [
 	self assertCollection: stream contents equals: #(pushShort 123 0 call).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeCallTest >> testSubName [
 	| c |
 	c := self newCall: 'abc'.
@@ -70,7 +72,7 @@ ScratchBytecodeCallTest >> testSubName [
 	self assert: c subName equals: 'ghi'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeCallTest >> testSubNameAddress [
 	| c |
 	c := self newCall: 'abc' address: 123.

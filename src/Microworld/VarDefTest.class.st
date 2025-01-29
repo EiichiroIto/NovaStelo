@@ -2,17 +2,19 @@
 A SVarIdTest is a test class for testing the behavior of SVarId
 "
 Class {
-	#name : #VarDefTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'VarDefTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 VarDefTest >> newVarDef [
 	^ VarDef new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testAddClassName [
 	| v x |
 	v := self newVarDef.
@@ -22,7 +24,7 @@ VarDefTest >> testAddClassName [
 	self assert: (v privVarClasses at: 'a') equals: #Array
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testAddComputedVariableVarNo [
 	| v a b |
 	v := self newVarDef.
@@ -40,7 +42,7 @@ VarDefTest >> testAddComputedVariableVarNo [
 	self assert: (v privVarClasses at: 'b') equals: nil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testAddList [
 	| v x |
 	v := self newVarDef.
@@ -54,7 +56,7 @@ VarDefTest >> testAddList [
 	self assert: (v privVarClasses at: 'b') equals: #Array
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testAddReservedVarNoClassName [
 	| v x |
 	v := self newVarDef.
@@ -65,7 +67,7 @@ VarDefTest >> testAddReservedVarNoClassName [
 	self assert: (v privReservedVarNames includes: 'b')
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testAddReservedVariableVarNo [
 	| v a b |
 	v := self newVarDef.
@@ -83,7 +85,7 @@ VarDefTest >> testAddReservedVariableVarNo [
 	self assert: (v privVarClasses at: 'b') equals: #Float32Array.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testAddVariable [
 	| v x |
 	v := self newVarDef.
@@ -97,7 +99,7 @@ VarDefTest >> testAddVariable [
 	self assert: (v privVarClasses at: 'b') equals: #Float32Array
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testClassFor [
 	| v c |
 	v := VarDef new.
@@ -107,7 +109,7 @@ VarDefTest >> testClassFor [
 	self assert: c className equals: #Float32Array
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testClassNameFor [
 	| pv a b |
 	pv := self newVarDef.
@@ -117,7 +119,7 @@ VarDefTest >> testClassNameFor [
 	self assert: (pv classNameFor: 'b') equals: #ByteArray.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testDelete [
 	| v |
 	v := self newVarDef.
@@ -129,7 +131,7 @@ VarDefTest >> testDelete [
 	self assertCollection: v privVarNames asArray equals: #('def' 'ghi').
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testFixVars [
 	| v |
 	v := VarDef new.
@@ -139,7 +141,7 @@ VarDefTest >> testFixVars [
 	self assertCollection: v varNames asArray equals: #(a b c).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testIncludes [
 	| v |
 	v := self newVarDef.
@@ -153,7 +155,7 @@ VarDefTest >> testIncludes [
 	self assert: (v includes: 'bbb') not.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testInitialize [
 	| v |
 	v := self newVarDef.
@@ -164,7 +166,7 @@ VarDefTest >> testInitialize [
 	self assert: v privReservedVarNames isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testIsListVarNo [
 	| v a b c |
 	v := self newVarDef.
@@ -176,7 +178,7 @@ VarDefTest >> testIsListVarNo [
 	self deny: (v isListVarNo: c)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testIsReserved [
 	| v |
 	v := self newVarDef.
@@ -186,7 +188,7 @@ VarDefTest >> testIsReserved [
 	self assert: (v isReserved: 'b')
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testIsStringVarNo [
 	| v a b |
 	v := self newVarDef.
@@ -196,7 +198,7 @@ VarDefTest >> testIsStringVarNo [
 	self assert: (v isStringVarNo: b)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testListNames [
 	| v ret |
 	v := self newVarDef.
@@ -209,7 +211,7 @@ VarDefTest >> testListNames [
 	self assertCollection: ret equals: #(a b).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testPrivReservedVarNames [
 	| v |
 	v := VarDef new.
@@ -218,7 +220,7 @@ VarDefTest >> testPrivReservedVarNames [
 	self assert: v privReservedVarNames equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testPrivVarClasses [
 	| v |
 	v := self newVarDef.
@@ -226,7 +228,7 @@ VarDefTest >> testPrivVarClasses [
 	self assert: v privVarClasses isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testPrivVarNames [
 	| v |
 	v := self newVarDef.
@@ -235,7 +237,7 @@ VarDefTest >> testPrivVarNames [
 	self assertCollection: v privVarNames equals: #(1 2 3).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testRealVarNames [
 	| v |
 	v := VarDef new.
@@ -246,7 +248,7 @@ VarDefTest >> testRealVarNames [
 	self assertCollection: v realVarNames equals: #(a b)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testRegularize [
 
 	| v |
@@ -271,14 +273,14 @@ VarDefTest >> testRegularize [
 	self assert: (v classNameFor: 'b') equals: #Array
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testReservedNo [
 	| v |
 	v := VarDef new.
 	self assert: v reservedNo equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testSetupVarNames [
 	| v |
 	v := self newVarDef.
@@ -294,7 +296,7 @@ VarDefTest >> testSetupVarNames [
 	self should: [ v setupVarNames ] raise: Error
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testSize [
 	| v |
 	v := self newVarDef.
@@ -304,7 +306,7 @@ VarDefTest >> testSize [
 	self assert: v size equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testUserDefinedVarNames [
 	| v ret |
 	v := self newVarDef.
@@ -317,7 +319,7 @@ VarDefTest >> testUserDefinedVarNames [
 	self assertCollection: ret equals: #(a b c).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testUserDefinedVarNoAndNames [
 	| v |
 	v := self newVarDef .
@@ -329,7 +331,7 @@ VarDefTest >> testUserDefinedVarNoAndNames [
 		equals: #(#(1 'a') #(2 'b') #(3 'c')).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testVarFor [
 	| v |
 	v := self newVarDef.
@@ -343,7 +345,7 @@ VarDefTest >> testVarFor [
 	self should: [v varNoFor: 'bbb'] raise: NotFound.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testVarNames [
 	| v |
 	v := self newVarDef.
@@ -353,7 +355,7 @@ VarDefTest >> testVarNames [
 	self assertCollection: v varNames equals: #('x' 'y').
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 VarDefTest >> testVarNoFor [
 	| v a b c |
 	v := VarDef new.

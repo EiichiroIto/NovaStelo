@@ -1,10 +1,12 @@
 Class {
-	#name : #SNativeDiffuser2,
-	#superclass : #Object,
-	#category : #'Stelo-Model'
+	#name : 'SNativeDiffuser2',
+	#superclass : 'Object',
+	#category : 'Stelo-Model',
+	#package : 'Stelo',
+	#tag : 'Model'
 }
 
-{ #category : #api }
+{ #category : 'api' }
 SNativeDiffuser2 >> diffuse4: anArray cols: anInteger rows: anInteger2 percent: aNumber [
 	| result tmp sz |
 	sz := anArray size.
@@ -27,7 +29,7 @@ SNativeDiffuser2 >> diffuse4: anArray cols: anInteger rows: anInteger2 percent: 
 		startingAt: 1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SNativeDiffuser2 >> diffuse8: anArray cols: anInteger rows: anInteger2 percent: aNumber [
 	| result tmp tmp3 sz |
 	sz := anArray size.
@@ -59,7 +61,7 @@ SNativeDiffuser2 >> diffuse8: anArray cols: anInteger rows: anInteger2 percent: 
 		startingAt: 1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SNativeDiffuser2 >> nsum4: anArray dst: anArray2 cols: anInteger rows: anInteger2 [
 	| result tmp sz |
 	sz := anArray size.
@@ -79,7 +81,7 @@ SNativeDiffuser2 >> nsum4: anArray dst: anArray2 cols: anInteger rows: anInteger
 		startingAt: 1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SNativeDiffuser2 >> nsum8: anArray dst: anArray2 cols: anInteger rows: anInteger4 [
 	| result tmp tmp2 sz |
 	sz := anArray size.
@@ -108,7 +110,7 @@ SNativeDiffuser2 >> nsum8: anArray dst: anArray2 cols: anInteger rows: anInteger
 		startingAt: 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SNativeDiffuser2 >> rolledDown: anArray to: anArray2 cols: anInteger [
 	| sz |
 	sz := anArray size.
@@ -124,7 +126,7 @@ SNativeDiffuser2 >> rolledDown: anArray to: anArray2 cols: anInteger [
 		startingAt: sz - anInteger + 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SNativeDiffuser2 >> rolledLeft: anArray to: anArray2 cols: anInteger [
 	| sz src dst |
 	sz := anArray size.
@@ -141,7 +143,7 @@ SNativeDiffuser2 >> rolledLeft: anArray to: anArray2 cols: anInteger [
 			dst := dst + anInteger ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SNativeDiffuser2 >> rolledRight: anArray to: anArray2 cols: anInteger [
 	| sz src dst |
 	sz := anArray size.
@@ -158,7 +160,7 @@ SNativeDiffuser2 >> rolledRight: anArray to: anArray2 cols: anInteger [
 			dst := dst + anInteger ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SNativeDiffuser2 >> rolledUp: anArray to: anArray2 cols: anInteger [
 	| sz |
 	sz := anArray size.
@@ -174,7 +176,7 @@ SNativeDiffuser2 >> rolledUp: anArray to: anArray2 cols: anInteger [
 		startingAt: 1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SNativeDiffuser2 >> scale: aFloatArray dst: aByteArray color: baseColor from: anInteger to: anInteger5 [
 	| c |
 	aFloatArray

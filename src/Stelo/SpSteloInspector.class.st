@@ -1,15 +1,17 @@
 Class {
-	#name : #SpSteloInspector,
-	#superclass : #SpPresenter,
+	#name : 'SpSteloInspector',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'tableVars',
 		'buttonEdit',
 		'buttonDelete'
 	],
-	#category : #'Stelo-Spec2'
+	#category : 'Stelo-Spec2',
+	#package : 'Stelo',
+	#tag : 'Spec2'
 }
 
-{ #category : #layout }
+{ #category : 'layout' }
 SpSteloInspector class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		spacing: 4;
@@ -24,7 +26,7 @@ SpSteloInspector class >> defaultLayout [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpSteloInspector >> initializePresenters [
 	tableVars := self newTable.
 	buttonEdit := self newButton.
@@ -51,32 +53,32 @@ SpSteloInspector >> initializePresenters [
 		add: buttonDelete
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloInspector >> items: aCollection [
 	tableVars items: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloInspector >> selectedIndex [
 	^ tableVars selection selectedIndex
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloInspector >> selectedIndex: anInteger [
 	tableVars selectIndex: anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloInspector >> whenActivatedDo: aBlock [
 	tableVars whenActivatedDo: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloInspector >> whenDeleteDo: aBlock [
 	buttonDelete action: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpSteloInspector >> whenEditDo: aBlock [
 	buttonEdit action: [ aBlock cull: tableVars selection selectedItem ]
 ]

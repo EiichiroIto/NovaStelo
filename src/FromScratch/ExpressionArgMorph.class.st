@@ -3,22 +3,24 @@ I represent a literal value such as a number or string. I can be edited.
 
 "
 Class {
-	#name : #ExpressionArgMorph,
-	#superclass : #ArgMorph,
+	#name : 'ExpressionArgMorph',
+	#superclass : 'ArgMorph',
 	#instVars : [
 		'isNumber'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #queries }
+{ #category : 'queries' }
 ExpressionArgMorph >> acceptsDroppedReporters [
 
 	^ true
 
 ]
 
-{ #category : #queries }
+{ #category : 'queries' }
 ExpressionArgMorph >> acceptsTypeOf: aBlockMorph [
 	"Answer true if I can accept a dropped reporter of the given type."
 
@@ -27,7 +29,7 @@ ExpressionArgMorph >> acceptsTypeOf: aBlockMorph [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorph >> defaultValue: anObject [
 	anObject isNumber
 		ifTrue: [ ^ self numExpression: anObject ].
@@ -35,7 +37,7 @@ ExpressionArgMorph >> defaultValue: anObject [
 		ifTrue: [ ^ self stringExpression: anObject ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorph >> defaultValueFromSpec: anObject [
 	"Like defaultValue:, but '-' in a block spec creates an empty number expression."
 
@@ -44,7 +46,7 @@ ExpressionArgMorph >> defaultValueFromSpec: anObject [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ExpressionArgMorph >> drawOn: aCanvas [ 
 
 	| darkerC right topY bottomY radius xInset c c2 |
@@ -76,7 +78,7 @@ ExpressionArgMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ExpressionArgMorph >> evaluate [
 	"Answer the result of evaluating my expression in the context of the given ScratchProcess."
 
@@ -88,7 +90,7 @@ ExpressionArgMorph >> evaluate [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ExpressionArgMorph >> fixArgLayout [
 	| top xInset extraW |
 	top := self top.
@@ -107,7 +109,7 @@ ExpressionArgMorph >> fixArgLayout [
 	labelMorph position: (self left + xInset) @ top
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ExpressionArgMorph >> initialize [
 	super initialize.
 	isNumber := true.
@@ -124,30 +126,30 @@ ExpressionArgMorph >> initialize [
 	self numExpression: '10'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ExpressionArgMorph >> isExpressionArg [
 	^ true
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ExpressionArgMorph >> isNumberExpression [
 
 	^ isNumber
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ExpressionArgMorph >> isSquareArg [
 
 	^ isNumber not
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorph >> loseKeyboardFocus [
 	labelMorph keyboardFocusChange: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorph >> numExpression: aNumber [
 	isNumber := true.
 	labelMorph isNumeric: true.
@@ -159,7 +161,7 @@ ExpressionArgMorph >> numExpression: aNumber [
 	self fixArgLayout
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorph >> stringExpression: aString [
 
 	isNumber := false.

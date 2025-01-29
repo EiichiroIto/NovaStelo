@@ -1,30 +1,32 @@
 Class {
-	#name : #SEntryPoints,
-	#superclass : #Object,
+	#name : 'SEntryPoints',
+	#superclass : 'Object',
 	#instVars : [
 		'breeds'
 	],
-	#category : #'Stelo-Process'
+	#category : 'Stelo-Process',
+	#package : 'Stelo',
+	#tag : 'Process'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SEntryPoints >> addEntryPoint: anInteger forBreedNo: bno [
 	| list |
 	list := breeds at: bno ifAbsentPut: [ OrderedCollection new ].
 	list add: anInteger.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SEntryPoints >> breedNoList [
 	^ breeds keys
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SEntryPoints >> breeds [
 	^ breeds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SEntryPoints >> entryPointList [
 	| stream list |
 	stream := WriteStream on: Array new.
@@ -36,22 +38,22 @@ SEntryPoints >> entryPointList [
 	^ stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SEntryPoints >> forBreedNo: anInteger [
 	^ breeds at: anInteger ifAbsent: [ #() ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SEntryPoints >> initialize [
 	breeds := Dictionary new.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SEntryPoints >> isEmpty [
 	^ breeds isEmpty
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 SEntryPoints >> printOn: aStream [
 	aStream nextPut: $(.
 	self breedNoList

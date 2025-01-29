@@ -1,16 +1,18 @@
 Class {
-	#name : #SMicroWorld,
-	#superclass : #Object,
+	#name : 'SMicroWorld',
+	#superclass : 'Object',
 	#instVars : [
 		'breeds',
 		'raisedEvents',
 		'plotList',
 		'random'
 	],
-	#category : #'Stelo-Model'
+	#category : 'Stelo-Model',
+	#package : 'Stelo',
+	#tag : 'Model'
 }
 
-{ #category : #samples }
+{ #category : 'samples' }
 SMicroWorld class >> sample1 [
 	"SMicroWorld sample1."
 
@@ -24,7 +26,7 @@ SMicroWorld class >> sample1 [
 	^ d.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> addBreed: aBreed [
 	| bno |
 	bno := aBreed breedNo.
@@ -34,7 +36,7 @@ SMicroWorld >> addBreed: aBreed [
 	breeds at: bno put: aBreed
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> addNewTurtle [
 	| breed |
 	breed := self observer newTurtles.
@@ -42,7 +44,7 @@ SMicroWorld >> addNewTurtle [
 	^ breed
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> aimHighPatchVar: vid breed: bid id: id [
 	| x y heading |
 	x := (breeds at: bid) xAt: id.
@@ -51,7 +53,7 @@ SMicroWorld >> aimHighPatchVar: vid breed: bid id: id [
 	^ self patches aimHighVarNo: vid atPoint: x @ y direction: heading
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SMicroWorld >> aliveBreed: bno at: id [
 	| size |
 	bno = SBreedId observerBreedNo
@@ -64,53 +66,53 @@ SMicroWorld >> aliveBreed: bno at: id [
 	^ self flag: STurtlesVarDef aliveFlagNo breed: bno at: id
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SMicroWorld >> breedOf: bid [
 	^ breeds at: bid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> breeds [
 	^ breeds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> breeds: anObject [
 
 	breeds := anObject
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> changeBreed: bid var: var by: aNumber [
 	(self breedOf: bid) change: var by: aNumber
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> clearBreed: bno [
 	(self breedOf: bno) clear.
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> clearPlots [
 	plotList add: ScratchPlot clearPlots
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> clearRaisedEvents [
 	raisedEvents := Set new.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> clearTicks [
 	self observer clearTicks.
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> clearTurtles [
 	self turtleBreedsDo: [ :each | each clear ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> colors [
 	| colors x y c index |
 	colors := self patches colors copy.
@@ -124,30 +126,30 @@ SMicroWorld >> colors [
 	^ colors
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> copyBreed: bid var: var to: var2 [
 	(self breedOf: bid) copyVar: var to: var2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> countAliveOf: bno [
 	^ (self breedOf: bno) countAlive
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> create: bid turtles: anInteger [
 	bid < SBreedId defaultUserNo
 		ifTrue: [ self error: 'breedId must be more than 2' ].
 	^ (breeds at: bid) create: anInteger
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> createPatch: anInteger [
 	self clearTurtles.
 	self patches create: anInteger.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> deleteBreed: aBreed [
 	| bno |
 	bno := aBreed breedNo.
@@ -155,39 +157,39 @@ SMicroWorld >> deleteBreed: aBreed [
 	breeds at: bno put: nil
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> delta: bno at: index [
 	^ (breeds at: bno) deltaAt: index
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> diffuse4: anInteger1 varNo: anInteger2 [
 
 	self patches diffuse4: anInteger1 varNo: anInteger2
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> diffuse8: anInteger1 varNo: anInteger2 [
 
 	self patches diffuse8: anInteger1 varNo: anInteger2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> extent [
 	^ self patches extent
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> flag: anInteger breed: bid at: id [
 	^ (breeds at: bid) flag: anInteger at: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> flag: anInteger breed: bid at: id put: aNumber [
 	(breeds at: bid) flag: anInteger at: id put: aNumber
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> forward: aNumber breed: bid id: anInteger [
 	| c x y delta dx dy penDown rest h d ps ts distance |
 	ps := breeds at: SBreedId patchesBreedNo.
@@ -224,93 +226,93 @@ SMicroWorld >> forward: aNumber breed: bid id: anInteger [
 	ts yAt: anInteger put: y
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> hatch: bid id: anInteger [
 	| list |
 	list := self create: bid turtles: 1.
 	list do: [ :each | (breeds at: bid) copyTurtleFrom: anInteger to: each ].
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> incrementTicks [
 	self observer incrementTicks.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SMicroWorld >> initialize [
 	super initialize.
 	random := SharedRandom globalGenerator.
 	self reset
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> kill: bid at: anInteger [
 	(bid = SBreedId observerBreedNo or: [ bid = SBreedId patchesBreedNo ])
 		ifTrue: [ ^ self ].
 	self flag: STurtlesVarDef aliveFlagNo breed: bid at: anInteger put: false
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SMicroWorld >> livingBreed: bno do: aBlock [
 	(breeds at: bno) livingOnesDo: aBlock.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> maxBreedNo [
 	^ breeds size
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> multiplyBreed: bid var: var by: aNumber [
 	(self breedOf: bid) multiply: var by: aNumber
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SMicroWorld >> newProcess [
 
 	^ SteloNativeProcess sworld: self
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> nsum4: anInteger1 to: anInteger2 [
 
 	self patches nsum4: anInteger1 to: anInteger2
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> nsum8: anInteger1 to: anInteger2 [
 
 	self patches nsum8: anInteger1 to: anInteger2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> observer [
 	^ breeds at: SBreedId observerBreedNo
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> patchIndexAtX: x y: y [
 	^ self patches indexAtX: x y: y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> patches [
 	^ breeds at: SBreedId patchesBreedNo
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> plot: anInteger color: color [
 	| c |
 	c := ColorList default colorAt: color.
 	plotList add: (ScratchPlot channel: anInteger color: c)
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> plot: anInteger data: aFloat [
 	plotList add: (ScratchPlot channel: anInteger data: aFloat)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> plotList [
 	| tmp |
 	tmp := plotList.
@@ -318,12 +320,12 @@ SMicroWorld >> plotList [
 	^ tmp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> plotList: aCollection [
 	plotList := aCollection
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 SMicroWorld >> printOn: aStream [
 	aStream
 		nextPutAll: 'MicroWorld(';
@@ -331,45 +333,45 @@ SMicroWorld >> printOn: aStream [
 		nextPut: $).
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> raiseEvent: anInteger [
 	raisedEvents add: anInteger.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> raisedEvents [
 	^ raisedEvents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> raisedEvents: aCollection [
 	raisedEvents := aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> random [
 	^ random
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> random: anObject [
 
 	random := anObject
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> randomFrom: aNumber to: aNumber2 [
 	^ (aNumber to: aNumber2) atRandom: random
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SMicroWorld >> reset [
 	raisedEvents := Set new.
 	breeds := Array new.
 	plotList := OrderedCollection new
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> scaleVar: v color: c breed: bid from: f to: t id: id [
 	bid = SBreedId observerBreedNo
 		ifTrue: [ self patches
@@ -385,17 +387,17 @@ SMicroWorld >> scaleVar: v color: c breed: bid from: f to: t id: id [
 				index: id ]
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> setPlotYMax: aNumber [
 	plotList add: (ScratchPlot setPlotYMax: aNumber)
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> setPlotYMin: aNumber [
 	plotList add: (ScratchPlot setPlotYMin: aNumber)
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> setRandomSeed: aNumber [
 	| seed |
 	seed := aNumber asInteger.
@@ -404,18 +406,18 @@ SMicroWorld >> setRandomSeed: aNumber [
 		ifFalse: [ Random seed: seed ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> sizeOf: bno [
 	^ (self breedOf: bno) size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> ticks [
 
 	^ self observer ticks
 ]
 
-{ #category : #'thread ops' }
+{ #category : 'thread ops' }
 SMicroWorld >> turtle: bno at: pos exceptBreed: myBno index: myIndex [
 	| list |
 	list := self turtles: bno at: pos.
@@ -426,7 +428,7 @@ SMicroWorld >> turtle: bno at: pos exceptBreed: myBno index: myIndex [
 		ifFalse: [ list anyOne ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SMicroWorld >> turtleBreedsDo: aBlock [
 	SBreedId defaultUserNo to: breeds size do: [ :each | 
 		| turtle |
@@ -434,7 +436,7 @@ SMicroWorld >> turtleBreedsDo: aBlock [
 		turtle ifNotNil: [ aBlock value: turtle ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SMicroWorld >> turtles: bno at: pos [
 	| list x y p |
 	list := OrderedCollection new.
@@ -449,12 +451,12 @@ SMicroWorld >> turtles: bno at: pos [
 	^ list
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SMicroWorld >> turtlesDo: aBlock [
 	self turtleBreedsDo: [ :ts | ts livingOnesDo: aBlock ]
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bid at: id [
 
 	bid = SBreedId observerBreedNo ifTrue: [ 
@@ -468,64 +470,64 @@ SMicroWorld >> var: anInteger breed: bid at: id [
 	^ (breeds at: bid) var: anInteger at: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bid at: id put: aNumber [
 
 	(breeds at: bid) var: anInteger at: id put: aNumber
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno list: id [
 	^ (self breedOf: bno) var: anInteger list: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno list: id add: aNumber [
 	(self breedOf: bno) var: anInteger list: id add: aNumber
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno list: id at: anInteger2 [
 	^ (self breedOf: bno) var: anInteger list: id at: anInteger2
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno list: id at: anInteger2 put: aNumber [
 	(self breedOf: bno) var: anInteger list: id at: anInteger2 put: aNumber
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno list: id contains: aNumber [
 	^ (self breedOf: bno) var: anInteger list: id contains: aNumber
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno list: id remove: aNumber [
 	(self breedOf: bno) var: anInteger list: id remove: aNumber
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno list: id set: aCollection [
 	(self breedOf: bno) var: anInteger list: id set: aCollection
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> var: anInteger breed: bno listSizeOf: id [
 	^ (self breedOf: bno) var: anInteger listSizeOf: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SMicroWorld >> worldName [
 
 	^ 'MicroWorld'
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> x: breed at: id [
 	^ (breeds at: breed) xAt: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> x: bid at: anInteger put: aNumber [
 	| c x y dx penDown ps ts |
 	ps := breeds at: SBreedId patchesBreedNo.
@@ -547,12 +549,12 @@ SMicroWorld >> x: bid at: anInteger put: aNumber [
 	ts xAt: anInteger put: x
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> y: breed at: id [
 	^ (breeds at: breed) yAt: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SMicroWorld >> y: bid at: anInteger put: aNumber [
 	| c x y dy penDown ps ts |
 	ps := breeds at: SBreedId patchesBreedNo.

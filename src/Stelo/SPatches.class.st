@@ -1,14 +1,16 @@
 Class {
-	#name : #SPatches,
-	#superclass : #SteloBreed,
+	#name : 'SPatches',
+	#superclass : 'SteloBreed',
 	#instVars : [
 		'order',
 		'diffuser'
 	],
-	#category : #'Stelo-Model'
+	#category : 'Stelo-Model',
+	#package : 'Stelo',
+	#tag : 'Model'
 }
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> aimHighVarNo: vid atPoint: aPoint direction: heading [
 	| pos id delta forward left right |
 	delta := Point r: 1.5 degrees: heading \\ 360.
@@ -30,112 +32,112 @@ SPatches >> aimHighVarNo: vid atPoint: aPoint direction: heading [
 				ifFalse: [ -45 ] ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> aliveAt: index [
 	^ index between: 1 and: self size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> breedName [
 	^ 'Patch'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> breedNo [
 	^ SBreedId patchesBreedNo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> breedNo: anInteger [
 	"do nothing"
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> change: anInteger by: aNumber [
 	variables change: anInteger by: aNumber
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> clear [
 	super clear.
 	variables forceSize: self size.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> colorAtPoint: aPoint [
 	| index |
 	index := self indexAtPoint: aPoint.
 	^ self colorAt: index
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> colorAtPoint: aPoint put: anInteger [
 	| index |
 	index := self indexAtPoint: aPoint.
 	self colorAt: index put: anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> cols [
 	^ order
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> create: anInteger [
 
 	order := anInteger.
 	self clear
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SPatches >> defaultOrder [
 	^ 100
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> diffuse4: anInteger1 varNo: anInteger2 [
 	| buf |
 	buf := variables realArrayAt: anInteger2.
 	diffuser diffuse4: buf cols: order rows: order percent: anInteger1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> diffuse8: anInteger1 varNo: anInteger2 [
 	| buf |
 	buf := variables realArrayAt: anInteger2.
 	diffuser diffuse8: buf cols: order rows: order percent: anInteger1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> diffuser [
 
 	^ diffuser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> diffuser: anObject [
 
 	diffuser := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> extent [
 	^ order @ order
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SPatches >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SPatches >> indexAtCol: c row: r [
 	| i |
 	i := (r - 1) * order + c.
 	^ ((i - 1) \\ self size) + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> indexAtPoint: aPoint [
 	| r c |
 	c := aPoint x floor + (order // 2) + 1.
@@ -143,7 +145,7 @@ SPatches >> indexAtPoint: aPoint [
 	^ self indexAtCol: c row: r
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> indexAtX: x y: y [
 
 	| x1 y1 c r |
@@ -154,14 +156,14 @@ SPatches >> indexAtX: x y: y [
 	^ self indexAtCol: c row: r
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SPatches >> initFieldsFrom: anObjStream version: classVersion [
 
 	super initFieldsFrom: anObjStream version: classVersion.
 	self initFieldsNamed: #( order ) from: anObjStream
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SPatches >> initialize [
 
 	super initialize.
@@ -169,23 +171,23 @@ SPatches >> initialize [
 	self create: self defaultOrder
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SPatches >> livingOnesDo: aBlock [
 	1 to: self size do: [ :each | aBlock value: each ].
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> multiply: anInteger by: aNumber [
 	variables multiply: anInteger by: aNumber
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SPatches >> newVarDef [
 
 	^ SPatchesVarDef new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> normalize: aNumber [
 
 	| h x |
@@ -195,7 +197,7 @@ SPatches >> normalize: aNumber [
 	^ x
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> nsum4: anInteger1 to: anInteger2 [
 	| src dst |
 	src := variables realArrayAt: anInteger1.
@@ -203,7 +205,7 @@ SPatches >> nsum4: anInteger1 to: anInteger2 [
 	diffuser nsum4: src dst: dst cols: order rows: order
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> nsum8: anInteger1 to: anInteger2 [
 	| src dst |
 	src := variables realArrayAt: anInteger1.
@@ -211,18 +213,18 @@ SPatches >> nsum8: anInteger1 to: anInteger2 [
 	diffuser nsum8: src dst: dst cols: order rows: order
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> order [
 	^ order
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> order: anObject [
 
 	order := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 SPatches >> printOn: aStream [
 	aStream
 		nextPutAll: 'Patches(';
@@ -232,12 +234,12 @@ SPatches >> printOn: aStream [
 		nextPut: $).
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> rows [
 	^ order
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SPatches >> scaleVarNo: vid color: baseColor from: from to: to [
 	| v c |
 	v := variables realArrayAt: vid.
@@ -245,18 +247,18 @@ SPatches >> scaleVarNo: vid color: baseColor from: from to: to [
 	diffuser scale: v dst: c color: baseColor from: from to: to
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatches >> size [
 	^ order * order
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SPatches >> storeFieldsOn: anObjStream [
 	super storeFieldsOn: anObjStream.
 	self storeFieldsNamed: #(order) on: anObjStream.
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SPatches >> var: anInteger1 at: anInteger2 [
 	anInteger1 = varDef class xVarNo
 		ifTrue: [ ^ self xAt: anInteger2 ].
@@ -265,7 +267,7 @@ SPatches >> var: anInteger1 at: anInteger2 [
 	^ super var: anInteger1 at: anInteger2
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SPatches >> xAt: anInteger [
 "
 0 1 2 3
@@ -277,7 +279,7 @@ SPatches >> xAt: anInteger [
 	^ (anInteger - 1 \\ order) - (order // 2)
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SPatches >> yAt: anInteger [
 "
 0 1 2 3

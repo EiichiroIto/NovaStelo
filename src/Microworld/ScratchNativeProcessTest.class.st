@@ -2,17 +2,19 @@
 A SteloProcessTest is a test class for testing the behavior of SteloProcess
 "
 Class {
-	#name : #ScratchNativeProcessTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchNativeProcessTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchNativeProcessTest >> newProcess [
 	^ ScratchNativeProcess new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeProcessTest >> testProgram [
 	| pr |
 	pr := self newProcess.

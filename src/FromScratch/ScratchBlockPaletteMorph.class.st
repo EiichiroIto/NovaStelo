@@ -3,12 +3,14 @@ I am used as a scrollable blocks palette morph in a ScratchViewerMorph.
 
 "
 Class {
-	#name : #ScratchBlockPaletteMorph,
-	#superclass : #BlockPlateMorph,
-	#category : #'FromScratch-Blocks'
+	#name : 'ScratchBlockPaletteMorph',
+	#superclass : 'BlockPlateMorph',
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #other }
+{ #category : 'other' }
 ScratchBlockPaletteMorph >> fixLayout [
 	"Right align the blocks in the palette if RTL is set to true. The watcher toggle checkbox buttons are assumed to be about 18 pixels wide."
 
@@ -22,12 +24,12 @@ ScratchBlockPaletteMorph >> fixLayout [
 	self width: (r width max: owner width)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBlockPaletteMorph >> isBlockPalette [
 	^ true
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 ScratchBlockPaletteMorph >> rootForGrabOf: aMorph [
 
 	"I act like a parts bin; answer a new copy of the morph being extracted."

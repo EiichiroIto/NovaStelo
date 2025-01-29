@@ -1,40 +1,42 @@
 Class {
-	#name : #ScratchBytecodeLabel,
-	#superclass : #ScratchBytecode,
+	#name : 'ScratchBytecodeLabel',
+	#superclass : 'ScratchBytecode',
 	#instVars : [
 		'id'
 	],
-	#category : #'Microworld-Bytecode'
+	#category : 'Microworld-Bytecode',
+	#package : 'Microworld',
+	#tag : 'Bytecode'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchBytecodeLabel class >> id: anInteger [
 	^ self basicNew initialize
 		id: anInteger;
 		yourself.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeLabel >> codeSize [
 	^ 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeLabel >> id [
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeLabel >> id: anInteger [
 	id := anInteger.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBytecodeLabel >> isLabel [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchBytecodeLabel >> printOn: aStream [
 	aStream
 		nextPutAll: '<label=';

@@ -1,14 +1,16 @@
 Class {
-	#name : #ScratchBytecodeCall,
-	#superclass : #ScratchBytecode,
+	#name : 'ScratchBytecodeCall',
+	#superclass : 'ScratchBytecode',
 	#instVars : [
 		'subName',
 		'address'
 	],
-	#category : #'Microworld-Bytecode'
+	#category : 'Microworld-Bytecode',
+	#package : 'Microworld',
+	#tag : 'Bytecode'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchBytecodeCall class >> subName: aString [
 	^ self basicNew
 		initialize;
@@ -16,7 +18,7 @@ ScratchBytecodeCall class >> subName: aString [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchBytecodeCall class >> subName: aString address: anInteger [
 	^ self basicNew
 		initialize;
@@ -25,27 +27,27 @@ ScratchBytecodeCall class >> subName: aString address: anInteger [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeCall >> address [
 	^ address
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeCall >> address: anObject [
 	address := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeCall >> codeSize [
 	^ 4
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBytecodeCall >> isCall [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchBytecodeCall >> printOn: aStream [
 	aStream
 		nextPutAll: '<call=';
@@ -55,19 +57,19 @@ ScratchBytecodeCall >> printOn: aStream [
 		nextPut: $>.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeCall >> putOn: aStream [
 	address ifNil: [ self error ].
 	self putShort: address on: aStream.
 	aStream nextPut: #call.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeCall >> subName [
 	^ subName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeCall >> subName: anObject [
 	subName := anObject
 ]

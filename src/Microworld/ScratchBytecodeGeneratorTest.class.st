@@ -1,20 +1,22 @@
 Class {
-	#name : #ScratchBytecodeGeneratorTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchBytecodeGeneratorTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeGeneratorTest >> newGenerator [
 	^ ScratchBytecodeGenerator new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeGeneratorTest >> newThread [
 	^ ScratchNativeThread new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testAddress [
 	| b |
 	b := self newGenerator.
@@ -23,7 +25,7 @@ ScratchBytecodeGeneratorTest >> testAddress [
 	self assert: b address equals: 100.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testAddressOfSubName [
 	| b d |
 	b := self newGenerator.
@@ -37,7 +39,7 @@ ScratchBytecodeGeneratorTest >> testAddressOfSubName [
 	self assert: (b addressOfSubName: 'def') equals: 456.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testAppendCall [
 	| b r |
 	b := self newGenerator.
@@ -51,7 +53,7 @@ ScratchBytecodeGeneratorTest >> testAppendCall [
 	self assert: r address equals: 123.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testAppendLabel [
 	| b r |
 	b := self newGenerator.
@@ -67,7 +69,7 @@ ScratchBytecodeGeneratorTest >> testAppendLabel [
 	self assert: r id equals: 456.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testAppendSymbol [
 	| b r |
 	b := self newGenerator.
@@ -83,7 +85,7 @@ ScratchBytecodeGeneratorTest >> testAppendSymbol [
 	self assert: r selector equals: #def.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testAppendSymbolWithJump [
 	| b r |
 	b := self newGenerator.
@@ -101,7 +103,7 @@ ScratchBytecodeGeneratorTest >> testAppendSymbolWithJump [
 	self assert: r labelId equals: 34.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testAppendValue [
 	| b r |
 	b := self newGenerator.
@@ -117,7 +119,7 @@ ScratchBytecodeGeneratorTest >> testAppendValue [
 	self assert: r data equals: 456.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testBinaryCommandArg1Arg2 [
 	| b r |
 	b := self newGenerator.
@@ -135,7 +137,7 @@ ScratchBytecodeGeneratorTest >> testBinaryCommandArg1Arg2 [
 	self assert: r selector equals: #abc.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testCode [
 
 	| b arr |
@@ -144,7 +146,7 @@ ScratchBytecodeGeneratorTest >> testCode [
 	self assertCollection: arr equals: #( stop )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testLabelId [
 
 	| b x |
@@ -156,7 +158,7 @@ ScratchBytecodeGeneratorTest >> testLabelId [
 	self assert: b labelId identicalTo: x
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testLabelsAndJumpsFor [
 	| b arr |
 	b := self newGenerator.
@@ -177,7 +179,7 @@ ScratchBytecodeGeneratorTest >> testLabelsAndJumpsFor [
 	self assert: b address equals: 13.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testLiteralStringFrom [
 
 	| gen |
@@ -187,7 +189,7 @@ ScratchBytecodeGeneratorTest >> testLiteralStringFrom [
 	self assert: (gen literalStringFrom: '456') equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testNullaryCommand [
 	| b r |
 	b := self newGenerator.
@@ -199,7 +201,7 @@ ScratchBytecodeGeneratorTest >> testNullaryCommand [
 	self assert: r selector equals: #abc.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testResolveJumpAddressUsing [
 	| b fp arr |
 	b := self newGenerator.
@@ -224,7 +226,7 @@ ScratchBytecodeGeneratorTest >> testResolveJumpAddressUsing [
 	self assert: (fp at: 9) address equals: 9.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testScript [
 
 	| b x |
@@ -235,7 +237,7 @@ ScratchBytecodeGeneratorTest >> testScript [
 	self assert: b script identicalTo: x
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testStream [
 
 	| b x |
@@ -247,7 +249,7 @@ ScratchBytecodeGeneratorTest >> testStream [
 	self assert: b stream identicalTo: x
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testSubTable [
 	| b d |
 	b := self newGenerator.
@@ -257,7 +259,7 @@ ScratchBytecodeGeneratorTest >> testSubTable [
 	self assert: b subTable equals: d.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testTernaryCommandArg1Arg2Arg3 [
 	| b r |
 	b := self newGenerator.
@@ -278,7 +280,7 @@ ScratchBytecodeGeneratorTest >> testTernaryCommandArg1Arg2Arg3 [
 	self assert: r selector equals: #abc.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeGeneratorTest >> testUnaryCommandArg [
 	| b r |
 	b := self newGenerator.

@@ -3,29 +3,31 @@ Instances of me are used to temporarily record inter-object references when ObjS
 
 "
 Class {
-	#name : #ObjRefRecord,
-	#superclass : #Object,
+	#name : 'ObjRefRecord',
+	#superclass : 'Object',
 	#instVars : [
 		'objectID'
 	],
-	#category : #'FromScratch-Converter'
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ObjRefRecord >> objectID [
 
 	^ objectID
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ObjRefRecord >> objectID: anInteger [
 
 	objectID :=  anInteger.
 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ObjRefRecord >> printOn: aStream [
 	super printOn: aStream.
 	aStream

@@ -3,12 +3,14 @@ I am a block for setting a variable.
 
 "
 Class {
-	#name : #SetterBlockMorph,
-	#superclass : #CommandBlockMorph,
-	#category : #'FromScratch-Blocks'
+	#name : 'SetterBlockMorph',
+	#superclass : 'CommandBlockMorph',
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SetterBlockMorph >> asBlockTuple [
 
 	"Answer a tuple (Array) describing this block and its arguments."
@@ -31,7 +33,7 @@ SetterBlockMorph >> asBlockTuple [
 	^ result
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SetterBlockMorph >> expressionArg [
 
 	submorphs do: [:m |
@@ -40,7 +42,7 @@ SetterBlockMorph >> expressionArg [
 	^ nil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SetterBlockMorph >> initChangerForVar: varName [
 
 	self commandSpec: 'change %v by %n' localized.
@@ -52,7 +54,7 @@ SetterBlockMorph >> initChangerForVar: varName [
 	self expressionArg numExpression: '1'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SetterBlockMorph >> initSetterForVar: varName [
 
 	self commandSpec: 'set %v to %n' localized.
@@ -64,7 +66,7 @@ SetterBlockMorph >> initSetterForVar: varName [
 	self expressionArg stringExpression: '0'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SetterBlockMorph >> initialize [
 
 	super initialize.
@@ -73,13 +75,13 @@ SetterBlockMorph >> initialize [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SetterBlockMorph >> isSetterBlock [
 
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SetterBlockMorph >> labelMorphFor: aString [
 	| s |
 	s := aString.
@@ -89,7 +91,7 @@ SetterBlockMorph >> labelMorphFor: aString [
 		color: self labelColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SetterBlockMorph >> receiver: anObject [
 	"Set my receiver object and, if possible, my block color."
 
@@ -97,7 +99,7 @@ SetterBlockMorph >> receiver: anObject [
 	self color: ScratchTheme variableBlockColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SetterBlockMorph >> variable [
 
 	submorphs do: [:m |
@@ -107,7 +109,7 @@ SetterBlockMorph >> variable [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SetterBlockMorph >> variable: aVar [
 
 	submorphs do: [:m |

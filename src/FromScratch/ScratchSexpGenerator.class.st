@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchSexpGenerator,
-	#superclass : #Object,
+	#name : 'ScratchSexpGenerator',
+	#superclass : 'Object',
 	#instVars : [
 		'parser',
 		'stream',
@@ -9,10 +9,12 @@ Class {
 		'wantsLinefeed',
 		'indentLevel'
 	],
-	#category : #'FromScratch-Converter'
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> argString: anArgMorph [ 
 	| v |
 	^ anArgMorph labelMorph
@@ -22,22 +24,22 @@ ScratchSexpGenerator >> argString: anArgMorph [
 			self literalStringFrom: v]
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> eventTitleString: aString [
 	^ aString
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> expressionArgWithMenuString: aMorph [
 	^ aMorph evaluate
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> falseString [
 	^ 0
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateBegin: aSymbol morph: aMorph [
 	self
 		printOpenParen;
@@ -51,14 +53,14 @@ ScratchSexpGenerator >> generateBegin: aSymbol morph: aMorph [
 	self printOpenParen
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateCenter: aSymbol morph: aMorph [
 	self printCloseParen.
 	self generateLineFeed.
 	self printOpenParen
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateCode: aSymbol morph: aBlockMorph [
 	self
 		printOpenParen;
@@ -72,7 +74,7 @@ ScratchSexpGenerator >> generateCode: aSymbol morph: aBlockMorph [
 	self generateLineFeed
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateEnd: aSymbol morph: aMorph [
 	self
 		printCloseParen;
@@ -80,14 +82,14 @@ ScratchSexpGenerator >> generateEnd: aSymbol morph: aMorph [
 	self generateLineFeed
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateEventFooter: aString [
 	self
 		printCloseParen;
 		printCloseParen
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateEventHeader: aString [
 	"self generateLineFeed."
 	self
@@ -99,22 +101,22 @@ ScratchSexpGenerator >> generateEventHeader: aString [
 	self printOpenParen
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> generateIndent: anInteger [ 
 	"do nothing"
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateLineFeed [
 	wantsLinefeed := true
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generatePass [
 	"do nothing"
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> generateReporter: aSymbol morph: aReporterMorph [
 	| out |
 	out := WriteStream on: String new.
@@ -128,14 +130,14 @@ ScratchSexpGenerator >> generateReporter: aSymbol morph: aReporterMorph [
 	^ out contents
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateSubFooter: aString [
 	self
 		printCloseParen;
 		printCloseParen
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateSubHeader: aString [
 	self generateLineFeed.
 	self
@@ -147,41 +149,41 @@ ScratchSexpGenerator >> generateSubHeader: aString [
 	self printOpenParen
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> generateSubVars: aCollection [ 
 	"do nothing"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> indentLevel [
 
 	^ indentLevel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> indentLevel: anObject [
 
 	indentLevel := anObject
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> indentLevelFor: aString [
 	^ 2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> indents [
 
 	^ indents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> indents: anObject [
 
 	indents := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchSexpGenerator >> initialize [
 	super initialize.
 	parser := ScratchBlockParser new generator: self.
@@ -192,7 +194,7 @@ ScratchSexpGenerator >> initialize [
 	wantsLinefeed := false
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> literalStringFrom: anObject [
 	anObject isString
 		ifTrue: [ ^ (SexpLexer quotedString: anObject) ].
@@ -201,12 +203,12 @@ ScratchSexpGenerator >> literalStringFrom: anObject [
 	self error.
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> localVarArgString: aString [ 
 	^ aString
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchSexpGenerator >> parseBlock: aTopBlock initialIndent: anInteger [
 
 	indents at: 1 put: anInteger.
@@ -215,51 +217,51 @@ ScratchSexpGenerator >> parseBlock: aTopBlock initialIndent: anInteger [
 	^ stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> parser [
 
 	^ parser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> parser: anObject [
 
 	parser := anObject.
 	parser generator: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> position [
 
 	^ position
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> position: anObject [
 
 	position := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> printChar: aCharacter [
 	stream nextPut: aCharacter.
 	position := position + 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> printCloseParen [
 	stream nextPut: $).
 	position := position + 1.
 	indentLevel := indentLevel - 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> printLinefeed [
 	stream nextPut: Character lf.
 	position := 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> printOpenParen [
 	wantsLinefeed
 		ifTrue: [ wantsLinefeed := false.
@@ -274,18 +276,18 @@ ScratchSexpGenerator >> printOpenParen [
 	indents at: indentLevel put: position
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> printSpace [
 	stream nextPut: Character space
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> printSpaces: anInteger [
 	anInteger timesRepeat: [ stream nextPut: Character space ].
 	position := position + anInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGenerator >> printString: aString [
 	aString asString
 		do: [ :c | 
@@ -296,42 +298,42 @@ ScratchSexpGenerator >> printString: aString [
 						ifFalse: [ self printChar: c ] ] ]
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> spriteArgString: aMorph [
 	aMorph ifNil: [ self error ].
 	^ aMorph objName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> stream [
 
 	^ stream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> stream: anObject [
 
 	stream := anObject
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 ScratchSexpGenerator >> varNamesUsedIn: aMorph [
 
 	^ #()
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 ScratchSexpGenerator >> variableArgString: aString [
 	^ '(getVar ' , (SexpLexer quotedString: aString) , ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> wantsLinefeed [
 
 	^ wantsLinefeed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSexpGenerator >> wantsLinefeed: anObject [
 
 	wantsLinefeed := anObject

@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchTranslator,
-	#superclass : #Object,
+	#name : 'ScratchTranslator',
+	#superclass : 'Object',
 	#instVars : [
 		'fonts',
 		'texts',
@@ -11,10 +11,12 @@ Class {
 		'RenderCenterOffsetCache',
 		'RenderVerticalTrimCache'
 	],
-	#category : #'FromScratch-Translation'
+	#category : 'FromScratch-Translation',
+	#package : 'FromScratch',
+	#tag : 'Translation'
 }
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 ScratchTranslator class >> addBlockDefs: aCollection to: aSet [
 
 	aCollection do: [ :each | 
@@ -23,7 +25,7 @@ ScratchTranslator class >> addBlockDefs: aCollection to: aSet [
 			addAll: (each blockMorphBuilder blockSpecs collect: #label) ]
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 ScratchTranslator class >> addLocalizedTextsTo: aSet [
 
 	| list list3 |
@@ -37,12 +39,12 @@ ScratchTranslator class >> addLocalizedTextsTo: aSet [
 		aSet addAll: list3 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> argFont [
 	^ self fontAt: #Arg
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> availableLocaleFiles [
 
 	| fr |
@@ -51,18 +53,18 @@ ScratchTranslator class >> availableLocaleFiles [
 	^ fr filesMatching: '*.po'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> availableLocales [
 	^ ({'en'} , (self availableLocaleFiles collect: [ :f | f base ]))
 		sorted
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> buttonFont [
 	^ self fontAt: #Button
 ]
 
-{ #category : #'Unicode rendering' }
+{ #category : 'Unicode rendering' }
 ScratchTranslator class >> centerOffsetForButtonWithFont: aStrikeFont [
 	"Answer the vertical offset above the center of a button for the given font. If the translator has provided a render hint string, return an offset that will center the first character of that string. Otherwise, return an offset that will center a lowercase 'x'."
 	"[self centerOffsetForFont: (StrikeFont fontName: 'VerdanaBold' size: 10)] msecs"
@@ -82,17 +84,17 @@ ScratchTranslator class >> centerOffsetForButtonWithFont: aStrikeFont [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> current [
 	^ Current ifNil: [ Current := self defaultTranslator ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> current: aTranslator [
 	Current := aTranslator
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslator class >> defaultTranslator [
 
 	| obj |
@@ -104,31 +106,31 @@ ScratchTranslator class >> defaultTranslator [
 	^ obj
 ]
 
-{ #category : #'language translation' }
+{ #category : 'language translation' }
 ScratchTranslator class >> ellipsesSuffix [
 	"Answer an ellipses suffix (three periods). If the current language is RTL, then include the Unicode RTL mark after the colon."
 
 	^ '...'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslator class >> fontAt: aSymbol [
 	^ self current fontAt: aSymbol
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 ScratchTranslator class >> initialize [
 	"ScratchTranslator initialize"
 	RenderCenterOffsetCache := Dictionary new.
 	RenderVerticalTrimCache := Dictionary new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> labelFont [
 	^ self fontAt: #Label
 ]
 
-{ #category : #'import/export' }
+{ #category : 'import/export' }
 ScratchTranslator class >> parseCommandSpec: aCommandSpec [
 	"Answer an array of token strings containing my keywords and argument specs."
 	"self parseCommandSpec: '%a of %m'"
@@ -157,7 +159,7 @@ ScratchTranslator class >> parseCommandSpec: aCommandSpec [
 	^ result asArray collect: [:s | s trimBoth]
 ]
 
-{ #category : #'Unicode rendering' }
+{ #category : 'Unicode rendering' }
 ScratchTranslator class >> renderHintString [
 	"Answer a string to be used as an example button lable to adjust button size and label centering."
 
@@ -172,26 +174,31 @@ ScratchTranslator class >> renderHintString [
 	^ stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> setLocale: aString [
 
-	| fr tr |
+	| fr tr d |
 	(aString isNil or: [ aString isEmpty ]) ifTrue: [ ^ self ].
 	fr := ('locale/' , aString , '.po') asFileReference.
 	tr := nil.
 	fr isFile
-		ifTrue: [ 
+		ifTrue: [
 			tr := self new.
 			tr locale: aString.
-			tr readFrom: fr readStream.
-			tr setupFonts ]
-		ifFalse: [ 
+			tr readFrom: fr readStream ]
+		ifFalse: [
 			GraphicFontSettings setFontsToStyleNamed: #small.
 			tr := self defaultTranslator ].
+	fr := ('locale/' , aString , '.ston') asFileReference.
+	fr isFile ifTrue: [
+		d := STON fromString: fr contents.
+		d
+			at: OSEnvironment current platform family
+			ifPresent: [ :dict | tr setupFontsFromDictionary: dict ] ].
 	self current: tr
 ]
 
-{ #category : #'Unicode rendering' }
+{ #category : 'Unicode rendering' }
 ScratchTranslator class >> stringExtent: aString font: aStrikeFont [
 	"Answer the extent of the given string using my font under the current font rendering system."
 	"self stringExtent: 'Hello, Scratch!' font: (StrikeFont fontName: 'Verdana' size: 18)"
@@ -199,22 +206,22 @@ ScratchTranslator class >> stringExtent: aString font: aStrikeFont [
 	^ (aStrikeFont widthOfString: aString asString) @ aStrikeFont height
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator class >> translationFor: aString [
 	^ self current textAt: aString
 ]
 
-{ #category : #'Unicode copy/paste' }
+{ #category : 'Unicode copy/paste' }
 ScratchTranslator class >> unicodeClipboard [
 	^ Clipboard clipboardText asString
 ]
 
-{ #category : #'Unicode copy/paste' }
+{ #category : 'Unicode copy/paste' }
 ScratchTranslator class >> unicodeClipboardPut: unicodeOrString [
 	Clipboard clipboardText: unicodeOrString
 ]
 
-{ #category : #'Unicode rendering' }
+{ #category : 'Unicode rendering' }
 ScratchTranslator class >> verticalTrimForFont: aStrikeFont [
 	"Answer the number of pixels to trim from a button labeled with the given font. Some rendering systems (e.g. Pango on Mac OS), add excess space below the lowest extent of a font in some languages. This method computes the actual space needed by from the render hints string. It is the translator's responsibility to provide a render hints string that includes the tallest character and the the character with the maximum descent."
 	"[self verticalTrimForFont: (StrikeFont fontName: 'VerdanaBold' size: 10)] msecs"
@@ -232,7 +239,7 @@ ScratchTranslator class >> verticalTrimForFont: aStrikeFont [
 
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 ScratchTranslator class >> writePOT: aCollection file: aFileReference [
 
 	aFileReference isFile ifTrue: [ aFileReference delete ].
@@ -248,7 +255,7 @@ ScratchTranslator class >> writePOT: aCollection file: aFileReference [
 				nextPutAll: String crlf ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslator >> addMsgId: aString1 msgStr: aString2 [
 	| key value |
 	key := self unquoteString: aString1.
@@ -258,22 +265,22 @@ ScratchTranslator >> addMsgId: aString1 msgStr: aString2 [
 	self textAt: key put: value
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslator >> defaultFont [
 	^ StrikeFont familyName: 'Verdana' size: 10
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> fontAt: aString [
 	^ fonts at: aString ifAbsent: [ self defaultFont ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> fontAt: aString put: aFont [
 	fonts at: aString put: aFont
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslator >> fontFromString: aString [
 	| ret family point |
 	(aString includes: $:)
@@ -284,30 +291,30 @@ ScratchTranslator >> fontFromString: aString [
 	^ LogicalFont familyName: family pointSize: point
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> fonts [
 	^ fonts
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchTranslator >> initialize [
 	fonts := Dictionary new.
 	texts := Dictionary new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> locale [
 
 	^ locale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> locale: anObject [
 
 	locale := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> readFrom: aStream [
 	| line key value |
 	key := value := ''.
@@ -321,52 +328,49 @@ ScratchTranslator >> readFrom: aStream [
 					key := '' ] ]
 ]
 
-{ #category : #private }
-ScratchTranslator >> setupFonts [
-	| str |
-	str := self textAt: 'ArgFont'.
-	(self fontFromString: str)
-		ifNotNil: [ :font | self fontAt: 'Arg' put: font ].
-	str := self textAt: 'ButtonFont'.
-	(self fontFromString: str)
-		ifNotNil: [ :font | 
+{ #category : 'private' }
+ScratchTranslator >> setupFontsFromDictionary: aDictionary [
+
+	aDictionary at: 'ArgFont' ifPresent: [ :str |
+		(self fontFromString: str) ifNotNil: [ :font |
+			self fontAt: 'Arg' put: font ] ].
+	aDictionary at: 'ButtonFont' ifPresent: [ :str |
+		(self fontFromString: str) ifNotNil: [ :font |
 			self fontAt: 'Button' put: font.
-			StandardFonts buttonFont: font ].
-	str := self textAt: 'LabelFont'.
-	(self fontFromString: str)
-		ifNotNil: [ :font | 
+			StandardFonts buttonFont: font ] ].
+	aDictionary at: 'LabelFont' ifPresent: [ :str |
+		(self fontFromString: str) ifNotNil: [ :font |
 			self fontAt: 'Label' put: font.
 			StandardFonts
 				listFont: font;
 				menuFont: font;
-				defaultFont: font ].
-	str := self textAt: 'CodeFont'.
-	(self fontFromString: str)
-		ifNotNil: [ :font | StandardFonts codeFont: font ].
-	str := self textAt: 'TitleFont'.
-	(self fontFromString: str)
-		ifNotNil: [ :font | 
+				defaultFont: font ] ].
+	aDictionary at: 'CodeFont' ifPresent: [ :str |
+		(self fontFromString: str) ifNotNil: [ :font |
+			StandardFonts codeFont: font ] ].
+	aDictionary at: 'TitleFont' ifPresent: [ :str |
+		(self fontFromString: str) ifNotNil: [ :font |
 			StandardFonts
 				windowTitleFont: font;
-				balloonFont: font ]
+				balloonFont: font ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> textAt: aString [
 	^ texts at: aString ifAbsent: [ aString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> textAt: aString1 put: aString2 [
 	texts at: aString1 put: aString2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTranslator >> texts [
 	^ texts
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslator >> unquoteString: aString [
 	| tmp |
 	tmp := aString trimBoth.

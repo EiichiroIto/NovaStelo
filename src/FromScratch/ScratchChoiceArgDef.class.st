@@ -1,44 +1,46 @@
 Class {
-	#name : #ScratchChoiceArgDef,
-	#superclass : #AbstractBlockSpec,
+	#name : 'ScratchChoiceArgDef',
+	#superclass : 'AbstractBlockSpec',
 	#instVars : [
 		'arg',
 		'options'
 	],
-	#category : #'FromScratch-Project'
+	#category : 'FromScratch-Project',
+	#package : 'FromScratch',
+	#tag : 'Project'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchChoiceArgDef >> arg [
 
 	^ arg
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchChoiceArgDef >> arg: anObject [
 
 	arg := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchChoiceArgDef >> isChoiceArg [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchChoiceArgDef >> options [
 
 	^ options
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchChoiceArgDef >> options: anObject [
 
 	options := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchChoiceArgDef >> printOn: aStream [
 
 	aStream

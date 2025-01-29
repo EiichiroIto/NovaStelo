@@ -1,11 +1,11 @@
-Extension { #name : #ColorForm }
+Extension { #name : 'ColorForm' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 ColorForm >> privateColors [
 	^ colors
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 ColorForm >> privateColors: anObject [
 	colors := anObject.
 	cachedDepth := nil.

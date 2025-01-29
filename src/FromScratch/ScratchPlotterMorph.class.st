@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchPlotterMorph,
-	#superclass : #Morph,
+	#name : 'ScratchPlotterMorph',
+	#superclass : 'Morph',
 	#instVars : [
 		'pens',
 		'data',
@@ -14,26 +14,28 @@ Class {
 		'maxSize',
 		'acceptPlots'
 	],
-	#category : #'FromScratch-Plotter'
+	#category : 'FromScratch-Plotter',
+	#package : 'FromScratch',
+	#tag : 'Plotter'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> acceptPlots [
 	^ acceptPlots ifNil: [ true ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> acceptPlots: aBoolean [
 	acceptPlots := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> addPen: anInteger color: aColor [
 	self ensurePenExists: anInteger.
 	pens at: anInteger put: aColor
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchPlotterMorph >> addPlots: aCollection [
 	self acceptPlots
 		ifFalse: [ ^ self ].
@@ -41,12 +43,12 @@ ScratchPlotterMorph >> addPlots: aCollection [
 	self updateDisplay
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> axisFont [
 	^ TextStyle defaultFont
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchPlotterMorph >> clearPlots [
 	data := OrderedCollection new.
 	last := nil.
@@ -54,13 +56,13 @@ ScratchPlotterMorph >> clearPlots [
 	self updateDisplay
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchPlotterMorph >> click: evt [
 	whenMouseClicked ifNil: [ ^ self ].
 	whenMouseClicked cull: self cull: evt
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> colors [
 	^ {Color blue.
 	Color red.
@@ -68,12 +70,12 @@ ScratchPlotterMorph >> colors [
 	Color green}
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> data [
 	^ data
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchPlotterMorph >> drawAxesOn: aCanvas [
 	| str w |
 	aCanvas
@@ -104,7 +106,7 @@ ScratchPlotterMorph >> drawAxesOn: aCanvas [
 				color: ScratchTheme plotterFrameColor ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchPlotterMorph >> drawOn: aCanvas [
 	super drawOn: aCanvas.
 	self drawAxesOn: aCanvas.
@@ -112,7 +114,7 @@ ScratchPlotterMorph >> drawOn: aCanvas [
 	self drawPlotDataOn: aCanvas
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchPlotterMorph >> drawPlotDataOn: aCanvas [
 	| from x p2 y c drawMarker |
 	from := Array new: pens size.
@@ -138,7 +140,7 @@ ScratchPlotterMorph >> drawPlotDataOn: aCanvas [
 			x := x + 1 ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> ensurePenExists: anInteger [
 	anInteger > pens size
 		ifTrue: [ pens := pens grownBy: anInteger - pens size.
@@ -149,12 +151,12 @@ ScratchPlotterMorph >> ensurePenExists: anInteger [
 		ifNil: [ pens at: anInteger put: (self colors atWrap: anInteger) ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchPlotterMorph >> handlesMouseDown: evt [
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchPlotterMorph >> initialize [
 	super initialize.
 	self color: ScratchTheme plotterPaneColor.
@@ -164,18 +166,18 @@ ScratchPlotterMorph >> initialize [
 	updatePeriod := 1000
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> last [
 	^ last
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> layoutChanged [
 	super layoutChanged.
 	self updateCache
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> listOf: anInteger [
 	| stream value |
 	stream := WriteStream on: Array new.
@@ -186,22 +188,22 @@ ScratchPlotterMorph >> listOf: anInteger [
 	^ stream contents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> markerExtent [
 	^ 5 @ 5
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> max [
 	^ max ifNil: [ self maxData ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> max: aNumber [
 	max := aNumber
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> maxData [
 	| v |
 	v := nil.
@@ -215,27 +217,27 @@ ScratchPlotterMorph >> maxData [
 	^ v
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> maxSize [
 	^ maxSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> maxSize: anInteger [
 	maxSize := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> min [
 	^ min ifNil: [ self minData ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> min: aNumber [
 	min := aNumber
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> minData [
 	| v |
 	v := nil.
@@ -249,18 +251,18 @@ ScratchPlotterMorph >> minData [
 	^ v
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> modelBounds [
 	^ bounds
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchPlotterMorph >> mouseDown: evt [
 	evt hand newKeyboardFocus: nil.
 	evt hand waitForClicksOrDrag: self event: evt
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> newData [
 	last := Array new: pens size.
 	(maxSize notNil and: [ data size >= maxSize ])
@@ -269,27 +271,27 @@ ScratchPlotterMorph >> newData [
 	^ last
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> numChannels [
 	^ pens size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> numData [
 	^ data size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> pens [
 	^ pens
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> plot: aPlotData [
 	aPlotData applyTo: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> plot: anInteger data: aFloat [
 	self ensurePenExists: anInteger.
 	(last isNil or: [ (last at: anInteger) notNil ])
@@ -297,7 +299,7 @@ ScratchPlotterMorph >> plot: anInteger data: aFloat [
 	last at: anInteger put: aFloat
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> plot: anInteger list: aCollection [
 	self ensurePenExists: anInteger.
 	data size > aCollection size
@@ -313,13 +315,13 @@ ScratchPlotterMorph >> plot: anInteger list: aCollection [
 	self updateDisplay
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> plottingBounds [
 	^ (self left + 50) @ (self top + 5)
 		corner: (self right - 5) @ (self bottom - 30)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> plottingData [
 	| stream rest count w |
 	data isEmpty
@@ -342,7 +344,7 @@ ScratchPlotterMorph >> plottingData [
 	^ stream contents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> plottingDataAt: anInteger [
 	| ret min1 max1 list ratio h |
 	h := self plottingHeight.
@@ -365,27 +367,27 @@ ScratchPlotterMorph >> plottingDataAt: anInteger [
 					ret ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> plottingHeight [
 	^ self plottingBounds height truncated
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> plottingWidth [
 	^ self plottingBounds width truncated
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> privCache [
 	^ cache
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> privCache: aCollection [
 	cache := aCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> replacePlot: anInteger at: index put: value [
 	| old |
 	old := data at: index.
@@ -395,7 +397,7 @@ ScratchPlotterMorph >> replacePlot: anInteger at: index put: value [
 	data at: index put: old
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> reset [
 	pens := Array new.
 	data := OrderedCollection new.
@@ -405,12 +407,12 @@ ScratchPlotterMorph >> reset [
 	cache := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorph >> updateCache [
 	cache := self plottingData
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> updateDisplay [
 	(Time now asDuration - lastUpdateTime asDuration) totalSeconds
 		< (updatePeriod / 1000)
@@ -421,27 +423,27 @@ ScratchPlotterMorph >> updateDisplay [
 		changed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> updatePeriod [
 	^ updatePeriod
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> updatePeriod: anInteger [
 	updatePeriod := anInteger
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchPlotterMorph >> useMarker [
 	^ self numData * 6 < self plottingWidth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> whenMouseClicked [
 	^ whenMouseClicked
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchPlotterMorph >> whenMouseClicked: aBlock [
 	whenMouseClicked := aBlock
 ]

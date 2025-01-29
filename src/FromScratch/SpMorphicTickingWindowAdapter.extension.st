@@ -1,6 +1,6 @@
-Extension { #name : #SpMorphicTickingWindowAdapter }
+Extension { #name : 'SpMorphicTickingWindowAdapter' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 SpMorphicTickingWindowAdapter >> requestWindowClose [
 	^ true
 ]

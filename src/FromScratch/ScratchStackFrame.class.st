@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchStackFrame,
-	#superclass : #Object,
+	#name : 'ScratchStackFrame',
+	#superclass : 'Object',
 	#instVars : [
 		'parentFrame',
 		'expression',
@@ -11,42 +11,44 @@ Class {
 		'shouldUnlight',
 		'localVars'
 	],
-	#category : #'FromScratch-Process'
+	#category : 'FromScratch-Process',
+	#package : 'FromScratch',
+	#tag : 'Process'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> addArgument: anObject [
 	arguments add: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> arguments [
 	^ arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> arguments: anObject [
 	arguments := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> expression [
 	^ expression
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> expression: anObject [
 	expression := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchStackFrame >> hasLocalVar: aString [
 	^ localVars
 		ifNil: [ false ]
 		ifNotNil: [ localVars includesKey: aString ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchStackFrame >> initialize [
 
 	arguments := OrderedCollection new.
@@ -54,48 +56,48 @@ ScratchStackFrame >> initialize [
 	shouldUnlight := false
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchStackFrame >> localVarAt: aString [
 	^ localVars ifNil: [ nil ] ifNotNil: [ localVars at: aString ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchStackFrame >> localVarAt: aString put: anObject [
 	localVars ifNil: [ localVars := Dictionary new ].
 	localVars at: aString put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> localVars [
 	^ localVars
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> localVars: aDictionary [
 	localVars := aDictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> parentFrame [
 	^ parentFrame
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> parentFrame: anObject [
 	parentFrame := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> pc [
 	^ pc
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> pc: anObject [
 	pc := anObject
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchStackFrame >> recursiveLocalVarAt: aString [
 	(self hasLocalVar: aString)
 		ifTrue: [ ^ self localVarAt: aString ].
@@ -104,24 +106,24 @@ ScratchStackFrame >> recursiveLocalVarAt: aString [
 		ifNotNil: [ :frame | frame recursiveLocalVarAt: aString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> shouldUnlight [
 	^ shouldUnlight
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> shouldUnlight: anObject [
 	shouldUnlight := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> shouldYield [
 	"Answers true iff this is a dummy frame simply indicating that the process should yield control."
 
 	^ expression = #shouldYield
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> shouldYield: aBoolean [
 	"Makes this into a special stack frame that tells the evaluator to yield control to another process. When this flag is set, the rest of the stack frame is ignored."
 
@@ -130,22 +132,22 @@ ScratchStackFrame >> shouldYield: aBoolean [
 		ifFalse: [ self error: 'Should not call shouldYield: with false.' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> startTime [
 	^ startTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> startTime: anObject [
 	startTime := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> startValue [
 	^ startValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackFrame >> startValue: anObject [
 	startValue := anObject
 ]

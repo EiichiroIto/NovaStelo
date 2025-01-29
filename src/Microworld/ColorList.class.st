@@ -1,59 +1,61 @@
 Class {
-	#name : #ColorList,
-	#superclass : #Object,
+	#name : 'ColorList',
+	#superclass : 'Object',
 	#instVars : [
 		'colors'
 	],
 	#classVars : [
 		'DefaultList'
 	],
-	#category : #'Microworld-Core'
+	#category : 'Microworld-Core',
+	#package : 'Microworld',
+	#tag : 'Core'
 }
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> black [
 	^ 0
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> blue [
 	^ 105
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> brown [
 	^ 35
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList class >> clear [
 	"SColorList clear."
 
 	DefaultList := nil.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList class >> colorAt: anInteger [
 
 	^ self default colorAt: anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList class >> colorNames [
 	^ #(black gray white red orange brown yellow green lime turquoise cyan sky blue purple magenta pink)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList class >> colorOf: aSymbol [
 	^ self perform: aSymbol
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ColorList class >> colorOf: baseColor lightness: anInteger [
 	^ Color h: baseColor hue s: baseColor saturation l: (self lightness at: anInteger + 6)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ColorList class >> colors [
 	| colors c |
 	colors := Array new: 140.
@@ -118,12 +120,12 @@ ColorList class >> colors [
 	^ colors
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> cyan [
 	^ 85
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList class >> default [
 	"SColorList default."
 
@@ -131,52 +133,52 @@ ColorList class >> default [
 	^ DefaultList
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> gray [
 	^ 5
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> green [
 	^ 55
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ColorList class >> lightness [
 	^ #(0.25 0.3 0.35 0.4 0.45 0.5 0.6 0.7 0.8 0.9)
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> lime [
 	^ 65
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> magenta [
 	^ 125
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> orange [
 	^ 25
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> pink [
 	^ 135
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> purple [
 	^ 115
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> red [
 	^ 15
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList class >> scaleGrayscale: v from: aNumber1 to: aNumber2 [
 	aNumber1 = aNumber2
 		ifTrue: [ ^ 0 ].
@@ -192,7 +194,7 @@ ColorList class >> scaleGrayscale: v from: aNumber1 to: aNumber2 [
 		truncated
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList class >> scaleValue: v color: anInteger from: aNumber1 to: aNumber2 [
 	anInteger < 5
 		ifTrue: [ ^ self scaleGrayscale: v from: aNumber1 to: aNumber2 ].
@@ -211,27 +213,27 @@ ColorList class >> scaleValue: v color: anInteger from: aNumber1 to: aNumber2 [
 		at: (v - aNumber1) / (aNumber2 - aNumber1)) truncated
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> sky [
 	^ 95
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> turquoise [
 	^ 75
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> white [
 	^ 9
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 ColorList class >> yellow [
 	^ 45
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList >> colorAt: anInteger [
 
 	| index |
@@ -239,7 +241,7 @@ ColorList >> colorAt: anInteger [
 	^ colors at: index + 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ColorList >> generateSource [
 	| w |
 	w := WriteStream on: ''.
@@ -259,12 +261,12 @@ ColorList >> generateSource [
 	^ w contents
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ColorList >> initialize [
 	colors := self class colors.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList >> nearestColor: aColor [
 
 	| list min minIndex |
@@ -278,17 +280,17 @@ ColorList >> nearestColor: aColor [
 	^ minIndex - 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList >> normalize: aNumber [
 	^ aNumber floor \\ colors size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList >> random [
 	^ colors size atRandom - 2 + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ColorList >> size [
 	^ colors size
 ]

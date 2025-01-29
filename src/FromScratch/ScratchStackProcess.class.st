@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchStackProcess,
-	#superclass : #Object,
+	#name : 'ScratchStackProcess',
+	#superclass : 'Object',
 	#instVars : [
 		'topBlock',
 		'errorFlag',
@@ -8,15 +8,17 @@ Class {
 		'stackFrame',
 		'readyToTerminate'
 	],
-	#category : #'FromScratch-Process'
+	#category : 'FromScratch-Process',
+	#package : 'FromScratch',
+	#tag : 'Process'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackProcess class >> blockHighlightMSecs [
 	^ 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> applyPrimitive [
 	"Apply the current expression (which must be a CommandBlock) to the current arguments (which must all have been evaluated)."
 
@@ -27,7 +29,7 @@ ScratchStackProcess >> applyPrimitive [
 	self popStackFrame
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> applyTimedCommand [
 	"Applies the current command to the already evaluated list of arguments over a particular time interval."
 
@@ -72,7 +74,7 @@ ScratchStackProcess >> applyTimedCommand [
 	self popStackFrame
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> callSubroutine [
 	| block args eventName procs sub |
 	block := stackFrame expression.
@@ -103,7 +105,7 @@ ScratchStackProcess >> callSubroutine [
 	self pushStackFrame: (ScratchStackFrame new shouldYield: true)
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doAssert [
 	"Evaluate the current expression (which must be an if)."
 
@@ -126,7 +128,7 @@ ScratchStackProcess >> doAssert [
 	self error: 'assertion failed'
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doForever [
 	"Executes one iteration of a forever loop."
 
@@ -143,7 +145,7 @@ ScratchStackProcess >> doForever [
 	self pushStackFrame: (ScratchStackFrame new expression: blocks)
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doIf [
 	"Evaluate the current expression (which must be an if)."
 
@@ -168,7 +170,7 @@ ScratchStackProcess >> doIf [
 		pushStackFrame: (ScratchStackFrame new expression: block firstBlockList)
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doIfElse [
 	"Evaluate the current expression (which must be an if-then-else)."
 
@@ -190,7 +192,7 @@ ScratchStackProcess >> doIfElse [
 				pushStackFrame: (ScratchStackFrame new expression: block falseBlockList) ]
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doIterate [
 	"Handles one iteration of a repeat block."
 
@@ -240,7 +242,7 @@ ScratchStackProcess >> doIterate [
 		pushStackFrame: (ScratchStackFrame new expression: block firstBlockList)
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doRepeat [
 	"Handles one iteration of a repeat block."
 
@@ -290,7 +292,7 @@ ScratchStackProcess >> doRepeat [
 		pushStackFrame: (ScratchStackFrame new expression: block firstBlockList)
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doReturn [
 	"Evaluates its argument, and returns the value to the frame from which the current method was called."
 
@@ -313,14 +315,14 @@ ScratchStackProcess >> doReturn [
 			self popStackFrame ]
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doUntil [
 	"Evaluates the current until-loop expression."
 
 	self doUntil: true
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doUntil: terminatingBoolean [
 	"Evaluates the current while or until loop expression until the loop condition evaluates to the boolean terminating value."
 
@@ -355,26 +357,26 @@ ScratchStackProcess >> doUntil: terminatingBoolean [
 		pushStackFrame: (ScratchStackFrame new expression: block firstBlockList)
 ]
 
-{ #category : #'special ops' }
+{ #category : 'special ops' }
 ScratchStackProcess >> doWhile [
 	"Evaluates the current while-loop expression."
 
 	self doUntil: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackProcess >> errorFlag [
 	^ errorFlag
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackProcess >> errorFlag: anObject [
 	errorFlag := anObject.
 	stackFrame expression showError.
 	stackFrame expression topBlock showErrorFeedback
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> evaluateCommandFor: anApplication [
 	"Evaluates the current block. If the argument is non-nil, redraw the stage."
 
@@ -393,7 +395,7 @@ ScratchStackProcess >> evaluateCommandFor: anApplication [
 	self applyPrimitive
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> evaluateFor: anApplication [
 	"Evaluates the current expression in the current environment for the given StageMorph."
 
@@ -413,7 +415,7 @@ ScratchStackProcess >> evaluateFor: anApplication [
 	self error: 'Unknown expression type:  ' , expression printString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> evaluateNextArgument [
 	"Evaluates the next argument of the command in expression.  Requires that expression be a block that takes more args than are already evaluated in the current stack frame."
 
@@ -424,7 +426,7 @@ ScratchStackProcess >> evaluateNextArgument [
 		pushStackFrame: (ScratchStackFrame new expression: argumentExpression)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> evaluateSelfEvaluating [
 	"The easiest case. Evaluate a number, color, or any self-evaluating expression."
 
@@ -434,7 +436,7 @@ ScratchStackProcess >> evaluateSelfEvaluating [
 	self popStackFrame
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> evaluateSequence [
 	"Requires that the current expression be a collection of blocks.  Evaluates the block in the current expression (which is a list of blocks) at the given pc."
 
@@ -448,14 +450,14 @@ ScratchStackProcess >> evaluateSequence [
 				pushStackFrame: (ScratchStackFrame new expression: (blocks at: pc)) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> evaluateSpecialForm [
 	"Evaluates the current special form expression.  Requires that no arguments have been evaluated, and that the current expression be a special form."
 
 	self perform: stackFrame expression selector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackProcess >> expression: anObject [
 	"Sets the expression to evaluate. This can be a single block or a collection of blocks. It should only be called before running the process."
 
@@ -463,7 +465,7 @@ ScratchStackProcess >> expression: anObject [
 	stackFrame := ScratchStackFrame new expression: anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchStackProcess >> initialize [
 
 	readyToYield := false.
@@ -471,19 +473,19 @@ ScratchStackProcess >> initialize [
 	readyToTerminate := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchStackProcess >> isRunning [
 	"Answer true if I am still running, have not encountered an error, and don't refer to any deleted objects."
 
 	^ stackFrame notNil and: [ errorFlag not ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchStackProcess >> localVarAt: aString [
 	^ stackFrame recursiveLocalVarAt: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> popStackFrame [
 	"Pops the current stack frame off the top of the stack, so that the next one becomes the current frame."
 
@@ -500,14 +502,14 @@ ScratchStackProcess >> popStackFrame [
 					self pushStackFrame: unlightFrame ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> popStackFrameNoUnhightlight [
 	"Pops the current stack frame off the top of the stack, so that the next one becomes the current frame. Do not add a stack frame to unhighlight this block. Use this method when a block will re-evaluated, such 'wait until'."
 
 	stackFrame := stackFrame parentFrame
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> pushStackFrame: aScratchStackFrame [
 	"Pushes the given new stack frame onto the top of the stack, so that it becomes the current stack frame."
 
@@ -515,7 +517,7 @@ ScratchStackProcess >> pushStackFrame: aScratchStackFrame [
 	stackFrame := aScratchStackFrame
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> returnValueToParentFrame: anObject [
 	"Append the given object to the argument list of my parent frame."
 
@@ -527,7 +529,7 @@ ScratchStackProcess >> returnValueToParentFrame: anObject [
 	f ifNotNil: [ f addArgument: anObject ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchStackProcess >> runStepFor: anApplication [
 	"Evaluates the current expression, then the next, etc., until the next yield."
 
@@ -545,7 +547,7 @@ ScratchStackProcess >> runStepFor: anApplication [
 					self popStackFrame ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> stackAsArray [
 	"Returns an array describing the contents of the stack.  Useful for debugging."
 
@@ -558,7 +560,7 @@ ScratchStackProcess >> stackAsArray [
 	^ collection asArray
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchStackProcess >> stop [
 	"Permanently terminates this process."
 
@@ -567,23 +569,23 @@ ScratchStackProcess >> stop [
 	topBlock ifNotNil: [ topBlock scratchProc: nil ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchStackProcess >> stopAll [
 	self doReturn.
 	topBlock applicationDo: [ :app | app stopAllProcesses ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackProcess >> topBlock [
 	^ topBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchStackProcess >> topBlock: anObject [
 	topBlock := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStackProcess >> yield [
 	"Sets a flag indicating that we're ready to yield to another process."
 

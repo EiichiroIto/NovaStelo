@@ -2,17 +2,19 @@
 A SCodeSymbolWithJumpTest is a test class for testing the behavior of SCodeSymbolWithJump
 "
 Class {
-	#name : #ScratchBytecodeSymbolWithJumpTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchBytecodeSymbolWithJumpTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeSymbolWithJumpTest >> newSymbol: aSymbol label: anInteger [
 	^ ScratchBytecodeSymbolWithJump selector: aSymbol labelId: anInteger
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolWithJumpTest >> testAddress [
 	| c |
 	c := self newSymbol: #abc label: 1.
@@ -21,21 +23,21 @@ ScratchBytecodeSymbolWithJumpTest >> testAddress [
 	self assert: c address equals: 123.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolWithJumpTest >> testCodeSize [
 	| c |
 	c := self newSymbol: #abc label: 1.
 	self assert: c codeSize equals: 4.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolWithJumpTest >> testIsJump [
 	| c |
 	c := self newSymbol: #abc label: 1.
 	self assert: c isJump.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolWithJumpTest >> testLabelId [
 	| c |
 	c := self newSymbol: #abc label: 1.
@@ -44,7 +46,7 @@ ScratchBytecodeSymbolWithJumpTest >> testLabelId [
 	self assert: c labelId equals: 123.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolWithJumpTest >> testPrintOn [
 	| c |
 	c := self newSymbol: #abc label: 1.
@@ -53,7 +55,7 @@ ScratchBytecodeSymbolWithJumpTest >> testPrintOn [
 	self assert: c asString equals: '<symbol=abc,id=1,jump=2>'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBytecodeSymbolWithJumpTest >> testPutOn [
 	| c stream |
 	stream := WriteStream on: Array new.

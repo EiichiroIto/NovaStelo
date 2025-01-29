@@ -1,15 +1,17 @@
 Class {
-	#name : #VarDef,
-	#superclass : #Object,
+	#name : 'VarDef',
+	#superclass : 'Object',
 	#instVars : [
 		'varNames',
 		'reservedVarNames',
 		'varClasses'
 	],
-	#category : #'Microworld-Core'
+	#category : 'Microworld-Core',
+	#package : 'Microworld',
+	#tag : 'Core'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> add: aString className: aSymbol [
 	| id |
 	self setupVarNames.
@@ -21,17 +23,17 @@ VarDef >> add: aString className: aSymbol [
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> addComputedVariable: aString varNo: anInteger [
 	^ self addReserved: aString varNo: anInteger className: nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> addList: aString [
 	^ self add: aString className: #Array
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> addReserved: aString varNo: anInteger className: aSymbol [
 	varClasses at: aString put: aSymbol.
 	reservedVarNames size < anInteger
@@ -42,17 +44,17 @@ VarDef >> addReserved: aString varNo: anInteger className: aSymbol [
 	^ anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> addReservedVariable: aString varNo: anInteger [
 	^ self addReserved: aString varNo: anInteger className: #Float32Array
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> addVariable: aString [
 	^ self add: aString className: #Float32Array
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> classFor: aString [
 	| className |
 	className := self classNameFor: aString.
@@ -60,12 +62,12 @@ VarDef >> classFor: aString [
 	^ LazyArray className: className
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> classNameFor: aString [
 	^ varClasses at: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> delete: aString [
 	(self includes: aString)
 		ifFalse: [ self error: 'cannot delete not existing var' ].
@@ -75,29 +77,29 @@ VarDef >> delete: aString [
 	varClasses removeKey: aString
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 VarDef >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> fixVars [
 	varNames := varNames asOrderedCollection removeDuplicates.
 	self regularize
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 VarDef >> includes: aString [
 	^ varNames includes: aString
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 VarDef >> initFieldsFrom: anObjStream version: classVersion [
 	self initFieldsNamed: #(varNames varClasses) from: anObjStream.
 	self regularize
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 VarDef >> initialize [
 	super initialize.
 	varNames := nil.
@@ -106,62 +108,62 @@ VarDef >> initialize [
 	self setupReservedVarNames
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 VarDef >> isListVarNo: vno [
 	| v |
 	v := varNames at: vno.
 	^ (varClasses at: v ifAbsent: [ ^ false ]) = #Array
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 VarDef >> isReserved: aString [
 	^ reservedVarNames includes: aString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 VarDef >> isStringVarNo: vno [
 	| v |
 	v := varNames at: vno.
 	^ (varClasses at: v ifAbsent: [ ^ false ]) = #StringArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> listNames [
 	^ varClasses keys
 		select: [ :each | (varClasses at: each) = #Array ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> privReservedVarNames [
 	^ reservedVarNames
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> privReservedVarNames: aCollection [
 	reservedVarNames := aCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> privVarClasses [
 	^ varClasses
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> privVarNames [
 	^ varNames
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> privVarNames: anObject [
 	varNames := anObject.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> realVarNames [
 	^ self varNames select: [ :each | (self classNameFor: each) notNil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> regularize [
 
 	varNames ifNotNil: [
@@ -174,17 +176,17 @@ VarDef >> regularize [
 				varClasses at: key put: #Float32Array ] ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> reservedNo [
 	^ reservedVarNames size
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> setupReservedVarNames [
 	"do nothing"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> setupVarNames [
 	varNames ifNotNil: [ ^ self ].
 	reservedVarNames
@@ -192,23 +194,23 @@ VarDef >> setupVarNames [
 	varNames := reservedVarNames copy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> size [
 	^ varNames size
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 VarDef >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(varNames varClasses) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> userDefinedVarNames [
 	^ self varNames
 		reject: [ :each | each isNil or: [ reservedVarNames includes: each ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> userDefinedVarNoAndNames [
 	^ self userDefinedVarNames
 		collect: [ :each | 
@@ -216,12 +218,12 @@ VarDef >> userDefinedVarNoAndNames [
 			each} ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VarDef >> varNames [
 	^ varNames ifNil: [ #() ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VarDef >> varNoFor: aString [
 	aString isEmpty ifTrue: [ ^ nil ].
 	(self includes: aString)

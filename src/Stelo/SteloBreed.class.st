@@ -1,14 +1,16 @@
 Class {
-	#name : #SteloBreed,
-	#superclass : #Object,
+	#name : 'SteloBreed',
+	#superclass : 'Object',
 	#instVars : [
 		'variables',
 		'varDef'
 	],
-	#category : #'Stelo-Model'
+	#category : 'Stelo-Model',
+	#package : 'Stelo',
+	#tag : 'Model'
 }
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> addList: aString [
 
 	| id |
@@ -18,7 +20,7 @@ SteloBreed >> addList: aString [
 	^ id
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> addVariable: aString [
 	| id |
 	id := varDef addVariable: aString.
@@ -26,27 +28,27 @@ SteloBreed >> addVariable: aString [
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> aliveAt: anInteger [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> breedName [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> breedNo [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> breedNo: anInteger [
 	self subclassResponsibility
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> clear [
 
 	"this method clears all variable values with keeping its definition"
@@ -55,7 +57,7 @@ SteloBreed >> clear [
 	variables clear
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> clearAt: id [
 
 	| varNo |
@@ -67,49 +69,49 @@ SteloBreed >> clearAt: id [
 		self var: varNo list: id set: #(  ) ]
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> colorAt: anInteger [
 	^ variables var: varDef class colorVarNo at: anInteger
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> colorAt: index put: anInteger [
 	self var: varDef class colorVarNo at: index put: anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> colors [
 	^ variables realArrayAt: varDef class colorVarNo
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> copyVar: var to: var2 [
 	variables copyVar: var to: var2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> countAlive [
 	^ self size
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> deleteVariable: aString [
 	varDef delete: aString.
 	variables updateVarDef: varDef.
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloBreed >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> fixVars [
 	varDef fixVars.
 	variables ifNotNil: [ variables fixVars: varDef ].
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> flag: anInteger at: id [
 	| vars v b |
 	vars := variables varAt: varDef class flagVarNo.
@@ -118,7 +120,7 @@ SteloBreed >> flag: anInteger at: id [
 	^ (v bitAnd: b) > 0
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> flag: anInteger at: id put: aBoolean [
 	| vars v b |
 	vars := variables varAt: varDef class flagVarNo.
@@ -130,22 +132,22 @@ SteloBreed >> flag: anInteger at: id put: aBoolean [
 	vars at: id put: v
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloBreed >> initFieldsFrom: anObjStream version: classVersion [
 	self initFieldsNamed: #(varDef variables) from: anObjStream.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SteloBreed >> initialize [
 	self reset.
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 SteloBreed >> livingOnesDo: aBlock [
 	self subclassResponsibility.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloBreed >> newVarDef [
 
 	^ VarDef new
@@ -153,12 +155,12 @@ SteloBreed >> newVarDef [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> realVarNames [
 	^ varDef realVarNames
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> reset [
 
 	"this method clears all variable with its definitions"
@@ -167,7 +169,7 @@ SteloBreed >> reset [
 	variables := Variables new updateVarDef: varDef
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloBreed >> scaleVarNo: vid color: anInteger from: aNumber1 to: aNumber2 index: id [
 	| v c |
 	v := variables var: vid at: id.
@@ -179,132 +181,132 @@ SteloBreed >> scaleVarNo: vid color: anInteger from: aNumber1 to: aNumber2 index
 	self colorAt: id put: c
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> size [
 	self subclassResponsibility.
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloBreed >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(varDef variables) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> userDefinedListNames [
 	^ varDef listNames
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> userDefinedVarNames [
 	^ (varDef userDefinedVarNames \ self userDefinedListNames) sorted
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> userDefinedVarNoAndNames [
 	^ varDef userDefinedVarNoAndNames
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger at: id [
 	^ variables var: anInteger at: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger at: id put: aNumber [
 	(variables varAt: anInteger) at: id put: aNumber.
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger list: id [
 	^ variables var: anInteger list: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger list: id add: anObject [
 	variables var: anInteger list: id add: anObject
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger list: id at: anInteger2 [
 	^ variables var: anInteger list: id at: anInteger2
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger list: id at: anInteger2 put: aNumber [
 	variables var: anInteger list: id at: anInteger2 put: aNumber
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger list: id contains: anInteger2 [
 	^ variables var: anInteger list: id contains: anInteger2
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger list: id remove: anObject [
 	variables var: anInteger list: id remove: anObject
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger list: id set: aCollection [
 	variables var: anInteger list: id set: aCollection
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger listSizeOf: id [
 	^ variables var: anInteger listSizeOf: id
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> var: anInteger putAll: anObject [
 	variables setVar: anInteger toAll: anObject.
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> varArrayNamed: aString [
 	| vno |
 	vno := self varNoFor: aString.
 	^ variables realArrayAt: vno
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 SteloBreed >> varArrayNamed: aString put: aCollection [
 	| vno |
 	vno := self varNoFor: aString.
 	^ variables setVar: vno toArray: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> varDef [
 	^ varDef
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> varDef: anObject [
 
 	varDef := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> varNames [
 	^ varDef varNames
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> varNoFor: aString [
 	^ varDef varNoFor: aString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloBreed >> variableNameInUse: aString [
 	^ varDef includes: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> variables [
 	^ variables
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloBreed >> variables: anObject [
 
 	variables := anObject

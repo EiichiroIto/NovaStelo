@@ -1,6 +1,6 @@
-Extension { #name : #FreeTypeGlyphRenderer }
+Extension { #name : 'FreeTypeGlyphRenderer' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 FreeTypeGlyphRenderer >> renderGlyph: aCharacter depth: depth subpixelPosition: sub font: aFreeTypeFont [
 	"Glyphs are either 1 or 8 bit deep. For 32 bpp we use 8 bits, otherwise 1"
 	| em form glyph charCode slant extraWidth extraHeight boldExtra offsetX offsetY s synthBoldStrength face |

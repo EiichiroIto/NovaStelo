@@ -3,8 +3,8 @@ I am a command block that contains a nested sequence of command blocks, such as 
 
 "
 Class {
-	#name : #CBlockMorph,
-	#superclass : #CommandBlockMorph,
+	#name : 'CBlockMorph',
+	#superclass : 'CommandBlockMorph',
 	#instVars : [
 		'nestedBlock',
 		'nextBlock',
@@ -13,10 +13,12 @@ Class {
 		'loopMorph',
 		'stretchHeight'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> addCommandIcons [
 
 	"Add additional icons to certain blocks. Do nothing if this isn't one of those blocks."
@@ -29,7 +31,7 @@ CBlockMorph >> addCommandIcons [
 		self addMorphBack: loopMorph ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> asBlockTuple [
 	"Answer a tuple (Array) describing this block and its arguments."
 
@@ -53,7 +55,7 @@ CBlockMorph >> asBlockTuple [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> attachBlock: aBlockMorph [
 	"Attach the given block to me. Assume the block has been positioned correctly."
 
@@ -64,7 +66,7 @@ CBlockMorph >> attachBlock: aBlockMorph [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> attachBlockNested: aBlockMorph [
 	"Attach the given block to me. Assume the block has been positioned correctly."
 
@@ -78,7 +80,7 @@ CBlockMorph >> attachBlockNested: aBlockMorph [
 		ifFalse: [ nestedBlock := aBlockMorph ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> blockAttachPoints: aSet [
 	"Answer a collection of possible attachment points for me. Each entry is an Association mapping a point to the morph to which a dropping command block could be attached."
 
@@ -97,7 +99,7 @@ CBlockMorph >> blockAttachPoints: aSet [
 	aSet addAll: result
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 CBlockMorph >> containsPoint: aPoint [
 
 	cachedForm ifNil: [self updateCachedForm].
@@ -106,7 +108,7 @@ CBlockMorph >> containsPoint: aPoint [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 CBlockMorph >> drawBottomBarOn: aCanvas [ 
 
 	| left barTop barBottom |
@@ -140,7 +142,7 @@ CBlockMorph >> drawBottomBarOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 CBlockMorph >> drawInnerTopY: y on: aCanvas [
 
 	| left right gapStart gapEnd |
@@ -180,7 +182,7 @@ CBlockMorph >> drawInnerTopY: y on: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 CBlockMorph >> drawOn: aCanvas [
 
 	| c |
@@ -198,7 +200,7 @@ CBlockMorph >> drawOn: aCanvas [
 	self drawFinalOn: aCanvas fromCanvas: c
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 CBlockMorph >> drawTopBarOn: aCanvas [ 
 
 	| left right y gapStart gapEnd |
@@ -247,7 +249,7 @@ CBlockMorph >> drawTopBarOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 CBlockMorph >> drawVerticalBarOn: aCanvas [ 
 
 	| left top barRight |
@@ -268,12 +270,12 @@ CBlockMorph >> drawVerticalBarOn: aCanvas [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 CBlockMorph >> emitCode: aGenerator indent: indent [
 	aGenerator emitCBlock: self indent: indent.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> firstBlockList [
 	"Answer an array containing the block sequence for my first (and only) nested block. (An if-then-else block would have a second block list.)"
 
@@ -284,7 +286,7 @@ CBlockMorph >> firstBlockList [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> firstBlockList: aBlockMorph [
 	"Add the given block as my first nested block sequence. Delete the old nested blocks, if any."
 
@@ -294,7 +296,7 @@ CBlockMorph >> firstBlockList: aBlockMorph [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 CBlockMorph >> fixBlockLayout [
 	"Update the positions of my submorphs."
 
@@ -335,7 +337,7 @@ CBlockMorph >> fixBlockLayout [
 		ifNotNil: [ nextBlock position: self left @ (self bottom - 4) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CBlockMorph >> initialize [
 
 	super initialize.
@@ -344,12 +346,12 @@ CBlockMorph >> initialize [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CBlockMorph >> isCBlock [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CBlockMorph >> localVars [
 	| list |
 	list := self submorphs
@@ -357,26 +359,26 @@ CBlockMorph >> localVars [
 	^ list collect: [ :each | each varName ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CBlockMorph >> nestedBlock [
 
 	^ nestedBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CBlockMorph >> nestedBlock: aMorph [
 
 	nestedBlock := aMorph
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CBlockMorph >> nestedBlockAt: aPoint [
 
 	^ nestedBlock
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> nextBlock [
 	"Answer the block myself in the block sequence or nil if I am the last block in the sequence. Each block is a submorph of the previous block."
 
@@ -384,7 +386,7 @@ CBlockMorph >> nextBlock [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> nextBlock: aBlockMorph [
 	"Add the given block as the block following me. Delete old nextBlock, if any."
 
@@ -394,7 +396,7 @@ CBlockMorph >> nextBlock: aBlockMorph [
 
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 CBlockMorph >> nextOrInnerBlocks [
 
 	| set |
@@ -404,7 +406,7 @@ CBlockMorph >> nextOrInnerBlocks [
 	^ set asArray
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorph >> nonControlFlowSubmorphs [
 	"Answer a collection of submorphs minus any blocks that are part of the control flow. For example, command blocks omit their submorph that is the next block in the block sequence, C-blocks omit both their next block and the first block of their nested block list, etc."
 
@@ -412,7 +414,7 @@ CBlockMorph >> nonControlFlowSubmorphs [
 
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 CBlockMorph >> stretchHeight: aNumber [
 
 	(stretchHeight = aNumber) ifTrue: [^ self].
@@ -423,7 +425,7 @@ CBlockMorph >> stretchHeight: aNumber [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CBlockMorph >> topBarHeight [
 	"Answer the height of the top bar."
 

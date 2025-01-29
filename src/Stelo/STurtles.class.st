@@ -1,47 +1,49 @@
 Class {
-	#name : #STurtles,
-	#superclass : #SteloBreed,
+	#name : 'STurtles',
+	#superclass : 'SteloBreed',
 	#instVars : [
 		'defaultColor',
 		'breedNo',
 		'defaultPosition'
 	],
-	#category : #'Stelo-Model'
+	#category : 'Stelo-Model',
+	#package : 'Stelo',
+	#tag : 'Model'
 }
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> aliveAt: index [
 	(index between: 1 and: self size)
 		ifFalse: [ ^ false ].
 	^ self flag: varDef class aliveFlagNo at: index
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> aliveAt: index put: aBoolean [
 	self flag: varDef class aliveFlagNo at: index put: aBoolean.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> breedName [
 	^ 'Turtle', breedNo asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> breedNo [
 	^ breedNo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> breedNo: anInteger [
 	breedNo := anInteger.
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 STurtles >> copyTurtleFrom: anInteger1 to: anInteger2 [
 	variables copyElementFrom: anInteger1 to: anInteger2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> countAlive [
 	| ret |
 	ret := 0.
@@ -49,7 +51,7 @@ STurtles >> countAlive [
 	^ ret
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 STurtles >> create: anInteger [
 	| rest tno list |
 	rest := anInteger.
@@ -64,56 +66,56 @@ STurtles >> create: anInteger [
 	^ list
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> defaultColor [
 	^ defaultColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> defaultColor: anObject [
 
 	defaultColor := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> defaultPosition [
 	^ defaultPosition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> defaultPosition: aPoint [
 	defaultPosition := aPoint.
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> deltaAt: anInteger [
 	| h |
 	h := self headingAt: anInteger.
 	^ Point r: 1.0 degrees: h
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 STurtles >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> headingAt: anInteger [
 	^ self var: varDef class headingVarNo at: anInteger
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> headingAt: anInteger put: aNumber [
 	self var: varDef class headingVarNo at: anInteger put: aNumber.
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 STurtles >> initFieldsFrom: anObjStream version: classVersion [
 	super initFieldsFrom: anObjStream version: classVersion.
 	self initFieldsNamed: #(defaultColor #breedNo) from: anObjStream.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 STurtles >> initialize [
 	super initialize.
 	defaultColor := ColorList default random.
@@ -121,30 +123,30 @@ STurtles >> initialize [
 	self clear.
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 STurtles >> livingOnesDo: aBlock [
 	1 to: self size do: [ :each | 
 		(self flag: varDef class aliveFlagNo at: each)
 			ifTrue: [ aBlock cull: each cull: self ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 STurtles >> newVarDef [
 
 	^ STurtlesVarDef new
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> penDownAt: anInteger [
 	^ self flag: varDef class penDownFlagNo at: anInteger
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> penDownAt: anInteger put: aBoolean [
 	self flag: varDef class penDownFlagNo at: anInteger put: aBoolean.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 STurtles >> printOn: aStream [
 	aStream
 		nextPutAll: 'Turtles(';
@@ -152,7 +154,7 @@ STurtles >> printOn: aStream [
 		nextPut: $).
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 STurtles >> setupAt: index [
 	self clearAt: index.
 	self colorAt: index put: self defaultColor.
@@ -163,18 +165,18 @@ STurtles >> setupAt: index [
 	self penDownAt: index put: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STurtles >> size [
 	^ variables max
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 STurtles >> storeFieldsOn: anObjStream [
 	super storeFieldsOn: anObjStream.
 	self storeFieldsNamed: #(defaultColor #breedNo) on: anObjStream.
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> var: anInteger at: id put: aNumber [
 	| data |
 	data := aNumber.
@@ -185,22 +187,22 @@ STurtles >> var: anInteger at: id put: aNumber [
 	super var: anInteger at: id put: data
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> xAt: anInteger [
 	^ self var: varDef class xVarNo at: anInteger
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> xAt: anInteger put: aNumber [
 	self var: varDef class xVarNo at: anInteger put: aNumber.
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> yAt: anInteger [
 	^ self var: varDef class yVarNo at: anInteger
 ]
 
-{ #category : #'accessing variable' }
+{ #category : 'accessing variable' }
 STurtles >> yAt: anInteger put: aNumber [
 	self var: varDef class yVarNo at: anInteger put: aNumber.
 ]

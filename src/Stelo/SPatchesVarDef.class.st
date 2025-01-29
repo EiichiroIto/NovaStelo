@@ -1,30 +1,32 @@
 Class {
-	#name : #SPatchesVarDef,
-	#superclass : #VarDef,
-	#category : #'Stelo-Model'
+	#name : 'SPatchesVarDef',
+	#superclass : 'VarDef',
+	#category : 'Stelo-Model',
+	#package : 'Stelo',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatchesVarDef class >> colorVarNo [
 	^ 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatchesVarDef class >> screenVarNo [
 	^ 2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatchesVarDef class >> xVarNo [
 	^ 3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SPatchesVarDef class >> yVarNo [
 	^ 4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SPatchesVarDef >> setupReservedVarNames [
 	self
 		addReserved: 'color'

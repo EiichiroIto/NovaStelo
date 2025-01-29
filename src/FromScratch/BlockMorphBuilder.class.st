@@ -1,6 +1,6 @@
 Class {
-	#name : #BlockMorphBuilder,
-	#superclass : #Object,
+	#name : 'BlockMorphBuilder',
+	#superclass : 'Object',
 	#instVars : [
 		'script',
 		'categoryColors',
@@ -9,16 +9,18 @@ Class {
 		'blockSpecDictionary',
 		'compatibilityDictionary'
 	],
-	#category : #'FromScratch-Project'
+	#category : 'FromScratch-Project',
+	#package : 'FromScratch',
+	#tag : 'Project'
 }
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 BlockMorphBuilder class >> compatibleFile [
 
 	^ FileSystem workingDirectory / 'compat.ston'
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addBlockSpec: aBlockSpec [
 
 	aBlockSpec isBlockSpec ifTrue: [ 
@@ -31,13 +33,13 @@ BlockMorphBuilder >> addBlockSpec: aBlockSpec [
 	self error
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addBooleanReporter: aString selector: aSymbol [
 
 	self addBooleanReporter: aString selector: aSymbol arguments: #(  )
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addBooleanReporter: aString selector: aSymbol arguments: aCollection [
 
 	| blockSpec |
@@ -48,7 +50,7 @@ BlockMorphBuilder >> addBooleanReporter: aString selector: aSymbol arguments: aC
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addCBlock: aString selector: aSymbol arguments: aCollection [
 
 	| blockSpec |
@@ -59,19 +61,19 @@ BlockMorphBuilder >> addCBlock: aString selector: aSymbol arguments: aCollection
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addCategory: aString [
 
 	lastCategory := aString
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addCommand: aString selector: aSymbol [
 
 	self addCommand: aString selector: aSymbol arguments: #(  )
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addCommand: aString selector: aSymbol arguments: aCollection [
 
 	| blockSpec |
@@ -82,7 +84,7 @@ BlockMorphBuilder >> addCommand: aString selector: aSymbol arguments: aCollectio
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addEventHatBlock: aString selector: aSymbol eventName: aString2 [
 
 	| blockSpec |
@@ -94,13 +96,13 @@ BlockMorphBuilder >> addEventHatBlock: aString selector: aSymbol eventName: aStr
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addReporter: aString selector: aSymbol [
 
 	self addReporter: aString selector: aSymbol arguments: #(  )
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addReporter: aString selector: aSymbol arguments: aCollection [
 
 	| blockSpec |
@@ -111,13 +113,13 @@ BlockMorphBuilder >> addReporter: aString selector: aSymbol arguments: aCollecti
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addSeparator [
 
 	self appendBlockSpec: AbstractBlockSpec separator into: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addSpecial: aString selector: aSymbol arguments: aCollection [
 
 	| blockSpec |
@@ -128,7 +130,7 @@ BlockMorphBuilder >> addSpecial: aString selector: aSymbol arguments: aCollectio
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addStartHatBlock: aString selector: aSymbol [
 
 	| blockSpec |
@@ -139,7 +141,7 @@ BlockMorphBuilder >> addStartHatBlock: aString selector: aSymbol [
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> addTimed: aString selector: aSymbol arguments: aCollection [
 
 	| blockSpec |
@@ -150,7 +152,7 @@ BlockMorphBuilder >> addTimed: aString selector: aSymbol arguments: aCollection 
 	self registerBlockSpec: blockSpec asCategory: lastCategory
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> appendBlockSpec: aBlockSpec into: aCategoryString [
 
 	| list |
@@ -160,7 +162,7 @@ BlockMorphBuilder >> appendBlockSpec: aBlockSpec into: aCategoryString [
 	list add: aBlockSpec
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> assureLoadCompatibilityDictionary [
 
 	| file |
@@ -173,13 +175,13 @@ BlockMorphBuilder >> assureLoadCompatibilityDictionary [
 		                           ifFalse: [ Dictionary new ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blockCategories [
 
 	^ categoryColors keys copyWithout: 'list'
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blockColorAt: aSymbol [
 
 	| spec |
@@ -187,7 +189,7 @@ BlockMorphBuilder >> blockColorAt: aSymbol [
 	^ spec color
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blockColorFor: aCategory [
 
 	^ categoryColors
@@ -195,7 +197,7 @@ BlockMorphBuilder >> blockColorFor: aCategory [
 		ifAbsent: [ self unknownCategoryColor ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> blockFromSpec: aBlockSpec [
 
 	| blockLabelSpec selector block argPermutation c defaultArgs |
@@ -218,7 +220,7 @@ BlockMorphBuilder >> blockFromSpec: aBlockSpec [
 		  yourself
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blockFromTuple: anArray [
 
 	"Answer a new block for the given tuple."
@@ -261,7 +263,7 @@ BlockMorphBuilder >> blockFromTuple: anArray [
 	^ block
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> blockMorphFromSpec: aBlockSpec [
 
 	| block |
@@ -282,7 +284,7 @@ BlockMorphBuilder >> blockMorphFromSpec: aBlockSpec [
 	^ block
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blockSelectorOf: aString [
 
 	blockSpecDictionary keysAndValuesDo: [ :key :value | 
@@ -290,7 +292,7 @@ BlockMorphBuilder >> blockSelectorOf: aString [
 	^ nil
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blockSpecAt: aSymbol [
 
 	| selector |
@@ -300,37 +302,37 @@ BlockMorphBuilder >> blockSpecAt: aSymbol [
 	^ blockSpecDictionary at: selector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> blockSpecDictionary [
 
 	^ blockSpecDictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> blockSpecDictionary: anObject [
 
 	blockSpecDictionary := anObject
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blockSpecs [
 
 	^ blockSpecDictionary values
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> blockSpecsInCategory [
 
 	^ blockSpecsInCategory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> blockSpecsInCategory: anObject [
 
 	blockSpecsInCategory := anObject
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> blocksFor: aCategory [
 
 	| list |
@@ -341,19 +343,19 @@ BlockMorphBuilder >> blocksFor: aCategory [
 			  ifFalse: [ each ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> categoryColors [
 
 	^ categoryColors
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> categoryColors: anObject [
 
 	categoryColors := anObject
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 BlockMorphBuilder >> changeVarBlockFor: aString [
 
 	^ SetterBlockMorph new
@@ -363,19 +365,19 @@ BlockMorphBuilder >> changeVarBlockFor: aString [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> compatibilityDictionary [
 
 	^ compatibilityDictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> compatibilityDictionary: anObject [
 
 	^ compatibilityDictionary := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> compatibleSelectorOf: aSymbol [
 
 	| block |
@@ -384,7 +386,7 @@ BlockMorphBuilder >> compatibleSelectorOf: aSymbol [
 	^ self blockSelectorOf: block
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BlockMorphBuilder >> initialize [
 
 	categoryColors := Dictionary new.
@@ -392,19 +394,19 @@ BlockMorphBuilder >> initialize [
 	blockSpecDictionary := Dictionary new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> lastCategory [
 
 	^ lastCategory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> lastCategory: anObject [
 
 	lastCategory := anObject
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 BlockMorphBuilder >> localVarBlockFor: aString [
 
 	^ LocalVarBlockMorph new
@@ -412,7 +414,7 @@ BlockMorphBuilder >> localVarBlockFor: aString [
 		  receiver: script
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 BlockMorphBuilder >> printOn: aStream [
 
 	aStream
@@ -424,13 +426,13 @@ BlockMorphBuilder >> printOn: aStream [
 		nextPutAll: ' blocks)'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> project [
 
 	^ script project
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> registerBlockSpec: aBlockSpec asCategory: aCategoryString [
 
 	| color |
@@ -446,25 +448,25 @@ BlockMorphBuilder >> registerBlockSpec: aBlockSpec asCategory: aCategoryString [
 		aBlockSpec color: color ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> script [
 
 	^ script
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorphBuilder >> script: anObject [
 
 	script := anObject
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 BlockMorphBuilder >> setCategory: aString color: aColor [
 
 	categoryColors at: aString asLowercase put: aColor
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 BlockMorphBuilder >> setVarBlockFor: aString [
 
 	^ SetterBlockMorph new
@@ -474,7 +476,7 @@ BlockMorphBuilder >> setVarBlockFor: aString [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> stackFromTupleList: tupleList [
 
 	| stackTop previousBlock block |
@@ -488,7 +490,7 @@ BlockMorphBuilder >> stackFromTupleList: tupleList [
 	^ stackTop
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 BlockMorphBuilder >> subHatBlockFor: aString [
 
 	^ SubHatMorph new
@@ -498,7 +500,7 @@ BlockMorphBuilder >> subHatBlockFor: aString [
 		  yourself
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 BlockMorphBuilder >> unknownBlockFor: aSymbol [
 
 	^ CommandBlockMorph new
@@ -511,14 +513,14 @@ BlockMorphBuilder >> unknownBlockFor: aSymbol [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> unknownCategoryColor [
 
 	"Color h: 0 s: 0.81 v: 0.83"
 	^ Color gray
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 BlockMorphBuilder >> variableBlockFor: aString [
 
 	^ VariableBlockMorph new
@@ -527,7 +529,7 @@ BlockMorphBuilder >> variableBlockFor: aString [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilder >> variableBlockFromTuple: tuple [
 
 	| varName selector block arg argBlock |

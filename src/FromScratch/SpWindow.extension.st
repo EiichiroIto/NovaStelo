@@ -1,6 +1,6 @@
-Extension { #name : #SpWindow }
+Extension { #name : 'SpWindow' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 SpWindow >> displayExtentChanged [
 	self model ifNil: [ ^ self ].
 	(self model application respondsTo: #displayExtentChanged)

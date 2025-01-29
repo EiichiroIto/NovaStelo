@@ -1,12 +1,12 @@
-Extension { #name : #Object }
+Extension { #name : 'Object' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Object >> asNumberNoError [
 
 	^ 0
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Object >> initFieldsNamed: varList from: anObjStream [
 	"Initialize my instance variables in the given list from the given object stream."
 
@@ -21,18 +21,18 @@ Object >> initFieldsNamed: varList from: anObjStream [
 						ifFalse: [ self instVarAt: index put: anObjStream nextField ] ] ]
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Object >> isNumberString [
 	^ false
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Object >> localized [
 
 	^ self
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Object >> storeFieldsNamed: varList on: anObjStream [
 	"Store the instance variables in the given list on the given object stream."
 

@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchTheme,
-	#superclass : #Object,
+	#name : 'ScratchTheme',
+	#superclass : 'Object',
 	#instVars : [
 		'colors',
 		'forms'
@@ -9,15 +9,17 @@ Class {
 		'CurrentTheme',
 		'ThemesURL'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> blockArgColor [
 	^ self colorAt: #blockArgColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> buttonLabel: aString selector: aSymbolOrNil [
 	"Answer a big button with the given label."
 
@@ -32,37 +34,37 @@ ScratchTheme class >> buttonLabel: aString selector: aSymbolOrNil [
 	^ button
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> colorAt: aSymbol [
 	^ self current colorAt: aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> current [
 	^ CurrentTheme ifNil: [ self error: 'No themes!' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> current: aTheme [
 	CurrentTheme := aTheme
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> dialogBoxTextColor [
 	^ self colorAt: #dialogBoxTextColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> formAt: aSymbolOrString [
 	^ self formAt: aSymbolOrString ifAbsent: [ self error ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> formAt: aString ifAbsent: aBlock [
 	^ self current formAt: aString ifAbsent: aBlock
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 ScratchTheme class >> formSymbols [
 
 	"ScratchTheme formSymbols inspect"
@@ -78,7 +80,7 @@ ScratchTheme class >> formSymbols [
 	^ result
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTheme class >> getThemes [
 	| response ref url |
 	url := self themesURL.
@@ -93,22 +95,22 @@ ScratchTheme class >> getThemes [
 	(ZipArchive new readFrom: ref fullName) extractAllTo: FileLocator workingDirectory.
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> labelOffColor [
 	^ self colorAt: #labelOffColor
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> labelOnColor [
 	^ self colorAt: #labelOnColor
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> listBlockColor [
 	^ self colorAt: #listBlockColor
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchTheme class >> newThemeNamed: aString [
 	| obj |
 	obj := self new.
@@ -116,22 +118,22 @@ ScratchTheme class >> newThemeNamed: aString [
 	^ obj
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> palettePaneColor [
 	^ self colorAt: #palettePaneColor
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> plotterFrameColor [
 	^ self colorAt: #plotterFrameColor
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> plotterPaneColor [
 	^ self colorAt: #plotterPaneColor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTheme class >> readForms: aString to: aTheme [
 
 	| base dir |
@@ -145,12 +147,12 @@ ScratchTheme class >> readForms: aString to: aTheme [
 	aTheme readFormsFrom: dir
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> scriptsPaneColor [
 	^ self colorAt: #scriptsPaneColor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTheme class >> setupThemeColor: aTheme [
 	| systemTheme |
 	systemTheme := Smalltalk ui theme.
@@ -168,7 +170,7 @@ ScratchTheme class >> setupThemeColor: aTheme [
 		colorAt: #textSelectionColor put: systemTheme selectionColor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTheme class >> setupThemeNamed: aString [
 	| obj |
 	self themeIsInstalled
@@ -178,78 +180,78 @@ ScratchTheme class >> setupThemeNamed: aString [
 	self current: obj
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> textColor [
 	^ self colorAt: #textColor
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> textSelectionColor [
 	^ self colorAt: #textSelectionColor
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchTheme class >> themeIsInstalled [
 	^ 'Themes' asFileReference in: [ :ref | ref isDirectory and: [ ref entries notEmpty ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> themesURL [
 	^ ThemesURL
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme class >> themesURL: aString [
 	ThemesURL := aString
 ]
 
-{ #category : #colors }
+{ #category : 'colors' }
 ScratchTheme class >> variableBlockColor [
 	^ Color h: 25 s: 0.88 v: 0.95
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme >> colorAt: aSymbol [
 	^ colors at: aSymbol asSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme >> colorAt: aSymbol put: aColor [
 	colors at: aSymbol asSymbol put: aColor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTheme >> colors [
 	^ colors copy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme >> formAt: aSymbol [
 	^ forms at: aSymbol asSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme >> formAt: aSymbol ifAbsent: aBlock [
 	^ forms at: aSymbol asSymbol ifAbsent: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchTheme >> formAt: aSymbol put: aForm [
 	forms at: aSymbol asSymbol put: aForm
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTheme >> forms [
 	^ forms copy
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchTheme >> initialize [
 	colors := Dictionary new.
 	forms := Dictionary new
 ]
 
-{ #category : #'file read' }
+{ #category : 'file read' }
 ScratchTheme >> readFormsFrom: aFileReference [
 	| img fn |
 	aFileReference files

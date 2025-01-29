@@ -1,15 +1,17 @@
 Class {
-	#name : #SpScratchListViewer,
-	#superclass : #SpPresenter,
+	#name : 'SpScratchListViewer',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'categories',
 		'pageViewer',
 		'target'
 	],
-	#category : #'FromScratch-Spec2'
+	#category : 'FromScratch-Spec2',
+	#package : 'FromScratch',
+	#tag : 'Spec2'
 }
 
-{ #category : #layout }
+{ #category : 'layout' }
 SpScratchListViewer class >> defaultLayout [
 	^ SpBoxLayout newVertical
 		add: #categories height: 200;
@@ -17,12 +19,12 @@ SpScratchListViewer class >> defaultLayout [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchListViewer >> categories: aCollection [
 	categories items: (aCollection collect: [ :each | each asLowercase ]) sort
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchListViewer >> connectPresenters [
 	categories
 		display: [ :each | each asString localized ];
@@ -30,18 +32,18 @@ SpScratchListViewer >> connectPresenters [
 		whenSelectionChangedDo: [ :each | self updateContents ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchListViewer >> currentCategory [
 	^ categories selection selectedItem
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchListViewer >> currentCategory: aString [
 	aString ifNil: [ ^ self ].
 	categories selectItem: aString asLowercase
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpScratchListViewer >> initializePresenters [
 	pageViewer := self newMorph.
 	pageViewer morph: (ScrollFrameMorph new growthFraction: 0.1).
@@ -50,7 +52,7 @@ SpScratchListViewer >> initializePresenters [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchListViewer >> markerFormFor: aString [
 	| color canvas |
 	color := self target blockColorFor: aString.
@@ -63,12 +65,12 @@ SpScratchListViewer >> markerFormFor: aString [
 	^ canvas form
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchListViewer >> target [
 	^ target
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpScratchListViewer >> target: anObject [
 	| current |
 	current := self currentCategory.
@@ -79,7 +81,7 @@ SpScratchListViewer >> target: anObject [
 	self currentCategory ifNil: [ categories selectIndex: 1 ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchListViewer >> updateContents [
 	| p |
 	p := self target

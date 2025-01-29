@@ -3,8 +3,8 @@ I and my subclasses represent statements in a block-based graphical programming 
 
 "
 Class {
-	#name : #BlockMorph,
-	#superclass : #Morph,
+	#name : 'BlockMorph',
+	#superclass : 'Morph',
 	#instVars : [
 		'isSpecialForm',
 		'oldColor',
@@ -19,10 +19,12 @@ Class {
 		'receiver',
 		'selector'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockMorph >> aboutToBeGrabbedBy: aHandMorph [
 	"If I'm being used as an argument, replace myself with an appropriate argument morph. Copied from WatcherMorph."
 
@@ -36,14 +38,14 @@ BlockMorph >> aboutToBeGrabbedBy: aHandMorph [
 	owner replaceArgMorph: self by: m
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> acceptsDroppedReporters [
 
 	^ true
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> acceptsTypeOf: aBlockMorph [
 	"Answer true if I can accept a dropped reporter of the given type. Answer false by default."
 
@@ -51,12 +53,12 @@ BlockMorph >> acceptsTypeOf: aBlockMorph [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> applicationDo: aBlock [
 	^ self project ifNotNil: [ :p | aBlock value: p application ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> attachBlock: aBlockMorph [
 	"Attach the given block to me. Assume the block has been positioned correctly."
 
@@ -64,12 +66,12 @@ BlockMorph >> attachBlock: aBlockMorph [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> attachBlockNested: aBlockMorph [
 	self shouldNotImplement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> blockAttachPoints: aSet [
 	"Answer a collection of possible attachment points for me. Each entry is an Association mapping a point to the morph to which a dropping command block could be attached."
 
@@ -85,7 +87,7 @@ BlockMorph >> blockAttachPoints: aSet [
 	aSet addAll: result
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> blockPalette [
 	owner ifNil: [ ^ nil ].
 	owner isBlockPalette ifTrue: [ ^ owner ].
@@ -93,7 +95,7 @@ BlockMorph >> blockPalette [
 	^ owner blockPalette
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> blockSequence [
 	"Answer the sequence of blocks starting with myself. Each block is a submorph of the previous block."
 
@@ -106,7 +108,7 @@ BlockMorph >> blockSequence [
 	^ stream contents
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> bottomBlock [
 	"Answer the bottom Block of this stack. The top block may be a CommandBlockMorph, or perhaps some other kind of BlockMorph."
 
@@ -118,13 +120,13 @@ BlockMorph >> bottomBlock [
 	^ m
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 BlockMorph >> cBlockBracketThickness [
 
 	^ 12
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> canBecomeWatcher [
 	"Answer true if this block can become a watcher when dropped onto the stage. False by default."
 
@@ -132,7 +134,7 @@ BlockMorph >> canBecomeWatcher [
 
 ]
 
-{ #category : #'drawing-optimization' }
+{ #category : 'drawing-optimization' }
 BlockMorph >> changed [
 	"Don't flush my cachedForm when I do 'self changed'."
 
@@ -140,7 +142,7 @@ BlockMorph >> changed [
 
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> clearProcess [
 	"Called on the top block of a running stack when all processes are stopped."
 
@@ -148,13 +150,13 @@ BlockMorph >> clearProcess [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> click: evt [
 
 	SpScratchApp useSingleClick ifTrue: [ self topBlock toggleProcess ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> closestAttachTargetIn: newOwner [
 	"Answer the closest block attachment point among the blocks and stack submorphs of the given morph. Answer nil if there are no blocks close enough to attach myself to."
 
@@ -253,7 +255,7 @@ BlockMorph >> closestAttachTargetIn: newOwner [
 	^ best
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> color: aColor [
 	"Remember the color of this block, for lighting-up purposes."
 
@@ -261,7 +263,7 @@ BlockMorph >> color: aColor [
 	oldColor := aColor.
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> computeHighlightColors [
 
 	| h s v |
@@ -274,27 +276,27 @@ BlockMorph >> computeHighlightColors [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> copyRecordingIn: aDict [
 
 		^ (super copyRecordingIn: aDict) clearProcess.
 	
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> delete [
 	self topBlock stopProcess.
 	super delete
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> doubleClick: evt [
 
 	SpScratchApp useSingleClick ifFalse: [ self topBlock toggleProcess ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawBodyOn: aCanvas [ 
 
 	aCanvas
@@ -310,7 +312,7 @@ BlockMorph >> drawBodyOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawBottomEdgeOn: aCanvas [
 
 	| right y gapStart gapEnd |
@@ -344,12 +346,12 @@ BlockMorph >> drawBottomEdgeOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawFinalOn: aCanvas fromCanvas: c [
 	aCanvas paintImage: c form at: self topLeft
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawHLineFrom: startX to: endX y: yOffset color: c on: aCanvas [
 
 	| y |
@@ -360,7 +362,7 @@ BlockMorph >> drawHLineFrom: startX to: endX y: yOffset color: c on: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawOn: aCanvas [ 
 
 	| c |
@@ -388,14 +390,14 @@ BlockMorph >> drawOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawPoint: aPoint color: c on: aCanvas [
 
 	aCanvas fillRectangle: (self topLeft + aPoint extent: (1@1)) color: c.
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawReporterBodyOn: aCanvas [ 
 
 	aCanvas
@@ -411,7 +413,7 @@ BlockMorph >> drawReporterBodyOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawSmoothBottomEdgeOn: aCanvas [
 
 	| right y |
@@ -427,7 +429,7 @@ BlockMorph >> drawSmoothBottomEdgeOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawSmoothTopEdgeOn: aCanvas [
 
 	| right |
@@ -439,7 +441,7 @@ BlockMorph >> drawSmoothTopEdgeOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawStopBodyOn: aCanvas [ 
 
 	aCanvas
@@ -456,7 +458,7 @@ BlockMorph >> drawStopBodyOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 BlockMorph >> drawTopEdgeOn: aCanvas [
 
 	| right gapStart gapEnd |
@@ -481,7 +483,7 @@ BlockMorph >> drawTopEdgeOn: aCanvas [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> duplicate [
 
 	"self world activeHand attachMorph: self fullCopy."
@@ -489,12 +491,12 @@ BlockMorph >> duplicate [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 BlockMorph >> emitCode: aGenerator indent: indent [
 	aGenerator emitBlock: self indent: indent.
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> firstBlockList [
 	"If I am a control block, answer an array containing the block sequences for my first nested block (i.e., the blocks for the 'true' case of an if-then-else block). If I'm not a control structure block, just answer an empty array."
 
@@ -502,7 +504,7 @@ BlockMorph >> firstBlockList [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> fixBlockLayout [
 	"This default implementation just clears my cached forms."
 
@@ -512,7 +514,7 @@ BlockMorph >> fixBlockLayout [
 
 ]
 
-{ #category : #'drawing-optimization' }
+{ #category : 'drawing-optimization' }
 BlockMorph >> fullBounds [
 	"This is the hook that triggers lazy re-layout. It works because layoutChanged clears the fullBounds cache. Once per cycle, the fullBounds is requested from every morph in the world, and that request gets propagated through the entire submorph hierarchy, causing re-layout where needed. Note that multiple layoutChanges to the same morph can be done with little cost, since the layout is only done when the morph needs to be displayed."
 	"Detail: Expands by 3 pixels if I have a process to allow for the running/error feedback."
@@ -533,7 +535,7 @@ BlockMorph >> fullBounds [
 
 ]
 
-{ #category : #'drawing-optimization' }
+{ #category : 'drawing-optimization' }
 BlockMorph >> fullDrawOn: aCanvas [
 	"Optimization: To speed up redisplay, especially when giving feedback that a stack is running, we create a cached form of the stack in the top block of the stack and simply display that. We also keep a cached image of the running/error feedback outline. This allows the running feedback to be turned on and off quickly. The caches are flushed whenever the layout of the stack changes."
 
@@ -556,7 +558,7 @@ BlockMorph >> fullDrawOn: aCanvas [
 
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockMorph >> handleReporterDrop [
 	"This block, a reporter, has just been dropped. Try to embed it in a command block."
 
@@ -575,14 +577,14 @@ BlockMorph >> handleReporterDrop [
 		ifFalse: [ argM owner replaceArgMorph: argM by: self ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> handlesMouseDown: evt [
 
 	^ true
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BlockMorph >> initialize [
 
 	super initialize.
@@ -593,7 +595,7 @@ BlockMorph >> initialize [
 	hadError := false
 ]
 
-{ #category : #'drawing-optimization' }
+{ #category : 'drawing-optimization' }
 BlockMorph >> invalidRect: damageRect [
 	"Flush my cachedForm if some submorph reports a change."
 
@@ -602,7 +604,7 @@ BlockMorph >> invalidRect: damageRect [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isBlockMorph [
 	"True only for BlockMorphs."
 
@@ -610,7 +612,7 @@ BlockMorph >> isBlockMorph [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isBooleanReporter [
 	"Answer true if this block reports a boolean value. Answer false by default."
 
@@ -618,18 +620,18 @@ BlockMorph >> isBooleanReporter [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isCBlock [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isChoiceArg [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isForever [
 	"True only for forever command blocks."
 
@@ -637,19 +639,19 @@ BlockMorph >> isForever [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isHatBlock [
 
 	^ false
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isIfElseBlock [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isInBlockPalette [
 	owner ifNil: [ ^ false ].
 	owner isBlockPalette ifTrue: [ ^ true ].
@@ -657,7 +659,7 @@ BlockMorph >> isInBlockPalette [
 	^ owner isInBlockPalette
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isInScriptEditor [
 	owner ifNil: [ ^ false ].
 	owner isBlockPalette ifTrue: [ ^ false ].
@@ -665,7 +667,7 @@ BlockMorph >> isInScriptEditor [
 	^ owner isInScriptEditor
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isReporter [
 	"Answer true if this block reports a value. False by default."
 
@@ -673,26 +675,26 @@ BlockMorph >> isReporter [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isSetterBlock [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isSpecialForm [
 
 	^isSpecialForm.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isSpecialForm: aBoolean [
 	"Sets a flag indicating that this block has a special evaluation rule."
 
 	isSpecialForm := aBoolean.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isStop [
 	"True for only stop command blocks."
 
@@ -700,7 +702,7 @@ BlockMorph >> isStop [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isStopOrForever [
 	"True for stop or forever command blocks."
 
@@ -708,20 +710,20 @@ BlockMorph >> isStopOrForever [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isSubHatMorph [
 
 	^ false
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 BlockMorph >> isVariableBlock [
 	"do not delete"
 	^ false
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockMorph >> justDroppedInto: newOwner event: evt [
 	"Handle being dropped into a new situation."
 
@@ -803,13 +805,13 @@ BlockMorph >> justDroppedInto: newOwner event: evt [
 			targetBlock attachBlock: self ]
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 BlockMorph >> labelColor [
 
 	^ ScratchTheme labelOffColor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> layoutChanged [
 
 	blockLayoutNeeded ifFalse: [super layoutChanged].
@@ -818,7 +820,7 @@ BlockMorph >> layoutChanged [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> litUp: aBoolean [
 	"If the argument true, light up this block. Otherwise, revert to it's old color."
 
@@ -829,7 +831,7 @@ BlockMorph >> litUp: aBoolean [
 		ifFalse: [ oldColor ifNotNil: [ super color: oldColor ] ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> mouseDown: evt [
 	"Handle a mouse click. Left button either drags or performs click action. Right button brings up a menu."
 
@@ -840,12 +842,12 @@ BlockMorph >> mouseDown: evt [
 	evt hand waitForClicksOrDrag: self event: evt
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> nestedBlockAt: aPoint [
 	^ nil
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> nextBlock [
 	"Answer the block myself in the block sequence or nil if I am the last block in the sequence. Each block is a submorph of the previous block."
 
@@ -853,7 +855,7 @@ BlockMorph >> nextBlock [
 
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> nextBlock: aBlockMorph [
 	"Add the given block to this stack."
 
@@ -861,7 +863,7 @@ BlockMorph >> nextBlock: aBlockMorph [
 
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> nextOrInnerBlocks [
 
 	^ self nextBlock
@@ -869,7 +871,7 @@ BlockMorph >> nextOrInnerBlocks [
 		  ifNotNil: [ :block | Array with: block ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> nonControlFlowSubmorphs [
 	"Answer a collection of submorphs minus any blocks that are part of the control flow. For example, command blocks omit their submorph that is the next block in the block sequence, C-blocks omit both their next block and the first block of their nested block list, etc."
 
@@ -877,61 +879,61 @@ BlockMorph >> nonControlFlowSubmorphs [
 
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockMorph >> onlyDroppedIntoScriptEditor [
 
 	""
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 BlockMorph >> parseUsing: aParser [
 	^ aParser parseBlock: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> project [
 	^ owner ifNotNil: [ owner project ]
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 BlockMorph >> puzzleInset [
 
 	^ 11
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 BlockMorph >> puzzleWidth [
 
 	^ 14
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> receiver [
 
 	^ receiver
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> receiver: anObject [
 
 	receiver := anObject
 
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockMorph >> rejectDropEvent: evt [
 	"Reject being dropped by the given event."
 
 	evt hand rejectDropMorph: self event: evt.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> rightButtonMenu: anEvent [
 	self showMenu: anEvent
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockMorph >> rootForGrabOf: aMorph [
 	"Allow myself to be extracted."
 
@@ -940,7 +942,7 @@ BlockMorph >> rootForGrabOf: aMorph [
 		ifFalse: [ self ]
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> scratchProc [
 	"Answer my process or nil if I'm not currently the top of a running stack."
 
@@ -948,7 +950,7 @@ BlockMorph >> scratchProc [
 
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> scratchProc: aScratchProcess [
 
 	hadError ifTrue: [ cachedFeedbackForm := nil ].
@@ -957,7 +959,7 @@ BlockMorph >> scratchProc: aScratchProcess [
 	self changed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> scriptEditor [
 	owner ifNil: [ ^ nil ].
 	owner isBlockPalette ifTrue: [ ^ nil ].
@@ -965,34 +967,34 @@ BlockMorph >> scriptEditor [
 	^ owner scriptEditor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> selector [
 
 	^ selector
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BlockMorph >> selector: aSymbol [
 
 	selector := aSymbol.
 
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 BlockMorph >> shouldDropOnMouseUp [
 
 	^ true
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> showError [
 	"Make this block to show an error."
 
 	super color: (Color r: 0.831 g: 0.156 b: 0.156)
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> showErrorFeedback [
 	"Show that this stack encountered an error."
 
@@ -1001,12 +1003,12 @@ BlockMorph >> showErrorFeedback [
 	self changed
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> showMenu: anEvent [
 	self project ifNotNil: [ :p | p application showBlockMenu: self event: anEvent ]
 ]
 
-{ #category : #'dropping/grabbing' }
+{ #category : 'dropping/grabbing' }
 BlockMorph >> slideBackToFormerSituation: evt [
 
 	| wasEmbedded o pane oldP slideForm startPoint |
@@ -1029,7 +1031,7 @@ BlockMorph >> slideBackToFormerSituation: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> startDrag: evt [
 	| rootForGrab point |
 	point := evt hand firstClickCursorPoint ifNil: [ evt cursorPoint ].
@@ -1040,13 +1042,13 @@ BlockMorph >> startDrag: evt [
 		position: evt hand position + (rootForGrab topLeft - point)
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> startProcess [
 	"Start a process running this block stack. This default implementation does nothing."
 
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> stop [
 	scratchProc
 		ifNotNil: [ self changed.
@@ -1054,17 +1056,17 @@ BlockMorph >> stop [
 			scratchProc := nil ]
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> stopProcess [
 	self applicationDo: [ :app | app stopAllProcesses ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 BlockMorph >> stretchHeight: aNumber [
 	self shouldNotImplement
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 BlockMorph >> toggleProcess [
 	self
 		applicationDo: [ :app | 
@@ -1073,12 +1075,12 @@ BlockMorph >> toggleProcess [
 				ifFalse: [ self startProcess ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorph >> topBarHeight [
 	self shouldNotImplement
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> topBlock [
 	"Answer the top Block of this stack. The top block may be a HatBlockMorph, a CommandBlockMorph, or perhaps some other kind of BlockMorph."
 
@@ -1089,7 +1091,7 @@ BlockMorph >> topBlock [
 	^ m
 ]
 
-{ #category : #'block enumerating' }
+{ #category : 'block enumerating' }
 BlockMorph >> tupleSequence [
 	"Answer a sequence of tuples (Array) describing this stack of blocks."
 
@@ -1097,7 +1099,7 @@ BlockMorph >> tupleSequence [
 
 ]
 
-{ #category : #'drawing-optimization' }
+{ #category : 'drawing-optimization' }
 BlockMorph >> updateCachedFeedbackForm [
 	"Create a cached feedback Form to show this stack's running (or error) status."
 
@@ -1114,7 +1116,7 @@ BlockMorph >> updateCachedFeedbackForm [
 
 ]
 
-{ #category : #'drawing-optimization' }
+{ #category : 'drawing-optimization' }
 BlockMorph >> updateCachedForm [
 	"Create a cached Form of this stack's appearance."
 
@@ -1127,7 +1129,7 @@ BlockMorph >> updateCachedForm [
 	cachedForm := c form
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 BlockMorph >> wantsKeyboardFocusFor: aSubmorph [
 	"Don't allow shift-click editing of block labels."
 

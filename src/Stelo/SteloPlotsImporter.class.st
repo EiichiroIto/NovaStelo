@@ -1,10 +1,12 @@
 Class {
-	#name : #SteloPlotsImporter,
-	#superclass : #ScratchImporter,
-	#category : #'Stelo-Converter'
+	#name : 'SteloPlotsImporter',
+	#superclass : 'ScratchImporter',
+	#category : 'Stelo-Converter',
+	#package : 'Stelo',
+	#tag : 'Converter'
 }
 
-{ #category : #acccessing }
+{ #category : 'acccessing' }
 SteloPlotsImporter >> import: aString to: anApplication [
 	| plotter arr x |
 	plotter := anApplication plotter.
@@ -15,7 +17,7 @@ SteloPlotsImporter >> import: aString to: anApplication [
 	plotter updateCache
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloPlotsImporter >> plotsFrom: aString [
 	| result |
 	result := Array new.

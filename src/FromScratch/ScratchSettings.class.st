@@ -1,68 +1,70 @@
 Class {
-	#name : #ScratchSettings,
-	#superclass : #Object,
+	#name : 'ScratchSettings',
+	#superclass : 'Object',
 	#instVars : [
 		'dictionary'
 	],
-	#category : #'FromScratch-Spec2'
+	#category : 'FromScratch-Spec2',
+	#package : 'FromScratch',
+	#tag : 'Spec2'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> at: aSymbol [
 
 	^ self perform: aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> at: aSymbol put: anObject [
 
 	self perform: (aSymbol , ':') asSymbol with: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> dictionary [
 
 	^ dictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> dictionary: aDictionary [
 
 	dictionary := aDictionary.
 	SpScratchApp useErrorCatcher: self useErrorCatcher
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> dontClose [
 	^ dictionary at: #dontClose ifAbsentPut: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> dontClose: aBoolean [
 	dictionary at: #dontClose put: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> fullscreen [
 	^ dictionary at: #fullscreen ifAbsent: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> fullscreen: aBoolean [
 	dictionary at: #fullscreen put: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> hideDebugMenu [
 	^ dictionary at: #hideDebugMenu ifAbsentPut: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> hideDebugMenu: aBoolean [
 	dictionary at: #hideDebugMenu put: aBoolean
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchSettings >> initialize [
 
 	dictionary := Dictionary new.
@@ -77,33 +79,33 @@ ScratchSettings >> initialize [
 	self useSingleClick: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> keepMaximize [
 	^ dictionary at: #keepMaximize ifAbsentPut: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> keepMaximize: aBoolean [
 	dictionary at: #keepMaximize put: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> keys [
 
 	^ dictionary keys sorted
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> language [
 	^ dictionary at: #language ifAbsent: [ '' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> language: aString [
 	dictionary at: #language put: aString
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchSettings >> loadFile: aFileReference [
 
 	| dict |
@@ -117,7 +119,7 @@ ScratchSettings >> loadFile: aFileReference [
 		(dict keys includes: key) not ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> optionsFor: aSymbol [
 	aSymbol = #stickyWindow
 		ifTrue: [ ^ {true . false} ].
@@ -142,28 +144,28 @@ ScratchSettings >> optionsFor: aSymbol [
 	^ #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> projectDir [
 
 	^ dictionary at: #projectDir ifAbsent: [ ^ '' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> projectDir: aString [
 	dictionary at: #projectDir put: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> resizable [
 	^ dictionary at: #resizable ifAbsentPut: [ true ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> resizable: aBoolean [
 	dictionary at: #resizable put: aBoolean
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchSettings >> saveFile: aFileReference [
 
 	| stream |
@@ -173,34 +175,34 @@ ScratchSettings >> saveFile: aFileReference [
 	stream close
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> stickyWindow [
 	^ dictionary at: #stickyWindow ifAbsent: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> stickyWindow: aBoolean [
 	dictionary at: #stickyWindow put: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> useErrorCatcher [
 	^ dictionary at: #useErrorCatcher ifAbsent: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> useErrorCatcher: aBoolean [
 	dictionary at: #useErrorCatcher put: aBoolean.
 	SpScratchApp useErrorCatcher: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> useSingleClick [
 
 	^ dictionary at: #useSingleClick ifAbsent: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchSettings >> useSingleClick: aBoolean [
 
 	dictionary at: #useSingleClick put: aBoolean.

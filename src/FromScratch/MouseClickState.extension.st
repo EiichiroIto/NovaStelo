@@ -1,6 +1,6 @@
-Extension { #name : #MouseClickState }
+Extension { #name : 'MouseClickState' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 MouseClickState >> cursorPoint [
 	^ firstClickDown cursorPoint
 ]

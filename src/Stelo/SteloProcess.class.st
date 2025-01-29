@@ -1,13 +1,15 @@
 Class {
-	#name : #SteloProcess,
-	#superclass : #ScratchNativeProcess,
+	#name : 'SteloProcess',
+	#superclass : 'ScratchNativeProcess',
 	#instVars : [
 		'sworld'
 	],
-	#category : #'Stelo-Process'
+	#category : 'Stelo-Process',
+	#package : 'Stelo',
+	#tag : 'Process'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SteloProcess class >> sworld: aSWorld [
 	^ self basicNew
 		initialize;
@@ -15,12 +17,12 @@ SteloProcess class >> sworld: aSWorld [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProcess >> sworld [
 	^ sworld
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloProcess >> sworld: anObject [
 	sworld := anObject.
 ]

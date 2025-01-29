@@ -1,13 +1,15 @@
 Class {
-	#name : #ScratchBytecodeValue,
-	#superclass : #ScratchBytecode,
+	#name : 'ScratchBytecodeValue',
+	#superclass : 'ScratchBytecode',
 	#instVars : [
 		'data'
 	],
-	#category : #'Microworld-Bytecode'
+	#category : 'Microworld-Bytecode',
+	#package : 'Microworld',
+	#tag : 'Bytecode'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchBytecodeValue class >> data: anObject [
 	self assert: anObject isLiteral.
 	^ self basicNew
@@ -16,7 +18,7 @@ ScratchBytecodeValue class >> data: anObject [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeValue >> codeSize [
 	data = false
 		ifTrue: [ ^ 1 ].
@@ -31,17 +33,17 @@ ScratchBytecodeValue >> codeSize [
 	^ 5
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeValue >> data [
 	^ data
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeValue >> data: anObject [
 	data := anObject.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchBytecodeValue >> printOn: aStream [
 	aStream
 		nextPutAll: '<value=';
@@ -49,7 +51,7 @@ ScratchBytecodeValue >> printOn: aStream [
 		nextPut: $>.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeValue >> putFloatOn: aStream [
 	| v |
 	aStream nextPut: #pushFloat.
@@ -63,7 +65,7 @@ ScratchBytecodeValue >> putFloatOn: aStream [
 	aStream nextPut: (v bitAnd: 16rFF).
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeValue >> putOn: aStream [
 	data = false
 		ifTrue: [ ^ aStream nextPut: #push0 ].
@@ -78,7 +80,7 @@ ScratchBytecodeValue >> putOn: aStream [
 	self putFloatOn: aStream
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBytecodeValue >> putShortOn: aStream [
 	self putShort: data on: aStream
 ]

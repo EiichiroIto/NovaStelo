@@ -1,16 +1,18 @@
 Class {
-	#name : #ScratchScript,
-	#superclass : #Object,
+	#name : 'ScratchScript',
+	#superclass : 'Object',
 	#instVars : [
 		'blocksBin',
 		'project',
 		'blockMorphBuilder',
 		'argMorphBuilder'
 	],
-	#category : #'FromScratch-Project'
+	#category : 'FromScratch-Project',
+	#package : 'FromScratch',
+	#tag : 'Project'
 }
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 ScratchScript class >> printBlockSpecsFrom: aCollection [
 
 	"ScratchScript printBlockSpecsFrom: ScratchScript new blocks."
@@ -58,24 +60,24 @@ ScratchScript class >> printBlockSpecsFrom: aCollection [
 				 otherwise: [ each ]) traceCr ] ]
 ]
 
-{ #category : #'ston-core' }
+{ #category : 'ston-core' }
 ScratchScript class >> stonAllInstVarNames [
 	^ #(blocksBin project)
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 ScratchScript >> addArgBuilder [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> addBlockSpecs [
 
 	self subclassResponsibility
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchScript >> addEventNamesTo: aSet [
 	"Add the names of all events implemented by this morph, excluding keyboard events. Suppress duplicates (ignoring case differences)."
 
@@ -88,7 +90,7 @@ ScratchScript >> addEventNamesTo: aSet [
 						ifFalse: [ aSet add: m eventName ] ] ]
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> addGenericListBlocksTo: page y: startY [
 
 	"Add the generic list blocks to the given page starting at the given y offset."
@@ -124,7 +126,7 @@ ScratchScript >> addGenericListBlocksTo: page y: startY [
 	^ y
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> addGenericVariableBlocksTo: page x: x y: startY [
 
 	"Add the generic variable blocks to the given page starting at the given y offset. Answer the new y."
@@ -148,7 +150,7 @@ ScratchScript >> addGenericVariableBlocksTo: page x: x y: startY [
 	^ y
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> addGenericVariableBlocksTo: page y: startY [
 	| addButton deleteButton x y |
 	addButton := ScratchTheme
@@ -179,12 +181,12 @@ ScratchScript >> addGenericVariableBlocksTo: page y: startY [
 	^ y
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 ScratchScript >> addList: aString [
 	self subclassResponsibility
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> addSubBlock: aPoint name: aString [
 
 	| morph |
@@ -193,12 +195,12 @@ ScratchScript >> addSubBlock: aPoint name: aString [
 	blocksBin addMorph: morph
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 ScratchScript >> addVariable: aString [
 	self subclassResponsibility
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> addVariableReportersTo: page x: x y: startY [
 
 	| y b watcherButton yOffset |
@@ -214,97 +216,97 @@ ScratchScript >> addVariableReportersTo: page x: x y: startY [
 	^ y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> allHatBlocks [
 
 	^ self subHatBlocks , self eventHatBlocks , self startHatBlocks
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> argMorphBuilder [
 
 	^ argMorphBuilder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> argMorphBuilder: anObject [
 
 	argMorphBuilder := anObject
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> argMorphFor: aCharacter [
 
 	^ argMorphBuilder argMorphFor: aCharacter
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> blockCategories [
 	^ blockMorphBuilder blockCategories
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> blockColorFor: aCategory [
 	^ blockMorphBuilder blockColorFor: aCategory
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> blockFromTuple: anArray [
 
 	^ blockMorphBuilder blockFromTuple: anArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> blockMorphBuilder [
 
 	^ blockMorphBuilder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> blockMorphBuilder: anObject [
 
 	blockMorphBuilder := anObject
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> blockMorphsForWriting [
 
 	^ blocksBin submorphs select: [ :m | m respondsTo: #tupleSequence ]
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> blockSpecAt: aSymbol [
 	^ blockMorphBuilder blockSpecAt: aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> blocksBin [
 	^ blocksBin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> blocksBin: anObject [
 
 	blocksBin := anObject
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> blocksFor: aCategory [
 	^ blockMorphBuilder blocksFor: aCategory
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> cBlockSelectors [
 
 	^ #( doIf doRepeat doUntil doForever doWhile doIterate )
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> cleanUp [
 	blocksBin cleanUp
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> convertEventHatTuple: anArray [
 
 	| selector |
@@ -318,7 +320,7 @@ ScratchScript >> convertEventHatTuple: anArray [
 	^ anArray
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> convertStacksToTuples [
 
 	"Convert my blocks bin from a morph containing block stack into a collection of (<point>, <tuple>) pairs the represent the same stacks in compact, language-independent form."
@@ -330,7 +332,7 @@ ScratchScript >> convertStacksToTuples [
 			             with: blockM tupleSequence ]
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> convertTuplesToStacks [
 
 	| tuplesList stack |
@@ -345,7 +347,7 @@ ScratchScript >> convertTuplesToStacks [
 		blocksBin addMorph: stack ]
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> createBlock: block atPosition: pos onPage: page [
 	"Creates a block on the given page. If the block is one that can become a watcher, then a toggle button is created as well."
 
@@ -366,7 +368,7 @@ ScratchScript >> createBlock: block atPosition: pos onPage: page [
 	^ y + block height + 3
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> createToggleButtonFor: block [
 	| toggleButton |
 	toggleButton := ToggleButton
@@ -385,7 +387,7 @@ ScratchScript >> createToggleButtonFor: block [
 	^ toggleButton
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> defaultArgsFor: blockSpec [
 
 	| defaultArgs |
@@ -395,35 +397,35 @@ ScratchScript >> defaultArgsFor: blockSpec [
 	^ defaultArgs
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> defaultEventName [
 
 	^ project defaultEventName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> defaultSubName [
 
 	^ project defaultSubName
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 ScratchScript >> deleteList: aString [
 	self subclassResponsibility
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 ScratchScript >> deleteVariable: aString [
 	self subclassResponsibility
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ScratchScript >> evaluateBlock: aTopBlock [
 
 	^ self evaluator perform: aTopBlock selector withArguments: aTopBlock coerceArgs
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ScratchScript >> evaluateFunction: aSymbol withArgs: anArgs [
 	"Evalue this block with the given argument list."
 
@@ -434,30 +436,30 @@ ScratchScript >> evaluateFunction: aSymbol withArgs: anArgs [
 	^ self evaluator perform: aSymbol withArguments: anArgs
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ScratchScript >> evaluator [
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> eventHatBlocks [
 
 	^ blocksBin submorphs select: [ :m | m class = EventHatMorph ]
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 ScratchScript >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchScript >> fixScriptBeforeWriting [
 
 	blocksBin allMorphsDo: [ :each | 
 		each isBlockMorph ifTrue: [ each stopProcess ] ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ScratchScript >> fixUnsavedFields [
 	blocksBin allMorphs
 		do: [ :each | 
@@ -466,70 +468,70 @@ ScratchScript >> fixUnsavedFields [
 						ifTrue: [ each loseKeyboardFocus ] ] ]
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> foreverBlockSelectors [
 
 	^ #( doForever doForeverIf )
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ScratchScript >> getVar: aString [
 	^ self evaluator getVar: aString
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> getVarSelectors [
 
 	^ #( getVar )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> hatBlocks [
 	^ blocksBin submorphs select: [ :m | m isHatBlock ]
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> ifElseBlockSelectors [
 
 	^ #( doIfElse )
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 ScratchScript >> initFieldsFrom: anObjStream version: classVersion [
 	self
 		initFieldsNamed: #(blocksBin project)
 		from: anObjStream
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchScript >> initialize [
 
 	blocksBin := self newScriptsMorph
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchScript >> isValidSubName: aString [
 	self subclassResponsibility
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 ScratchScript >> listVarNames [
 	self subclassResponsibility
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> loopBlockSelectors [
 
 	^ #( doForever doForeverIf doRepeat doUntil )
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchScript >> newArgMorphBuilder [
 
 	^ ArgMorphBuilder new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchScript >> newBlockMorphBuilder [
 
 	^ BlockMorphBuilder new
@@ -537,42 +539,42 @@ ScratchScript >> newBlockMorphBuilder [
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchScript >> newBlockPaletteMorph [
 	^ ScratchBlockPaletteMorph new
 		project: project;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchScript >> newScriptsMorph [
 
 	^ ScratchScriptsMorph new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> objName [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> project [
 	^ project
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> project: aProject [
 	project := aProject.
 	blocksBin project: project
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> setVarSelectors [
 
 	^ #( setVar:to: changeVar:by: )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> setupBlockCategory [
 
 	blockMorphBuilder
@@ -583,7 +585,7 @@ ScratchScript >> setupBlockCategory [
 		setCategory: 'list' color: ScratchTheme listBlockColor
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> setupBlockSpecs [
 
 	argMorphBuilder := self newArgMorphBuilder.
@@ -593,68 +595,68 @@ ScratchScript >> setupBlockSpecs [
 	self addBlockSpecs
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> specialCommandSelectors [
 
 	^ #( #setVar:to: )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> startHatBlockNames [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> startHatBlocks [
 
 	^ blocksBin submorphs select: [ :m | m class = StartHatMorph ]
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> stopBlockSelectors [
 
 	^ #( stopThread stopAll return: break continue doReturn )
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 ScratchScript >> storeFieldsOn: anObjStream [
 	self storeFieldsNamed: #(blocksBin project) on: anObjStream.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> subHatBlockNamed: aString [
 	^ self subHatBlocks detect: [ :each | each subName = aString ] ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> subHatBlocks [
 	^ blocksBin submorphs select: [:m | m class = SubHatMorph]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchScript >> subNameInUse: aString [
 	^ self subNames includes: aString
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 ScratchScript >> subNames [
 	^ (self subHatBlocks collect: #subName) asSet asArray sort
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> toggleWatcher: aToggleButton for: aBlockMorph [
 	self subclassResponsibility
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 ScratchScript >> uncoloredArgMorphFor: specString [
 
 	"argBuilder ifNil: [ self setupArgBuilder ]."
 	^ argMorphBuilder argMorphFor: specString second
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 ScratchScript >> updateListArgFor: aBlock [
 	| listVar |
 	listVar := self listVarNames
@@ -667,43 +669,43 @@ ScratchScript >> updateListArgFor: aBlock [
 				ifTrue: [ each defaultValue: listVar ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> updateWatcher: aToggleButton for: aBlockMorph [
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchScript >> useList [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchScript >> useVariable [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchScript >> useVariableWatcher [
 	^ true
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 ScratchScript >> varNames [
 	self subclassResponsibility
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 ScratchScript >> variableBlockSelectors [
 
 	^ #( readVariable changeVariable )
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 ScratchScript >> variableNameInUse: aString [
 	self subclassResponsibility
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> variablesPage [
 
 	| page y maxX |
@@ -719,7 +721,7 @@ ScratchScript >> variablesPage [
 	^ page
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 ScratchScript >> viewerPageForCategory: aCategoryName [
 
 	| bin x y |
@@ -738,7 +740,7 @@ ScratchScript >> viewerPageForCategory: aCategoryName [
 	^ bin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScript >> watcherSelectors [
 	^ #()
 ]

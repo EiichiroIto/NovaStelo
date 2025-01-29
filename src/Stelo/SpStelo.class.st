@@ -1,6 +1,6 @@
 Class {
-	#name : #SpStelo,
-	#superclass : #SpScratchApp,
+	#name : 'SpStelo',
+	#superclass : 'SpScratchApp',
 	#instVars : [
 		'sworld',
 		'events',
@@ -9,10 +9,12 @@ Class {
 		'recorder',
 		'process'
 	],
-	#category : #'Stelo-Spec2'
+	#category : 'Stelo-Spec2',
+	#package : 'Stelo',
+	#tag : 'Spec2'
 }
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> aboutAppString [
 
 	^ self appName , ' v' , self appVersion , '
@@ -25,28 +27,28 @@ All rights reserved.
 '
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> appFolderName [
 	^ 'stelo'
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> appName [
 	^ 'NovaStelo'
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> appVersion [
 
 	^ '1.2.7'
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> extension [
 	^ 'sl'
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 SpStelo class >> initialize [
 	"self initialize"
 	ScratchTheme
@@ -54,7 +56,7 @@ SpStelo class >> initialize [
 		setupThemeNamed: self appFolderName
 ]
 
-{ #category : #'world menu' }
+{ #category : 'world menu' }
 SpStelo class >> menuCommandOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #NovaStelo)
@@ -64,32 +66,32 @@ SpStelo class >> menuCommandOn: aBuilder [
 		icon: self icon
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> presentationClass [
 	^ SpSteloPresenter
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> previewClass [
 	^ self projectClass
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> projectClass [
 	^ SteloProject
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> recodingExtent [
 	^ 400 @ 400
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 SpStelo class >> themesURL [
 	^ 'https://github.com/EiichiroIto/NovaStelo/raw/master/misc/Themes.zip'
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> addTurtles [
 	| script |
 	script := project addNewTurtleScript.
@@ -98,14 +100,14 @@ SpStelo >> addTurtles [
 	^ script
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> clearPatches [
 
 	project patches clear.
 	presenter updateDisplay
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> clearTurtles [
 
 	project turtleBreeds do: [ :each | each clear ].
@@ -113,7 +115,7 @@ SpStelo >> clearTurtles [
 	presenter updateDisplay
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> copyListToPlots [
 	| listNames plots ret list vno |
 	listNames := project observer userDefinedListNames.
@@ -127,7 +129,7 @@ SpStelo >> copyListToPlots [
 	self plotter plot: ret second list: list
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> copyPlotsToList [
 	| listNames plots ret list vno |
 	listNames := project observer userDefinedListNames.
@@ -145,7 +147,7 @@ SpStelo >> copyPlotsToList [
 		set: list
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> deleteTurtles: anInteger [
 	| script |
 	script := project scriptOf: anInteger.
@@ -154,52 +156,52 @@ SpStelo >> deleteTurtles: anInteger [
 	presenter updateDisplay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> eventIdFor: aSymbol [
 	^ events at: aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> events [
 
 	^ events
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> events: anObject [
 
 	events := anObject
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> exportPlots [
 	self export: SteloPlotsExporter new extension: self plotsExtension isBinary: false
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> exportSexpCode [
 	self export: (ScratchSexpExporter appName: self appName) extension: self sexpExtension isBinary: false
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> importPlots [
 	self import: SteloPlotsImporter new extension: self plotsExtension isBinary: false
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> importSexpCode [
 	self import: (ScratchSexpImporter appName: self appName) extension: self sexpExtension isBinary: false.
 	presenter updateTurtles
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SpStelo >> initialize [
 	super initialize.
 	lastMSec := 0.
 	lastTicks := 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpStelo >> installNewProject: aProject [
 
 	self stopAllProcesses.
@@ -216,46 +218,46 @@ SpStelo >> installNewProject: aProject [
 	Smalltalk garbageCollect
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> isProcessRunning [
 	^ process notNil and: [ process isRunning ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SpStelo >> isRecording [
 	^ recorder notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> lastMSec [
 
 	^ lastMSec
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> lastMSec: anObject [
 
 	lastMSec := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> lastTicks [
 
 	^ lastTicks
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> lastTicks: anObject [
 
 	lastTicks := anObject
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> maxUpdateInfoCount [
 	^ 50
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> newCode [
 
 	^ SteloBytecodeGenerator new
@@ -263,23 +265,23 @@ SpStelo >> newCode [
 		  yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpStelo >> newMicroWorld [
 
 	^ SMicroWorld new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpStelo >> newObserver [
 	^ SObserver new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpStelo >> newPatches [
 	^ SPatches new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 SpStelo >> newPresenter [
 	^ SpSteloPresenter basicNew
 		application: self;
@@ -287,61 +289,61 @@ SpStelo >> newPresenter [
 		whenStepsDo: [ self stepProcesses ]
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> newProgram [
 	^ SProgram new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> observerScript [
 	^ project scriptOf: SBreedId observerBreedNo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> patchesScript [
 	^ project scriptOf: SBreedId patchesBreedNo
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpStelo >> plotsExtension [
 	^ 'csv'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> plotter [
 	^ presenter plotter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> process [
 
 	^ process
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> process: anObject [
 
 	process := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> recorder [
 
 	^ recorder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> recorder: anObject [
 	recorder := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpStelo >> restoreProject [
 
 	project setupWorld: sworld
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> runLoop [
 	| program |
 	self setupEvents.
@@ -351,7 +353,7 @@ SpStelo >> runLoop [
 	^ process
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> runSetup [
 	| program |
 	self setupEvents.
@@ -361,12 +363,12 @@ SpStelo >> runSetup [
 	^ process
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> scriptOf: anInteger [
 	^ project scriptOf: anInteger
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> setupEvents [
 	| result eventId |
 	eventId := EventId new.
@@ -380,12 +382,12 @@ SpStelo >> setupEvents [
 	^ events
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpStelo >> sexpExtension [
 	^ 'sts'
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> showBytecode: topBlock [
 
 	| code |
@@ -395,7 +397,7 @@ SpStelo >> showBytecode: topBlock [
 	code inspect
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> startEvent [
 	| program menu eno |
 	self stopAllProcesses.
@@ -414,21 +416,21 @@ SpStelo >> startEvent [
 	^ process
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> startLoop [
 	self stopAllProcesses.
 	presenter stepTime: 0.
 	self runLoop
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> startLoopSlow [
 	self stopAllProcesses.
 	presenter stepTime: 500.
 	self runLoop
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> startProcessFor: topBlock [
 
 	| code program |
@@ -448,14 +450,14 @@ SpStelo >> startProcessFor: topBlock [
 	^ process
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> startSetup [
 	self stopAllProcesses.
 	presenter stepTime: 0.
 	self runSetup
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> startStageRecording [
 
 	| file |
@@ -472,7 +474,7 @@ SpStelo >> startStageRecording [
 	self updateStatusForced: true
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> stepLoop [
 	self stopAllProcesses.
 	presenter stepTime: 0.
@@ -481,7 +483,7 @@ SpStelo >> stepLoop [
 	self stopAllProcesses
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> stepProcesses [
 	| oldRunning |
 	oldRunning := self isProcessRunning.
@@ -495,20 +497,20 @@ SpStelo >> stepProcesses [
 	recorder writeForced: false
 ]
 
-{ #category : #'button actions' }
+{ #category : 'button actions' }
 SpStelo >> stopAll [
 	presenter stepTime: 1000.
 	self stopAllProcesses
 ]
 
-{ #category : #processes }
+{ #category : 'processes' }
 SpStelo >> stopAllProcesses [
 	process ifNil: [ ^ self ].
 	process stop.
 	process := nil
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> stopStageRecording [
 	recorder ifNil: [ ^ self ].
 	recorder close.
@@ -516,7 +518,7 @@ SpStelo >> stopStageRecording [
 	self updateStatusForced: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpStelo >> stringOfTicks: ticks fps: fps count: count [
 	| stream |
 	stream := String new writeStream.
@@ -530,7 +532,7 @@ SpStelo >> stringOfTicks: ticks fps: fps count: count [
 	^ stream contents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpStelo >> stringOfWorldName: aString [
 	| stream |
 	stream := String new writeStream.
@@ -543,36 +545,36 @@ SpStelo >> stringOfWorldName: aString [
 	^ stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> sworld [
 
 	^ sworld
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> sworld: aWorld [
 
 	sworld := aWorld
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> target: aScript [
 	presenter target: aScript
 ]
 
-{ #category : #'menu actions' }
+{ #category : 'menu actions' }
 SpStelo >> toggleStageRecording [
 	self isRecording
 		ifTrue: [ self stopStageRecording ]
 		ifFalse: [ self startStageRecording ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> turtlesScripts [
 	^ project scriptsForMenu
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpStelo >> updateStatusForced: aBoolean [
 
 	| msec str ticks fps count |
@@ -592,7 +594,7 @@ SpStelo >> updateStatusForced: aBoolean [
 	lastMSec := msec
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SpStelo >> varsAt: anInteger [
 	| stream breed v bno vno |
 	stream := WriteStream on: Array new.

@@ -1,6 +1,6 @@
 Class {
-	#name : #ScratchScrollBar,
-	#superclass : #Morph,
+	#name : 'ScratchScrollBar',
+	#superclass : 'Morph',
 	#instVars : [
 		'target',
 		'selector',
@@ -15,10 +15,12 @@ Class {
 		'sliderInsets',
 		'dragOffset'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchScrollBar class >> newHorizontal [
 	"Answer a new horizontal scrollbar."
 
@@ -26,7 +28,7 @@ ScratchScrollBar class >> newHorizontal [
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchScrollBar class >> newVertical [
 	"Answer a new vertical scrollbar."
 
@@ -34,7 +36,7 @@ ScratchScrollBar class >> newVertical [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchScrollBar >> drawHEdge: aForm from: startX to: endX yOffset: yOffset on: aCanvas [
 	"Use the given form starting at the given point to draw a horizontal edge between the given starting and ending x positions. Do nothing if the given form is nil."
 
@@ -48,7 +50,7 @@ ScratchScrollBar >> drawHEdge: aForm from: startX to: endX yOffset: yOffset on: 
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchScrollBar >> drawHSliderOn: aCanvas [
 	"Draw a horizontal slider on the given canvas."
 
@@ -67,7 +69,7 @@ ScratchScrollBar >> drawHSliderOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchScrollBar >> drawOn: aCanvas [
 	"Draw myself, clipping to my bounds."
 
@@ -101,7 +103,7 @@ ScratchScrollBar >> drawOn: aCanvas [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchScrollBar >> drawVEdge: aForm from: startY to: endY xOffset: xOffset on: aCanvas [
 	"Use the given form starting at the given point to draw a vertical edge between the given starting and ending y positions. Do nothing if the given form is nil."
 
@@ -115,7 +117,7 @@ ScratchScrollBar >> drawVEdge: aForm from: startY to: endY xOffset: xOffset on: 
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ScratchScrollBar >> drawVSliderOn: aCanvas [
 	"Draw a vertical slider on the given canvas."
 
@@ -134,7 +136,7 @@ ScratchScrollBar >> drawVSliderOn: aCanvas [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchScrollBar >> hFrameForm: frameForm sliderForm: sliderForm [
 	"Initialize myself as a horizontal slider, setting my forms by cutting up the given forms."
 
@@ -156,14 +158,14 @@ ScratchScrollBar >> hFrameForm: frameForm sliderForm: sliderForm [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScrollBar >> handlesMouseDown: evt [
 
 	^ true
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchScrollBar >> initVertical: aBoolean [
 
 	aBoolean
@@ -176,7 +178,7 @@ ScratchScrollBar >> initVertical: aBoolean [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchScrollBar >> initialize [
 
 	super initialize.
@@ -186,7 +188,7 @@ ScratchScrollBar >> initialize [
 	dragOffset := 0
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScrollBar >> linearOffset: evt [
 	"Answer the linear position of the given event's cursor point along my slider's range. For example, this will be zero at the leftmost/topmost edge of the slider's range."
 
@@ -197,7 +199,7 @@ ScratchScrollBar >> linearOffset: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScrollBar >> maxSliderLength [
 	"Answer the maximum slider length."
 
@@ -208,7 +210,7 @@ ScratchScrollBar >> maxSliderLength [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScrollBar >> maxSliderStart [
 	"Answer the maximum sliderStart value given the slider's length."
 
@@ -218,7 +220,7 @@ ScratchScrollBar >> maxSliderStart [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScrollBar >> minSliderLength [
 	"Answer the minimum slider length."
 
@@ -228,7 +230,7 @@ ScratchScrollBar >> minSliderLength [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScrollBar >> mouseDown: evt [
 	"Record the offset between the slider's start offset and the relative event's location."
 
@@ -250,7 +252,7 @@ ScratchScrollBar >> mouseDown: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ScratchScrollBar >> mouseMove: evt [
 	"Update the slider position if in drag mode."
 
@@ -263,13 +265,13 @@ ScratchScrollBar >> mouseMove: evt [
 
 ]
 
-{ #category : #'scroll bar protocol' }
+{ #category : 'scroll bar protocol' }
 ScratchScrollBar >> scrollDelta: ignore1 pageDelta: ignore2 [
 	"For compatability with old scrollbars. I don't support paging or scrolling arrows."
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScrollBar >> scrollFraction [
 	"Answer the scroll fraction, a number between 0.0 and 1.0."
 
@@ -279,7 +281,7 @@ ScratchScrollBar >> scrollFraction [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScrollBar >> scrollFraction: aNumber [
 	"Set my scroll fraction, a number between 0.0 and 1.0."
 
@@ -288,21 +290,21 @@ ScratchScrollBar >> scrollFraction: aNumber [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScrollBar >> selector: aSymbol [
 
 	selector := aSymbol.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchScrollBar >> target: anObject [
 
 	target := anObject.
 
 ]
 
-{ #category : #'scroll bar protocol' }
+{ #category : 'scroll bar protocol' }
 ScratchScrollBar >> updateTarget [
 	"Update my target object with my current value, a number between 0.0 and 1.0. Do nothing if either my target or my selector is nil."
 
@@ -311,7 +313,7 @@ ScratchScrollBar >> updateTarget [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ScratchScrollBar >> vFrameForm: frameForm sliderForm: sliderForm [
 	"Initialize myself as a vertical slider, setting my forms by cutting up the given forms."
 
@@ -333,7 +335,7 @@ ScratchScrollBar >> vFrameForm: frameForm sliderForm: sliderForm [
 
 ]
 
-{ #category : #'scroll bar protocol' }
+{ #category : 'scroll bar protocol' }
 ScratchScrollBar >> value: scrollFraction [
 	"Set my scroll fraction (range is 0.0 to 1.0). This method is for compatability with ScrollBar."
 

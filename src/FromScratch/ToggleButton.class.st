@@ -8,8 +8,8 @@ Finally, if I am disabled I can show a disabled form.
 
 "
 Class {
-	#name : #ToggleButton,
-	#superclass : #SimpleButtonMorph,
+	#name : 'ToggleButton',
+	#superclass : 'SimpleButtonMorph',
 	#instVars : [
 		'onForm',
 		'offForm',
@@ -23,10 +23,12 @@ Class {
 		'wasOn',
 		'alphaOn'
 	],
-	#category : #'FromScratch-Morphic'
+	#category : 'FromScratch-Morphic',
+	#package : 'FromScratch',
+	#tag : 'Morphic'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ToggleButton class >> onForm: f1 offForm: f2 [
 	"Set the forms used for my on and off states."
 
@@ -34,7 +36,7 @@ ToggleButton class >> onForm: f1 offForm: f2 [
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ToggleButton class >> onForm: f1 offForm: f2 overForm: f3 [
 	"Set the forms used for my on and off states."
 
@@ -42,7 +44,7 @@ ToggleButton class >> onForm: f1 offForm: f2 overForm: f3 [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ToggleButton >> areasRemainingToFill: aRectangle [
 	"Don't optimize redraw; I may have transparent areas!"
 
@@ -50,7 +52,7 @@ ToggleButton >> areasRemainingToFill: aRectangle [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> color [
 
 	isOn
@@ -62,7 +64,7 @@ ToggleButton >> color [
 		ifNil:[^ super color].
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ToggleButton >> containsPoint: aPoint [
 
 	| f |
@@ -73,7 +75,7 @@ ToggleButton >> containsPoint: aPoint [
 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 ToggleButton >> drawOn: aCanvas [
 
 	| form |
@@ -93,7 +95,7 @@ ToggleButton >> drawOn: aCanvas [
 
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 ToggleButton >> extent: aRectangle [
 
 	"Overridden because SimpleButtonMorph tries to center the label, if there is one, and we want manual control."
@@ -111,21 +113,21 @@ ToggleButton >> extent: aRectangle [
 	morph position: oldP
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 ToggleButton >> fieldsVersion [
 
 	^ 1
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ToggleButton >> handlesMouseOver: evt [
 
 	^ true
 
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 ToggleButton >> initFieldsFrom: anObjStream version: classVersion [
 
 	super initFieldsFrom: anObjStream version: classVersion.
@@ -142,7 +144,7 @@ ToggleButton >> initFieldsFrom: anObjStream version: classVersion [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ToggleButton >> initialize [
 
 	super initialize.
@@ -155,35 +157,35 @@ ToggleButton >> initialize [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> isDisabled [
 
 	^ isDisabled
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> isDisabled: aBoolean [
 
 	isDisabled := aBoolean.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> isOn [
 
 	^ isOn
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> label [
 
 	self allMorphsDo: [:m | (m isKindOf: StringMorph) ifTrue: [^ m]].
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> label: aString font: aFont [
 	"Add the given label in the given font centered in my current extent."
 
@@ -196,7 +198,7 @@ ToggleButton >> label: aString font: aFont [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ToggleButton >> mouseDown: evt [
 	"If I am currently turned on, turn myself off and vice versa. If toggleMode is false, then do nothing if I am already on. If isMomentary, then turn myself off immediately. If I am to act when I'm pressed, then send my target my action selector."
 
@@ -211,7 +213,7 @@ ToggleButton >> mouseDown: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ToggleButton >> mouseEnter: evt [
 
 	isDisabled ifTrue: [^ self].
@@ -224,7 +226,7 @@ ToggleButton >> mouseEnter: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ToggleButton >> mouseLeave: evt [
 
 	isDisabled ifTrue: [^ self].
@@ -236,7 +238,7 @@ ToggleButton >> mouseLeave: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ToggleButton >> mouseMove: evt [
 	"Give feedback depending on whether the mouse is over me. If I was originally on, show my off image if the mouse is over me and my on image if not. Do the opposite if I was originally off."
 
@@ -250,7 +252,7 @@ ToggleButton >> mouseMove: evt [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ToggleButton >> mouseUp: evt [
 	"If I am a momentary button, then turn off. If I am to act on button up, then send my target my action selector."
 
@@ -264,7 +266,7 @@ ToggleButton >> mouseUp: evt [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> off [
 	"Turn myself off."
 
@@ -276,7 +278,7 @@ ToggleButton >> off [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> on [
 	"Turn myself on."
 
@@ -288,7 +290,7 @@ ToggleButton >> on [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ToggleButton >> onForm: f1 offForm: f2 [
 
 	onForm := f1.
@@ -297,7 +299,7 @@ ToggleButton >> onForm: f1 offForm: f2 [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ToggleButton >> onForm: f1 offForm: f2 overForm: f3 [
 
 	onForm := f1.
@@ -307,13 +309,13 @@ ToggleButton >> onForm: f1 offForm: f2 overForm: f3 [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ToggleButton >> setDefaultLabel [
 	"Overridden to do nothing. I have no label by default, although a label can be added."
 
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 ToggleButton >> storeFieldsOn: anObjStream [
 
 	super storeFieldsOn: anObjStream.
@@ -331,7 +333,7 @@ ToggleButton >> storeFieldsOn: anObjStream [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ToggleButton >> toggleMode: aBoolean [
 
 	toggleMode := aBoolean.

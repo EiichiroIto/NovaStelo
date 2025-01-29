@@ -1,13 +1,15 @@
 Class {
-	#name : #TurtlesScript,
-	#superclass : #SteloScript,
+	#name : 'TurtlesScript',
+	#superclass : 'SteloScript',
 	#instVars : [
 		'objName'
 	],
-	#category : #'Stelo-Project'
+	#category : 'Stelo-Project',
+	#package : 'Stelo',
+	#tag : 'Project'
 }
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 TurtlesScript >> addBasicBlocks [
 
 	blockMorphBuilder
@@ -26,7 +28,7 @@ TurtlesScript >> addBasicBlocks [
 	super addBasicBlocks
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 TurtlesScript >> addBlockSpecs [
 
 	self
@@ -39,7 +41,7 @@ TurtlesScript >> addBlockSpecs [
 	super addBlockSpecs
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 TurtlesScript >> addPatchBlocks [
 
 	blockMorphBuilder
@@ -49,7 +51,7 @@ TurtlesScript >> addPatchBlocks [
 		addCommand: 'change patch''s %p at %n by %n' selector: #changePatchVar:at:by: arguments: #( '' 0 1 )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 TurtlesScript >> addPenBlocks [
 
 	blockMorphBuilder
@@ -60,7 +62,7 @@ TurtlesScript >> addPenBlocks [
 		addReporter: 'is pen down?' selector: #isPenDown
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 TurtlesScript >> addSensingBlocks [
 
 	blockMorphBuilder
@@ -87,38 +89,38 @@ TurtlesScript >> addSensingBlocks [
 	super addSensingBlocks
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TurtlesScript >> defaultObjName [
 	^ 'Turtles', breed breedNo asString
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 TurtlesScript >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 TurtlesScript >> initFieldsFrom: anObjStream version: classVersion [
 	super initFieldsFrom: anObjStream version: classVersion.
 	self initFieldsNamed: #(objName) from: anObjStream
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 TurtlesScript >> isTurtles [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TurtlesScript >> objName [
 	^ objName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TurtlesScript >> objName: aString [
 	objName := aString
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 TurtlesScript >> storeFieldsOn: anObjStream [
 	super storeFieldsOn: anObjStream.
 	self storeFieldsNamed: #(objName) on: anObjStream.

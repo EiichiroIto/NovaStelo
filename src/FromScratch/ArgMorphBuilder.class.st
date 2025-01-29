@@ -1,20 +1,22 @@
 Class {
-	#name : #ArgMorphBuilder,
-	#superclass : #Object,
+	#name : 'ArgMorphBuilder',
+	#superclass : 'Object',
 	#instVars : [
 		'dict'
 	],
-	#category : #'FromScratch-Project'
+	#category : 'FromScratch-Project',
+	#package : 'FromScratch',
+	#tag : 'Project'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ArgMorphBuilder >> add: aCharacter builder: aBlock [
 	(dict includesKey: aCharacter)
 		ifTrue: [ self error: 'arg character duplicated!' ].
 	dict at: aCharacter put: aBlock
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addBlockSpec: aBlockSpec [
 
 	aBlockSpec isBlockSpec ifTrue: [ ^ self ].
@@ -28,12 +30,12 @@ ArgMorphBuilder >> addBlockSpec: aBlockSpec [
 	self error
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addBooleanArg: aCharacter [
 	self add: aCharacter builder: [ BooleanArgMorph new ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addChoiceArg: aCharacter options: aCollection initialChoice: aString [
 
 	self add: aCharacter builder: [ 
@@ -42,7 +44,7 @@ ArgMorphBuilder >> addChoiceArg: aCharacter options: aCollection initialChoice: 
 			choice: aString ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addChoiceArg: aCharacter selector: aSymbol [
 	self
 		add: aCharacter
@@ -52,7 +54,7 @@ ArgMorphBuilder >> addChoiceArg: aCharacter selector: aSymbol [
 				choice: '' ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addChoiceArg: aCharacter selector: aSymbol initialChoice: aString [
 	self
 		add: aCharacter
@@ -62,7 +64,7 @@ ArgMorphBuilder >> addChoiceArg: aCharacter selector: aSymbol initialChoice: aSt
 				choice: aString ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addChoiceArg: aCharacter selector: aSymbol target: anObject initialChoice: aString [
 	self
 		add: aCharacter
@@ -72,35 +74,35 @@ ArgMorphBuilder >> addChoiceArg: aCharacter selector: aSymbol target: anObject i
 				choice: aString ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addChoiceArgDef: aChoiceArgDef [
 
 	self addChoiceArg: aChoiceArgDef arg options: aChoiceArgDef options initialChoice: ''
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addEventTitleArg: aCharacter [
 	self add: aCharacter builder: [ EventTitleMorph new ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addLocalVarArg: aCharacter [
 	self addLocalVarArg: aCharacter initialVarName: 'x'
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addLocalVarArg: aCharacter initialVarName: aString [
 	self
 		add: aCharacter
 		builder: [ LocalVarArgMorph new varName: aString ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addNumberExpressArg: aCharacter initialExpression: aString [
 	self add: aCharacter builder: [ ExpressionArgMorph new numExpression: aString ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addNumberExpressArg: aCharacter selector: aSymbol target: anObject [
 	self
 		add: aCharacter
@@ -110,7 +112,7 @@ ArgMorphBuilder >> addNumberExpressArg: aCharacter selector: aSymbol target: anO
 				getOptionsTarget: anObject ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addNumberExpressArg: aCharacter selector: aSymbol target: anObject initialExpression: aString [
 	self
 		add: aCharacter
@@ -120,39 +122,39 @@ ArgMorphBuilder >> addNumberExpressArg: aCharacter selector: aSymbol target: anO
 				getOptionsTarget: anObject ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addSpriteArg: aCharacter [
 	self add: aCharacter builder: [ ScriptArgMorph new ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> addStringExpressArg: aCharacter [
 	self add: aCharacter builder: [ ExpressionArgMorph new stringExpression: '' ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> argMorphFor: aCharacter [
 
 	^ (dict at: aCharacter) value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ArgMorphBuilder >> dict [
 	^ dict
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ArgMorphBuilder >> dict: anObject [
 
 	dict := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ArgMorphBuilder >> initialize [
 	dict := Dictionary new
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ArgMorphBuilder >> uncoloredArgMorphFor: specString [
 	^ (dict at: (specString at: 2)) value
 ]

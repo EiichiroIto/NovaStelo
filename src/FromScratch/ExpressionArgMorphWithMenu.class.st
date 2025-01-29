@@ -3,18 +3,20 @@ I represent a literal value such as a number or string. I can be edited by typin
 
 "
 Class {
-	#name : #ExpressionArgMorphWithMenu,
-	#superclass : #ExpressionArgMorph,
+	#name : 'ExpressionArgMorphWithMenu',
+	#superclass : 'ExpressionArgMorph',
 	#instVars : [
 		'menuMorph',
 		'specialValue',
 		'getOptionsSelector',
 		'getOptionsTarget'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 ExpressionArgMorphWithMenu class >> initialize [
 	"self initialize"
 
@@ -29,7 +31,7 @@ ExpressionArgMorphWithMenu class >> initialize [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ExpressionArgMorphWithMenu >> addMenuMorph [
 
 	menuMorph := ImageMorph new form: DropDownMenuForm.
@@ -37,19 +39,19 @@ ExpressionArgMorphWithMenu >> addMenuMorph [
 	self fixArgLayout
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ExpressionArgMorphWithMenu >> argString: aGenerator [
 	^ aGenerator expressionArgWithMenuString: self.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorphWithMenu >> defaultValue: anObject [
 	anObject isString
 		ifTrue: [ self specialValue: anObject ]
 		ifFalse: [ super defaultValue: anObject ]
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ExpressionArgMorphWithMenu >> evaluate [
 	"Answer the result of evaluating my expression in the context of the given ScratchProcess."
 
@@ -58,7 +60,7 @@ ExpressionArgMorphWithMenu >> evaluate [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ExpressionArgMorphWithMenu >> fixArgLayout [
 
 	| dx |
@@ -73,7 +75,7 @@ ExpressionArgMorphWithMenu >> fixArgLayout [
 		specialValue := nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorphWithMenu >> getOptionsSelector [
 
 	^ getOptionsSelector
@@ -81,7 +83,7 @@ ExpressionArgMorphWithMenu >> getOptionsSelector [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorphWithMenu >> getOptionsSelector: menuSelector [
 
 	"Add a drop-down menu button with the given selector. The selector should result in a menu whose action items are values that can be put into this type argument, typically numbers or strings."
@@ -90,31 +92,31 @@ ExpressionArgMorphWithMenu >> getOptionsSelector: menuSelector [
 	self addMenuMorph
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorphWithMenu >> getOptionsTarget [
 	^ getOptionsTarget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorphWithMenu >> getOptionsTarget: anObject [
 	getOptionsTarget := anObject
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ExpressionArgMorphWithMenu >> handlesMouseDown: evt [
 
 	^ menuMorph notNil
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ExpressionArgMorphWithMenu >> isListVarNames [
 
 	^ #( listIndexNames listIndexForDeleteNames ) includes:
 		  getOptionsSelector
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ExpressionArgMorphWithMenu >> mouseDown: evt [
 
 	| list choice ret |
@@ -137,7 +139,7 @@ ExpressionArgMorphWithMenu >> mouseDown: evt [
 		ifFalse: [ self stringExpression: choice ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ExpressionArgMorphWithMenu >> options [
 
 	"Answer my set of options. If getOptionsSelector is not nil and I'm in a CommandBlock with a non-nil receiver, fetch my set of options by sending getOptionsSelector to that receiver."
@@ -150,17 +152,17 @@ ExpressionArgMorphWithMenu >> options [
 	^ list
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ExpressionArgMorphWithMenu >> ownerSelector [
 	^ owner selector
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ExpressionArgMorphWithMenu >> specialValue [
 	^ specialValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ExpressionArgMorphWithMenu >> specialValue: aString [
 	"A special value is a menu selection such as 'last' for a list index that appears as a string in a number if field. If the user edits the field, then it only accepts numeric input. The argumet is retained in the specialValue instance variable."
 

@@ -1,24 +1,26 @@
 Class {
-	#name : #SProgram,
-	#superclass : #Object,
+	#name : 'SProgram',
+	#superclass : 'Object',
 	#instVars : [
 		'codes',
 		'entryPoints'
 	],
-	#category : #'Stelo-Process'
+	#category : 'Stelo-Process',
+	#package : 'Stelo',
+	#tag : 'Process'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> addCode: anArray [
 	codes := codes, anArray.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> addEntryPoint: anInteger eventNo: eno breedNo: bno [
 	(self forEventNo: eno) addEntryPoint: anInteger forBreedNo: bno.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> bytecode [
 	^ codes
 		collect: [ :each | 
@@ -27,12 +29,12 @@ SProgram >> bytecode [
 				ifFalse: [ each ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> codes [
 	^ codes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> entryPointList [
 	| stream list |
 	stream := WriteStream on: Array new.
@@ -43,28 +45,28 @@ SProgram >> entryPointList [
 	^ stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> eventNoList [
 	^ entryPoints keys
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> forEventNo: anInteger [
 	^ entryPoints at: anInteger ifAbsentPut: [ SEntryPoints new ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 SProgram >> initialize [
 	entryPoints := Dictionary new.
 	codes := Array new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SProgram >> nextAddress [
 	^ codes size + 1
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 SProgram >> printOn: aStream [
 	aStream
 		nextPutAll: 'SProgram(';
@@ -72,12 +74,12 @@ SProgram >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SProgram >> privCodes: aCollection [
 	codes := aCollection.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SProgram >> privEntryPoints [
 	^ entryPoints
 ]

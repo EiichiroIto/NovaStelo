@@ -1,12 +1,12 @@
-Extension { #name : #Number }
+Extension { #name : 'Number' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Number >> asNumberNoError [
 
 	^ self
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Number >> hhmmss [
 	^ self rounded hhmmss
 ]

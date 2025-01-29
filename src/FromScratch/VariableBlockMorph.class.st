@@ -3,12 +3,14 @@ I am a block that reports the value of either a built-in or a user variable. Whe
 
 "
 Class {
-	#name : #VariableBlockMorph,
-	#superclass : #ReporterBlockMorph,
-	#category : #'FromScratch-Blocks'
+	#name : 'VariableBlockMorph',
+	#superclass : 'ReporterBlockMorph',
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 VariableBlockMorph >> addLabel [
 	"Add a label for my command and arguments. 
 	This is the method that really creates the whole block."
@@ -21,17 +23,17 @@ VariableBlockMorph >> addLabel [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 VariableBlockMorph >> argString: aGenerator [
 	^ aGenerator variableArgString: self.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VariableBlockMorph >> args [
 	^ { self variable }
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VariableBlockMorph >> asBlockTuple [
 	"Answer a tuple (Array) describing this block and its arguments."
 
@@ -39,14 +41,14 @@ VariableBlockMorph >> asBlockTuple [
 
 ]
 
-{ #category : #watcher }
+{ #category : 'watcher' }
 VariableBlockMorph >> canBecomeWatcher [
 	"All variable blocks can become watchers when dragged onto the stage."
 
 	^ true
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 VariableBlockMorph >> evaluateWithArgs: args [
 	"Overridden to read my variable value."
 
@@ -54,7 +56,7 @@ VariableBlockMorph >> evaluateWithArgs: args [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 VariableBlockMorph >> initialize [
 
 	super initialize.
@@ -63,25 +65,25 @@ VariableBlockMorph >> initialize [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VariableBlockMorph >> isReporter [
 
 	^ true
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 VariableBlockMorph >> isVariableBlock [
 	"do not delete"
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VariableBlockMorph >> numberArgFlags [
 	^ #(false)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VariableBlockMorph >> receiver: anObject [
 	"Set my receiver object and, if possible, my block color."
 
@@ -89,12 +91,12 @@ VariableBlockMorph >> receiver: anObject [
 	self color: ScratchTheme variableBlockColor darker
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VariableBlockMorph >> selector [
 	^ #getVar:
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VariableBlockMorph >> variable [
 
 	^ commandSpec

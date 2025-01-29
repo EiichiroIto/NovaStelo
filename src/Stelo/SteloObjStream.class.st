@@ -1,16 +1,18 @@
 Class {
-	#name : #SteloObjStream,
-	#superclass : #ObjStream,
-	#category : #'Stelo-Converter'
+	#name : 'SteloObjStream',
+	#superclass : 'ObjStream',
+	#category : 'Stelo-Converter',
+	#package : 'Stelo',
+	#tag : 'Converter'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 SteloObjStream class >> initialize [
 	"SteloObjStream initialize"
 	self setupVariables
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 SteloObjStream class >> userClasses [
 	^ super userClasses, #(
 		"id		class"

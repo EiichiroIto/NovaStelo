@@ -6,22 +6,24 @@ Unlike other kind of ArgMorph, I can't be replaced with a reporter.
 
 "
 Class {
-	#name : #EventTitleMorph,
-	#superclass : #ArgMorph,
+	#name : 'EventTitleMorph',
+	#superclass : 'ArgMorph',
 	#instVars : [
 		'menuIconMorph'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #queries }
+{ #category : 'queries' }
 EventTitleMorph >> acceptsDroppedReporters [
 	"Accept reporter blocks in broadcast blocks but not in 'when I receive' hat block."
 
 	^ owner notNil and: [ owner isCommandBlock ]
 ]
 
-{ #category : #queries }
+{ #category : 'queries' }
 EventTitleMorph >> acceptsTypeOf: aBlockMorph [
 	"Answer true if I can accept a dropped reporter of the given type."
 
@@ -30,33 +32,33 @@ EventTitleMorph >> acceptsTypeOf: aBlockMorph [
 
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 EventTitleMorph >> argString: aGenerator [
 	^ aGenerator eventTitleArgString: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventTitleMorph >> defaultValue: aString [
 
 	self eventName: aString.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventTitleMorph >> evaluate [
 
 	^ self eventName
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventTitleMorph >> eventName [
 
 	^ labelMorph contents
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventTitleMorph >> eventName: aString [
 	| block |
 	labelMorph contents: aString asString.
@@ -68,7 +70,7 @@ EventTitleMorph >> eventName: aString [
 		ifNotNil: [ block fixBlockLayout ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EventTitleMorph >> fixArgLayout [
 	"Set my color to my owner's color."
 
@@ -76,13 +78,13 @@ EventTitleMorph >> fixArgLayout [
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 EventTitleMorph >> handlesMouseDown: evt [
 	^ (self topRight - (14 @ 0) corner: self bottomRight)
 		containsPoint: evt cursorPoint
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EventTitleMorph >> initialize [
 	super initialize.
 	self borderInset.
@@ -97,14 +99,14 @@ EventTitleMorph >> initialize [
 	self eventName: ''
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 EventTitleMorph >> mouseDown: evt [
 
 	self presentMenu.
 
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 EventTitleMorph >> presentMenu [
 
 	"Pop up a menu of choices."
@@ -129,7 +131,7 @@ EventTitleMorph >> presentMenu [
 	self eventName: choice
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 EventTitleMorph >> wantsKeyboardFocusFor: aSubmorph [
 	"Don't allow shift-click editing of block labels."
 

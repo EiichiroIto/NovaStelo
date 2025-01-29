@@ -1,15 +1,17 @@
 Class {
-	#name : #ScratchNativeThreadTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'ScratchNativeThreadTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchNativeThreadTest >> newThread [
 	^ ScratchNativeThread new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchNativeThreadTest >> sampleCode1 [
 	^ OrderedCollection new
 		add: #push1;
@@ -25,12 +27,12 @@ ScratchNativeThreadTest >> sampleCode1 [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchNativeThreadTest >> sampleCode2 [
 	^ #(pushShort 1 0 pushShort 2 0 plus return pushShort 1 0 call returnValue dup mul stop)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testAbs [
 	| t |
 	t := self newThread.
@@ -46,7 +48,7 @@ ScratchNativeThreadTest >> testAbs [
 	self assert: t pop equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testAcos [
 	| t |
 	t := self newThread.
@@ -62,7 +64,7 @@ ScratchNativeThreadTest >> testAcos [
 	self assert: t pop closeTo: 180.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testAnd [
 	| t |
 	t := self newThread.
@@ -92,7 +94,7 @@ ScratchNativeThreadTest >> testAnd [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testAsin [
 	| t |
 	t := self newThread.
@@ -108,7 +110,7 @@ ScratchNativeThreadTest >> testAsin [
 	self assert: t pop closeTo: -90.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testAtan [
 	| t |
 	t := self newThread.
@@ -124,7 +126,7 @@ ScratchNativeThreadTest >> testAtan [
 	self assert: t pop closeTo: -45.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testCall [
 	| e |
 	e := self newThread.
@@ -136,7 +138,7 @@ ScratchNativeThreadTest >> testCall [
 	self assert: e pop equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testCodes [
 	| t |
 	t := self newThread.
@@ -145,7 +147,7 @@ ScratchNativeThreadTest >> testCodes [
 	self assertCollection: t codes equals: #(1 2 3).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testCos [
 	| t |
 	t := self newThread.
@@ -171,7 +173,7 @@ ScratchNativeThreadTest >> testCos [
 	self assert: t pop closeTo: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testDec [
 	| t |
 	t := self newThread.
@@ -183,7 +185,7 @@ ScratchNativeThreadTest >> testDec [
 	self assert: t stack first equals: 8.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testDirection [
 	| t |
 	t := self newThread.
@@ -217,7 +219,7 @@ ScratchNativeThreadTest >> testDirection [
 	self assert: t pop equals: 360 - 45.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testDiv [
 	| t |
 	t := self newThread.
@@ -240,7 +242,7 @@ ScratchNativeThreadTest >> testDiv [
 	self assert: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testDoOneCycle [
 	| e c |
 	c := self sampleCode1.
@@ -254,7 +256,7 @@ ScratchNativeThreadTest >> testDoOneCycle [
 	self assert: e stack first equals: 9.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testDrop [
 	| t |
 	t := self newThread.
@@ -265,7 +267,7 @@ ScratchNativeThreadTest >> testDrop [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testDup [
 	| t |
 	t := self newThread.
@@ -279,7 +281,7 @@ ScratchNativeThreadTest >> testDup [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testEqual [
 	| t |
 	t := self newThread.
@@ -297,7 +299,7 @@ ScratchNativeThreadTest >> testEqual [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testErrorOccuered [
 	| t |
 	t := self newThread.
@@ -306,7 +308,7 @@ ScratchNativeThreadTest >> testErrorOccuered [
 	self assert: t isTerminated equals: true.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testEvaluate [
 	| t c x |
 	t := self newThread.
@@ -316,7 +318,7 @@ ScratchNativeThreadTest >> testEvaluate [
 	self assert: x equals: 3.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testExecute [
 	| t c |
 	t := self newThread.
@@ -327,7 +329,7 @@ ScratchNativeThreadTest >> testExecute [
 	self assert: t stack first equals: 3.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testExp [
 	| t |
 	t := self newThread.
@@ -348,7 +350,7 @@ ScratchNativeThreadTest >> testExp [
 	self assert: t pop closeTo: 1 / 1 exp.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testExp10 [
 	| t |
 	t := self newThread.
@@ -369,7 +371,7 @@ ScratchNativeThreadTest >> testExp10 [
 	self assert: t pop closeTo: 0.1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testGetId [
 	| t |
 	t := self newThread.
@@ -379,7 +381,7 @@ ScratchNativeThreadTest >> testGetId [
 	self assert: t pop equals: 10.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testId [
 	| e |
 	e := self newThread.
@@ -390,13 +392,13 @@ ScratchNativeThreadTest >> testId [
 	self assert: e id equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testInitialize [
 	self testPc.
 	self testStack.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testInv [
 	| t |
 	t := self newThread.
@@ -413,7 +415,7 @@ ScratchNativeThreadTest >> testInv [
 	self assert: t pop equals: 16rEDCB.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testIsRunning [
 
 	| t |
@@ -425,7 +427,7 @@ ScratchNativeThreadTest >> testIsRunning [
 	self assert: t isRunning equals: false
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testIsTerminated [
 
 	| t |
@@ -437,7 +439,7 @@ ScratchNativeThreadTest >> testIsTerminated [
 	self assert: t isTerminated equals: false
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testJump [
 	| t |
 	t := self newThread.
@@ -450,7 +452,7 @@ ScratchNativeThreadTest >> testJump [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testJumpIfFalse [
 	| t |
 	t := self newThread.
@@ -470,7 +472,7 @@ ScratchNativeThreadTest >> testJumpIfFalse [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testJumpIfTrue [
 	| t |
 	t := self newThread.
@@ -490,7 +492,7 @@ ScratchNativeThreadTest >> testJumpIfTrue [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testLess [
 	| t |
 	t := self newThread.
@@ -514,7 +516,7 @@ ScratchNativeThreadTest >> testLess [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testLessEqual [
 	| t |
 	t := self newThread.
@@ -538,7 +540,7 @@ ScratchNativeThreadTest >> testLessEqual [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testLn [
 	| t |
 	t := self newThread.
@@ -559,7 +561,7 @@ ScratchNativeThreadTest >> testLn [
 	self assert: t pop closeTo: -1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testLog [
 	| t |
 	t := self newThread.
@@ -580,7 +582,7 @@ ScratchNativeThreadTest >> testLog [
 	self assert: t pop closeTo: -1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testMinus [
 	| t |
 	t := self newThread.
@@ -598,7 +600,7 @@ ScratchNativeThreadTest >> testMinus [
 	self assert: t pop equals: 15.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testMod [
 	| t |
 	t := self newThread.
@@ -616,7 +618,7 @@ ScratchNativeThreadTest >> testMod [
 	self assert: t pop equals: 5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testMul [
 	| t |
 	t := self newThread.
@@ -634,7 +636,7 @@ ScratchNativeThreadTest >> testMul [
 	self assert: t pop equals: -5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testNot [
 	| t |
 	t := self newThread.
@@ -650,7 +652,7 @@ ScratchNativeThreadTest >> testNot [
 	self assert: t pop equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testOr [
 	| t |
 	t := self newThread.
@@ -681,7 +683,7 @@ ScratchNativeThreadTest >> testOr [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPc [
 	| e |
 	e := self newThread.
@@ -692,7 +694,7 @@ ScratchNativeThreadTest >> testPc [
 	self assert: e pc equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPlus [
 	| t |
 	t := self newThread.
@@ -710,7 +712,7 @@ ScratchNativeThreadTest >> testPlus [
 	self assert: t pop equals: -5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPop [
 	| e |
 	e := self newThread.
@@ -722,7 +724,7 @@ ScratchNativeThreadTest >> testPop [
 	self assert: e stack isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPush [
 	| e |
 	e := self newThread.
@@ -733,7 +735,7 @@ ScratchNativeThreadTest >> testPush [
 	self assertCollection: e stack asArray equals: #(10 20).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPush0 [
 	| e |
 	e := self newThread.
@@ -746,7 +748,7 @@ ScratchNativeThreadTest >> testPush0 [
 	self assertCollection: e stack asArray equals: #(0 0).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPush1 [
 	| e |
 	e := self newThread.
@@ -759,7 +761,7 @@ ScratchNativeThreadTest >> testPush1 [
 	self assertCollection: e stack asArray equals: #(1 1).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPushFloat [
 	| e |
 	e := self newThread.
@@ -770,7 +772,7 @@ ScratchNativeThreadTest >> testPushFloat [
 	self assertCollection: e stack asArray equals: #(123.0)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testPushShort [
 	| e |
 	e := self newThread.
@@ -787,7 +789,7 @@ ScratchNativeThreadTest >> testPushShort [
 	self assertCollection: e stack asArray equals: #(-3)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testRandomFromTo [
 	| t |
 	t := self newThread.
@@ -800,7 +802,7 @@ ScratchNativeThreadTest >> testRandomFromTo [
 			self assert: (t pop between: 5 and: 10) ].
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testRetVal [
 
 	| t |
@@ -810,7 +812,7 @@ ScratchNativeThreadTest >> testRetVal [
 	self assert: t retVal equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testReturn [
 	| e |
 	e := self newThread.
@@ -823,7 +825,7 @@ ScratchNativeThreadTest >> testReturn [
 	self assert: e retVal equals: 10.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testReturnValue [
 	| e c ret |
 	c := self sampleCode2.
@@ -835,7 +837,7 @@ ScratchNativeThreadTest >> testReturnValue [
 	self assert: e pc equals: c size + 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testRot [
 	| t |
 	t := self newThread.
@@ -851,7 +853,7 @@ ScratchNativeThreadTest >> testRot [
 	self assert: t pop equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testRounded [
 	| t |
 	t := self newThread.
@@ -872,7 +874,7 @@ ScratchNativeThreadTest >> testRounded [
 	self assert: t pop equals: -2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testSin [
 	| t |
 	t := self newThread.
@@ -898,7 +900,7 @@ ScratchNativeThreadTest >> testSin [
 	self assert: t pop closeTo: -1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testSqrt [
 	| t |
 	t := self newThread.
@@ -919,7 +921,7 @@ ScratchNativeThreadTest >> testSqrt [
 	self assert: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testStack [
 	| e |
 	e := self newThread.
@@ -927,7 +929,7 @@ ScratchNativeThreadTest >> testStack [
 	self assert: e stack isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testStop [
 	| t |
 	t := self newThread.
@@ -938,7 +940,7 @@ ScratchNativeThreadTest >> testStop [
 	self deny: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testStopAll [
 	| t |
 	t := self newThread.
@@ -949,7 +951,7 @@ ScratchNativeThreadTest >> testStopAll [
 	self assert: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testSwap [
 	| t |
 	t := self newThread.
@@ -960,7 +962,7 @@ ScratchNativeThreadTest >> testSwap [
 	self assert: t pop equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testTan [
 	| t |
 	t := self newThread.
@@ -982,7 +984,7 @@ ScratchNativeThreadTest >> testTan [
 
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchNativeThreadTest >> testTruncated [
 	| t |
 	t := self newThread.

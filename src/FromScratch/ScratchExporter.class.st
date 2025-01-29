@@ -1,13 +1,15 @@
 Class {
-	#name : #ScratchExporter,
-	#superclass : #Object,
+	#name : 'ScratchExporter',
+	#superclass : 'Object',
 	#instVars : [
 		'stream'
 	],
-	#category : #'FromScratch-Converter'
+	#category : 'FromScratch-Converter',
+	#package : 'FromScratch',
+	#tag : 'Converter'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchExporter >> exportFrom: anApplication isBinary: aBoolean [
 	| project |
 	project := anApplication project.
@@ -22,37 +24,37 @@ ScratchExporter >> exportFrom: anApplication isBinary: aBoolean [
 	^ stream contents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporter >> privStream: aStream [
 	stream := aStream.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporter >> stream [
 	^ stream
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporter >> writeFooter: aProject [
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporter >> writeHeader: aProject [
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporter >> writeScript: aScript [
 	self subclassResponsibility.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporter >> writeScriptSeparator [
 	"do nothing"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporter >> writeScripts: aCollection [
 	aCollection
 		do: [ :each | self writeScript: each ]

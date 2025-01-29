@@ -1,14 +1,16 @@
 Class {
-	#name : #ScratchBytecodeSymbolWithJump,
-	#superclass : #ScratchBytecodeSymbol,
+	#name : 'ScratchBytecodeSymbolWithJump',
+	#superclass : 'ScratchBytecodeSymbol',
 	#instVars : [
 		'labelId',
 		'address'
 	],
-	#category : #'Microworld-Bytecode'
+	#category : 'Microworld-Bytecode',
+	#package : 'Microworld',
+	#tag : 'Bytecode'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchBytecodeSymbolWithJump class >> selector: aSymbol labelId: anInteger [
 	^ self basicNew
 		initialize;
@@ -17,37 +19,37 @@ ScratchBytecodeSymbolWithJump class >> selector: aSymbol labelId: anInteger [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbolWithJump >> address [
 	^ address
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbolWithJump >> address: anInteger [
 	address := anInteger.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbolWithJump >> codeSize [
 	^ 4
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBytecodeSymbolWithJump >> isJump [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbolWithJump >> labelId [
 	^ labelId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbolWithJump >> labelId: anInteger [
 	labelId := anInteger.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ScratchBytecodeSymbolWithJump >> printOn: aStream [
 	aStream
 		nextPutAll: '<symbol=';
@@ -59,7 +61,7 @@ ScratchBytecodeSymbolWithJump >> printOn: aStream [
 		nextPut: $>.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecodeSymbolWithJump >> putOn: aStream [
 	address ifNil: [ self error ].
 	self putShort: address on: aStream.

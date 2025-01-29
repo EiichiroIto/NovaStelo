@@ -1,10 +1,12 @@
 Class {
-	#name : #SteloBytecodeGenerator,
-	#superclass : #ScratchBytecodeGenerator,
-	#category : #'Stelo-Process'
+	#name : 'SteloBytecodeGenerator',
+	#superclass : 'ScratchBytecodeGenerator',
+	#category : 'Stelo-Process',
+	#package : 'Stelo',
+	#tag : 'Process'
 }
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> aimHigh: var [
 
 	^ self
@@ -12,7 +14,7 @@ SteloBytecodeGenerator >> aimHigh: var [
 		  arg: (script varNoFor: var choice breed: SBreedId patchesBreedNo)
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> and: x with: y [
 
 	^ self
@@ -21,7 +23,7 @@ SteloBytecodeGenerator >> and: x with: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloBytecodeGenerator >> append: anObject toList: aList [
 
 	| vno |
@@ -33,7 +35,7 @@ SteloBytecodeGenerator >> append: anObject toList: aList [
 		arg2: [ anObject argString: parser ]
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> broadcast: msg [
 
 	| eno |
@@ -42,7 +44,7 @@ SteloBytecodeGenerator >> broadcast: msg [
 	self unaryCommand: #broadcast arg: eno
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> callSub: subName [
 
 	| str |
@@ -51,7 +53,7 @@ SteloBytecodeGenerator >> callSub: subName [
 	self appendCall: str
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> changeObserverVar: var by: num [
 
 	| v |
@@ -68,7 +70,7 @@ SteloBytecodeGenerator >> changeObserverVar: var by: num [
 	self appendSymbol: #setBreedVarTo
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> changePatchVar: var at: pno by: num [
 
 	| v |
@@ -85,7 +87,7 @@ SteloBytecodeGenerator >> changePatchVar: var at: pno by: num [
 	self appendSymbol: #setBreedVarTo
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> changePatchVar: var by: num [
 
 	self appendValue: [ num argString: parser ].
@@ -94,7 +96,7 @@ SteloBytecodeGenerator >> changePatchVar: var by: num [
 	self appendSymbol: #changeBreedVarBy
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloBytecodeGenerator >> changeVar: var by: num [
 
 	| v |
@@ -108,7 +110,7 @@ SteloBytecodeGenerator >> changeVar: var by: num [
 	self appendSymbol: #setVarTo
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> changeXposBy: aNumber [
 
 	self appendSymbol: #getX.
@@ -117,7 +119,7 @@ SteloBytecodeGenerator >> changeXposBy: aNumber [
 	self appendSymbol: #setX
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> changeYposBy: aNumber [
 
 	self appendSymbol: #getY.
@@ -126,20 +128,20 @@ SteloBytecodeGenerator >> changeYposBy: aNumber [
 	self appendSymbol: #setY
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> clearAll [
 
 	self unaryCommand: #clearBreed arg: SBreedId patchesBreedNo.
 	self nullaryCommand: #clearTurtles
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> clearGraphics [
 
 	self unaryCommand: #clearBreed arg: SBreedId patchesBreedNo
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloBytecodeGenerator >> clearList: aList [
 
 	| v |
@@ -148,96 +150,96 @@ SteloBytecodeGenerator >> clearList: aList [
 	^ self unaryCommand: #clearList arg: (script varNoFor: v)
 ]
 
-{ #category : #'plot ops' }
+{ #category : 'plot ops' }
 SteloBytecodeGenerator >> clearPlots [
 
 	self nullaryCommand: #clearPlots
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> clearTurtle: bno [
 
 	self unaryCommand: #clearBreed arg: [ bno argString: parser ]
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> clearTurtles [
 	self nullaryCommand: #clearTurtles.
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorBlack [
 
 	^ self colorOf: #black
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorBlue [
 
 	^ self colorOf: #blue
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorBrown [
 
 	^ self colorOf: #brown
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorCyan [
 
 	^ self colorOf: #cyan
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorGray [
 
 	^ self colorOf: #gray
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorGreen [
 
 	^ self colorOf: #green
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorLime [
 
 	^ self colorOf: #lime
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorMagenta [
 
 	^ self colorOf: #magenta
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorOf: aSymbol [
 
 	^ ColorList colorOf: aSymbol
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorOrange [
 
 	^ self colorOf: #orange
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorPink [
 
 	^ self colorOf: #pink
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorPurple [
 
 	^ self colorOf: #purple
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorRandom [
 
 	^ self
@@ -246,37 +248,37 @@ SteloBytecodeGenerator >> colorRandom [
 		  arg2: ColorList default size - 1
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorRed [
 
 	^ self colorOf: #red
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorSky [
 
 	^ self colorOf: #sky
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorTurquoise [
 
 	^ self colorOf: #turquoise
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorWhite [
 
 	^ self colorOf: #white
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> colorYellow [
 
 	^ self colorOf: #yellow
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> computeFunction: aSymbol of: aNumber [
 
 	| op |
@@ -286,7 +288,7 @@ SteloBytecodeGenerator >> computeFunction: aSymbol of: aNumber [
 	^ self unaryCommand: op asSymbol arg: [ aNumber argString: parser ]
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> copyPatchVar: var to: var2 [
 
 	self appendValue: (script varNoFor: var2 choice breed: SBreedId patchesBreedNo)..
@@ -295,13 +297,13 @@ SteloBytecodeGenerator >> copyPatchVar: var to: var2 [
 	self appendSymbol: #copyBreedVarTo
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> createPatchesSize: anInteger [
 
 	self unaryCommand: #createPatch arg: [ anInteger argString: parser ]
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> createTurtleSize: size breedId: bno [
 
 	self
@@ -310,7 +312,7 @@ SteloBytecodeGenerator >> createTurtleSize: size breedId: bno [
 		arg2: [ bno argString: parser ]
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloBytecodeGenerator >> deleteLine: anInteger ofList: aList [
 
 	| v |
@@ -322,14 +324,14 @@ SteloBytecodeGenerator >> deleteLine: anInteger ofList: aList [
 		arg2: [ anInteger argString: parser ]
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloBytecodeGenerator >> die [
 	self appendSymbol: #getBreedId.
 	self appendSymbol: #getId.
 	self appendSymbol: #kill.
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> diffuse4Var: var percentage: num [
 
 	self
@@ -338,7 +340,7 @@ SteloBytecodeGenerator >> diffuse4Var: var percentage: num [
 		arg2: [ num argString: parser ]
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> diffuseVar: var percentage: num [
 
 	self
@@ -347,7 +349,7 @@ SteloBytecodeGenerator >> diffuseVar: var percentage: num [
 		arg2: [ num argString: parser ]
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloBytecodeGenerator >> directionTo: pno [
 
 	self appendValue: (pno argString: parser).
@@ -362,7 +364,7 @@ SteloBytecodeGenerator >> directionTo: pno [
 	^ nil
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloBytecodeGenerator >> distanceTo: pno [
 
 	self appendValue: (pno argString: parser).
@@ -382,7 +384,7 @@ SteloBytecodeGenerator >> distanceTo: pno [
 	^ nil
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> divide: x by: y [
 
 	^ self
@@ -391,7 +393,7 @@ SteloBytecodeGenerator >> divide: x by: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> doIfBegin: cond [
 
 	| id |
@@ -401,7 +403,7 @@ SteloBytecodeGenerator >> doIfBegin: cond [
 	^ id
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> doIfElse: orgId [
 
 	| newId |
@@ -411,13 +413,13 @@ SteloBytecodeGenerator >> doIfElse: orgId [
 	^ newId
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> doIfEnd: id [
 
 	self appendLabel: id
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> doRepeatBegin: num [
 
 	| label1 label2 |
@@ -432,7 +434,7 @@ SteloBytecodeGenerator >> doRepeatBegin: num [
 	^ 	Array with: label1 with: label2
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> doRepeatEndLabels: aCollection [
 
 	self appendSymbol: #dec.
@@ -441,7 +443,7 @@ SteloBytecodeGenerator >> doRepeatEndLabels: aCollection [
 	self appendSymbol: #drop
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> doUntilBegin [
 
 	| id |
@@ -450,24 +452,24 @@ SteloBytecodeGenerator >> doUntilBegin [
 	^ id
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> doUntilEnd: cond id: id [
 
 	self appendValue: cond.
 	self appendSymbol: #jumpIfFalse withJump: id
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> dx [
 	^ self nullaryCommand: #dx
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> dy [
 	^ self nullaryCommand: #dy
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> equal: x to: y [
 
 	^ self
@@ -476,13 +478,13 @@ SteloBytecodeGenerator >> equal: x to: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> forward: num [
 
 	self unaryCommand: #forward arg: [ num argString: parser ]
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> front [
 
 	self appendSymbol: #getX.
@@ -495,25 +497,25 @@ SteloBytecodeGenerator >> front [
 	^ nil
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoForeverBegin: aMorph [
 
 	self shouldNotImplement
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoForeverEnd: aMorph [
 
 	self shouldNotImplement
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoIfElseBegin: aMorph [
 
 	self generateDoIfBegin: aMorph
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoIfElseCenter: aMorph [
 
 	| orgId newId |
@@ -522,25 +524,25 @@ SteloBytecodeGenerator >> generateDoIfElseCenter: aMorph [
 	aMorph labelId: newId
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoIfElseEnd: aMorph [
 
 	self generateDoIfEnd: aMorph
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoIterateBegin: aMorph [
 
 	self shouldNotImplement
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoIterateEnd: aMorph [
 
 	self shouldNotImplement
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoRepeatBegin: aMorph [
 
 	| num labels |
@@ -549,37 +551,37 @@ SteloBytecodeGenerator >> generateDoRepeatBegin: aMorph [
 	aMorph labelId: labels
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoRepeatEnd: aMorph [
 
 	self doRepeatEndLabels: aMorph labelId
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoWhileBegin: aMorph [
 
 	self shouldNotImplement
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateDoWhileEnd: aMorph [
 
 	self shouldNotImplement
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateReporter: aString [
 
 	"do nothing"
 ]
 
-{ #category : #'code generator' }
+{ #category : 'code generator' }
 SteloBytecodeGenerator >> generateSubFooter: aString [
 
 	self unaryCommand: #return arg: 0
 ]
 
-{ #category : #'code injection' }
+{ #category : 'code injection' }
 SteloBytecodeGenerator >> getBreed: bno var: vno at: index [
 
 	self appendValue: index.
@@ -589,30 +591,30 @@ SteloBytecodeGenerator >> getBreed: bno var: vno at: index [
 	^ nil
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> getBreedId [
 	^ self nullaryCommand: #getBreedId.
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> getColor [
 
 	^ self unaryCommand: #getVar arg: SObserverVarDef colorVarNo
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> getHeading [
 
 	^ self unaryCommand: #getVar arg: STurtlesVarDef headingVarNo
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> getId [
 
 	^ self nullaryCommand: #getId
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloBytecodeGenerator >> getLine: anInteger ofList: aList [
 
 	| v |
@@ -624,7 +626,7 @@ SteloBytecodeGenerator >> getLine: anInteger ofList: aList [
 		  arg2: [ anInteger argString: parser ]
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloBytecodeGenerator >> getObserverVar: var [
 
 	^ self
@@ -633,7 +635,7 @@ SteloBytecodeGenerator >> getObserverVar: var [
 		  at: 1
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> getPatchColorAt: pno [
 
 	^ self
@@ -642,7 +644,7 @@ SteloBytecodeGenerator >> getPatchColorAt: pno [
 		  at: [ pno argString: parser ]
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> getPatchVar: var at: pno [
 
 	^ self
@@ -651,7 +653,7 @@ SteloBytecodeGenerator >> getPatchVar: var at: pno [
 		  at: [ pno argString: parser ]
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> getTurtle: tno breed: bno var: var [
 
 	^ self
@@ -660,13 +662,13 @@ SteloBytecodeGenerator >> getTurtle: tno breed: bno var: var [
 		  at: [ tno argString: parser ]
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloBytecodeGenerator >> getVar: var [
 
 	^ self unaryCommand: #getVar arg: (script varNoFor: var choice)
 ]
 
-{ #category : #'code injection' }
+{ #category : 'code injection' }
 SteloBytecodeGenerator >> getVar: aBlock1 breedNo: aBlock2 at: index [
 
 	| bno |
@@ -678,28 +680,28 @@ SteloBytecodeGenerator >> getVar: aBlock1 breedNo: aBlock2 at: index [
 	^ nil
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> getXpos [
 	^ self nullaryCommand: #getX
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> getYpos [
 	^ self nullaryCommand: #getY
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloBytecodeGenerator >> hatch [
 	^ self nullaryCommand: #hatch.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGenerator >> header [
 
 	self shouldNotImplement
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> here [
 	self appendSymbol: #getX.
 	self appendSymbol: #getY.
@@ -707,7 +709,7 @@ SteloBytecodeGenerator >> here [
 	^ nil
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> is: x between: from and: to [
 
 	self
@@ -722,7 +724,7 @@ SteloBytecodeGenerator >> is: x between: from and: to [
 	^ nil
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> isPenDown [
 
 	self appendValue: 0.
@@ -733,7 +735,7 @@ SteloBytecodeGenerator >> isPenDown [
 	^ nil
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloBytecodeGenerator >> kill: index breed: bno [
 
 	self
@@ -742,7 +744,7 @@ SteloBytecodeGenerator >> kill: index breed: bno [
 		arg2: [ index argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> less: x than: y [
 
 	^ self
@@ -751,7 +753,7 @@ SteloBytecodeGenerator >> less: x than: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> lessEqual: x than: y [
 
 	^ self
@@ -760,7 +762,7 @@ SteloBytecodeGenerator >> lessEqual: x than: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloBytecodeGenerator >> lineCountOfList: aList [
 
 	| v |
@@ -771,7 +773,7 @@ SteloBytecodeGenerator >> lineCountOfList: aList [
 		  arg: (script varNoFor: v)
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloBytecodeGenerator >> list: aList contains: anInteger [
 
 	| v |
@@ -783,7 +785,7 @@ SteloBytecodeGenerator >> list: aList contains: anInteger [
 		arg2: [ anInteger argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> minus: x with: y [
 
 	^ self
@@ -792,7 +794,7 @@ SteloBytecodeGenerator >> minus: x with: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> mod: x by: y [
 
 	^ self
@@ -801,7 +803,7 @@ SteloBytecodeGenerator >> mod: x by: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> more: x than: y [
 
 	^ self
@@ -810,7 +812,7 @@ SteloBytecodeGenerator >> more: x than: y [
 		  arg2: [ x argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> moreEqual: x than: y [
 
 	^ self
@@ -819,7 +821,7 @@ SteloBytecodeGenerator >> moreEqual: x than: y [
 		  arg2: [ x argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> multiply: x and: y [
 
 	^ self
@@ -828,7 +830,7 @@ SteloBytecodeGenerator >> multiply: x and: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> multiplyVar: var by: num [
 
 	self appendValue: [ num argString: parser ].
@@ -838,19 +840,19 @@ SteloBytecodeGenerator >> multiplyVar: var by: num [
 	self appendSymbol: #multiplyBreedVarBy
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> negated: x [
 
 	^ self binaryCommand: #minus arg1: 0 arg2: [ x argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> not: x [
 
 	^ self unaryCommand: #not arg: (x argString: parser)
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> nsum4Var: var to: var2 [
 
 	self
@@ -859,7 +861,7 @@ SteloBytecodeGenerator >> nsum4Var: var to: var2 [
 		arg2: (script varNoFor: var2 choice breed: SBreedId patchesBreedNo)
 ]
 
-{ #category : #'observer ops' }
+{ #category : 'observer ops' }
 SteloBytecodeGenerator >> nsumVar: var to: var2 [
 
 	self
@@ -868,7 +870,7 @@ SteloBytecodeGenerator >> nsumVar: var to: var2 [
 		arg2: (script varNoFor: var2 choice breed: SBreedId patchesBreedNo)
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> or: x with: y [
 
 	^ self
@@ -877,7 +879,7 @@ SteloBytecodeGenerator >> or: x with: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> patchAtX: x y: y [
 
 	^ self
@@ -886,13 +888,13 @@ SteloBytecodeGenerator >> patchAtX: x y: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> penDown [
 
 	self penDown: true
 ]
 
-{ #category : #'code injection' }
+{ #category : 'code injection' }
 SteloBytecodeGenerator >> penDown: aBoolean [
 
 	self appendValue: STurtlesVarDef flagVarNo.
@@ -905,13 +907,13 @@ SteloBytecodeGenerator >> penDown: aBoolean [
 	self appendSymbol: #setVarTo
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> penUp [
 
 	self penDown: false
 ]
 
-{ #category : #'plot ops' }
+{ #category : 'plot ops' }
 SteloBytecodeGenerator >> plot: anInteger color: color [
 
 	self
@@ -920,7 +922,7 @@ SteloBytecodeGenerator >> plot: anInteger color: color [
 		arg2: [ color argString: parser ]
 ]
 
-{ #category : #'plot ops' }
+{ #category : 'plot ops' }
 SteloBytecodeGenerator >> plot: anInteger data: aFloat [
 
 	self
@@ -929,7 +931,7 @@ SteloBytecodeGenerator >> plot: anInteger data: aFloat [
 		arg2: [ aFloat argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> plus: x and: y [
 
 	^ self
@@ -938,7 +940,7 @@ SteloBytecodeGenerator >> plus: x and: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> randomFrom: x to: y [
 
 	^ self
@@ -947,7 +949,7 @@ SteloBytecodeGenerator >> randomFrom: x to: y [
 		  arg2: [ y argString: parser ]
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> relativeToR: aNumber theta: aNumber2 [
 
 	| r theta |
@@ -969,7 +971,7 @@ SteloBytecodeGenerator >> relativeToR: aNumber theta: aNumber2 [
 	^ nil
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> relativeToX: x y: y [
 
 	self appendValue: [ x argString: parser ].
@@ -982,25 +984,25 @@ SteloBytecodeGenerator >> relativeToX: x y: y [
 	^ nil
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> return: anInteger [
 
 	self unaryCommand: #return arg: [ anInteger argString: parser ]
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> returnValue [
 
 	^ self nullaryCommand: #returnValue
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> rounded: x [
 
 	^ self unaryCommand: #rounded arg: (x argString: parser)
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> scalePatch: var color: color from: from to: to [
 
 	self appendValue: (script varNoFor: var choice breed: SBreedId patchesBreedNo).
@@ -1011,7 +1013,7 @@ SteloBytecodeGenerator >> scalePatch: var color: color from: from to: to [
 
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> scaleValue: var color: color from: from to: to [
 
 	| v |
@@ -1024,7 +1026,7 @@ SteloBytecodeGenerator >> scaleValue: var color: color from: from to: to [
 	self appendSymbol: #scaleColorFromTo
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> screenHeight [
 
 	^ self
@@ -1033,7 +1035,7 @@ SteloBytecodeGenerator >> screenHeight [
 		  at: 1
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> screenWidth [
 
 	^ self
@@ -1042,19 +1044,19 @@ SteloBytecodeGenerator >> screenWidth [
 		  at: 1
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> setColor: color [
 
 	self unaryCommand: #setColorTo arg: [ color argString: parser ]
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> setHeading: angle [
 
 	self unaryCommand: #setHeading arg: [ angle argString: parser ]
 ]
 
-{ #category : #'list ops' }
+{ #category : 'list ops' }
 SteloBytecodeGenerator >> setLine: anInteger ofList: aList to: anObject [
 
 	| v |
@@ -1066,7 +1068,7 @@ SteloBytecodeGenerator >> setLine: anInteger ofList: aList to: anObject [
 	self appendSymbol: #setLineOfListTo
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> setPatchColorAt: pos to: color [
 
 	self appendValue: [ pos argString: parser ].
@@ -1076,7 +1078,7 @@ SteloBytecodeGenerator >> setPatchColorAt: pos to: color [
 	self appendSymbol: #setBreedVarTo
 ]
 
-{ #category : #'patch ops' }
+{ #category : 'patch ops' }
 SteloBytecodeGenerator >> setPatchVar: var at: index to: aNumber [
 
 	self appendValue: [ index argString: parser ].
@@ -1087,25 +1089,25 @@ SteloBytecodeGenerator >> setPatchVar: var at: index to: aNumber [
 	self appendSymbol: #setBreedVarTo
 ]
 
-{ #category : #'plot ops' }
+{ #category : 'plot ops' }
 SteloBytecodeGenerator >> setPlotYMax: aNumber [
 
 	self unaryCommand: #setPlotYMax arg: [ aNumber argString: parser ]
 ]
 
-{ #category : #'plot ops' }
+{ #category : 'plot ops' }
 SteloBytecodeGenerator >> setPlotYMin: aNumber [
 
 	self unaryCommand: #setPlotYMin arg: [ aNumber argString: parser ]
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloBytecodeGenerator >> setRandomSeed: num [
 
 	self unaryCommand: #setRandomSeed arg: [ num argString: parser ]
 ]
 
-{ #category : #'variable ops' }
+{ #category : 'variable ops' }
 SteloBytecodeGenerator >> setVar: var to: num [
 
 	| v |
@@ -1117,19 +1119,19 @@ SteloBytecodeGenerator >> setVar: var to: num [
 		arg2: [ num argString: parser ]
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> setXpos: num [
 
 	self unaryCommand: #setX arg: [ num argString: parser ]
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> setYpos: num [
 
 	self unaryCommand: #setY arg: [ num argString: parser ]
 ]
 
-{ #category : #'color ops' }
+{ #category : 'color ops' }
 SteloBytecodeGenerator >> stamp [
 
 	self unaryCommand: #getVar arg: STurtlesVarDef xVarNo.
@@ -1139,19 +1141,19 @@ SteloBytecodeGenerator >> stamp [
 	self appendSymbol: #setPatchColorTo
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> stopAll [
 
 	self nullaryCommand: #stopAll
 ]
 
-{ #category : #'control ops' }
+{ #category : 'control ops' }
 SteloBytecodeGenerator >> stopThread [
 
 	self nullaryCommand: #stop
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> ticks [
 
 	^ self
@@ -1160,13 +1162,13 @@ SteloBytecodeGenerator >> ticks [
 		  at: 1
 ]
 
-{ #category : #'arithmetic ops' }
+{ #category : 'arithmetic ops' }
 SteloBytecodeGenerator >> truncated: x [
 
 	^ self unaryCommand: #truncated arg: (x argString: parser)
 ]
 
-{ #category : #'turtle  ops' }
+{ #category : 'turtle  ops' }
 SteloBytecodeGenerator >> turn: angle [
 
 	self appendValue: [ angle argString: parser ].
@@ -1175,7 +1177,7 @@ SteloBytecodeGenerator >> turn: angle [
 	self appendSymbol: #setHeading
 ]
 
-{ #category : #'misc ops' }
+{ #category : 'misc ops' }
 SteloBytecodeGenerator >> turtle: bno at: pno [
 
 	self appendValue: [ pno argString: parser ].
@@ -1184,7 +1186,7 @@ SteloBytecodeGenerator >> turtle: bno at: pno [
 	^ nil
 ]
 
-{ #category : #'sensing ops' }
+{ #category : 'sensing ops' }
 SteloBytecodeGenerator >> turtlesCount: bno [
 
 	^ self
@@ -1193,7 +1195,7 @@ SteloBytecodeGenerator >> turtlesCount: bno [
 		  at: (bno argString: parser)
 ]
 
-{ #category : #'arg generator' }
+{ #category : 'arg generator' }
 SteloBytecodeGenerator >> variableArgString: aString [
 
 	| v |

@@ -1,6 +1,6 @@
-Extension { #name : #PasteUpMorph }
+Extension { #name : 'PasteUpMorph' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 PasteUpMorph >> rootForGrabOf: aMorph [
 	"If open to drag-n-drop, allow the given submorph to be extracted. If I am a parts bin answer a new copy of it."
 

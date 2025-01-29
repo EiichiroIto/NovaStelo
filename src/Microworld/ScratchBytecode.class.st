@@ -1,40 +1,42 @@
 Class {
-	#name : #ScratchBytecode,
-	#superclass : #Object,
-	#category : #'Microworld-Bytecode'
+	#name : 'ScratchBytecode',
+	#superclass : 'Object',
+	#category : 'Microworld-Bytecode',
+	#package : 'Microworld',
+	#tag : 'Bytecode'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchBytecode class >> new [
 	self shouldNotImplement.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecode >> codeSize [
 	^ 1
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBytecode >> isCall [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBytecode >> isJump [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ScratchBytecode >> isLabel [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecode >> putOn: aStream [
 	"do nothing"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScratchBytecode >> putShort: anInteger on: aStream [
 	| v |
 	aStream nextPut: #pushShort.

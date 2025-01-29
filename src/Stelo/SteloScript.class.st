@@ -1,13 +1,15 @@
 Class {
-	#name : #SteloScript,
-	#superclass : #ScratchScript,
+	#name : 'SteloScript',
+	#superclass : 'ScratchScript',
 	#instVars : [
 		'breed'
 	],
-	#category : #'Stelo-Project'
+	#category : 'Stelo-Project',
+	#package : 'Stelo',
+	#tag : 'Project'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript class >> allBlockNames [
 	"self allBlockNames"
 	| list |
@@ -19,7 +21,7 @@ SteloScript class >> allBlockNames [
 	^ list asArray sorted
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloScript >> addArgBuilder [
 
 	argMorphBuilder
@@ -43,7 +45,7 @@ SteloScript >> addArgBuilder [
 		addChoiceArg: $t selector: #turtleVarNamesMenu
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addBasicBlocks [
 
 	blockMorphBuilder
@@ -51,7 +53,7 @@ SteloScript >> addBasicBlocks [
 		addCommand: 'kill %n of %m' selector: #kill:breed: arguments: #( 0 '' )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addBlockSpecs [
 
 	self
@@ -61,7 +63,7 @@ SteloScript >> addBlockSpecs [
 		addSensingBlocks
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addColorBlocks [
 
 	blockMorphBuilder
@@ -71,7 +73,7 @@ SteloScript >> addColorBlocks [
 		addCommand: 'scale %v color %c from %n to %n' selector: #scaleValue:color:from:to: arguments: #( '' 15 0 100 )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addConstantColorBlocks [
 
 	blockMorphBuilder
@@ -96,7 +98,7 @@ SteloScript >> addConstantColorBlocks [
 		addReporter: 'pink' selector: #colorPink
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addControlBlocks [
 
 	blockMorphBuilder
@@ -118,13 +120,13 @@ SteloScript >> addControlBlocks [
 		addCommand: 'stop all' selector: #stopAll
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 SteloScript >> addList: aString [
 
 	breed addList: aString
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addListBlocks [
 
 	blockMorphBuilder
@@ -139,7 +141,7 @@ SteloScript >> addListBlocks [
 		addBooleanReporter: '%L contains %n' selector: #list:contains: arguments: #( 'list' 10 )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addObserverBlocks [
 
 	blockMorphBuilder
@@ -157,7 +159,7 @@ SteloScript >> addObserverBlocks [
 		addCommand: 'change observer''s %o by %n' selector: #changeObserverVar:by: arguments: #( '' 1 )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addOperatorsBlocks [
 
 	blockMorphBuilder
@@ -188,7 +190,7 @@ SteloScript >> addOperatorsBlocks [
 		addReporter: '%f of %n' selector: #computeFunction:of: arguments: #( 'sqrt' 10 )
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> addSensingBlocks [
 
 	blockMorphBuilder
@@ -202,33 +204,33 @@ SteloScript >> addSensingBlocks [
 		addReporter: 'ticks' selector: #ticks
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 SteloScript >> addVariable: aString [
 	| vno |
 	vno := breed addVariable: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript >> breed [
 	^ breed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript >> breed: aBreed [
 	breed := aBreed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript >> breedNo [
 	^ breed breedNo
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloScript >> colorMenu [
 	^ ColorList colorNames collect: [ :each | Array with: each localized with: (ColorList perform: each) ].
 ]
 
-{ #category : #'block building' }
+{ #category : 'block building' }
 SteloScript >> defaultArgsFor: blockSpec [
 	| selector turtles lists args |
 	selector := blockSpec selector.
@@ -257,27 +259,27 @@ SteloScript >> defaultArgsFor: blockSpec [
 	^ super defaultArgsFor: blockSpec
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 SteloScript >> deleteList: aString [
 	self deleteVariable: aString
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 SteloScript >> deleteVariable: aString [
 	breed deleteVariable: aString
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 SteloScript >> evaluateBlock: aTopBlock [
 	^ nil
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloScript >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloScript >> initFieldsFrom: anObjStream version: classVersion [
 	super initFieldsFrom: anObjStream version: classVersion.
 	self
@@ -285,48 +287,48 @@ SteloScript >> initFieldsFrom: anObjStream version: classVersion [
 		from: anObjStream
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloScript >> isObserver [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloScript >> isPatches [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloScript >> isTurtles [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloScript >> isValidSubName: aString [
 
 	^ aString allSatisfy: [ :each | each isAlphaNumeric ]
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloScript >> listVarNames [
 	^ breed userDefinedListNames sort
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript >> objName [
 	^ 'None'
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloScript >> observerVarNamesMenu [
 	^ project observerVarNamesMenu
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloScript >> patchVarNamesMenu [
 	^ project patchVarNamesMenu
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> setupBlockCategory [
 
 	blockMorphBuilder
@@ -341,7 +343,7 @@ SteloScript >> setupBlockCategory [
 		setCategory: 'patch' color: (Color h: 296 s: 0.66 v: 0.85)
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloScript >> setupEvent: aHatBlock program: aProgram table: aDictionary events: aDictionary2 [
 
 	| code addr |
@@ -359,7 +361,7 @@ SteloScript >> setupEvent: aHatBlock program: aProgram table: aDictionary events
 				addEntryPoint: addr eventNo: eventNo breedNo: self breedNo ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloScript >> setupProgram: aProgram events: aDictionary [
 
 	| subTable |
@@ -380,7 +382,7 @@ SteloScript >> setupProgram: aProgram events: aDictionary [
 			events: aDictionary ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloScript >> setupStart: aHatBlock program: aProgram table: aDictionary events: aDictionary2 [
 
 	| code addr |
@@ -396,7 +398,7 @@ SteloScript >> setupStart: aHatBlock program: aProgram table: aDictionary events
 			addEntryPoint: addr eventNo: eventNo breedNo: self breedNo ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 SteloScript >> setupSub: aHatBlock program: aProgram table: aDictionary [
 
 	| code addr |
@@ -410,61 +412,61 @@ SteloScript >> setupSub: aHatBlock program: aProgram table: aDictionary [
 	aDictionary at: aHatBlock subName put: addr
 ]
 
-{ #category : #'block specs' }
+{ #category : 'block specs' }
 SteloScript >> startHatBlockNames [
 
 	^ #( startup setup loop )
 ]
 
-{ #category : #'object i/o' }
+{ #category : 'object i/o' }
 SteloScript >> storeFieldsOn: anObjStream [
 	super storeFieldsOn: anObjStream.
 	self storeFieldsNamed: #(breed) on: anObjStream.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloScript >> toggleWatcher: aToggleButton for: aBlockMorph [
 	
 ]
 
-{ #category : #'argument menus' }
+{ #category : 'argument menus' }
 SteloScript >> turtleVarNamesMenu [
 	^ project turtleVarNamesMenu
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloScript >> updateWatcher: aToggleButton for: aBlockMorph [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloScript >> useList [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 SteloScript >> useVariableWatcher [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript >> varNames [
 	^ breed userDefinedVarNames
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript >> varNoFor: aString [
 
 	^ breed varNoFor: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SteloScript >> varNoFor: vno breed: bno [
 
 	^ project varNoFor: vno breed: bno
 ]
 
-{ #category : #variables }
+{ #category : 'variables' }
 SteloScript >> variableNameInUse: aString [
 	^ breed variableNameInUse: aString
 ]

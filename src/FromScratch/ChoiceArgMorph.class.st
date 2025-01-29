@@ -5,18 +5,20 @@ In an earlier version of Scratch, I was used to represent boolean values. That u
 
 "
 Class {
-	#name : #ChoiceArgMorph,
-	#superclass : #ArgMorph,
+	#name : 'ChoiceArgMorph',
+	#superclass : 'ArgMorph',
 	#instVars : [
 		'menuIconMorph',
 		'choice',
 		'getOptionsSelector',
 		'getOptionsTarget'
 	],
-	#category : #'FromScratch-Blocks'
+	#category : 'FromScratch-Blocks',
+	#package : 'FromScratch',
+	#tag : 'Blocks'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ChoiceArgMorph >> argList [
 
 	| list |
@@ -25,19 +27,19 @@ ChoiceArgMorph >> argList [
 	^ list collect: #localized
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 ChoiceArgMorph >> argOf: aParser [
 	^ aParser choiceArgString: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> choice [
 
 	^ choice
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> choice: aSymbol [
 
 	"Update the toggle button when an argument is changed within a block."
@@ -56,7 +58,7 @@ ChoiceArgMorph >> choice: aSymbol [
 		block fixBlockLayout ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> defaultValue: aString [
 	"Set my default value."
 
@@ -64,14 +66,14 @@ ChoiceArgMorph >> defaultValue: aString [
 
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 ChoiceArgMorph >> evaluate [
 	"Answer my value."
 
 	^ choice
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ChoiceArgMorph >> fixArgLayout [
 	"Set my color to my owner's color."
 
@@ -79,14 +81,14 @@ ChoiceArgMorph >> fixArgLayout [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> getOptionsSelector [
 
 	^ getOptionsSelector
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> getOptionsSelector: aSymbolOrString [
 	"Set a selector that is used to get a set of options from my command block's receiver. This is used when the options can change over time, such as selecting from a list of available sounds or costumes in the objects media library."
 
@@ -94,17 +96,17 @@ ChoiceArgMorph >> getOptionsSelector: aSymbolOrString [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> getOptionsTarget [
 	^ getOptionsTarget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> getOptionsTarget: anObject [
 	getOptionsTarget := anObject
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ChoiceArgMorph >> handlesMouseDown: evt [
 
 	^ "evt hand toolType isNil and:
@@ -114,7 +116,7 @@ ChoiceArgMorph >> handlesMouseDown: evt [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ChoiceArgMorph >> initialize [
 	super initialize.
 	self borderInset.
@@ -129,25 +131,25 @@ ChoiceArgMorph >> initialize [
 	self choice: #a
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ChoiceArgMorph >> isChoiceArg [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ChoiceArgMorph >> isSquareArg [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ChoiceArgMorph >> isVarNames [
 
 	^ #( varNames ) includes: getOptionsSelector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChoiceArgMorph >> labelMorphContents: aString [
 
 	labelMorph contents: (self isVarNames
@@ -155,14 +157,14 @@ ChoiceArgMorph >> labelMorphContents: aString [
 			 ifFalse: [ aString localized ])
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 ChoiceArgMorph >> mouseDown: evt [
 
 	self presentMenu.
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ChoiceArgMorph >> options [
 
 	"Answer my set of options. If getOptionsSelector is not nil and I'm in a CommandBlock with a non-nil receiver, fetch my set of options by sending getOptionsSelector to that receiver."
@@ -175,7 +177,7 @@ ChoiceArgMorph >> options [
 	^ list
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ChoiceArgMorph >> presentMenu [
 
 	"Pop up a menu of choices."

@@ -2,22 +2,24 @@
 A StringArrayTest is a test class for testing the behavior of StringArray
 "
 Class {
-	#name : #StringArrayTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'StringArrayTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 StringArrayTest >> newArray [
 	^ StringArray new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testAt [
 	self testAtPut
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testAtPut [
 	| a |
 	a := self newArray.
@@ -27,7 +29,7 @@ StringArrayTest >> testAtPut [
 	self assert: (a at: 1) equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testDefaultElement [
 	| a |
 	a := self newArray.
@@ -35,7 +37,7 @@ StringArrayTest >> testDefaultElement [
 	self assert: a defaultElement isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testForceToPaddingWith [
 	| a |
 	a := self newArray.
@@ -54,7 +56,7 @@ StringArrayTest >> testForceToPaddingWith [
 	self assert: (a stringAt: 4) equals: 'b'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testGenerateInvLiterals [
 	| a x y |
 	a := self newArray.
@@ -68,7 +70,7 @@ StringArrayTest >> testGenerateInvLiterals [
 	self assert: x equals: y
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testGrownBy [
 	| a |
 	a := self newArray.
@@ -83,7 +85,7 @@ StringArrayTest >> testGrownBy [
 	self assert: (a stringAt: 3) equals: ''
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testIdOf [
 	| d x |
 	d := self newArray.
@@ -98,7 +100,7 @@ StringArrayTest >> testIdOf [
 	self assert: (d privLiterals at: x) equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testInitialize [
 	| a |
 	a := self newArray.
@@ -107,7 +109,7 @@ StringArrayTest >> testInitialize [
 	self assert: a privInvLiterals isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testInvLiterals [
 	| a x y |
 	a := self newArray.
@@ -123,7 +125,7 @@ StringArrayTest >> testInvLiterals [
 	self assert: a privInvLiterals equals: y
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testIsEmpty [
 	| a |
 	a := self newArray.
@@ -132,14 +134,14 @@ StringArrayTest >> testIsEmpty [
 	self deny: a isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testPrivArray [
 	| a |
 	a := self newArray.
 	self assert: (a privArray isKindOf: IntegerArray)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testPrivInvLiterals [
 	| a |
 	a := self newArray.
@@ -150,14 +152,14 @@ StringArrayTest >> testPrivInvLiterals [
 	self assert: a privInvLiterals isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testPrivLiterals [
 	| a |
 	a := self newArray.
 	self assert: a privLiterals isArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testSize [
 	| a |
 	a := self newArray.
@@ -166,12 +168,12 @@ StringArrayTest >> testSize [
 	self assert: a size equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testStringAt [
 	self testStringAtPut
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testStringAtPut [
 	| a |
 	a := self newArray.
@@ -185,7 +187,7 @@ StringArrayTest >> testStringAtPut [
 	self should: [ a stringAt: 4 ] raise: Error
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StringArrayTest >> testStringOf [
 	| a |
 	a := self newArray.

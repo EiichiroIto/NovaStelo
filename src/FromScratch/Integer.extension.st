@@ -1,6 +1,6 @@
-Extension { #name : #Integer }
+Extension { #name : 'Integer' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 Integer >> hhmmss [
 	"Answer a string of the form HH:MM:SS. For displaying a time in seconds as hours, minutes, and seconds."
 

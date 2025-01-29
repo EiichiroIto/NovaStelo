@@ -2,24 +2,26 @@
 A SteloIdTest is a test class for testing the behavior of SteloId
 "
 Class {
-	#name : #BaseIdTest,
-	#superclass : #TestCase,
-	#category : #'Microworld-Tests'
+	#name : 'BaseIdTest',
+	#superclass : 'TestCase',
+	#category : 'Microworld-Tests',
+	#package : 'Microworld',
+	#tag : 'Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 BaseIdTest >> newBaseId [
 	^ BaseId new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BaseIdTest >> testInitialize [
 	| e |
 	e := self newBaseId.
 	self assert: e privNextNo equals: e class defaultUserNo.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BaseIdTest >> testNewNo [
 	| e |
 	e := self newBaseId.
@@ -30,7 +32,7 @@ BaseIdTest >> testNewNo [
 	self assert: e privNextNo equals: e class defaultUserNo + 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BaseIdTest >> testPrivNextNo [
 	| e |
 	e := self newBaseId.
@@ -40,7 +42,7 @@ BaseIdTest >> testPrivNextNo [
 	self assert: e privNextNo equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BaseIdTest >> testRewind [
 	| s |
 	s := self newBaseId.
@@ -51,7 +53,7 @@ BaseIdTest >> testRewind [
 	self assert: s size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BaseIdTest >> testSize [
 	| e |
 	e := self newBaseId.
@@ -60,7 +62,7 @@ BaseIdTest >> testSize [
 	self assert: e size equals: e class reservedNo + 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BaseIdTest >> testUserDefinedVarNos [
 	| e |
 	e := self newBaseId.

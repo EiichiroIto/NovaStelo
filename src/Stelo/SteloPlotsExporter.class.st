@@ -1,15 +1,17 @@
 Class {
-	#name : #SteloPlotsExporter,
-	#superclass : #ScratchExporter,
-	#category : #'Stelo-Converter'
+	#name : 'SteloPlotsExporter',
+	#superclass : 'ScratchExporter',
+	#category : 'Stelo-Converter',
+	#package : 'Stelo',
+	#tag : 'Converter'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SteloPlotsExporter >> writeFooter: aProject [
 	"do nothing"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloPlotsExporter >> writeHeader: aProject [
 	| plotter size |
 	plotter := aProject application plotter.
@@ -22,7 +24,7 @@ SteloPlotsExporter >> writeHeader: aProject [
 			stream crlf ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloPlotsExporter >> writeScript: aScript [
 	"do nothing"
 ]

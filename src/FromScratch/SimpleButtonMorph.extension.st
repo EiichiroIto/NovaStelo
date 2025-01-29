@@ -1,11 +1,11 @@
-Extension { #name : #SimpleButtonMorph }
+Extension { #name : 'SimpleButtonMorph' }
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 SimpleButtonMorph >> fieldsVersion [
 	^ 1
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 SimpleButtonMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 	super initFieldsFrom: anObjStream version: classVersion.
@@ -18,7 +18,7 @@ SimpleButtonMorph >> initFieldsFrom: anObjStream version: classVersion [
 
 ]
 
-{ #category : #'*FromScratch' }
+{ #category : '*FromScratch' }
 SimpleButtonMorph >> storeFieldsOn: anObjStream [
 
 	super storeFieldsOn: anObjStream.
