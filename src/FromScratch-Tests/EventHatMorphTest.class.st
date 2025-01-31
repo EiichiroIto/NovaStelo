@@ -2,18 +2,19 @@
 An EventHatMorphTest is a test class for testing the behavior of EventHatMorph
 "
 Class {
-	#name : #EventHatMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'EventHatMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 EventHatMorphTest >> newMorph [
 
 	^ EventHatMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 EventHatMorphTest >> testAsBlockTuple [
 
 	| obj |
@@ -23,7 +24,7 @@ EventHatMorphTest >> testAsBlockTuple [
 	self assertCollection: obj asBlockTuple equals: #( #event: 'abc' )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 EventHatMorphTest >> testCommandSpec [
 
 	| obj |
@@ -33,7 +34,7 @@ EventHatMorphTest >> testCommandSpec [
 	self assert: obj commandSpec equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 EventHatMorphTest >> testEventName [
 
 	| obj |
@@ -45,7 +46,7 @@ EventHatMorphTest >> testEventName [
 	self assert: obj eventName equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 EventHatMorphTest >> testInitialize [
 
 	| obj |
@@ -53,7 +54,7 @@ EventHatMorphTest >> testInitialize [
 	self assert: obj eventName isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 EventHatMorphTest >> testNewLabelString [
 
 	| obj |

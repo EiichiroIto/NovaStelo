@@ -2,18 +2,19 @@
 A ScratchConsoleMorphTest is a test class for testing the behavior of ScratchConsoleMorph
 "
 Class {
-	#name : #ScratchConsoleMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchConsoleMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchConsoleMorphTest >> newMorph [
 
 	^ ScratchConsoleMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testCharExtent [
 
 	| m |
@@ -23,7 +24,7 @@ ScratchConsoleMorphTest >> testCharExtent [
 	self assert: m charExtent equals: 5 @ 6
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testCharacterAt [
 
 	| m |
@@ -44,7 +45,7 @@ ScratchConsoleMorphTest >> testCharacterAt [
 	self assert: (m characterAt: 0 @ 3) equals: Character space
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testCharacterAtPut [
 
 	| m |
@@ -61,7 +62,7 @@ ScratchConsoleMorphTest >> testCharacterAtPut [
 	self assert: m screen third equals: '  ecd'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testClearScreen [
 
 	| m |
@@ -79,7 +80,7 @@ ScratchConsoleMorphTest >> testClearScreen [
 	self assert: m screen third isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testCurrentLine [
 
 	| m |
@@ -97,7 +98,7 @@ ScratchConsoleMorphTest >> testCurrentLine [
 	self assert: m currentLine equals: 'aaaa'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testCursor [
 
 	| m |
@@ -107,19 +108,19 @@ ScratchConsoleMorphTest >> testCursor [
 	self assert: m cursor equals: 5 @ 6
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testDefaultFont [
 
-	self newMorph defaultFont isFontSet
+	self assert: (self newMorph defaultFont isKindOf: AbstractFont)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testDefaultScreenSize [
 
 	self assert: self newMorph defaultScreenSize isPoint
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testFont [
 
 	| m f |
@@ -130,7 +131,7 @@ ScratchConsoleMorphTest >> testFont [
 	self assert: m font identicalTo: f
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testGoto [
 
 	| m |
@@ -143,7 +144,7 @@ ScratchConsoleMorphTest >> testGoto [
 	self assert: m cursor equals: 0 @ 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testNewLine [
 
 	| m |
@@ -165,7 +166,7 @@ ScratchConsoleMorphTest >> testNewLine [
 	self assert: m screen third equals: ''
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testPut [
 
 	| m |
@@ -183,7 +184,7 @@ fg'.
 	self assert: m screen third equals: ''
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testPutChar [
 
 	| m |
@@ -207,7 +208,7 @@ ScratchConsoleMorphTest >> testPutChar [
 	self assert: m screen third equals: 'C'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testScreen [
 
 	| m a |
@@ -218,7 +219,7 @@ ScratchConsoleMorphTest >> testScreen [
 	self assert: m screen identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testScreenSize [
 
 	| m |
@@ -228,7 +229,7 @@ ScratchConsoleMorphTest >> testScreenSize [
 	self assert: m screenSize equals: 10 @ 20
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testScroll [
 
 	| m |
@@ -252,13 +253,13 @@ ScratchConsoleMorphTest >> testScroll [
 	
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testTextColor [
 
 	self newMorph textColor isColor
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testUpdateCharExtent [
 
 	| m |
@@ -269,7 +270,7 @@ ScratchConsoleMorphTest >> testUpdateCharExtent [
 	self assert: m charExtent isPoint
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchConsoleMorphTest >> testWithinScreen [
 
 	| m |

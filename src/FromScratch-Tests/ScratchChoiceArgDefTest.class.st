@@ -2,24 +2,25 @@
 A ScratchChoiceArgDefTest is a test class for testing the behavior of ScratchChoiceArgDef
 "
 Class {
-	#name : #ScratchChoiceArgDefTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchChoiceArgDefTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchChoiceArgDefTest >> newArgMorphBuilder [
 
 	^ ArgMorphBuilder new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchChoiceArgDefTest >> newObj [
 
 	^ ScratchChoiceArgDef new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchChoiceArgDefTest >> testArg [
 
 	| obj |
@@ -31,13 +32,13 @@ ScratchChoiceArgDefTest >> testArg [
 	self assert: obj arg equals: $b
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchChoiceArgDefTest >> testIsChoiceArg [
 
 	self assert: self newObj isChoiceArg
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchChoiceArgDefTest >> testOptions [
 
 	| obj a |
@@ -48,7 +49,7 @@ ScratchChoiceArgDefTest >> testOptions [
 	self assert: obj options identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchChoiceArgDefTest >> testPrintOn [
 
 	| obj s |

@@ -2,18 +2,19 @@
 A SpScratchAppTest is a test class for testing the behavior of SpScratchApp
 "
 Class {
-	#name : #SpScratchAppTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'SpScratchAppTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SpScratchAppTest >> newApp [
 
 	^ SpScratchApp new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpScratchAppTest >> testUseErrorCatcher [
 
 	| tmp |
@@ -26,7 +27,7 @@ SpScratchAppTest >> testUseErrorCatcher [
 		SpScratchApp useErrorCatcher: tmp ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpScratchAppTest >> testUseSingleClick [
 
 	| tmp |

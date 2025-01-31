@@ -1,19 +1,20 @@
 Class {
-	#name : #ScTestBlock,
-	#superclass : #Object,
+	#name : 'ScTestBlock',
+	#superclass : 'Object',
 	#instVars : [
 		'project'
 	],
-	#category : #'FromScratch-Tests'
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScTestBlock >> project [
 
 	^ project
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ScTestBlock >> project: anObject [
 
 	project := anObject

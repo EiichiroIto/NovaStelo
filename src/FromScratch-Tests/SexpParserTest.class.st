@@ -2,17 +2,18 @@
 A SexpParserTest is a test class for testing the behavior of SexpParser
 "
 Class {
-	#name : #SexpParserTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'SexpParserTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SexpParserTest >> newParser [
 	^ SexpParser new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SexpParserTest >> testParse [
 	| l ret |
 	l := #( 'abc' ).
@@ -32,7 +33,7 @@ SexpParserTest >> testParse [
 	self assertCollection: ret equals: #((())).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SexpParserTest >> testParseItem [
 	| in ret |
 	in := ReadStream on: #('abc' 'def' $( $( 'ghi' $) 'aa' $) $)).
@@ -45,7 +46,7 @@ SexpParserTest >> testParseItem [
 	self assert: in peek equals: 'aa'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SexpParserTest >> testParseItemsDelimiter [
 	| in list |
 	in := ReadStream on: #('abc' 'def' $) 'ghi' $) 'aa' $) $)).

@@ -2,24 +2,25 @@
 A ScratchBlockParserTest is a test class for testing the behavior of ScratchBlockParser
 "
 Class {
-	#name : #ScratchBlockParserTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchBlockParserTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBlockParserTest >> newGenerator [
 
 	^ ScratchGenerator new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBlockParserTest >> newParser [
 
 	^ ScratchBlockParser new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockParserTest >> testGenerator [
 
 	| gen parser |

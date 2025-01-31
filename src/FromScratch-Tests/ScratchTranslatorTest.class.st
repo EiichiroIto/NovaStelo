@@ -2,22 +2,23 @@
 A ScratchTranslator2Test is a test class for testing the behavior of ScratchTranslator2
 "
 Class {
-	#name : #ScratchTranslatorTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchTranslatorTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslatorTest >> newFont1 [
 	^ StrikeFont familyName: 'Verdana' size: 10
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchTranslatorTest >> newTranslator [
 	^ ScratchTranslator new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testAddMsgIdMsgStr [
 	| t |
 	t := self newTranslator.
@@ -29,14 +30,14 @@ ScratchTranslatorTest >> testAddMsgIdMsgStr [
 	self assert: t texts size equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testDefaultFont [
 	| t |
 	t := self newTranslator.
 	self assert: (t defaultFont isKindOf: AbstractFont)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testDefaultTranslator [
 
 	| obj |
@@ -44,7 +45,7 @@ ScratchTranslatorTest >> testDefaultTranslator [
 	self assert: obj locale equals: 'en'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testFontAt [
 	| t f |
 	t := self newTranslator.
@@ -54,12 +55,12 @@ ScratchTranslatorTest >> testFontAt [
 	self assert: (t fontAt: 'test2') equals: t defaultFont
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testFontAtPut [
 	self testFontAt
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testFonts [
 	| t |
 	t := self newTranslator.
@@ -67,7 +68,7 @@ ScratchTranslatorTest >> testFonts [
 	self assert: t fonts isEmpty	
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testInitialize [
 	| t |
 	t := self newTranslator.
@@ -75,7 +76,7 @@ ScratchTranslatorTest >> testInitialize [
 	self assert: t texts isDictionary
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testLocale [
 
 	| obj |
@@ -87,7 +88,7 @@ ScratchTranslatorTest >> testLocale [
 	self assert: obj locale equals: 'ja'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testReadFrom [
 	| t s |
 	t := self newTranslator.
@@ -101,7 +102,7 @@ msgstr "jkl"'.
 	self assert: (t textAt: 'ghi') equals: 'jkl'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testTextAt [
 	| t |
 	t := self newTranslator.
@@ -110,12 +111,12 @@ ScratchTranslatorTest >> testTextAt [
 	self assert: (t textAt: 'abc') equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testTextAtPut [
 	self testTextAt
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testTexts [
 	| t |
 	t := self newTranslator.
@@ -123,7 +124,7 @@ ScratchTranslatorTest >> testTexts [
 	self assert: t texts isEmpty	
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchTranslatorTest >> testUnquoteString [
 	| t |
 	t := self newTranslator.

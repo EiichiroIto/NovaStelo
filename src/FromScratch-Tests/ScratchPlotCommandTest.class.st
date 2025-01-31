@@ -2,17 +2,18 @@
 A ScratchPlotCommandTest is a test class for testing the behavior of ScratchPlotCommand
 "
 Class {
-	#name : #ScratchPlotCommandTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchPlotCommandTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ScratchPlotCommandTest >> newPlotCommand [
 	^ ScratchPlotCommand new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotCommandTest >> testCommand [
 	| p |
 	p := self newPlotCommand.
@@ -23,7 +24,7 @@ ScratchPlotCommandTest >> testCommand [
 	self assert: p command equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotCommandTest >> testIsClearPlot [
 	| p |
 	p := self newPlotCommand.

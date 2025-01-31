@@ -1,10 +1,11 @@
 Class {
-	#name : #ObjStreamTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ObjStreamTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ObjStreamTest >> equalityTest: inObj [
 	"For testing. Serialize and deserialize the given object and compare the result for equality with the original object."
 
@@ -16,7 +17,7 @@ ObjStreamTest >> equalityTest: inObj [
 		ifFalse: [ self error: 'output is not equal to input' ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ObjStreamTest >> formEqualityTest: inForm [
 	"For testing. Serialize and deserialize the given form and compare the result for equality with the original."
 
@@ -32,12 +33,12 @@ ObjStreamTest >> formEqualityTest: inForm [
 				ifFalse: [ self error: 'output colors are not equal to input colors' ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ObjStreamTest >> newObjStream [
 	^ ObjStream new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ObjStreamTest >> serializeAndDeserialize: anObject [
 	"For testing. Serialize and de-serialize the given object and answer the result."
 
@@ -47,7 +48,7 @@ ObjStreamTest >> serializeAndDeserialize: anObject [
 	^ self newObjStream readObjFrom: (ReadStream on: stream contents)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ObjStreamTest >> testFirstPass [
 
 	| obj |
@@ -59,7 +60,7 @@ ObjStreamTest >> testFirstPass [
 	self deny: obj firstPass
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ObjStreamTest >> testFixedFormatClasses [
 	| shared |
 	self equalityTest: #().
@@ -99,7 +100,7 @@ ObjStreamTest >> testFixedFormatClasses [
 
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ObjStreamTest >> testGetBigIntId [
 
 	| obj s r |
@@ -110,7 +111,7 @@ ObjStreamTest >> testGetBigIntId [
 	self assert: r equals: 5000000000000000000
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ObjStreamTest >> testPutBigIntId [
 
 	| obj s |
@@ -125,7 +126,7 @@ ObjStreamTest >> testPutBigIntId [
 		equals: #[ 123 0 8 0 0 244 68 130 145 99 69 ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ObjStreamTest >> testStream [
 
 	| obj a |
@@ -136,7 +137,7 @@ ObjStreamTest >> testStream [
 	self assert: obj stream identicalTo: a
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ObjStreamTest >> testUserClasses [
 	"Test conversions for fixed-format objects."
 
@@ -153,7 +154,7 @@ ObjStreamTest >> testUserClasses [
 	self assert: suspectClasses isEmpty
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ObjStreamTest >> testWriteFile [
 
 	| all objects s file |

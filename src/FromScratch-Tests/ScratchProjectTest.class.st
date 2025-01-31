@@ -2,27 +2,28 @@
 A ScratchProjectTest is a test class for testing the behavior of ScratchProject
 "
 Class {
-	#name : #ScratchProjectTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchProjectTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchProjectTest >> newApp [
 	^ SpScratchApp basicNew
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchProjectTest >> newProject [
 	^ ScratchProject new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchProjectTest >> newScript [
 	^ ScratchScript new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testAddScript [
 	| p s |
 	p := self newProject.
@@ -37,7 +38,7 @@ ScratchProjectTest >> testAddScript [
 	self assert: p scripts second equals: s
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testApplication [
 	| p app |
 	p := self newProject.
@@ -47,7 +48,7 @@ ScratchProjectTest >> testApplication [
 	self assert: p application equals: app
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testAuthor [
 	| p |
 	p := self newProject.
@@ -56,7 +57,7 @@ ScratchProjectTest >> testAuthor [
 	self assert: p author equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testComment [
 	| p |
 	p := self newProject.
@@ -65,7 +66,7 @@ ScratchProjectTest >> testComment [
 	self assert: p comment equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testDeleteScript [
 	| p s1 s2 s3 |
 	p := self newProject.
@@ -83,14 +84,14 @@ ScratchProjectTest >> testDeleteScript [
 	self assert: p scripts second equals: s3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testInfo [
 	| p |
 	p := self newProject.
 	self assert: p info isDictionary
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testInitialize [
 	| p |
 	p := self newProject.
@@ -99,21 +100,21 @@ ScratchProjectTest >> testInitialize [
 	self assert: p modified
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testIsEmpty [
 	| p |
 	p := self newProject.
 	self assert: p isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testIsProject [
 	| p |
 	p := self newProject.
 	self assert: p isProject
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testModified [
 	| p |
 	p := self newProject.
@@ -124,7 +125,7 @@ ScratchProjectTest >> testModified [
 	self deny: p modified
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testScriptNamed [
 
 	| project sc1 sc2 r |
@@ -143,7 +144,7 @@ ScratchProjectTest >> testScriptNamed [
 	self assert: r isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testScriptNames [
 
 	| project sc1 sc2 r |
@@ -158,14 +159,14 @@ ScratchProjectTest >> testScriptNames [
 	self assertCollection: r equals: #( abc def )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testScripts [
 	| p |
 	p := self newProject.
 	self assert: p scripts isArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectTest >> testScriptsForMenu [
 
 	self testScripts

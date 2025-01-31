@@ -2,18 +2,19 @@
 An IfElseBlockMorphTest is a test class for testing the behavior of IfElseBlockMorph
 "
 Class {
-	#name : #IfElseBlockMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'IfElseBlockMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 IfElseBlockMorphTest >> newBlock [
 
 	^ IfElseBlockMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 IfElseBlockMorphTest >> testFalseBlock [
 
 	| b1 b2 |
@@ -24,7 +25,7 @@ IfElseBlockMorphTest >> testFalseBlock [
 	self assert: b1 falseBlock identicalTo: b2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 IfElseBlockMorphTest >> testNextOrInnerBlocks [
 
 	| b1 b2 b3 b4 |
@@ -50,7 +51,7 @@ IfElseBlockMorphTest >> testNextOrInnerBlocks [
 			b4 }
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 IfElseBlockMorphTest >> testTrueBlock [
 
 	| b1 b2 |

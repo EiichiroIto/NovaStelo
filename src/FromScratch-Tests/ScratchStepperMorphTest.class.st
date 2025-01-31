@@ -2,22 +2,23 @@
 An AlgoritStepperMorphTest is a test class for testing the behavior of AlgoritStepperMorph
 "
 Class {
-	#name : #ScratchStepperMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchStepperMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchStepperMorphTest >> newMorph [
 	^ ScratchStepperMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchStepperMorphTest >> testDefaultStepTime [
 	self assert: self newMorph defaultStepTime equals: 100
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchStepperMorphTest >> testStepTime [
 	| s |
 	s := self newMorph.

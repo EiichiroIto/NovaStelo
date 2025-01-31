@@ -2,17 +2,18 @@
 A ScratchPlotColorTest is a test class for testing the behavior of ScratchPlotColor
 "
 Class {
-	#name : #ScratchPlotColorTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchPlotColorTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotColorTest >> newPlotColor [
 	^ ScratchPlotColor new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotColorTest >> testChannel [
 	| p |
 	p := self newPlotColor.
@@ -23,7 +24,7 @@ ScratchPlotColorTest >> testChannel [
 	self assert: p channel equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotColorTest >> testColor [
 	| p |
 	p := self newPlotColor.

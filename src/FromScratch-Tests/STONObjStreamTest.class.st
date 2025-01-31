@@ -2,17 +2,18 @@
 A STONObjStreamTest is a test class for testing the behavior of STONObjStream
 "
 Class {
-	#name : #STONObjStreamTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'STONObjStreamTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 STONObjStreamTest >> newObjStream [
 	^ STONObjStream new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STONObjStreamTest >> testReadAndStore [
 	| obj s x data r |
 	obj := self newObjStream.
@@ -25,7 +26,7 @@ STONObjStreamTest >> testReadAndStore [
 	self assert: r equals: data
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STONObjStreamTest >> testReadObjFromShowProgress [
 	| obj s r |
 	obj := self newObjStream.
@@ -37,7 +38,7 @@ STONObjStreamTest >> testReadObjFromShowProgress [
 	self assert: r equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STONObjStreamTest >> testStoreObjOn [
 	| obj s |
 	obj := self newObjStream.

@@ -2,32 +2,33 @@
 A ScratchSexpExporterTest is a test class for testing the behavior of ScratchSexpExporter
 "
 Class {
-	#name : #ScratchSexpExporterTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchSexpExporterTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporterTest >> appName [
 	^ 'abc'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporterTest >> newExporter [
 	^ ScratchSexpExporter appName: self appName
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporterTest >> newProject [
 	^ ScratchProject new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpExporterTest >> newScript [
 	^ ScTestScript new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testAppName [
 	| ex |
 	ex := self newExporter.
@@ -36,7 +37,7 @@ ScratchSexpExporterTest >> testAppName [
 	self assert: ex appName equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testWriteFooter [
 	| ex |
 	ex := self newExporter.
@@ -45,7 +46,7 @@ ScratchSexpExporterTest >> testWriteFooter [
 	self assert: ex stream contents equals: '))'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testWriteHeader [
 	| ex proj |
 	proj := self newProject.
@@ -55,7 +56,7 @@ ScratchSexpExporterTest >> testWriteHeader [
 	self assert: ex stream contents equals: '(abc ()', String lf, ' ('
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testWriteIndent [
 	| ex |
 	ex := self newExporter.
@@ -64,7 +65,7 @@ ScratchSexpExporterTest >> testWriteIndent [
 	self assert: ex stream contents equals: String lf, '   '
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testWriteScript [
 	| ex sc |
 	sc := self newScript.
@@ -79,7 +80,7 @@ ScratchSexpExporterTest >> testWriteScript [
 				, '   ())'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testWriteScriptNames [
 	| ex proj |
 	proj := self newProject.
@@ -98,7 +99,7 @@ ScratchSexpExporterTest >> testWriteScriptNames [
 	self assert: ex stream contents equals: '(a b)'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testWriteScriptSeparator [
 	| ex |
 	ex := self newExporter.
@@ -107,7 +108,7 @@ ScratchSexpExporterTest >> testWriteScriptSeparator [
 	self assert: ex stream contents equals: String lf, '  '
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpExporterTest >> testWriteVarNames [
 	| ex sc |
 	sc := self newScript.

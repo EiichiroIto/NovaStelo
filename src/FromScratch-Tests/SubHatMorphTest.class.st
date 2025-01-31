@@ -2,18 +2,19 @@
 A SubHatMorphTest is a test class for testing the behavior of SubHatMorph
 "
 Class {
-	#name : #SubHatMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'SubHatMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SubHatMorphTest >> newMorph [
 
 	^ SubHatMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SubHatMorphTest >> testAsBlockTuple [
 
 	| obj |
@@ -23,7 +24,7 @@ SubHatMorphTest >> testAsBlockTuple [
 	self assertCollection: obj asBlockTuple equals: #( abc: 'def' )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SubHatMorphTest >> testInitialize [
 
 	| obj |
@@ -31,7 +32,7 @@ SubHatMorphTest >> testInitialize [
 	self assert: obj subName isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SubHatMorphTest >> testSubName [
 
 	| obj |
@@ -43,7 +44,7 @@ SubHatMorphTest >> testSubName [
 	self assert: obj subName equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SubHatMorphTest >> testVarNames [
 
 	| obj |

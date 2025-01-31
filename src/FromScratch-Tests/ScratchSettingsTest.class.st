@@ -2,18 +2,19 @@
 A ScratchSettingsTest is a test class for testing the behavior of ScratchSettings
 "
 Class {
-	#name : #ScratchSettingsTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchSettingsTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSettingsTest >> newObj [
 
 	^ ScratchSettings new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testAt [
 
 	| obj |
@@ -23,7 +24,7 @@ ScratchSettingsTest >> testAt [
 	self assert: (obj at: #dontClose)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testAtPut [
 
 	| obj |
@@ -34,7 +35,7 @@ ScratchSettingsTest >> testAtPut [
 	self assert: obj dontClose
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testDictionary [
 
 	| obj d |
@@ -45,7 +46,7 @@ ScratchSettingsTest >> testDictionary [
 	self assert: obj dictionary identicalTo: d
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testDontClose [
 
 	| obj |
@@ -57,7 +58,7 @@ ScratchSettingsTest >> testDontClose [
 	self deny: obj dontClose
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testFullscreen [
 
 	| obj |
@@ -69,7 +70,7 @@ ScratchSettingsTest >> testFullscreen [
 	self deny: obj fullscreen
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testHideDebugMenu [
 
 	| obj |
@@ -81,7 +82,7 @@ ScratchSettingsTest >> testHideDebugMenu [
 	self deny: obj hideDebugMenu
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testInitialize [
 
 	| obj |
@@ -97,7 +98,7 @@ ScratchSettingsTest >> testInitialize [
 	self deny: obj useSingleClick
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testKeepMaximize [
 
 	| obj |
@@ -109,7 +110,7 @@ ScratchSettingsTest >> testKeepMaximize [
 	self deny: obj keepMaximize
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testKeys [
 
 	| obj |
@@ -121,7 +122,7 @@ ScratchSettingsTest >> testKeys [
 			   resizable stickyWindow useErrorCatcher useSingleClick )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testLanguage [
 
 	| obj |
@@ -131,7 +132,7 @@ ScratchSettingsTest >> testLanguage [
 	self assert: obj language equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testOptionsFor [
 
 	| obj |
@@ -141,7 +142,7 @@ ScratchSettingsTest >> testOptionsFor [
 		equals: { true. false }
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testProjectDir [
 
 	| obj |
@@ -151,7 +152,7 @@ ScratchSettingsTest >> testProjectDir [
 	self assert: obj projectDir equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testResizable [
 
 	| obj |
@@ -163,7 +164,7 @@ ScratchSettingsTest >> testResizable [
 	self deny: obj resizable
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testStickyWindow [
 
 	| obj |
@@ -175,7 +176,7 @@ ScratchSettingsTest >> testStickyWindow [
 	self deny: obj stickyWindow
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testUseErrorCatcher [
 
 	| obj |
@@ -187,7 +188,7 @@ ScratchSettingsTest >> testUseErrorCatcher [
 	self deny: obj useErrorCatcher
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSettingsTest >> testUseSingleClick [
 
 	| obj |

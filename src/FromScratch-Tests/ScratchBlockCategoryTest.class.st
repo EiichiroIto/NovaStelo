@@ -2,18 +2,19 @@
 A ScratchBlockCategoryTest is a test class for testing the behavior of ScratchBlockCategory
 "
 Class {
-	#name : #ScratchBlockCategoryTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchBlockCategoryTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBlockCategoryTest >> newObj [
 
 	^ ScratchBlockCategory new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockCategoryTest >> testCategoryName [
 
 	| obj |
@@ -25,13 +26,13 @@ ScratchBlockCategoryTest >> testCategoryName [
 	self assert: obj categoryName equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockCategoryTest >> testIsCategory [
 
 	self assert: self newObj isCategory
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockCategoryTest >> testPrintOn [
 
 	| obj s |

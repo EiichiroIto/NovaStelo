@@ -2,36 +2,37 @@
 A BlockMorphBuilderTest is a test class for testing the behavior of BlockMorphBuilder
 "
 Class {
-	#name : #BlockMorphBuilderTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'BlockMorphBuilderTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilderTest >> newArgMorphBuilder [
 
 	^ ArgMorphBuilder new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilderTest >> newBlockMorphBuilder [
 
 	^ BlockMorphBuilder new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilderTest >> newProject [
 
 	^ ScratchProject new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphBuilderTest >> newScript [
 
 	^ ScTestScript new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddBooleanReporterSelector [
 
 	| builder block |
@@ -42,7 +43,7 @@ BlockMorphBuilderTest >> testAddBooleanReporterSelector [
 	self assert: block label equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddBooleanReporterSelectorArguments [
 
 	| builder block |
@@ -54,7 +55,7 @@ BlockMorphBuilderTest >> testAddBooleanReporterSelectorArguments [
 	self assertCollection: block arguments equals: #( 1 2 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddCBlockSelectorArguments [
 
 	| builder block |
@@ -66,7 +67,7 @@ BlockMorphBuilderTest >> testAddCBlockSelectorArguments [
 	self assertCollection: block arguments equals: #( 1 2 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddCategory [
 
 	| builder |
@@ -78,7 +79,7 @@ BlockMorphBuilderTest >> testAddCategory [
 	self assert: builder lastCategory equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddCommandSelector [
 
 	| builder block |
@@ -89,7 +90,7 @@ BlockMorphBuilderTest >> testAddCommandSelector [
 	self assert: block label equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddCommandSelectorArguments [
 
 	| builder block |
@@ -101,7 +102,7 @@ BlockMorphBuilderTest >> testAddCommandSelectorArguments [
 	self assertCollection: block arguments equals: #( 1 2 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddEventHatBlockSelectorEventName [
 
 	| builder block |
@@ -114,7 +115,7 @@ BlockMorphBuilderTest >> testAddEventHatBlockSelectorEventName [
 	self assertCollection: block arguments equals: #( 'ghi' )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddReporterSelector [
 
 	| builder block |
@@ -125,7 +126,7 @@ BlockMorphBuilderTest >> testAddReporterSelector [
 	self assert: block label equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddReporterSelectorArguments [
 
 	| builder block |
@@ -137,7 +138,7 @@ BlockMorphBuilderTest >> testAddReporterSelectorArguments [
 	self assertCollection: block arguments equals: #( 1 2 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddSeparator [
 
 	| builder blocks |
@@ -151,7 +152,7 @@ BlockMorphBuilderTest >> testAddSeparator [
 	self assert: blocks first isSeparator
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddSpecialSelectorArguments [
 
 	| builder block |
@@ -163,7 +164,7 @@ BlockMorphBuilderTest >> testAddSpecialSelectorArguments [
 	self assertCollection: block arguments equals: #( 1 2 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddStartHatBlockSelector [
 
 	| builder block |
@@ -176,7 +177,7 @@ BlockMorphBuilderTest >> testAddStartHatBlockSelector [
 	self assert: block arguments isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAddTimedSelectorArguments [
 
 	| builder block |
@@ -188,7 +189,7 @@ BlockMorphBuilderTest >> testAddTimedSelectorArguments [
 	self assertCollection: block arguments equals: #( 1 2 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAppendBlockSpecInto [
 
 	| obj spec1 spec2 spec3 list |
@@ -214,7 +215,7 @@ BlockMorphBuilderTest >> testAppendBlockSpecInto [
 	self assert: list third identicalTo: spec3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testAssureLoadCompatibilityDictionary [
 
 	| obj |
@@ -224,7 +225,7 @@ BlockMorphBuilderTest >> testAssureLoadCompatibilityDictionary [
 	self assert: obj compatibilityDictionary isDictionary
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockCategories [
 
 	| obj |
@@ -238,7 +239,7 @@ BlockMorphBuilderTest >> testBlockCategories [
 		hasSameElements: #( abc def )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockColorAt [
 
 	| obj spec |
@@ -260,7 +261,7 @@ BlockMorphBuilderTest >> testBlockColorAt [
 	self assert: (obj blockColorAt: #zzz) equals: Color red
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockColorFor [
 
 	| obj |
@@ -272,7 +273,7 @@ BlockMorphBuilderTest >> testBlockColorFor [
 	self assert: (obj blockColorFor: 'ghi') equals: Color gray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockSelectorOf [
 
 	| obj spec |
@@ -293,7 +294,7 @@ BlockMorphBuilderTest >> testBlockSelectorOf [
 	self assert: (obj blockSelectorOf: #'mno') equals: 'pqr'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockSpecAt [
 
 	| obj spec1 spec2 dict |
@@ -324,7 +325,7 @@ BlockMorphBuilderTest >> testBlockSpecAt [
 	self assert: (obj blockSpecAt: #yyy) isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockSpecDictionary [
 
 	| obj a |
@@ -336,7 +337,7 @@ BlockMorphBuilderTest >> testBlockSpecDictionary [
 	self assert: obj blockSpecDictionary identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockSpecs [
 
 	| obj spec1 spec2 |
@@ -358,7 +359,7 @@ BlockMorphBuilderTest >> testBlockSpecs [
 			spec2 }
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testBlockSpecsInCategory [
 
 	| obj a |
@@ -370,7 +371,7 @@ BlockMorphBuilderTest >> testBlockSpecsInCategory [
 	self assert: obj blockSpecsInCategory identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testCategoryColors [
 
 	| obj a |
@@ -382,7 +383,7 @@ BlockMorphBuilderTest >> testCategoryColors [
 	self assert: obj categoryColors identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testChangeVarBlockFor [
 
 	| obj block script |
@@ -398,7 +399,7 @@ BlockMorphBuilderTest >> testChangeVarBlockFor [
 	self assert: block color equals: obj unknownCategoryColor
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testCompatibilityDictionary [
 
 	| obj a |
@@ -409,7 +410,7 @@ BlockMorphBuilderTest >> testCompatibilityDictionary [
 	self assert: obj compatibilityDictionary identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testCompatibleSelectorOf [
 
 	| obj spec1 spec2 dict |
@@ -436,7 +437,7 @@ BlockMorphBuilderTest >> testCompatibleSelectorOf [
 	self assert: (obj compatibleSelectorOf: #yyy) isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testLastCategory [
 
 	| obj a |
@@ -448,7 +449,7 @@ BlockMorphBuilderTest >> testLastCategory [
 	self assert: obj lastCategory equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testLocalVarBlockFor [
 
 	| obj block script |
@@ -462,7 +463,7 @@ BlockMorphBuilderTest >> testLocalVarBlockFor [
 	self assert: block variable equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testProject [
 
 	| obj s p |
@@ -475,7 +476,7 @@ BlockMorphBuilderTest >> testProject [
 	self assert: obj project identicalTo: p
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testRegisterBlockSpecAsCategory [
 
 	| obj spec |
@@ -504,7 +505,7 @@ BlockMorphBuilderTest >> testRegisterBlockSpecAsCategory [
 	self assert: spec color equals: Color gray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testScript [
 
 	| obj s |
@@ -515,7 +516,7 @@ BlockMorphBuilderTest >> testScript [
 	self assert: obj script identicalTo: s
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testSetCategoryColor [
 
 	| obj |
@@ -527,7 +528,7 @@ BlockMorphBuilderTest >> testSetCategoryColor [
 	self assert: (obj categoryColors at: 'def') equals: Color black
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testSetVarBlockFor [
 
 	| obj block script |
@@ -543,7 +544,7 @@ BlockMorphBuilderTest >> testSetVarBlockFor [
 	self assert: block color equals: obj unknownCategoryColor
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testSubHatBlockFor [
 
 	| obj block script |
@@ -557,7 +558,7 @@ BlockMorphBuilderTest >> testSubHatBlockFor [
 	self assert: block subName equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testUnknownBlockFor [
 
 	| obj block script |
@@ -574,13 +575,13 @@ BlockMorphBuilderTest >> testUnknownBlockFor [
 	self assert: block color equals: Color red
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testUnknownCategoryColor [
 
 	self assert: self newBlockMorphBuilder unknownCategoryColor isColor
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphBuilderTest >> testVariableBlockFor [
 
 	| obj block script |

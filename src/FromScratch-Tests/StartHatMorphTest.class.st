@@ -2,18 +2,19 @@
 A StartHatMorphTest is a test class for testing the behavior of StartHatMorph
 "
 Class {
-	#name : #StartHatMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'StartHatMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 StartHatMorphTest >> newMorph [
 
 	^ StartHatMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StartHatMorphTest >> testAsBlockTuple [
 
 	| obj |
@@ -22,7 +23,7 @@ StartHatMorphTest >> testAsBlockTuple [
 	self assertCollection: obj asBlockTuple equals: #( abc )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 StartHatMorphTest >> testCommandSpec [
 
 	| obj |

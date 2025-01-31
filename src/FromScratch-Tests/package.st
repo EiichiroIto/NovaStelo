@@ -1,1 +1,1 @@
-Package { #name : #'FromScratch-Tests' }
+Package { #name : 'FromScratch-Tests' }

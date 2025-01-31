@@ -2,24 +2,25 @@
 A ScratchBlockSeparatorTest is a test class for testing the behavior of ScratchBlockSeparator
 "
 Class {
-	#name : #ScratchBlockSeparatorTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchBlockSeparatorTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBlockSeparatorTest >> newObj [
 
 	^ ScratchBlockSeparator new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSeparatorTest >> testIsSeparator [
 
 	self assert: self newObj isSeparator
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSeparatorTest >> testPrintOn [
 
 	| obj s |

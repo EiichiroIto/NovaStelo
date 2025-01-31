@@ -2,17 +2,18 @@
 A ScratchLinePlotterTest is a test class for testing the behavior of ScratchLinePlotter
 "
 Class {
-	#name : #ScratchPlotterMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchPlotterMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotterMorphTest >> newPlotter [
 	^ ScratchPlotterMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testAcceptPlots [
 	| p |
 	p := self newPlotter.
@@ -23,7 +24,7 @@ ScratchPlotterMorphTest >> testAcceptPlots [
 	self assert: p acceptPlots
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testAddPenColor [
 	| p |
 	p := self newPlotter.
@@ -35,7 +36,7 @@ ScratchPlotterMorphTest >> testAddPenColor [
 	self assert: p pens third equals: Color black
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testAddPlots [
 	| p |
 	p := self newPlotter.
@@ -51,19 +52,19 @@ ScratchPlotterMorphTest >> testAddPlots [
 	self assert: p data size equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testAxisFont [
 	| p |
 	p := self newPlotter.
 	self assert: (p axisFont isKindOf: AbstractFont)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testClearPlots [
 	self testReset
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testColors [
 	| p |
 	p := self newPlotter.
@@ -71,7 +72,7 @@ ScratchPlotterMorphTest >> testColors [
 	p colors do: [ :each | self assert: each isColor ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testData [
 	| p |
 	p := self newPlotter.
@@ -81,7 +82,7 @@ ScratchPlotterMorphTest >> testData [
 	self assert: p data size equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testEnsurePenExists [
 	| p |
 	p := self newPlotter.
@@ -97,7 +98,7 @@ ScratchPlotterMorphTest >> testEnsurePenExists [
 	self assert: p last size equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testInitialize [
 	| p |
 	p := self newPlotter.
@@ -106,7 +107,7 @@ ScratchPlotterMorphTest >> testInitialize [
 	self assert: p colors isArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testLast [
 	| p |
 	p := self newPlotter.
@@ -115,7 +116,7 @@ ScratchPlotterMorphTest >> testLast [
 	self assert: (p last at: 1) equals: 99
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testListOf [
 	| p |
 	p := self newPlotter.
@@ -127,14 +128,14 @@ ScratchPlotterMorphTest >> testListOf [
 	self assertCollection: (p listOf: 2) equals: #(30 40)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testMarkerExtent [
 	| p |
 	p := self newPlotter.
 	self assert: p markerExtent equals: 5 @ 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testMax [
 	| p |
 	p := self newPlotter.
@@ -145,7 +146,7 @@ ScratchPlotterMorphTest >> testMax [
 	self assert: p max equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testMaxData [
 	| p |
 	p := self newPlotter.
@@ -163,7 +164,7 @@ ScratchPlotterMorphTest >> testMaxData [
 	self assert: p maxData equals: 40
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testMaxSize [
 	| p |
 	p := self newPlotter.
@@ -180,7 +181,7 @@ ScratchPlotterMorphTest >> testMaxSize [
 	self assert: p numData equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testMin [
 	| p |
 	p := self newPlotter.
@@ -191,7 +192,7 @@ ScratchPlotterMorphTest >> testMin [
 	self assert: p min equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testMinData [
 	| p |
 	p := self newPlotter.
@@ -209,14 +210,14 @@ ScratchPlotterMorphTest >> testMinData [
 	self assert: p minData equals: 4
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testModelBounds [
 	| p |
 	p := self newPlotter.
 	self assert: p modelBounds equals: p bounds
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testNewData [
 	| p |
 	p := self newPlotter.
@@ -227,7 +228,7 @@ ScratchPlotterMorphTest >> testNewData [
 	self assert: p data size equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testNumChannels [
 	| p |
 	p := self newPlotter.
@@ -240,7 +241,7 @@ ScratchPlotterMorphTest >> testNumChannels [
 	self assert: p numChannels equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testNumData [
 	| p |
 	p := self newPlotter.
@@ -251,7 +252,7 @@ ScratchPlotterMorphTest >> testNumData [
 	self assert: p numData equals: 3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPens [
 	| p |
 	p := self newPlotter.
@@ -261,7 +262,7 @@ ScratchPlotterMorphTest >> testPens [
 	self assert: p pens size equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlot [
 	| p d |
 	p := self newPlotter.
@@ -273,7 +274,7 @@ ScratchPlotterMorphTest >> testPlot [
 	self assert: p data isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlotData [
 	| p |
 	p := self newPlotter.
@@ -294,7 +295,7 @@ ScratchPlotterMorphTest >> testPlotData [
 	self assert: p last second equals: 40
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlotList [
 	| p |
 	p := self newPlotter.
@@ -319,7 +320,7 @@ ScratchPlotterMorphTest >> testPlotList [
 	self assertCollection: p last equals: #(8 nil)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlottingBounds [
 	| p |
 	p := self newPlotter.
@@ -328,7 +329,7 @@ ScratchPlotterMorphTest >> testPlottingBounds [
 	self assert: p plottingBounds height > 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlottingData [
 	| p ret |
 	p := self newPlotter.
@@ -398,7 +399,7 @@ ScratchPlotterMorphTest >> testPlottingData [
 			#(#(10) #(nil) #(nil) #(20) #(nil) #(nil) #(30) #(nil) #(nil) #(40) #(nil))
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlottingDataAt [
 	| p ret |
 	p := self newPlotter.
@@ -431,21 +432,21 @@ ScratchPlotterMorphTest >> testPlottingDataAt [
 	self assertCollection: ret equals: #(100 50 nil)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlottingHeight [
 	| p |
 	p := self newPlotter.
 	self assert: p plottingHeight > 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPlottingWidth [
 	| p |
 	p := self newPlotter.
 	self assert: p plottingWidth > 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testPrivCache [
 	| p |
 	p := self newPlotter.
@@ -454,7 +455,7 @@ ScratchPlotterMorphTest >> testPrivCache [
 	self assertCollection: p privCache equals: #(1 2 3)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testReplacePlotAtPut [
 	| p |
 	p := self newPlotter.
@@ -479,7 +480,7 @@ ScratchPlotterMorphTest >> testReplacePlotAtPut [
 	self assert: p data third equals: #(7 40)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testReset [
 	| p |
 	p := self newPlotter.
@@ -501,7 +502,7 @@ ScratchPlotterMorphTest >> testReset [
 	self assert: p max isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testUpdateCache [
 	| p |
 	p := self newPlotter.
@@ -510,7 +511,7 @@ ScratchPlotterMorphTest >> testUpdateCache [
 	self assert: p privCache isCollection
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testUpdatePeriod [
 	| p |
 	p := self newPlotter.
@@ -521,7 +522,7 @@ ScratchPlotterMorphTest >> testUpdatePeriod [
 	self assert: p updatePeriod equals: 200
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testUseMarker [
 	| p |
 	p := self newPlotter.
@@ -531,7 +532,7 @@ ScratchPlotterMorphTest >> testUseMarker [
 	self deny: p useMarker
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotterMorphTest >> testWhenMouseClicked [
 	| p x a b |
 	p := self newPlotter.

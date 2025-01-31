@@ -2,18 +2,19 @@
 A BlockPlateMorphTest is a test class for testing the behavior of BlockPlateMorph
 "
 Class {
-	#name : #BlockPlateMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'BlockPlateMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 BlockPlateMorphTest >> newMorph [
 
 	^ BlockPlateMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockPlateMorphTest >> testDraggingPoint [
 
 	| morph |
@@ -25,7 +26,7 @@ BlockPlateMorphTest >> testDraggingPoint [
 	self assert: morph draggingPoint equals: 3 @ 4
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockPlateMorphTest >> testProject [
 
 	| morph project |
@@ -36,7 +37,7 @@ BlockPlateMorphTest >> testProject [
 	self assert: morph project identicalTo: project
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockPlateMorphTest >> testScreenshooting [
 
 	| morph |
@@ -48,7 +49,7 @@ BlockPlateMorphTest >> testScreenshooting [
 	self deny: morph screenshooting
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockPlateMorphTest >> testScrollPoint [
 
 	| morph |

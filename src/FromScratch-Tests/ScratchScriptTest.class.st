@@ -2,17 +2,18 @@
 A ScratchScriptTest is a test class for testing the behavior of ScratchScript
 "
 Class {
-	#name : #ScratchScriptTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchScriptTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchScriptTest >> newScript [
 	^ ScratchScript new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testArgMorphBuilder [
 
 	| obj a |
@@ -23,7 +24,7 @@ ScratchScriptTest >> testArgMorphBuilder [
 	self assert: obj argMorphBuilder identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testBlockMorphBuilder [
 
 	| script obj |
@@ -34,7 +35,7 @@ ScratchScriptTest >> testBlockMorphBuilder [
 	self assert: script blockMorphBuilder identicalTo: obj
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testBlocksBin [
 
 	| script obj |
@@ -45,7 +46,7 @@ ScratchScriptTest >> testBlocksBin [
 	self assert: script blocksBin identicalTo: obj
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testCBlockSelectors [
 
 	| script r |
@@ -55,14 +56,14 @@ ScratchScriptTest >> testCBlockSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testEvaluateFunctionWithArgs [
 	| s |
 	s := self newScript.
 	self assert: (s evaluateFunction: #yourself withArgs: #()) equals: s
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testForeverBlockSelectors [
 
 	| script r |
@@ -72,7 +73,7 @@ ScratchScriptTest >> testForeverBlockSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testGetVarSelectors [
 
 	| script r |
@@ -82,7 +83,7 @@ ScratchScriptTest >> testGetVarSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testIfElseBlockSelectors [
 
 	| script r |
@@ -92,7 +93,7 @@ ScratchScriptTest >> testIfElseBlockSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testInitialize [
 
 	| script |
@@ -100,7 +101,7 @@ ScratchScriptTest >> testInitialize [
 	self assert: (script blocksBin isKindOf: ScratchScriptsMorph)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testLoopBlockSelectors [
 
 	| script r |
@@ -110,7 +111,7 @@ ScratchScriptTest >> testLoopBlockSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testNewArgMorphBuilder [
 
 	| script obj |
@@ -119,7 +120,7 @@ ScratchScriptTest >> testNewArgMorphBuilder [
 	self assert: (obj isKindOf: ArgMorphBuilder)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testNewBlockMorphBuilder [
 
 	| script obj |
@@ -129,7 +130,7 @@ ScratchScriptTest >> testNewBlockMorphBuilder [
 	self assert: obj script identicalTo: script
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testNewBlockPaletteMorph [
 
 	| script project obj |
@@ -141,7 +142,7 @@ ScratchScriptTest >> testNewBlockPaletteMorph [
 	self assert: obj project identicalTo: project
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testNewScriptsMorph [
 
 	| script obj |
@@ -150,7 +151,7 @@ ScratchScriptTest >> testNewScriptsMorph [
 	self assert: (obj isKindOf: ScratchScriptsMorph)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testProject [
 
 	| script obj |
@@ -161,7 +162,7 @@ ScratchScriptTest >> testProject [
 	self assert: script project identicalTo: obj
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testSetVarSelectors [
 
 	| script r |
@@ -171,7 +172,7 @@ ScratchScriptTest >> testSetVarSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testSpecialCommandSelectors [
 
 	| script r |
@@ -181,7 +182,7 @@ ScratchScriptTest >> testSpecialCommandSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testStopBlockSelectors [
 
 	| script r |
@@ -191,25 +192,25 @@ ScratchScriptTest >> testStopBlockSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testUseList [
 
 	self assert: self newScript useList
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testUseVariable [
 
 	self assert: self newScript useVariable
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testUseVariableWatcher [
 
 	self assert: self newScript useVariableWatcher
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testVariableBlockSelectors [
 
 	| script r |
@@ -219,7 +220,7 @@ ScratchScriptTest >> testVariableBlockSelectors [
 	r do: [ :each | self assert: each isSymbol ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchScriptTest >> testWatcherSelectors [
 
 	self assert: self newScript watcherSelectors isEmpty

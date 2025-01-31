@@ -2,30 +2,31 @@
 A ScriptArgMorphTest is a test class for testing the behavior of ScriptArgMorph
 "
 Class {
-	#name : #ScriptArgMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScriptArgMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScriptArgMorphTest >> newArgMorph [
 
 	^ ScriptArgMorph new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScriptArgMorphTest >> newProject [
 
 	^ ScratchProject new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScriptArgMorphTest >> newScript [
 
 	^ ScTestScript new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScriptArgMorphTest >> testCheckForDeletedScript [
 
 	| morph project script block |
@@ -51,7 +52,7 @@ ScriptArgMorphTest >> testCheckForDeletedScript [
 	self assert: morph selectedScript identicalTo: script
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScriptArgMorphTest >> testDefaultValue [
 
 	| morph |

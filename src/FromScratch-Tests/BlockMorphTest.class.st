@@ -2,17 +2,18 @@
 A BlockMorphTest is a test class for testing the behavior of BlockMorph
 "
 Class {
-	#name : #BlockMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'BlockMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 BlockMorphTest >> newBlock [
 	^ BlockMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testBlockAttachPoints [
 	| b1 b2 b3 s |
 	b1 := self newBlock.
@@ -32,7 +33,7 @@ BlockMorphTest >> testBlockAttachPoints [
 	self assert: s fourth key equals: b3 topLeft
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testBlockPalette [
 	| b1 b2 b3 s |
 	b1 := self newBlock.
@@ -60,7 +61,7 @@ BlockMorphTest >> testBlockPalette [
 	self assert: b3 blockPalette isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testBlockSequence [
 	| b1 b2 b3 |
 	b1 := self newBlock.
@@ -76,7 +77,7 @@ BlockMorphTest >> testBlockSequence [
 			b3}
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testBottomBlock [
 	| b1 b2 b3 |
 	b1 := self newBlock.
@@ -87,73 +88,73 @@ BlockMorphTest >> testBottomBlock [
 	self assert: b1 bottomBlock equals: b3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsBlockMorph [
 
 	self assert: self newBlock isBlockMorph
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsBooleanReporter [
 
 	self deny: self newBlock isBooleanReporter
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsCBlock [
 
 	self deny: self newBlock isCBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsChoiceArg [
 
 	self deny: self newBlock isChoiceArg
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsForever [
 
 	self deny: self newBlock isForever
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsHatBlock [
 
 	self deny: self newBlock isHatBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsIfElseBlock [
 
 	self deny: self newBlock isIfElseBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsReporter [
 
 	self deny: self newBlock isReporter
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsSetterBlock [
 
 	self deny: self newBlock isSetterBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsStop [
 
 	self deny: self newBlock isStop
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testIsVariableBlock [
 
 	self deny: self newBlock isVariableBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testNextOrInnerBlocks [
 
 	| b1 b2 b3 |
@@ -171,7 +172,7 @@ BlockMorphTest >> testNextOrInnerBlocks [
 	self assert: b3 nextOrInnerBlocks isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 BlockMorphTest >> testTopBlock [
 	| b1 b2 b3 |
 	b1 := self newBlock.

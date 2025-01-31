@@ -2,17 +2,18 @@
 A SExporterTest is a test class for testing the behavior of SExporter
 "
 Class {
-	#name : #ScratchExporterTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchExporterTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchExporterTest >> newExporter [
 	^ ScratchExporter new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchExporterTest >> testPrivStream [
 	| e s |
 	e := self newExporter.

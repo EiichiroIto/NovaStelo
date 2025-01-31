@@ -2,23 +2,24 @@
 A ScratchSexpImporterTest is a test class for testing the behavior of ScratchSexpImporter
 "
 Class {
-	#name : #ScratchSexpImporterTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchSexpImporterTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporterTest >> newImporter [
 	^ ScratchSexpImporter appName: 'test'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpImporterTest >> newScript [
 
 	^ ScTestScript new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testAppName [
 	| i |
 	i := self newImporter.
@@ -27,7 +28,7 @@ ScratchSexpImporterTest >> testAppName [
 	self assert: i appName equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testEvaluateArgScript [
 	| i script |
 	i := self newImporter.
@@ -38,7 +39,7 @@ ScratchSexpImporterTest >> testEvaluateArgScript [
 	self assert: (i evaluateArg: true script: script) equals: true
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testEventBlockTupleFor [
 	| i ret |
 	i := self newImporter.
@@ -46,7 +47,7 @@ ScratchSexpImporterTest >> testEventBlockTupleFor [
 	self assertCollection: ret equals: #(#EventHatMorph 'abc')
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testGetVarTupleFromScript [
 
 	| i script ret |
@@ -56,7 +57,7 @@ ScratchSexpImporterTest >> testGetVarTupleFromScript [
 	self assertCollection: ret equals: #( readVariable abc )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testOperatorTupleFromScript [
 
 	| i script arr |
@@ -70,7 +71,7 @@ ScratchSexpImporterTest >> testOperatorTupleFromScript [
 	self assert: arr third equals: 'x'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testSetVarTupleFromScript [
 
 	| i script ret |
@@ -86,7 +87,7 @@ ScratchSexpImporterTest >> testSetVarTupleFromScript [
 		equals: #(changeVariable energy #changeVar:by: -0.1)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testStartBlockTupleFor [
 
 	| i ret |
@@ -95,7 +96,7 @@ ScratchSexpImporterTest >> testStartBlockTupleFor [
 	self assertCollection: ret equals: #( #abc )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testSubBlockTupleFor [
 	| i ret |
 	i := self newImporter.
@@ -103,7 +104,7 @@ ScratchSexpImporterTest >> testSubBlockTupleFor [
 	self assertCollection: ret equals: #(sub: abc)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpImporterTest >> testUpdateArgsScript [
 	| i script arr |
 	i := self newImporter.

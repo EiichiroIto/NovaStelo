@@ -2,17 +2,18 @@
 A ScratchPlotDataTest is a test class for testing the behavior of ScratchPlotData
 "
 Class {
-	#name : #ScratchPlotDataTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchPlotDataTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchPlotDataTest >> newPlotData [
 	^ ScratchPlotData new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotDataTest >> testChannel [
 	| p |
 	p := self newPlotData.
@@ -23,7 +24,7 @@ ScratchPlotDataTest >> testChannel [
 	self assert: p channel equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotDataTest >> testData [
 	| p |
 	p := self newPlotData.

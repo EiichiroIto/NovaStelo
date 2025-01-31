@@ -2,17 +2,18 @@
 A SexpLexerTest is a test class for testing the behavior of SexpLexer
 "
 Class {
-	#name : #SexpLexerTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'SexpLexerTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SexpLexerTest >> newLexer [
 	^ SexpLexer new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SexpLexerTest >> testDelimiters [
 	| l |
 	l := SexpLexer new.
@@ -30,7 +31,7 @@ SexpLexerTest >> testDelimiters [
 	($A to: $Z) do: [ :each | self deny: (l delimiters includes: each) ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SexpLexerTest >> testLiteral [
 	| l |
 	l := self newLexer.
@@ -42,7 +43,7 @@ SexpLexerTest >> testLiteral [
 	self assert: (l literal: '%x') equals: '%x'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SexpLexerTest >> testRead [
 	| ret |
 	ret := SexpLexer new
@@ -54,7 +55,7 @@ f aaa) ghi 5))'.
 		equals: #($( 'abc' '1' $( 'de' 'f' 'aaa' $) 'ghi' 5 $) $))
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SexpLexerTest >> testWhiteSpaces [
 	| l |
 	l := SexpLexer new.

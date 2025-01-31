@@ -2,18 +2,19 @@
 A ScratchSexpGeneratorTest is a test class for testing the behavior of ScratchSexpGenerator
 "
 Class {
-	#name : #ScratchSexpGeneratorTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchSexpGeneratorTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchSexpGeneratorTest >> newGenerator [
 
 	^ ScratchSexpGenerator new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpGeneratorTest >> testIndentLevel [
 
 	| gen |
@@ -25,7 +26,7 @@ ScratchSexpGeneratorTest >> testIndentLevel [
 	self assert: gen indentLevel equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpGeneratorTest >> testIndents [
 
 	| gen a |
@@ -38,7 +39,7 @@ ScratchSexpGeneratorTest >> testIndents [
 	self assert: gen indents identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpGeneratorTest >> testParser [
 
 	| gen a |
@@ -50,7 +51,7 @@ ScratchSexpGeneratorTest >> testParser [
 	self assert: a generator equals: gen
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpGeneratorTest >> testPosition [
 
 	| gen |
@@ -62,7 +63,7 @@ ScratchSexpGeneratorTest >> testPosition [
 	self assert: gen position equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpGeneratorTest >> testStream [
 
 	| gen a |
@@ -73,7 +74,7 @@ ScratchSexpGeneratorTest >> testStream [
 	self assert: gen stream identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchSexpGeneratorTest >> testWantsLinefeed [
 
 	| gen |

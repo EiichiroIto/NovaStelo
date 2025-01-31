@@ -1,10 +1,11 @@
 Class {
-	#name : #ScratchPlotTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchPlotTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchPlotTest >> testClearPlots [
 	| p |
 	p := ScratchPlot clearPlots.

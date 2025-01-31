@@ -2,18 +2,19 @@
 A ScratchBlockSpecTest is a test class for testing the behavior of ScratchBlockSpec
 "
 Class {
-	#name : #ScratchBlockSpecTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchBlockSpecTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchBlockSpecTest >> newObj [
 
 	^ ScratchBlockSpec new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testArguments [
 
 	| obj a |
@@ -24,7 +25,7 @@ ScratchBlockSpecTest >> testArguments [
 	self assert: obj arguments identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testColor [
 
 	| obj |
@@ -34,13 +35,13 @@ ScratchBlockSpecTest >> testColor [
 	self assert: obj color equals: Color red
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsBlockSpec [
 
 	self assert: self newObj isBlockSpec
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsBooleanReporter [
 
 	| obj |
@@ -50,7 +51,7 @@ ScratchBlockSpecTest >> testIsBooleanReporter [
 	self assert: obj isBooleanReporter
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsCBlock [
 
 	| obj |
@@ -60,7 +61,7 @@ ScratchBlockSpecTest >> testIsCBlock [
 	self assert: obj isCBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsCommandBlock [
 
 	| obj |
@@ -70,7 +71,7 @@ ScratchBlockSpecTest >> testIsCommandBlock [
 	self assert: obj isCommandBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsEventHatBlock [
 
 	| obj |
@@ -80,13 +81,13 @@ ScratchBlockSpecTest >> testIsEventHatBlock [
 	self assert: obj isEventHatBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsNativeBlock [
 
 	self assert: self newObj isNativeBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsReporterBlock [
 
 	| obj |
@@ -98,7 +99,7 @@ ScratchBlockSpecTest >> testIsReporterBlock [
 	self assert: obj isReporterBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsSpecialForm [
 
 	| obj |
@@ -108,7 +109,7 @@ ScratchBlockSpecTest >> testIsSpecialForm [
 	self assert: obj isSpecialForm
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsStartHatBlock [
 
 	| obj |
@@ -118,7 +119,7 @@ ScratchBlockSpecTest >> testIsStartHatBlock [
 	self assert: obj isStartHatBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testIsTimedBlock [
 
 	| obj |
@@ -128,7 +129,7 @@ ScratchBlockSpecTest >> testIsTimedBlock [
 	self assert: obj isTimedBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testLabel [
 
 	| obj |
@@ -140,7 +141,7 @@ ScratchBlockSpecTest >> testLabel [
 	self assert: obj label equals: 'return'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testPrintOn [
 
 	| obj s |
@@ -156,7 +157,7 @@ ScratchBlockSpecTest >> testPrintOn [
 	self assert: s contents equals: 'ScratchBlockSpec(abc,r,def)'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testSelector [
 
 	| obj |
@@ -168,7 +169,7 @@ ScratchBlockSpecTest >> testSelector [
 	self assert: obj selector equals: #def
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchBlockSpecTest >> testType [
 
 	| obj |

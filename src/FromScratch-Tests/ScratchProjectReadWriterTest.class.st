@@ -2,18 +2,19 @@
 A ScratchProjectReadWriterTest is a test class for testing the behavior of ScratchProjectReadWriter
 "
 Class {
-	#name : #ScratchProjectReadWriterTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ScratchProjectReadWriterTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ScratchProjectReadWriterTest >> newObj [
 
 	^ ScratchProjectReadWriter new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectReadWriterTest >> testFileVersion [
 
 	| obj |
@@ -23,7 +24,7 @@ ScratchProjectReadWriterTest >> testFileVersion [
 	self assert: obj fileVersion equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectReadWriterTest >> testFileVersionString [
 
 	| obj |
@@ -33,7 +34,7 @@ ScratchProjectReadWriterTest >> testFileVersionString [
 	self assert: obj fileVersionString equals: 'Test05'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectReadWriterTest >> testFileVersionTag [
 
 	| obj |
@@ -43,7 +44,7 @@ ScratchProjectReadWriterTest >> testFileVersionTag [
 	self assert: obj fileVersionTag equals: 'Test'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ScratchProjectReadWriterTest >> testObjStream [
 
 	| obj x |

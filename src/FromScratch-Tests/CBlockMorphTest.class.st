@@ -2,18 +2,19 @@
 A CBlockMorphTest is a test class for testing the behavior of CBlockMorph
 "
 Class {
-	#name : #CBlockMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'CBlockMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 CBlockMorphTest >> newBlock [
 
 	^ CBlockMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 CBlockMorphTest >> testNestedBlock [
 
 	| b1 b2 |
@@ -24,7 +25,7 @@ CBlockMorphTest >> testNestedBlock [
 	self assert: b1 nestedBlock identicalTo: b2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 CBlockMorphTest >> testNextOrInnerBlocks [
 
 	| b1 b2 b3 |

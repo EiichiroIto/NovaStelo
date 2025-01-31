@@ -2,12 +2,13 @@
 An AbstractBlockSpecTest is a test class for testing the behavior of AbstractBlockSpec
 "
 Class {
-	#name : #AbstractBlockSpecTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'AbstractBlockSpecTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testBlockCategory [
 
 	| obj |
@@ -17,7 +18,7 @@ AbstractBlockSpecTest >> testBlockCategory [
 	self assert: obj categoryName equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testBooleanReporterSelectorArguments [
 
 	| obj |
@@ -29,7 +30,7 @@ AbstractBlockSpecTest >> testBooleanReporterSelectorArguments [
 	self assert: obj isBooleanReporter
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testCBlockSelectorArguments [
 
 	| obj |
@@ -41,7 +42,7 @@ AbstractBlockSpecTest >> testCBlockSelectorArguments [
 	self assert: obj isCBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testCommandSelectorArguments [
 
 	| obj |
@@ -53,7 +54,7 @@ AbstractBlockSpecTest >> testCommandSelectorArguments [
 	self assert: obj isCommandBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testEventHatBlockSelectorEventName [
 
 	| obj |
@@ -67,37 +68,37 @@ AbstractBlockSpecTest >> testEventHatBlockSelectorEventName [
 	self assert: obj arguments first equals: 'ghi'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testIsBlockMorph [
 
 	self deny: AbstractBlockSpec new isBlockMorph
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testIsBlockSpec [
 
 	self deny: AbstractBlockSpec new isBlockSpec
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testIsCategory [
 
 	self deny: AbstractBlockSpec new isCategory
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testIsChoiceArg [
 
 	self deny: AbstractBlockSpec new isChoiceArg
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testIsSeparator [
 
 	self deny: AbstractBlockSpec new isSeparator
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testReporterSelectorArguments [
 
 	| obj |
@@ -109,7 +110,7 @@ AbstractBlockSpecTest >> testReporterSelectorArguments [
 	self assert: obj isReporterBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testSeparator [
 
 	| obj |
@@ -118,7 +119,7 @@ AbstractBlockSpecTest >> testSeparator [
 	self assert: obj isSeparator
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testSpecialSelectorArguments [
 
 	| obj |
@@ -130,7 +131,7 @@ AbstractBlockSpecTest >> testSpecialSelectorArguments [
 	self assert: obj isSpecialForm
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testStartHatBlockSelectorEventName [
 
 	| obj |
@@ -143,7 +144,7 @@ AbstractBlockSpecTest >> testStartHatBlockSelectorEventName [
 	self assert: obj arguments isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 AbstractBlockSpecTest >> testTimedSelectorArguments [
 
 	| obj |

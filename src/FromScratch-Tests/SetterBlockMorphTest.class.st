@@ -2,18 +2,19 @@
 A SetterBlockMorphTest is a test class for testing the behavior of SetterBlockMorph
 "
 Class {
-	#name : #SetterBlockMorphTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'SetterBlockMorphTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SetterBlockMorphTest >> newBlock [
 
 	^ SetterBlockMorph new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SetterBlockMorphTest >> testIsSetterBlock [
 
 	self assert: self newBlock isSetterBlock

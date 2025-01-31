@@ -2,17 +2,18 @@
 An ArgMorphBuilderTest is a test class for testing the behavior of ArgMorphBuilder
 "
 Class {
-	#name : #ArgMorphBuilderTest,
-	#superclass : #TestCase,
-	#category : #'FromScratch-Tests'
+	#name : 'ArgMorphBuilderTest',
+	#superclass : 'TestCase',
+	#category : 'FromScratch-Tests',
+	#package : 'FromScratch-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ArgMorphBuilderTest >> newBuilder [
 	^ ArgMorphBuilder new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddBooleanArg [
 	| b |
 	b := self newBuilder.
@@ -22,7 +23,7 @@ ArgMorphBuilderTest >> testAddBooleanArg [
 		assert: ((b uncoloredArgMorphFor: #(1 $b)) isKindOf: BooleanArgMorph)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddBuilder [
 	| b |
 	b := self newBuilder.
@@ -33,7 +34,7 @@ ArgMorphBuilderTest >> testAddBuilder [
 	self should: [ b add: $b builder: 789 ] raise: Error
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddChoiceArgDef [
 
 	| obj def r |
@@ -51,7 +52,7 @@ ArgMorphBuilderTest >> testAddChoiceArgDef [
 	self assertCollection: r value options equals: #( abc def )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddChoiceArgOptionsInitialChoice [
 
 	| b a |
@@ -63,7 +64,7 @@ ArgMorphBuilderTest >> testAddChoiceArgOptionsInitialChoice [
 	self assert: a choice equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddChoiceArgSelector [
 	| b a |
 	b := self newBuilder.
@@ -75,7 +76,7 @@ ArgMorphBuilderTest >> testAddChoiceArgSelector [
 	self assert: a choice isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddChoiceArgSelectorInitialChoice [
 	| b a |
 	b := self newBuilder.
@@ -87,7 +88,7 @@ ArgMorphBuilderTest >> testAddChoiceArgSelectorInitialChoice [
 	self assert: a choice equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddChoiceArgSelectorTargetInitialChoice [
 	| b a |
 	b := self newBuilder.
@@ -99,7 +100,7 @@ ArgMorphBuilderTest >> testAddChoiceArgSelectorTargetInitialChoice [
 	self assert: a choice equals: 'def'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddEventTitleArg [
 	| b |
 	b := self newBuilder.
@@ -109,7 +110,7 @@ ArgMorphBuilderTest >> testAddEventTitleArg [
 		assert: ((b uncoloredArgMorphFor: #(1 $e)) isKindOf: EventTitleMorph)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddLocalVarArg [
 	| b a |
 	b := self newBuilder.
@@ -122,7 +123,7 @@ ArgMorphBuilderTest >> testAddLocalVarArg [
 	self assert: a evaluate equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddLocalVarArgInitialVarName [
 	| b a |
 	b := self newBuilder.
@@ -133,7 +134,7 @@ ArgMorphBuilderTest >> testAddLocalVarArgInitialVarName [
 	self assert: a evaluate equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddNumberExpressArgInitialExpression [
 	| b a |
 	b := self newBuilder.
@@ -144,7 +145,7 @@ ArgMorphBuilderTest >> testAddNumberExpressArgInitialExpression [
 	self assert: a evaluate equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddNumberExpressArgSelectorTargetInitialExpression [
 	| b a |
 	b := self newBuilder.
@@ -156,7 +157,7 @@ ArgMorphBuilderTest >> testAddNumberExpressArgSelectorTargetInitialExpression [
 	self assert: a evaluate equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddSpriteArg [
 	| b |
 	b := self newBuilder.
@@ -166,7 +167,7 @@ ArgMorphBuilderTest >> testAddSpriteArg [
 		assert: ((b uncoloredArgMorphFor: #(1 $e)) isKindOf: ScriptArgMorph)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testAddStringExpressArg [
 	| b a |
 	b := self newBuilder.
@@ -177,7 +178,7 @@ ArgMorphBuilderTest >> testAddStringExpressArg [
 	self assert: a evaluate equals: ''
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testArgMorphFor [
 
 	| obj r |
@@ -190,7 +191,7 @@ ArgMorphBuilderTest >> testArgMorphFor [
 	self assert: (r isKindOf: StaticChoiceArgMorph)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testDict [
 
 	| obj a |
@@ -201,12 +202,12 @@ ArgMorphBuilderTest >> testDict [
 	self assert: obj dict identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testInitialize [
 	self testPrivDict
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testPrivDict [
 	| b |
 	b := self newBuilder.
@@ -214,7 +215,7 @@ ArgMorphBuilderTest >> testPrivDict [
 	self assert: b dict isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgMorphBuilderTest >> testUncoloredArgMorphFor [
 	| b |
 	b := self newBuilder.
