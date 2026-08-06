@@ -2,12 +2,13 @@
 A SEventCodesTest is a test class for testing the behavior of SEventCodes
 "
 Class {
-	#name : #SEntryPointsTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SEntryPointsTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 SEntryPointsTest >> testAddEntryPointForBreedNo [
 	| p |
 	p := SEntryPoints new.
@@ -22,7 +23,7 @@ SEntryPointsTest >> testAddEntryPointForBreedNo [
 	self assertCollection: (p forBreedNo: 3) asArray equals: #(7 9).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SEntryPointsTest >> testBreedNoList [
 	| e |
 	e := SEntryPoints new.
@@ -33,7 +34,7 @@ SEntryPointsTest >> testBreedNoList [
 	self assertCollection: e breedNoList sort equals: #(2 7).
 ]
 
-{ #category : #'tests-private' }
+{ #category : 'tests-private' }
 SEntryPointsTest >> testBreeds [
 	| c |
 	c := SEntryPoints new.
@@ -41,7 +42,7 @@ SEntryPointsTest >> testBreeds [
 	self assert: c breeds isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SEntryPointsTest >> testEntryPointList [
 	| e ret |
 	e := SEntryPoints new.
@@ -57,7 +58,7 @@ SEntryPointsTest >> testEntryPointList [
 	self assertCollection: ret third equals: #(7 1).
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SEntryPointsTest >> testForBreedNo [
 	| c l |
 	c := SEntryPoints new.
@@ -79,12 +80,12 @@ SEntryPointsTest >> testForBreedNo [
 	self assertCollection: l asArray equals: #(7).
 ]
 
-{ #category : #'tests-initialization' }
+{ #category : 'tests-initialization' }
 SEntryPointsTest >> testInitialize [
 	self testBreeds.
 ]
 
-{ #category : #'tests-testing' }
+{ #category : 'tests-testing' }
 SEntryPointsTest >> testIsEmpty [
 	| c |
 	c := SEntryPoints new.
@@ -93,7 +94,7 @@ SEntryPointsTest >> testIsEmpty [
 	self deny: c isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SEntryPointsTest >> testPrintOn [
 	| p w |
 	p := SEntryPoints new.

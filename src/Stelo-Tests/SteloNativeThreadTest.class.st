@@ -2,22 +2,23 @@
 A SEngineTest is a test class for testing the behavior of SEngine
 "
 Class {
-	#name : #SteloNativeThreadTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SteloNativeThreadTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SteloNativeThreadTest >> newThread [
 	^ SteloNativeThread sworld: SMicroWorld new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloNativeThreadTest >> newThread: aWorld [
 	^ SteloNativeThread sworld: aWorld
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloNativeThreadTest >> newWorld [
 	| w |
 	w := SMicroWorld new.
@@ -27,7 +28,7 @@ SteloNativeThreadTest >> newWorld [
 	^ w
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloNativeThreadTest >> sampleCode1 [
 	^ OrderedCollection new
 		add: #pushShort;
@@ -38,12 +39,12 @@ SteloNativeThreadTest >> sampleCode1 [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloNativeThreadTest >> sampleCode2 [
 	^ #(pushShort 1 0 pushShort 2 0 plus return pushShort 1 0 call returnValue dup mul stop)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testAbs [
 	| t |
 	t := self newThread.
@@ -59,7 +60,7 @@ SteloNativeThreadTest >> testAbs [
 	self assert: t pop equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testAcos [
 	| t |
 	t := self newThread.
@@ -75,7 +76,7 @@ SteloNativeThreadTest >> testAcos [
 	self assert: t pop closeTo: 180.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testAimHigh [
 	| w v t |
 	w := self newWorld.
@@ -118,7 +119,7 @@ SteloNativeThreadTest >> testAimHigh [
 	self assert: t pop equals: -45
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testAnd [
 	| t |
 	t := self newThread.
@@ -148,7 +149,7 @@ SteloNativeThreadTest >> testAnd [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testAppendToList [
 	| w t v |
 	w := self newWorld.
@@ -167,7 +168,7 @@ SteloNativeThreadTest >> testAppendToList [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testAsin [
 	| t |
 	t := self newThread.
@@ -183,7 +184,7 @@ SteloNativeThreadTest >> testAsin [
 	self assert: t pop closeTo: -90.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testAtan [
 	| t |
 	t := self newThread.
@@ -199,7 +200,7 @@ SteloNativeThreadTest >> testAtan [
 	self assert: t pop closeTo: -45.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testBreedId [
 	| e |
 	e := self newThread.
@@ -210,7 +211,7 @@ SteloNativeThreadTest >> testBreedId [
 	self assert: e breedId equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testBroadcast [
 	| w e s |
 	w := self newWorld.
@@ -224,7 +225,7 @@ SteloNativeThreadTest >> testBroadcast [
 	self assert: (w raisedEvents includes: 10).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testCall [
 	| e |
 	e := self newThread.
@@ -236,7 +237,7 @@ SteloNativeThreadTest >> testCall [
 	self assert: e pop equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testClearBreed [
 	| w e |
 	w := self newWorld.
@@ -253,7 +254,7 @@ SteloNativeThreadTest >> testClearBreed [
 	self assert: e stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testClearList [
 	| w t v |
 	w := self newWorld.
@@ -270,7 +271,7 @@ SteloNativeThreadTest >> testClearList [
 	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1) isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testClearTurtles [
 	| w e s |
 	w := self newWorld.
@@ -287,7 +288,7 @@ SteloNativeThreadTest >> testClearTurtles [
 	self assert: e stack size equals: s.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testCodes [
 	| t |
 	t := self newThread.
@@ -296,7 +297,7 @@ SteloNativeThreadTest >> testCodes [
 	self assertCollection: t codes equals: #(1 2 3).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testCos [
 	| t |
 	t := self newThread.
@@ -322,7 +323,7 @@ SteloNativeThreadTest >> testCos [
 	self assert: t pop closeTo: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testCreatePatch [
 	| w e |
 	w := self newWorld.
@@ -337,7 +338,7 @@ SteloNativeThreadTest >> testCreatePatch [
 	self assert: w patches cols equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testCreateTurtles [
 	| w e s |
 	w := self newWorld.
@@ -351,7 +352,7 @@ SteloNativeThreadTest >> testCreateTurtles [
 	self assert: (w breedOf: 3) countAlive equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDec [
 	| t |
 	t := self newThread.
@@ -363,7 +364,7 @@ SteloNativeThreadTest >> testDec [
 	self assert: t stack first equals: 8.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDeleteLineOfList [
 	| w t v |
 	w := self newWorld.
@@ -382,7 +383,7 @@ SteloNativeThreadTest >> testDeleteLineOfList [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDirection [
 	| t |
 	t := self newThread.
@@ -417,7 +418,7 @@ SteloNativeThreadTest >> testDirection [
 	self assert: t pop equals: 360 - 45.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDiv [
 	| t |
 	t := self newThread.
@@ -440,7 +441,7 @@ SteloNativeThreadTest >> testDiv [
 	self assert: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDoOneCycle [
 	| e w c |
 	w := self newWorld.
@@ -466,7 +467,7 @@ SteloNativeThreadTest >> testDoOneCycle [
 	self should: [e doOneCycle] raise: Error.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDrop [
 	| t |
 	t := self newThread.
@@ -477,7 +478,7 @@ SteloNativeThreadTest >> testDrop [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDup [
 	| t |
 	t := self newThread.
@@ -491,7 +492,7 @@ SteloNativeThreadTest >> testDup [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDx [
 	| e w |
 	w := self newWorld.
@@ -534,7 +535,7 @@ SteloNativeThreadTest >> testDx [
 	self assert: e pop closeTo: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testDy [
 	| e w |
 	w := self newWorld.
@@ -577,7 +578,7 @@ SteloNativeThreadTest >> testDy [
 	self assert: e pop closeTo: -1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testEqual [
 	| t |
 	t := self newThread.
@@ -595,7 +596,7 @@ SteloNativeThreadTest >> testEqual [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testErrorOccuered [
 	| t |
 	t := self newThread.
@@ -604,7 +605,7 @@ SteloNativeThreadTest >> testErrorOccuered [
 	self assert: t isTerminated equals: true.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testEvaluate [
 	| w t c x |
 	w := self newWorld.
@@ -618,7 +619,7 @@ SteloNativeThreadTest >> testEvaluate [
 	self assert: x equals: 3.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testExecute [
 	| w t c x |
 	w := self newWorld.
@@ -633,7 +634,7 @@ SteloNativeThreadTest >> testExecute [
 	self assert: x equals: ColorList white.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testExp [
 	| t |
 	t := self newThread.
@@ -654,7 +655,7 @@ SteloNativeThreadTest >> testExp [
 	self assert: t pop closeTo: 1 / 1 exp.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testExp10 [
 	| t |
 	t := self newThread.
@@ -675,7 +676,7 @@ SteloNativeThreadTest >> testExp10 [
 	self assert: t pop closeTo: 0.1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testForBreedNoIndex [
 	| e |
 	e := self newThread.
@@ -686,7 +687,7 @@ SteloNativeThreadTest >> testForBreedNoIndex [
 	self assert: e id equals: 123.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testForObserver [
 	| e |
 	e := self newThread.
@@ -697,7 +698,7 @@ SteloNativeThreadTest >> testForObserver [
 	self assert: e id equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testForPatchId [
 	| e |
 	e := self newThread.
@@ -708,7 +709,7 @@ SteloNativeThreadTest >> testForPatchId [
 	self assert: e id equals: 123.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testForward [
 	| e w |
 	w := self newWorld.
@@ -735,7 +736,7 @@ SteloNativeThreadTest >> testForward [
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testGetBreedId [
 	| w t |
 	w := self newWorld.
@@ -763,7 +764,7 @@ SteloNativeThreadTest >> testGetBreedId [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testGetBreedVar [
 	| w t v |
 	w := self newWorld.
@@ -783,7 +784,7 @@ SteloNativeThreadTest >> testGetBreedVar [
 	self assert: t pop equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testGetId [
 	| t |
 	t := self newThread.
@@ -793,7 +794,7 @@ SteloNativeThreadTest >> testGetId [
 	self assert: t pop equals: 10.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testGetLineOfList [
 	| w t v |
 	w := self newWorld.
@@ -811,7 +812,7 @@ SteloNativeThreadTest >> testGetLineOfList [
 	self assert: t pop equals: 20
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testGetVar [
 	| w t v |
 	w := self newWorld.
@@ -832,7 +833,7 @@ SteloNativeThreadTest >> testGetVar [
 	self assert: t pop equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testGetX [
 	| w t |
 	w := self newWorld.
@@ -858,7 +859,7 @@ SteloNativeThreadTest >> testGetX [
 	self assert: t pop equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testGetY [
 	| w t |
 	w := self newWorld.
@@ -884,7 +885,7 @@ SteloNativeThreadTest >> testGetY [
 	self assert: t pop equals: -1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testHatch [
 	| w e s |
 	w := self newWorld.
@@ -901,7 +902,7 @@ SteloNativeThreadTest >> testHatch [
 	self assert: e stack size equals: s.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testId [
 	| e |
 	e := self newThread.
@@ -912,13 +913,13 @@ SteloNativeThreadTest >> testId [
 	self assert: e id equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testInitialize [
 	self testPc.
 	self testStack.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testInv [
 	| t |
 	t := self newThread.
@@ -935,7 +936,7 @@ SteloNativeThreadTest >> testInv [
 	self assert: t pop equals: 16rEDCB.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testIsRunning [
 
 	| t |
@@ -947,7 +948,7 @@ SteloNativeThreadTest >> testIsRunning [
 	self assert: t isRunning equals: false
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testIsTerminated [
 
 	| t |
@@ -959,7 +960,7 @@ SteloNativeThreadTest >> testIsTerminated [
 	self assert: t isTerminated equals: false
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testJump [
 	| t |
 	t := self newThread.
@@ -972,7 +973,7 @@ SteloNativeThreadTest >> testJump [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testJumpIfFalse [
 	| t |
 	t := self newThread.
@@ -992,7 +993,7 @@ SteloNativeThreadTest >> testJumpIfFalse [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testJumpIfTrue [
 	| t |
 	t := self newThread.
@@ -1012,7 +1013,7 @@ SteloNativeThreadTest >> testJumpIfTrue [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testKill [
 	| w e s |
 	w := self newWorld.
@@ -1030,7 +1031,7 @@ SteloNativeThreadTest >> testKill [
 	self deny: e isRunning.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testLess [
 	| t |
 	t := self newThread.
@@ -1054,7 +1055,7 @@ SteloNativeThreadTest >> testLess [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testLessEqual [
 	| t |
 	t := self newThread.
@@ -1078,7 +1079,7 @@ SteloNativeThreadTest >> testLessEqual [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testLineCountOfList [
 	| w t v |
 	w := self newWorld.
@@ -1095,7 +1096,7 @@ SteloNativeThreadTest >> testLineCountOfList [
 	self assert: t pop equals: 3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testListContains [
 	| w t v |
 	w := self newWorld.
@@ -1120,7 +1121,7 @@ SteloNativeThreadTest >> testListContains [
 	self assert: t pop equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testLn [
 	| t |
 	t := self newThread.
@@ -1141,7 +1142,7 @@ SteloNativeThreadTest >> testLn [
 	self assert: t pop closeTo: -1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testLog [
 	| t |
 	t := self newThread.
@@ -1162,7 +1163,7 @@ SteloNativeThreadTest >> testLog [
 	self assert: t pop closeTo: -1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testMinus [
 	| t |
 	t := self newThread.
@@ -1180,7 +1181,7 @@ SteloNativeThreadTest >> testMinus [
 	self assert: t pop equals: 15.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testMod [
 	| t |
 	t := self newThread.
@@ -1198,7 +1199,7 @@ SteloNativeThreadTest >> testMod [
 	self assert: t pop equals: 5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testMul [
 	| t |
 	t := self newThread.
@@ -1216,7 +1217,7 @@ SteloNativeThreadTest >> testMul [
 	self assert: t pop equals: -5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testNot [
 	| t |
 	t := self newThread.
@@ -1232,7 +1233,7 @@ SteloNativeThreadTest >> testNot [
 	self assert: t pop equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testOr [
 	| t |
 	t := self newThread.
@@ -1263,7 +1264,7 @@ SteloNativeThreadTest >> testOr [
 	self assert: t pop equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPatchAt [
 	| w t |
 	w := self newWorld.
@@ -1287,7 +1288,7 @@ SteloNativeThreadTest >> testPatchAt [
 	self assert: t pop equals: 7.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPc [
 	| e |
 	e := self newThread.
@@ -1298,7 +1299,7 @@ SteloNativeThreadTest >> testPc [
 	self assert: e pc equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPlus [
 	| t |
 	t := self newThread.
@@ -1316,7 +1317,7 @@ SteloNativeThreadTest >> testPlus [
 	self assert: t pop equals: -5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPop [
 	| e |
 	e := self newThread.
@@ -1328,7 +1329,7 @@ SteloNativeThreadTest >> testPop [
 	self assert: e stack isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPush [
 	| e |
 	e := self newThread.
@@ -1339,7 +1340,7 @@ SteloNativeThreadTest >> testPush [
 	self assertCollection: e stack asArray equals: #(10 20).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPush0 [
 	| e |
 	e := self newThread.
@@ -1352,7 +1353,7 @@ SteloNativeThreadTest >> testPush0 [
 	self assertCollection: e stack asArray equals: #(0 0).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPush1 [
 	| e |
 	e := self newThread.
@@ -1365,7 +1366,7 @@ SteloNativeThreadTest >> testPush1 [
 	self assertCollection: e stack asArray equals: #(1 1).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPushFloat [
 	| e |
 	e := self newThread.
@@ -1376,7 +1377,7 @@ SteloNativeThreadTest >> testPushFloat [
 	self assertCollection: e stack asArray equals: #(123.0)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testPushShort [
 	| e |
 	e := self newThread.
@@ -1393,7 +1394,7 @@ SteloNativeThreadTest >> testPushShort [
 	self assertCollection: e stack asArray equals: #(-3)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testRandomFromTo [
 	| t |
 	t := self newThread.
@@ -1406,7 +1407,7 @@ SteloNativeThreadTest >> testRandomFromTo [
 			self assert: (t pop between: 5 and: 10) ].
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testRetVal [
 
 	| t |
@@ -1416,7 +1417,7 @@ SteloNativeThreadTest >> testRetVal [
 	self assert: t retVal equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testReturn [
 	| e |
 	e := self newThread.
@@ -1429,7 +1430,7 @@ SteloNativeThreadTest >> testReturn [
 	self assert: e retVal equals: 10.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testReturnValue [
 	| e w c ret |
 	w := self newWorld.
@@ -1444,7 +1445,7 @@ SteloNativeThreadTest >> testReturnValue [
 	self assert: e pc equals: c size + 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testRounded [
 	| t |
 	t := self newThread.
@@ -1465,7 +1466,7 @@ SteloNativeThreadTest >> testRounded [
 	self assert: t pop equals: -2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetBreedVarTo [
 	| w t v |
 	w := self newWorld.
@@ -1490,7 +1491,7 @@ SteloNativeThreadTest >> testSetBreedVarTo [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetColorTo [
 	| w t ret |
 	w := self newWorld.
@@ -1519,7 +1520,7 @@ SteloNativeThreadTest >> testSetColorTo [
 	self assert: ret equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetHeading [
 	| w t h |
 	w := self newWorld.
@@ -1540,7 +1541,7 @@ SteloNativeThreadTest >> testSetHeading [
 	self assert: ((w breedOf: 3) headingAt: 2) equals: h.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetLineOfListTo [
 	| w t v |
 	w := self newWorld.
@@ -1561,7 +1562,7 @@ SteloNativeThreadTest >> testSetLineOfListTo [
 	self assert: (w var: v breed: SBreedId turtlesBreedNo list: 1 at: 3) equals: 30
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetPatchColorTo [
 	| w t ret |
 	w := self newWorld.
@@ -1593,7 +1594,7 @@ SteloNativeThreadTest >> testSetPatchColorTo [
 	self assert: ret equals: 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetRandomSeed [
 	| w t r a b |
 	w := self newWorld.
@@ -1612,7 +1613,7 @@ SteloNativeThreadTest >> testSetRandomSeed [
 	self assert: a equals: b
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetVarTo [
 	| w t v1 v2 |
 	w := self newWorld.
@@ -1635,7 +1636,7 @@ SteloNativeThreadTest >> testSetVarTo [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetX [
 	| w t |
 	w := self newWorld.
@@ -1656,7 +1657,7 @@ SteloNativeThreadTest >> testSetX [
 	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSetY [
 	| w t |
 	w := self newWorld.
@@ -1677,7 +1678,7 @@ SteloNativeThreadTest >> testSetY [
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSin [
 	| t |
 	t := self newThread.
@@ -1703,7 +1704,7 @@ SteloNativeThreadTest >> testSin [
 	self assert: t pop closeTo: -1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSqrt [
 	| t |
 	t := self newThread.
@@ -1724,7 +1725,7 @@ SteloNativeThreadTest >> testSqrt [
 	self assert: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testStack [
 	| e |
 	e := self newThread.
@@ -1732,7 +1733,7 @@ SteloNativeThreadTest >> testStack [
 	self assert: e stack isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testStop [
 	| t |
 	t := self newThread.
@@ -1743,7 +1744,7 @@ SteloNativeThreadTest >> testStop [
 	self deny: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testStopAll [
 	| t |
 	t := self newThread.
@@ -1754,7 +1755,7 @@ SteloNativeThreadTest >> testStopAll [
 	self assert: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSwap [
 	| t |
 	t := self newThread.
@@ -1765,7 +1766,7 @@ SteloNativeThreadTest >> testSwap [
 	self assert: t pop equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testSworld [
 	| w1 w2 e |
 	w1 := self newWorld.
@@ -1776,7 +1777,7 @@ SteloNativeThreadTest >> testSworld [
 	self assert: e sworld equals: w2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testTan [
 	| t |
 	t := self newThread.
@@ -1798,7 +1799,7 @@ SteloNativeThreadTest >> testTan [
 
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testTruncated [
 	| t |
 	t := self newThread.
@@ -1819,7 +1820,7 @@ SteloNativeThreadTest >> testTruncated [
 	self assert: t pop equals: -1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testTurtleAt [
 	| w t ret pno |
 	w := self newWorld.
@@ -1854,7 +1855,7 @@ SteloNativeThreadTest >> testTurtleAt [
 	self assert: t stack size equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloNativeThreadTest >> testXyOf [
 	| w t |
 	w := self newWorld.

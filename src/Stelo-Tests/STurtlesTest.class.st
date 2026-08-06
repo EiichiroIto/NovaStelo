@@ -2,18 +2,19 @@
 A STurtlesTest is a test class for testing the behavior of STurtles
 "
 Class {
-	#name : #STurtlesTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'STurtlesTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 STurtlesTest >> newBreed [
 
 	^ STurtles new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testAliveAt [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -24,7 +25,7 @@ STurtlesTest >> testAliveAt [
 	self assert: ts countAlive equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testAliveAtPut [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -38,7 +39,7 @@ STurtlesTest >> testAliveAtPut [
 	self assert: ts countAlive equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testBreedName [
 	| ts |
 	ts := STurtles new.
@@ -48,7 +49,7 @@ STurtlesTest >> testBreedName [
 	self assert: ts breedName equals: 'Turtle3'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testBreedNo [
 	| ts |
 	ts := STurtles new.
@@ -59,7 +60,7 @@ STurtlesTest >> testBreedNo [
 	self assert: ts breedNo equals: 4.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testClear [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -69,7 +70,7 @@ STurtlesTest >> testClear [
 	self assert: ts countAlive equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testCopyTurtleFromTo [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -93,7 +94,7 @@ STurtlesTest >> testCopyTurtleFromTo [
 	self assert: (ts headingAt: 2) equals: 30
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testCountAlive [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -104,7 +105,7 @@ STurtlesTest >> testCountAlive [
 	self assert: ts countAlive equals: 8.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testCreate [
 	| ts |
 	ts := STurtles new breedNo: 3.
@@ -113,14 +114,14 @@ STurtlesTest >> testCreate [
 	self assert: ts countAlive equals: 10.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testDefaultColor [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
 	self assert: (ts defaultColor between: 1 and: 140).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testDefaultPosition [
 	| ts |
 	ts := STurtles new.
@@ -129,7 +130,7 @@ STurtlesTest >> testDefaultPosition [
 	self assert: ts defaultPosition equals: 10 @ 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testDeltaAt [
 	| ts delta |
 	ts := STurtles new breedNo: 3.
@@ -142,7 +143,7 @@ STurtlesTest >> testDeltaAt [
 	self assert: delta equals: (Point r: 1.0 degrees: 60).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testHeadingAt [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -154,12 +155,12 @@ STurtlesTest >> testHeadingAt [
 	self assert: (ts headingAt: 2) equals: 20
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testHeadingAtPut [
 	self testHeadingAt.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testInitialize [
 	| ts |
 	ts := STurtles new.
@@ -168,7 +169,7 @@ STurtlesTest >> testInitialize [
 	self assert: ts countAlive equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testLivingOnesDo [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -179,13 +180,13 @@ STurtlesTest >> testLivingOnesDo [
 	self assert: ts countAlive equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testNewVarDef [
 
 	self assert: (self newBreed newVarDef isKindOf: STurtlesVarDef)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testPenDownAt [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -199,12 +200,12 @@ STurtlesTest >> testPenDownAt [
 	self assert: (ts penDownAt: 2) equals: false
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testPenDownAtPut [
 	self testPenDownAt.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testPrintOn [
 	| ts |
 	ts := STurtles new breedNo: 3.
@@ -213,7 +214,7 @@ STurtlesTest >> testPrintOn [
 	self assert: ts asString equals: 'Turtles(10)'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testReset [
 
 	| obj tmp |
@@ -226,7 +227,7 @@ STurtlesTest >> testReset [
 	self assert: obj varDef size equals: tmp
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testSetupAt [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -242,7 +243,7 @@ STurtlesTest >> testSetupAt [
 	self deny: (ts penDownAt: 3).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testSize [
 
 	| obj |
@@ -258,7 +259,7 @@ STurtlesTest >> testSize [
 	self assert: obj size equals: 200
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testVarAtPut [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -278,7 +279,7 @@ STurtlesTest >> testVarAtPut [
 	self assert: (ts colorAt: 2) equals: 200
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testXAt [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -292,12 +293,12 @@ STurtlesTest >> testXAt [
 	self assert: (ts xAt: 2) equals: 20
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testXAtPut [
 	self testXAt.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testYAt [
 	| ts |
 	ts := STurtles new breedNo: SBreedId turtlesBreedNo.
@@ -311,7 +312,7 @@ STurtlesTest >> testYAt [
 	self assert: (ts yAt: 2) equals: 20
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 STurtlesTest >> testYAtPut [
 	self testYAt.
 ]

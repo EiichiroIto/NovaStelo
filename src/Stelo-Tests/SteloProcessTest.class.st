@@ -2,12 +2,13 @@
 A SteloProcessTest is a test class for testing the behavior of SteloProcess
 "
 Class {
-	#name : #SteloProcessTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SteloProcessTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #'tests-private' }
+{ #category : 'tests-private' }
 SteloProcessTest >> testProgram [
 	| pr p |
 	pr := SProgram new.
@@ -15,7 +16,7 @@ SteloProcessTest >> testProgram [
 	self assert: p program equals: pr.
 ]
 
-{ #category : #'tests-private' }
+{ #category : 'tests-private' }
 SteloProcessTest >> testSworld [
 	| w p |
 	w := SMicroWorld new.

@@ -2,18 +2,19 @@
 A SBreedTest is a test class for testing the behavior of SBreed
 "
 Class {
-	#name : #SteloBreedTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SteloBreedTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBreedTest >> newObj [
 
 	^ SteloBreed new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testAddList [
 	| br a b |
 	br := SteloBreed new.
@@ -26,7 +27,7 @@ SteloBreedTest >> testAddList [
 	self assert: (br varDef listNames includes: 'b' ).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testAddVariable [
 	| br a b |
 	br := SteloBreed new.
@@ -37,7 +38,7 @@ SteloBreedTest >> testAddVariable [
 	self assert: (br variables privVarNames includes: 'b' ).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testColorAt [
 	| ps |
 	ps := SPatches new.
@@ -49,7 +50,7 @@ SteloBreedTest >> testColorAt [
 	self assert: (ps colorAt: 4) equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testColorAtPut [
 	| ps |
 	ps := SPatches new.
@@ -61,7 +62,7 @@ SteloBreedTest >> testColorAtPut [
 	self assertCollection: ps colors equals: #[1 30 0 0 0 0 0 0 41]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testColors [
 	| ps |
 	ps := SPatches new.
@@ -70,7 +71,7 @@ SteloBreedTest >> testColors [
 	self assert: (ps colors allSatisfy: [ :each | each = 0 ]).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testCountAlive [
 	| ps |
 	ps := SPatches new.
@@ -80,7 +81,7 @@ SteloBreedTest >> testCountAlive [
 	self assert: ps countAlive equals: 100.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testDeleteVariable [
 	| br a b |
 	br := SteloBreed new.
@@ -94,7 +95,7 @@ SteloBreedTest >> testDeleteVariable [
 	self deny: (br varDef privVarNames includes: 'b' ).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testInitialize [
 	| br |
 	br := SteloBreed new.
@@ -102,7 +103,7 @@ SteloBreedTest >> testInitialize [
 	self assert: br variables class equals: Variables.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testRealVarNames [
 
 	| obj |
@@ -114,7 +115,7 @@ SteloBreedTest >> testRealVarNames [
 	self assertCollection: obj realVarNames equals: #( 'abc' 'ghi' )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testReset [
 
 	| obj |
@@ -125,7 +126,7 @@ SteloBreedTest >> testReset [
 	self assert: obj varDef size equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testScaleVarNoColorFromToIndex [
 	| br a |
 	br := STurtles new.
@@ -213,7 +214,7 @@ SteloBreedTest >> testScaleVarNoColorFromToIndex [
 	self assert: (br colorAt: 1) equals: 30
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testUserDefinedListNames [
 
 	| obj |
@@ -225,7 +226,7 @@ SteloBreedTest >> testUserDefinedListNames [
 	self assertCollection: obj userDefinedListNames equals: #( 'abc' 'ghi' )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testUserDefinedVarNames [
 	| ts ps l |
 	ts := STurtles new.
@@ -244,7 +245,7 @@ SteloBreedTest >> testUserDefinedVarNames [
 	self assertCollection: l asArray equals: #('a' 'b').
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testUserDefinedVarNoAndNames [
 	| ts ps l |
 	ts := STurtles new.
@@ -263,7 +264,7 @@ SteloBreedTest >> testUserDefinedVarNoAndNames [
 	self assertCollection: l asArray equals: #((5 'a') (6 'b')).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVarAt [
 	| br a |
 	br := SteloBreed new.
@@ -283,7 +284,7 @@ SteloBreedTest >> testVarAt [
 	self assert: (br var: a at: 2) equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVarAtPut [
 	| br a |
 	br := SteloBreed new.
@@ -301,7 +302,7 @@ SteloBreedTest >> testVarAtPut [
 	self assert: ((br variables privVars at: a) at: 2) equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVarDef [
 
 	| obj x |
@@ -312,7 +313,7 @@ SteloBreedTest >> testVarDef [
 	self assert: obj varDef identicalTo: x
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVarFor [
 	| s |
 	s := STurtles new.
@@ -321,7 +322,7 @@ SteloBreedTest >> testVarFor [
 	self assert: (s varNoFor: 'y') equals: STurtlesVarDef yVarNo.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVarId [
 	| obj |
 	obj := STurtles new.
@@ -330,7 +331,7 @@ SteloBreedTest >> testVarId [
 	self assert: obj varDef class equals: SPatchesVarDef
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVarNames [
 	| ts ps l |
 	ts := STurtles new.
@@ -349,7 +350,7 @@ SteloBreedTest >> testVarNames [
 	self assertCollection: l equals: #('color' 'screen' 'x' 'y' 'a' 'b').
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVarNoFor [
 
 	| obj |
@@ -363,7 +364,7 @@ SteloBreedTest >> testVarNoFor [
 	self assert: (obj varNoFor: 'ghi') equals: 3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVariableNameInUse [
 	| br |
 	br := SteloBreed new.
@@ -374,7 +375,7 @@ SteloBreedTest >> testVariableNameInUse [
 	self deny: (br variableNameInUse: 'a').
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBreedTest >> testVariables [
 
 	| obj v |

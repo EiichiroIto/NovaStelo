@@ -2,12 +2,13 @@
 A SProgramTest is a test class for testing the behavior of SProgram
 "
 Class {
-	#name : #SProgramTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SProgramTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testAddCode [
 	| p |
 	p := SProgram new.
@@ -18,7 +19,7 @@ SProgramTest >> testAddCode [
 	self assertCollection: p codes equals: #(1 2 3 4 5 6 7).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testAddEntryPointEventNoBreedNo [
 	| p |
 	p := SProgram new.
@@ -42,7 +43,7 @@ SProgramTest >> testAddEntryPointEventNoBreedNo [
 	self assertCollection: ((p forEventNo: 3) forBreedNo: 3) asArray equals: #(11).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testBytecode [
 	| p |
 	p := SProgram new.
@@ -53,7 +54,7 @@ SProgramTest >> testBytecode [
 	self assertCollection: p bytecode equals: #(1 2 27 56 3).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testCodes [
 	| p |
 	p := SProgram new.
@@ -64,7 +65,7 @@ SProgramTest >> testCodes [
 	self assertCollection: p codes equals: #(4 5 6).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testEntryPointList [
 	| p ret |
 	p := SProgram new.
@@ -88,7 +89,7 @@ SProgramTest >> testEntryPointList [
 	self assertCollection: ret seventh equals: #(3 3 11)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testEventNoList [
 	| p |
 	p := SProgram new.
@@ -98,7 +99,7 @@ SProgramTest >> testEventNoList [
 	self assertCollection: p eventNoList sort equals: #(1 3).
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SProgramTest >> testForEventNo [
 	| p c1 c2 |
 	p := SProgram new.
@@ -114,12 +115,12 @@ SProgramTest >> testForEventNo [
 	self assert: c1 ~= c2.
 ]
 
-{ #category : #'tests-initialization' }
+{ #category : 'tests-initialization' }
 SProgramTest >> testInitialize [
 	self testPrivEntryPoints.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testNextAddress [
 	| p |
 	p := SProgram new.
@@ -130,12 +131,12 @@ SProgramTest >> testNextAddress [
 	self assert: p nextAddress equals: 8.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SProgramTest >> testPrivCodes [
 	self testCodes.
 ]
 
-{ #category : #'tests-private' }
+{ #category : 'tests-private' }
 SProgramTest >> testPrivEntryPoints [
 	| p |
 	p := SProgram new.

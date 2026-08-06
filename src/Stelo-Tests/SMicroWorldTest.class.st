@@ -2,12 +2,13 @@
 A SMicroWorldTest is a test class for testing the behavior of SMicroWorld
 "
 Class {
-	#name : #SMicroWorldTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SMicroWorldTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SMicroWorldTest >> newWorld [
 	| w |
 	w := SMicroWorld new.
@@ -17,7 +18,7 @@ SMicroWorldTest >> newWorld [
 	^ w
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testAddBreed [
 
 	| world |
@@ -31,7 +32,7 @@ SMicroWorldTest >> testAddBreed [
 		raise: Error
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testAddNewTurtle [
 
 	| world t |
@@ -42,7 +43,7 @@ SMicroWorldTest >> testAddNewTurtle [
 	self assert: world breeds size equals: 4
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testAimHighPatchVarBreedId [
 	| w v ret |
 	w := self newWorld.
@@ -156,7 +157,7 @@ SMicroWorldTest >> testAimHighPatchVarBreedId [
 	self assert: ret equals: -45
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testAliveBreedAt [
 
 	| world |
@@ -175,7 +176,7 @@ SMicroWorldTest >> testAliveBreedAt [
 	self deny: (world aliveBreed: SBreedId turtlesBreedNo at: 3)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testBreedOf [
 
 	| world r |
@@ -188,7 +189,7 @@ SMicroWorldTest >> testBreedOf [
 	self assert: (r isKindOf: STurtles)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testBreeds [
 
 	| w a |
@@ -202,7 +203,7 @@ SMicroWorldTest >> testBreeds [
 	self assert: w breeds identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testBreedsOf [
 	| w |
 	w := SMicroWorld new.
@@ -210,7 +211,7 @@ SMicroWorldTest >> testBreedsOf [
 	self assert: (w breedOf: 3) class equals: STurtles.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testChangeBreedVarBy [
 
 	| world v1 v2 |
@@ -238,7 +239,7 @@ SMicroWorldTest >> testChangeBreedVarBy [
 			equals: 5 ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testClearBreed [
 
 	| world v1 v2 |
@@ -271,7 +272,7 @@ SMicroWorldTest >> testClearBreed [
 		equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testClearPlots [
 	| w ret |
 	w := self newWorld.
@@ -285,7 +286,7 @@ SMicroWorldTest >> testClearPlots [
 	self assert: w plotList isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testClearRaisedEvents [
 	| w |
 	w := SMicroWorld new.
@@ -296,7 +297,7 @@ SMicroWorldTest >> testClearRaisedEvents [
 	self assert: w raisedEvents isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testClearTicks [
 
 	| world |
@@ -307,7 +308,7 @@ SMicroWorldTest >> testClearTicks [
 	self assert: world observer ticks equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testClearTurtles [
 
 	| world v |
@@ -330,7 +331,7 @@ SMicroWorldTest >> testClearTurtles [
 	self deny: (world aliveBreed: SBreedId turtlesBreedNo at: 1)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testColors [
 	| w |
 	w := self newWorld.
@@ -343,7 +344,7 @@ SMicroWorldTest >> testColors [
 	self assertCollection: w colors equals: #[23 0 0 0 12 0 0 0 0]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testCopyBreedVarTo [
 
 	| world v1 v2 t |
@@ -360,7 +361,7 @@ SMicroWorldTest >> testCopyBreedVarTo [
 	self assert: (t var: v2 at: 1) equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testCountAliveOf [
 
 	| world r |
@@ -376,7 +377,7 @@ SMicroWorldTest >> testCountAliveOf [
 	self assert: r equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testCountAliveOfBreedNo [
 	| w |
 	w := self newWorld.
@@ -389,7 +390,7 @@ SMicroWorldTest >> testCountAliveOfBreedNo [
 	self assert: (w countAliveOf: 2) equals: 100.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testCreatePatch [
 
 	| world r |
@@ -406,7 +407,7 @@ SMicroWorldTest >> testCreatePatch [
 	self assert: r equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testCreateTurtles [
 
 	| world r |
@@ -418,7 +419,7 @@ SMicroWorldTest >> testCreateTurtles [
 	self assert: r equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testDeleteBreed [
 
 	| world t |
@@ -429,7 +430,7 @@ SMicroWorldTest >> testDeleteBreed [
 	self assert: (world breedOf: SBreedId turtlesBreedNo) isNil
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testDeltaAt [
 
 	| world r |
@@ -446,7 +447,7 @@ SMicroWorldTest >> testDeltaAt [
 	self assert: r closeTo: 0 @ 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testDiffuse4VarNo [
 
 	| world p v |
@@ -464,7 +465,7 @@ SMicroWorldTest >> testDiffuse4VarNo [
 		equals: #(0 20 0 20 20 20 0 20 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testDiffuse8VarNo [
 
 	| world p v |
@@ -482,7 +483,7 @@ SMicroWorldTest >> testDiffuse8VarNo [
 		equals: #( 10 10 10 10 20 10 10 10 10 ) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testExtent [
 	| w |
 	w := self newWorld.
@@ -492,7 +493,7 @@ SMicroWorldTest >> testExtent [
 	self assert: w extent equals: 20 @ 20.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testFlagBreedAt [
 
 	| world |
@@ -526,14 +527,15 @@ SMicroWorldTest >> testFlagBreedAt [
 			 at: 2)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testFlagBreedAtPut [
 
 	self testFlagBreedAt
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testForwardBreedId [
+
 	| w |
 	w := self newWorld.
 	w createPatch: 100.
@@ -541,65 +543,41 @@ SMicroWorldTest >> testForwardBreedId [
 	(w breedOf: 3) headingAt: 1 put: 0.
 	w x: 3 at: 1 put: 49.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: -50.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: -50.
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: 0.
 	w x: 3 at: 1 put: 49.1.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: -49.9.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: -49.9 precision: 0.00001.
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: 0.
 	w x: 3 at: 1 put: 49.9.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: -49.1.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: -49.1 precision: 0.00001.
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: 0.
 	w x: 3 at: 1 put: 50.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: -49.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: -49.
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: 0.
 	(w breedOf: 3) headingAt: 1 put: 90.
 	w x: 3 at: 1 put: 49.
 	w y: 3 at: 1 put: 49.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: 49.
-	self
-		assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1)
-		closeTo: -50.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: 49.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: -50.
 	w y: 3 at: 1 put: 49.1.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: 49.
-	self
-		assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1)
-		closeTo: -49.9.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: 49.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: -49.9 precision: 0.00001.
 	w y: 3 at: 1 put: 49.9.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: 49.
-	self
-		assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1)
-		closeTo: -49.1.
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: 49.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: -49.1 precision: 0.00001.
 	w y: 3 at: 1 put: 50.
 	w forward: 1 breed: 3 id: 1.
-	self
-		assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1)
-		closeTo: 49.
-	self
-		assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1)
-		closeTo: -49
+	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) closeTo: 49.
+	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 1) closeTo: -49
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testHatchId [
 
 	| world v |
@@ -631,7 +609,7 @@ SMicroWorldTest >> testHatchId [
 		put: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testIncrementTicks [
 
 	| world |
@@ -642,7 +620,7 @@ SMicroWorldTest >> testIncrementTicks [
 	self assert: world observer ticks equals: 124
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testInitialize [
 
 	| world |
@@ -653,7 +631,7 @@ SMicroWorldTest >> testInitialize [
 	self assert: world plotList isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testKillAt [
 
 	| world |
@@ -668,7 +646,7 @@ SMicroWorldTest >> testKillAt [
 	self deny: (world aliveBreed: SBreedId turtlesBreedNo at: 3)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testLivingBreedDo [
 
 	| world v |
@@ -691,7 +669,7 @@ SMicroWorldTest >> testLivingBreedDo [
 			equals: each ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testMaxBreedNo [
 	| w |
 	w := self newWorld.
@@ -700,7 +678,7 @@ SMicroWorldTest >> testMaxBreedNo [
 	self assert: w maxBreedNo equals: 8
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testMultiplyBreedVarBy [
 
 	| world v |
@@ -732,7 +710,7 @@ SMicroWorldTest >> testMultiplyBreedVarBy [
 		equals: 15
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testNewProcess [
 
 	| world obj |
@@ -742,7 +720,7 @@ SMicroWorldTest >> testNewProcess [
 	self assert: obj sworld identicalTo: world
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testNsum4To [
 
 	| world ps v1 v2 |
@@ -762,7 +740,7 @@ SMicroWorldTest >> testNsum4To [
 		equals: #( 3 0 2 1 2 0 0 3 1 ) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testNsum8To [
 
 	| world ps v1 v2 |
@@ -787,14 +765,14 @@ SMicroWorldTest >> testNsum8To [
 		equals: #(3 1 3 3 3 3 2 3 3) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testObserver [
 	| w |
 	w := self newWorld.
 	self assert: w observer class equals: SObserver.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testPatchIndexAtXY [
 
 	| world ps |
@@ -814,14 +792,14 @@ SMicroWorldTest >> testPatchIndexAtXY [
 	self assert: (ps indexAtX: -2 y: -3) equals: 21
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testPatches [
 	| w |
 	w := self newWorld.
 	self assert: w patches class equals: SPatches.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testPlotColor [
 	| w ret |
 	w := self newWorld.
@@ -839,7 +817,7 @@ SMicroWorldTest >> testPlotColor [
 	self assert: w plotList isEmpty.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testPlotData [
 	| w ret |
 	w := self newWorld.
@@ -857,7 +835,7 @@ SMicroWorldTest >> testPlotData [
 	self assert: w plotList isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testPlotList [
 	| w ret |
 	w := self newWorld.
@@ -870,7 +848,7 @@ SMicroWorldTest >> testPlotList [
 	self assert: ret isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testPrintOn [
 
 	| world stream |
@@ -880,7 +858,7 @@ SMicroWorldTest >> testPrintOn [
 	self assert: (stream contents beginsWith: 'MicroWorld')
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testRaiseEvent [
 	| w |
 	w := SMicroWorld new.
@@ -893,7 +871,7 @@ SMicroWorldTest >> testRaiseEvent [
 	self assert: (w raisedEvents includes: #b).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testRaisedEvents [
 	| w |
 	w := SMicroWorld new.
@@ -906,14 +884,14 @@ SMicroWorldTest >> testRaisedEvents [
 	self assert: (w raisedEvents includes: #b).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testRandom [
 	| w |
 	w := self newWorld.
 	self assert: w random identicalTo: SharedRandom globalGenerator
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testRandomFromTo [
 	| w a b r |
 	w := self newWorld.
@@ -928,7 +906,7 @@ SMicroWorldTest >> testRandomFromTo [
 	self assert: a equals: b
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testReset [
 
 	| world |
@@ -944,7 +922,7 @@ SMicroWorldTest >> testReset [
 	self assert: world plotList isEmpty
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testScaleVarColorBreedFromToId [
 
 	| world v |
@@ -1035,7 +1013,7 @@ SMicroWorldTest >> testScaleVarColorBreedFromToId [
 		equals: 39
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testSetPlotYMax [
 
 	| world list |
@@ -1048,7 +1026,7 @@ SMicroWorldTest >> testSetPlotYMax [
 	self assert: list first args first equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testSetPlotYMin [
 
 	| world list |
@@ -1061,7 +1039,7 @@ SMicroWorldTest >> testSetPlotYMin [
 	self assert: list first args first equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testSetRandomSeed [
 	| w a b r |
 	w := self newWorld.
@@ -1080,7 +1058,7 @@ SMicroWorldTest >> testSetRandomSeed [
 	self assert: w random identicalTo: SharedRandom globalGenerator
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testSizeOf [
 
 	| world |
@@ -1094,7 +1072,7 @@ SMicroWorldTest >> testSizeOf [
 	self assert: (world sizeOf: SBreedId turtlesBreedNo) equals: 100
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testTicks [
 
 	| world |
@@ -1106,7 +1084,7 @@ SMicroWorldTest >> testTicks [
 	self assert: world ticks equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testTurtleAtExceptBreedIndex [
 
 	| world pos id |
@@ -1125,7 +1103,7 @@ SMicroWorldTest >> testTurtleAtExceptBreedIndex [
 
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testTurtleBreedsDo [
 
 	| world count |
@@ -1138,7 +1116,7 @@ SMicroWorldTest >> testTurtleBreedsDo [
 	self assert: count equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testTurtlesAt [
 
 	| world r p |
@@ -1159,7 +1137,7 @@ SMicroWorldTest >> testTurtlesAt [
 	self assertCollection: r hasSameElements: #( 2 4 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testTurtlesDo [
 
 	| world count |
@@ -1174,7 +1152,7 @@ SMicroWorldTest >> testTurtlesDo [
 	self assert: count equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedAt [
 
 	| world v |
@@ -1207,13 +1185,13 @@ SMicroWorldTest >> testVarBreedAt [
 		equals: 33
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedAtPut [
 
 	self testVarBreedAt
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedList [
 
 	| world v r |
@@ -1236,13 +1214,13 @@ SMicroWorldTest >> testVarBreedList [
 	self assertCollection: r hasSameElements: #( 123 456 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedListAdd [
 
 	self testVarBreedList
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedListAt [
 
 	| world v r |
@@ -1265,7 +1243,7 @@ SMicroWorldTest >> testVarBreedListAt [
 	self assert: r equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedListAtPut [
 
 	| world v r |
@@ -1320,7 +1298,7 @@ SMicroWorldTest >> testVarBreedListAtPut [
 	self assert: r equals: 654
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedListContains [
 
 	| world v |
@@ -1354,7 +1332,7 @@ SMicroWorldTest >> testVarBreedListContains [
 			 contains: 789)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedListRemove [
 
 	| world v r |
@@ -1387,7 +1365,7 @@ SMicroWorldTest >> testVarBreedListRemove [
 	self assertCollection: r hasSameElements: #( 123 789 )
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedListSet [
 
 	| world v a r |
@@ -1405,7 +1383,7 @@ SMicroWorldTest >> testVarBreedListSet [
 	self deny: r identicalTo: a
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testVarBreedListSizeOf [
 
 	| world v r |
@@ -1438,13 +1416,13 @@ SMicroWorldTest >> testVarBreedListSizeOf [
 	self assert: r equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testWorldName [
 
 	self assert: self newWorld worldName equals: 'MicroWorld'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testXAt [
 
 	| world |
@@ -1456,13 +1434,13 @@ SMicroWorldTest >> testXAt [
 	self assert: (world x: SBreedId turtlesBreedNo at: 2) equals: 34
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testXAtPut [
 
 	self testXAt
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testYAt [
 
 	| world |
@@ -1474,7 +1452,7 @@ SMicroWorldTest >> testYAt [
 	self assert: (world y: SBreedId turtlesBreedNo at: 2) equals: 34
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SMicroWorldTest >> testYAtPut [
 
 	self testYAt

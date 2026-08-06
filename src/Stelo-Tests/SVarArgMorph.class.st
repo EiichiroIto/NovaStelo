@@ -1,25 +1,26 @@
 Class {
-	#name : #SVarArgMorph,
-	#superclass : #Object,
+	#name : 'SVarArgMorph',
+	#superclass : 'Object',
 	#instVars : [
 		'choice'
 	],
-	#category : #'Stelo-Tests'
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SVarArgMorph >> choice [
 
 	^ choice
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SVarArgMorph >> choice: anObject [
 
 	choice := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SVarArgMorph >> variable [
 
 	^ choice

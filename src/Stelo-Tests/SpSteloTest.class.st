@@ -2,12 +2,13 @@
 A SpSteloTest is a test class for testing the behavior of SpStelo
 "
 Class {
-	#name : #SpSteloTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SpSteloTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloTest >> newApp [
 
 	| app |
@@ -17,12 +18,12 @@ SpSteloTest >> newApp [
 	^ app
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SpSteloTest >> newProject [
 	^ SteloProject new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testAddTurtles [
 	| app proj ret |
 	app := self newApp.
@@ -39,7 +40,7 @@ SpSteloTest >> testAddTurtles [
 	self assert: (app sworld breedOf: 4) equals: ret breed
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testDeleteTurtles [
 	| app proj ret t3 t4 |
 	app := self newApp.
@@ -70,7 +71,7 @@ SpSteloTest >> testDeleteTurtles [
 		equals: 3.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testEventIdFor [
 
 	| app |
@@ -83,7 +84,7 @@ SpSteloTest >> testEventIdFor [
 	self assert: (app eventIdFor: #single) equals: EventId singleEventNo
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testEvents [
 
 	| app d |
@@ -94,7 +95,7 @@ SpSteloTest >> testEvents [
 	self assert: app events identicalTo: d
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testInitialize [
 
 	| app |
@@ -103,14 +104,14 @@ SpSteloTest >> testInitialize [
 	self assert: app lastTicks equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testIsProcessRunning [
 	| app |
 	app := self newApp.
 	self deny: app isProcessRunning
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testIsRecording [
 	| a |
 	a := self newApp.
@@ -121,7 +122,7 @@ SpSteloTest >> testIsRecording [
 	self deny: a isRecording
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testLastMSec [
 
 	| app |
@@ -133,7 +134,7 @@ SpSteloTest >> testLastMSec [
 	self assert: app lastMSec equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testLastTicks [
 
 	| app |
@@ -145,13 +146,13 @@ SpSteloTest >> testLastTicks [
 	self assert: app lastTicks equals: 456
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testMaxUpdateInfoCount [
 
 	self assert: self newApp maxUpdateInfoCount isInteger
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testNewCode [
 
 	| app |
@@ -159,7 +160,7 @@ SpSteloTest >> testNewCode [
 	self assert: (app newCode isKindOf: SteloBytecodeGenerator)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testNewMicroWorld [
 
 	| app r |
@@ -168,7 +169,7 @@ SpSteloTest >> testNewMicroWorld [
 	self assert: (r isKindOf: SMicroWorld)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testNewObserver [
 
 	| app r |
@@ -177,7 +178,7 @@ SpSteloTest >> testNewObserver [
 	self assert: (r isKindOf: SObserver)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testNewPatches [
 
 	| app r |
@@ -186,7 +187,7 @@ SpSteloTest >> testNewPatches [
 	self assert: (r isKindOf: SPatches)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testNewPresenter [
 
 	| app r |
@@ -195,7 +196,7 @@ SpSteloTest >> testNewPresenter [
 	self assert: (r isKindOf: SpSteloPresenter)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testNewProgram [
 
 	| app |
@@ -203,7 +204,7 @@ SpSteloTest >> testNewProgram [
 	self assert: (app newProgram isKindOf: SProgram)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testObserverScript [
 
 	| app |
@@ -212,7 +213,7 @@ SpSteloTest >> testObserverScript [
 	self assert: (app observerScript isKindOf: ObserverScript)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testPatchesScript [
 
 	| app |
@@ -221,13 +222,13 @@ SpSteloTest >> testPatchesScript [
 	self assert: (app patchesScript isKindOf: PatchesScript)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testPlotsExtension [
 
 	self assert: self newApp plotsExtension isString
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testProcess [
 
 	| app p |
@@ -238,12 +239,12 @@ SpSteloTest >> testProcess [
 	self assert: app process identicalTo: p
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testRecorder [
 	self testIsRecording
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testScriptOf [
 
 	| app s |
@@ -255,7 +256,7 @@ SpSteloTest >> testScriptOf [
 	self assert: (s isKindOf: PatchesScript)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testSetupEvents [
 
 	| app |
@@ -270,13 +271,13 @@ SpSteloTest >> testSetupEvents [
 	self assert: (app events at: #single) equals: EventId singleEventNo
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testSexpExtension [
 
 	self assert: self newApp sexpExtension isString
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testStringOfTicksFpsCount [
 	| a r |
 	a := self newApp.
@@ -284,7 +285,7 @@ SpSteloTest >> testStringOfTicksFpsCount [
 	self assert: r equals: '123 ticks, 456 fps, 789 turtles'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testStringOfWorldName [
 	| a r |
 	a := self newApp.
@@ -295,7 +296,7 @@ SpSteloTest >> testStringOfWorldName [
 	self assert: r equals: ' (abc) (Recording)'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testSworld [
 
 	| app w |
@@ -306,7 +307,7 @@ SpSteloTest >> testSworld [
 	self assert: app sworld identicalTo: w
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SpSteloTest >> testVarsAt [
 	| app proj s r |
 	app := self newApp.

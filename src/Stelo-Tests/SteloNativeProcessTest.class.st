@@ -2,12 +2,13 @@
 A SProcessorTest is a test class for testing the behavior of SProcessor
 "
 Class {
-	#name : #SteloNativeProcessTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SteloNativeProcessTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SteloNativeProcessTest >> newWorld [
 	| w |
 	w := SMicroWorld new.
@@ -17,7 +18,7 @@ SteloNativeProcessTest >> newWorld [
 	^ w
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloNativeProcessTest >> sampleProgram3 [
 	| program |
 	program := SProgram new.
@@ -26,7 +27,7 @@ SteloNativeProcessTest >> sampleProgram3 [
 	^ program
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SteloNativeProcessTest >> testAfterLoop [
 	| p w |
 	w := SMicroWorld new.
@@ -45,7 +46,7 @@ SteloNativeProcessTest >> testAfterLoop [
 	self assert: (p runningEvents includes: 9).
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SteloNativeProcessTest >> testAfterSetup [
 	| p w |
 	w := SMicroWorld new.
@@ -65,7 +66,7 @@ SteloNativeProcessTest >> testAfterSetup [
 	self assert: (p runningEvents includes: 9).
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SteloNativeProcessTest >> testAfterSingle [
 	| p w |
 	w := SMicroWorld new.
@@ -85,7 +86,7 @@ SteloNativeProcessTest >> testAfterSingle [
 	self assert: (p runningEvents includes: 9).
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SteloNativeProcessTest >> testAfterStartup [
 	| p w |
 	w := SMicroWorld new.
@@ -105,7 +106,7 @@ SteloNativeProcessTest >> testAfterStartup [
 	self assert: (p runningEvents includes: 9).
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SteloNativeProcessTest >> testDoOneCycle [
 	| w p ret |
 	w := self newWorld.
@@ -117,7 +118,7 @@ SteloNativeProcessTest >> testDoOneCycle [
 	self assert: ret not.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SteloNativeProcessTest >> testEvent [
 	| w p |
 	w := self newWorld.
@@ -127,7 +128,7 @@ SteloNativeProcessTest >> testEvent [
 	self assertCollection: p runningEvents equals: {10}.
 ]
 
-{ #category : #'tests-execution' }
+{ #category : 'tests-execution' }
 SteloNativeProcessTest >> testExecuteThreadBreedNoIndexIfTerminatedDo [
 	| w prg p f x addr |
 	w := self newWorld.
@@ -148,21 +149,21 @@ SteloNativeProcessTest >> testExecuteThreadBreedNoIndexIfTerminatedDo [
 	self assert: f.
 ]
 
-{ #category : #'tests-execution' }
+{ #category : 'tests-execution' }
 SteloNativeProcessTest >> testIdle [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
 	p idle.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SteloNativeProcessTest >> testInitialize [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
 	self assert: p transition equals: #idle.
 ]
 
-{ #category : #'tests-testing' }
+{ #category : 'tests-testing' }
 SteloNativeProcessTest >> testIsRunning [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
@@ -173,7 +174,7 @@ SteloNativeProcessTest >> testIsRunning [
 	p transition: #setup.
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SteloNativeProcessTest >> testLoop [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
@@ -182,7 +183,7 @@ SteloNativeProcessTest >> testLoop [
 	self assertCollection: p runningEvents equals: {EventId loopEventNo}.
 ]
 
-{ #category : #'tests-private' }
+{ #category : 'tests-private' }
 SteloNativeProcessTest >> testRunningEvents [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
@@ -192,7 +193,7 @@ SteloNativeProcessTest >> testRunningEvents [
 	self assertCollection: p runningEvents equals: #(1 2 3).
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SteloNativeProcessTest >> testSetup [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
@@ -201,7 +202,7 @@ SteloNativeProcessTest >> testSetup [
 	self assertCollection: p runningEvents equals: {EventId setupEventNo}.
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SteloNativeProcessTest >> testSingle [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
@@ -210,7 +211,7 @@ SteloNativeProcessTest >> testSingle [
 	self assertCollection: p runningEvents equals: {EventId singleEventNo}.
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SteloNativeProcessTest >> testStartup [
 	| w p |
 	w := SMicroWorld new.
@@ -221,7 +222,7 @@ SteloNativeProcessTest >> testStartup [
 	self assertCollection: p runningEvents equals: {EventId startupEventNo}.
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SteloNativeProcessTest >> testStep [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
@@ -229,7 +230,7 @@ SteloNativeProcessTest >> testStep [
 	p step.
 ]
 
-{ #category : #'tests-execution' }
+{ #category : 'tests-execution' }
 SteloNativeProcessTest >> testStop [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.
@@ -237,7 +238,7 @@ SteloNativeProcessTest >> testStop [
 	self assert: p runningEvents isEmpty.
 ]
 
-{ #category : #'tests-private' }
+{ #category : 'tests-private' }
 SteloNativeProcessTest >> testTransition [
 	| p |
 	p := SMicroWorld new newProcess program: SProgram new.

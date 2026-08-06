@@ -2,18 +2,19 @@
 A SObserverTest is a test class for testing the behavior of SObserver
 "
 Class {
-	#name : #SObserverTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SObserverTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SObserverTest >> newBreed [
 
 	^ SObserver new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SObserverTest >> newWorld [
 	| w |
 	w := SMicroWorld new.
@@ -23,7 +24,7 @@ SObserverTest >> newWorld [
 	^ w
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testAliveAt [
 
 	| obj |
@@ -33,7 +34,7 @@ SObserverTest >> testAliveAt [
 	self deny: (obj aliveAt: 3)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testBreedId [
 
 	| o x |
@@ -44,13 +45,13 @@ SObserverTest >> testBreedId [
 	self assert: o breedId identicalTo: x
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testBreedName [
 
 	self assert: self newBreed breedName equals: 'Observer'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testBreedNo [
 
 	| o |
@@ -60,7 +61,7 @@ SObserverTest >> testBreedNo [
 	self assert: o breedNo equals: SBreedId observerBreedNo
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testClearTicks [
 
 	| o |
@@ -74,13 +75,13 @@ SObserverTest >> testClearTicks [
 	self assert: o ticks equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testColors [
 
 	self should: [ self newBreed colors ] raise: Error
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testIncrementTicks [
 
 	| o |
@@ -92,7 +93,7 @@ SObserverTest >> testIncrementTicks [
 	self assert: o ticks equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testInitialize [
 
 	| obj |
@@ -102,7 +103,7 @@ SObserverTest >> testInitialize [
 	self assert: obj ticks equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testLivingOnesDo [
 
 	| obj count |
@@ -114,7 +115,7 @@ SObserverTest >> testLivingOnesDo [
 	self assert: count equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testNewTurtles [
 
 	| obj t |
@@ -127,13 +128,13 @@ SObserverTest >> testNewTurtles [
 	self assert: t breedNo equals: 4
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testNewVarDef [
 
 	self assert: (self newBreed newVarDef isKindOf: SObserverVarDef)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testReset [
 
 	| obj tmp |
@@ -146,13 +147,13 @@ SObserverTest >> testReset [
 	self assert: obj varDef size equals: tmp
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testSize [
 
 	self assert: self newBreed size equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testTicks [
 
 	| o |
@@ -162,7 +163,7 @@ SObserverTest >> testTicks [
 	self assert: o ticks equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testVarAt [
 
 	| obj v1 v2 |
@@ -179,7 +180,7 @@ SObserverTest >> testVarAt [
 	self assert: (obj var: SObserverVarDef ticksVarNo at: 1) equals: 789
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SObserverTest >> testVarAtPut [
 
 	| obj v1 v2 |

@@ -1,10 +1,11 @@
 Class {
-	#name : #SPatchesVarDefTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SPatchesVarDefTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SPatchesVarDefTest >> testClassNameFor [
 	| pv |
 	pv := SPatchesVarDef new.
@@ -14,7 +15,7 @@ SPatchesVarDefTest >> testClassNameFor [
 	self assert: (pv classNameFor: 'y') equals: #Float32Array
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SPatchesVarDefTest >> testColorVarNo [
 
 	| v |
@@ -23,7 +24,7 @@ SPatchesVarDefTest >> testColorVarNo [
 	self assert: SPatchesVarDef colorVarNo equals: 1
 ]
 
-{ #category : #'tests-initialization' }
+{ #category : 'tests-initialization' }
 SPatchesVarDefTest >> testInitialize [
 	| v |
 	v := SPatchesVarDef new.
@@ -34,26 +35,26 @@ SPatchesVarDefTest >> testInitialize [
 	self assert: (v includes: 'y').
 ]
 
-{ #category : #'tests-private' }
+{ #category : 'tests-private' }
 SPatchesVarDefTest >> testReservedVarNames [
 	self assertCollection: SPatchesVarDef new privReservedVarNames equals: #(color screen x y).
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SPatchesVarDefTest >> testScreenVarNo [
 	| v |
 	v := SPatchesVarDef new.
 	self assert: (v varNoFor: 'screen') equals: SPatchesVarDef screenVarNo.
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SPatchesVarDefTest >> testXVarNo [
 	| v |
 	v := SPatchesVarDef new.
 	self assert: (v varNoFor: 'x') equals: SPatchesVarDef xVarNo.
 ]
 
-{ #category : #'tests-accessing' }
+{ #category : 'tests-accessing' }
 SPatchesVarDefTest >> testYVarNo [
 	| v |
 	v := SPatchesVarDef new.

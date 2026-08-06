@@ -2,17 +2,18 @@
 A SNativeDiffuser2Test is a test class for testing the behavior of SNativeDiffuser2
 "
 Class {
-	#name : #SNativeDiffuser2Test,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SNativeDiffuser2Test',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SNativeDiffuser2Test >> newDiffuser [
 	^ SNativeDiffuser2 new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testDiffuse4ColsRowsPercent [
 	| d x |
 	d := self newDiffuser.
@@ -42,7 +43,7 @@ SNativeDiffuser2Test >> testDiffuse4ColsRowsPercent [
 	self assertCollection: x equals: #(2 0 0 0 0 0 0 0 2 0 0 0 2 2 0 2) asFloatArray.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testDiffuse8ColsRowsPercent [
 	| d x |
 	d := self newDiffuser.
@@ -73,7 +74,7 @@ SNativeDiffuser2Test >> testDiffuse8ColsRowsPercent [
 
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testNsum4DstColsRows [
 	| d x |
 	d := self newDiffuser.
@@ -97,7 +98,7 @@ SNativeDiffuser2Test >> testNsum4DstColsRows [
 	self assertCollection: x equals: #(1 0 2 3 0 4 0 1 2 0 3 3 3 3 3 0) asFloatArray.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testNsum8DstColsRows [
 	| d x |
 	d := self newDiffuser.
@@ -121,7 +122,7 @@ SNativeDiffuser2Test >> testNsum8DstColsRows [
 	self assertCollection: x equals: #(4 1 5 4 3 4 3 1 5 1 6 4 6 3 6 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testRolledDownToCols [
 	| d r |
 	d := self newDiffuser.
@@ -139,7 +140,7 @@ SNativeDiffuser2Test >> testRolledDownToCols [
 				asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testRolledLeftToCols [
 	| d r |
 	d := self newDiffuser.
@@ -157,7 +158,7 @@ SNativeDiffuser2Test >> testRolledLeftToCols [
 				asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testRolledRightToCols [
 	| d r |
 	d := self newDiffuser.
@@ -175,7 +176,7 @@ SNativeDiffuser2Test >> testRolledRightToCols [
 				asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testRolledUpToCols [
 	| d r |
 	d := self newDiffuser.
@@ -193,7 +194,7 @@ SNativeDiffuser2Test >> testRolledUpToCols [
 				asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SNativeDiffuser2Test >> testScaleDstColorFromTo [
 
 	| obj a b |

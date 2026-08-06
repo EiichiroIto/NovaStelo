@@ -1,10 +1,11 @@
 Class {
-	#name : #SBenchmark,
-	#superclass : #Object,
-	#category : #'Stelo-Tests'
+	#name : 'SBenchmark',
+	#superclass : 'Object',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SBenchmark >> diffuse2: anInteger [
 	"SBenchmark new diffuse2: 1000."
 	" 163 201"
@@ -23,7 +24,7 @@ SBenchmark >> diffuse2: anInteger [
 						percent: 80.0 ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SBenchmark >> diffuseAndMultiply: anInteger [
 
 	"SBenchmark new diffuseAndMultiply: 100000. --> "
@@ -86,7 +87,7 @@ SBenchmark >> diffuseAndMultiply: anInteger [
 	^ ret
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SBenchmark >> forwardAndTurn: anInteger [
 	"SBenchmark new forwardAndTurn: 10000. --> 25618"
 

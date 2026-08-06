@@ -2,12 +2,13 @@
 A SteloProjectTest is a test class for testing the behavior of SteloProject
 "
 Class {
-	#name : #SteloProjectTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SteloProjectTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SteloProjectTest >> newApp [
 
 	| app |
@@ -17,17 +18,17 @@ SteloProjectTest >> newApp [
 	^ app
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloProjectTest >> newProject [
 	^ SteloProject new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloProjectTest >> newTurtleScript [
 	^ TurtlesScript new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloProjectTest >> testAddNewTurtleScript [
 	| app proj s |
 	proj := self newProject.
@@ -41,7 +42,7 @@ SteloProjectTest >> testAddNewTurtleScript [
 	self assert: (s breed isKindOf: STurtles)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloProjectTest >> testAssignUniqueObjNameTo [
 	| proj s1 s2 s3 s |
 	proj := self newProject.
@@ -67,7 +68,7 @@ SteloProjectTest >> testAssignUniqueObjNameTo [
 	self assert: s objName equals: s defaultObjName , 'x'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloProjectTest >> testObserverScript [
 	| app proj s |
 	proj := self newProject.
@@ -81,7 +82,7 @@ SteloProjectTest >> testObserverScript [
 	self assert: (proj scriptOf: 1) equals: s
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloProjectTest >> testPatchesScript [
 	| app proj s |
 	proj := self newProject.
@@ -95,12 +96,12 @@ SteloProjectTest >> testPatchesScript [
 	self assert: (proj scriptOf: 2) equals: s
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloProjectTest >> testScriptOf [
 	self testSetupScripts
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloProjectTest >> testSetupScripts [
 	| app proj s |
 	proj := self newProject.

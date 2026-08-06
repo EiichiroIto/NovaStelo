@@ -1,31 +1,32 @@
 Class {
-	#name : #SLiteralArgMorph,
-	#superclass : #Object,
+	#name : 'SLiteralArgMorph',
+	#superclass : 'Object',
 	#instVars : [
 		'value'
 	],
-	#category : #'Stelo-Tests'
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 SLiteralArgMorph >> argString: aGenerator [
 
 	^ aGenerator argString: self.
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 SLiteralArgMorph >> evaluate [
 
 	^ value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SLiteralArgMorph >> labelMorph [
 
 	^ value
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 SLiteralArgMorph >> printOn: aStream [
 
 	aStream
@@ -34,13 +35,13 @@ SLiteralArgMorph >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SLiteralArgMorph >> value1 [
 
 	^ value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SLiteralArgMorph >> value: anObject [
 
 	value := anObject

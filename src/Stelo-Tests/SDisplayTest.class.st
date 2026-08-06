@@ -2,17 +2,18 @@
 A SDisplayTest is a test class for testing the behavior of SDisplay
 "
 Class {
-	#name : #SDisplayTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SDisplayTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplayTest >> newDisplay [
 	^ SDisplay sworld: self newWorld
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SDisplayTest >> newWorld [
 	| w |
 	w := SMicroWorld new.
@@ -21,7 +22,7 @@ SDisplayTest >> newWorld [
 	^ w
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testCell [
 	| d |
 	d := self newDisplay.
@@ -32,7 +33,7 @@ SDisplayTest >> testCell [
 	self assert: d cell equals: 3 @ 4
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testClick [
 	| d x ev |
 	d := self newDisplay.
@@ -46,14 +47,14 @@ SDisplayTest >> testClick [
 	self assert: x equals: -50 @ 49
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testDefaultExtent [
 	| d |
 	d := self newDisplay.
 	self assert: d defaultExtent isPoint
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testExtent [
 	| d |
 	d := self newDisplay.
@@ -64,7 +65,7 @@ SDisplayTest >> testExtent [
 	self assert: d forceModelChanged
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testForceModelChanged [
 	| d |
 	d := self newDisplay.
@@ -73,7 +74,7 @@ SDisplayTest >> testForceModelChanged [
 	self deny: d forceModelChanged
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testInfo [
 	| d |
 	d := self newDisplay.
@@ -82,7 +83,7 @@ SDisplayTest >> testInfo [
 	self assert: d info equals: 'abc'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testInitialize [
 	| d |
 	d := self newDisplay.
@@ -91,7 +92,7 @@ SDisplayTest >> testInitialize [
 	self assert: d stepTime equals: 1000
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testIsGrayscale [
 	| d |
 	d := self newDisplay.
@@ -102,14 +103,14 @@ SDisplayTest >> testIsGrayscale [
 	self deny: d isGrayscale
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testModelBounds [
 	| d |
 	d := self newDisplay.
 	self assert: d modelBounds isRectangle
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testModelExtent [
 	| d |
 	d := self newDisplay.
@@ -118,7 +119,7 @@ SDisplayTest >> testModelExtent [
 	self assert: d modelExtent equals: 1 @ 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testOffset [
 	| d |
 	d := self newDisplay.
@@ -129,7 +130,7 @@ SDisplayTest >> testOffset [
 	self assert: d offset equals: 3 @ 4
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testPointOf [
 	| d |
 	d := self newDisplay.
@@ -143,7 +144,7 @@ SDisplayTest >> testPointOf [
 	self assert: (d pointOf: 99 @ 0) equals: 49 @ 49
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testStep [
 	| d x |
 	d := self newDisplay.
@@ -155,7 +156,7 @@ SDisplayTest >> testStep [
 	self assert: x equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testStepTime [
 	| d |
 	d := self newDisplay.
@@ -164,7 +165,7 @@ SDisplayTest >> testStepTime [
 	self assert: d stepTime equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testSworld [
 	| d w |
 	d := self newDisplay.
@@ -174,7 +175,7 @@ SDisplayTest >> testSworld [
 	self assert: d sworld equals: w
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testToggleGrayscale [
 	| d |
 	d := self newDisplay.
@@ -185,7 +186,7 @@ SDisplayTest >> testToggleGrayscale [
 	self deny: d isGrayscale
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testUpdateCache [
 	| d |
 	d := self newDisplay.
@@ -200,14 +201,14 @@ SDisplayTest >> testUpdateCache [
 	self assert: d offset equals: 25 @ 10.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testWantsSteps [
 	| d |
 	d := self newDisplay.
 	self assert: d wantsSteps
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testWhenClickDo [
 	| d x |
 	d := self newDisplay.
@@ -217,7 +218,7 @@ SDisplayTest >> testWhenClickDo [
 	self assert: d whenClickDo isBlock
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SDisplayTest >> testWhenStepsDo [
 	| d x |
 	d := self newDisplay.

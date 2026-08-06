@@ -2,12 +2,13 @@
 A SBytecodeGeneratorTest is a test class for testing the behavior of SBytecodeGenerator
 "
 Class {
-	#name : #SteloBytecodeGeneratorTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SteloBytecodeGeneratorTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGeneratorTest >> choice: anInteger [
 
 	^ SVarArgMorph new
@@ -15,7 +16,7 @@ SteloBytecodeGeneratorTest >> choice: anInteger [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGeneratorTest >> literalValue: anObject [
 
 	^ SLiteralArgMorph new
@@ -23,7 +24,7 @@ SteloBytecodeGeneratorTest >> literalValue: anObject [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGeneratorTest >> newApplication [
 
 	| app |
@@ -35,7 +36,7 @@ SteloBytecodeGeneratorTest >> newApplication [
 	^ app
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGeneratorTest >> newGenerator [
 
 	^ SteloBytecodeGenerator new
@@ -43,17 +44,17 @@ SteloBytecodeGeneratorTest >> newGenerator [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGeneratorTest >> newThread [
 	^ SteloNativeThread sworld: SMicroWorld new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGeneratorTest >> newThread: aWorld [
 	^ SteloNativeThread sworld: aWorld
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SteloBytecodeGeneratorTest >> newWorld [
 	| w |
 	w := SMicroWorld new.
@@ -62,7 +63,7 @@ SteloBytecodeGeneratorTest >> newWorld [
 	^ w
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testAddress [
 	| b |
 	b := self newGenerator.
@@ -71,7 +72,7 @@ SteloBytecodeGeneratorTest >> testAddress [
 	self assert: b address equals: 100.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testAddressOfSubName [
 	| b d |
 	b := self newGenerator.
@@ -85,7 +86,7 @@ SteloBytecodeGeneratorTest >> testAddressOfSubName [
 	self assert: (b addressOfSubName: 'def') equals: 456.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testAimHigh [
 
 	| w v ret b t app |
@@ -133,7 +134,7 @@ SteloBytecodeGeneratorTest >> testAimHigh [
 	self assert: ret equals: -45
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testAndWith [
 
 	| t b r |
@@ -166,7 +167,7 @@ SteloBytecodeGeneratorTest >> testAndWith [
 	self assert: (t evaluate: 1) equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testBroadcast [
 	| w b t e eventId |
 	w := self newWorld.
@@ -183,7 +184,7 @@ SteloBytecodeGeneratorTest >> testBroadcast [
 	self assert: (w raisedEvents includes: e).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testCallSub [
 
 	| b r |
@@ -196,7 +197,7 @@ SteloBytecodeGeneratorTest >> testCallSub [
 	self assertCollection: r equals: #(push1 return pushShort 3 0 call stop).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testChangeObserverVarBy [
 
 	| app w vid b t |
@@ -224,7 +225,7 @@ SteloBytecodeGeneratorTest >> testChangeObserverVarBy [
 		equals: 8
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testChangePatchVarAtBy [
 
 	| app w b vid t pno |
@@ -266,7 +267,7 @@ SteloBytecodeGeneratorTest >> testChangePatchVarAtBy [
 	self assert: (w patches var: vid at: 5) equals: 7
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testChangePatchVarBy [
 
 	| app w vid b t |
@@ -304,7 +305,7 @@ SteloBytecodeGeneratorTest >> testChangePatchVarBy [
 		equals: 9
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testChangeVarBy [
 
 	| app w vid b t |
@@ -338,7 +339,7 @@ SteloBytecodeGeneratorTest >> testChangeVarBy [
 	self assert: (w var: vid breed: 3 at: 2) equals: -1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testChangeXposBy [
 	| w b t |
 	w := self newWorld.
@@ -363,7 +364,7 @@ SteloBytecodeGeneratorTest >> testChangeXposBy [
 	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 7
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testChangeYposBy [
 	| w b t |
 	w := self newWorld.
@@ -388,7 +389,7 @@ SteloBytecodeGeneratorTest >> testChangeYposBy [
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 7
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testClearAll [
 	| w b t |
 	w := self newWorld.
@@ -417,7 +418,7 @@ SteloBytecodeGeneratorTest >> testClearAll [
 	self assert: (w breedOf: 3) countAlive equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testClearGraphics [
 	| w b t |
 	w := self newWorld.
@@ -446,7 +447,7 @@ SteloBytecodeGeneratorTest >> testClearGraphics [
 	self assert: (w breedOf: 3) countAlive equals: 2
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testClearPlots [
 
 	| w b t ret |
@@ -468,7 +469,7 @@ SteloBytecodeGeneratorTest >> testClearPlots [
 	self assert: ret first command equals: ScratchPlotCommand clearPlotNo
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testClearTurtle [
 
 	| w b t |
@@ -501,7 +502,7 @@ SteloBytecodeGeneratorTest >> testClearTurtle [
 	self assert: (w breedOf: 3) countAlive equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testClearTurtles [
 	| w b t |
 	w := self newWorld.
@@ -530,7 +531,7 @@ SteloBytecodeGeneratorTest >> testClearTurtles [
 	self assert: (w breedOf: 3) countAlive equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testCode [
 
 	| b arr |
@@ -541,7 +542,7 @@ SteloBytecodeGeneratorTest >> testCode [
 	self assertCollection: arr equals: #(push1 forward pushShort 15 0 pushShort 5 0 getVar plus setHeading stop).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorBlack [
 
 	| obj r |
@@ -550,7 +551,7 @@ SteloBytecodeGeneratorTest >> testColorBlack [
 	self assert: r equals: ColorList black
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorBlue [
 
 	| obj r |
@@ -559,7 +560,7 @@ SteloBytecodeGeneratorTest >> testColorBlue [
 	self assert: r equals: ColorList blue
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorBrown [
 
 	| obj r |
@@ -568,7 +569,7 @@ SteloBytecodeGeneratorTest >> testColorBrown [
 	self assert: r equals: ColorList brown
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorCyan [
 
 	| obj r |
@@ -577,7 +578,7 @@ SteloBytecodeGeneratorTest >> testColorCyan [
 	self assert: r equals: ColorList cyan
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorGray [
 
 	| obj r |
@@ -586,7 +587,7 @@ SteloBytecodeGeneratorTest >> testColorGray [
 	self assert: r equals: ColorList gray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorGreen [
 
 	| obj r |
@@ -595,7 +596,7 @@ SteloBytecodeGeneratorTest >> testColorGreen [
 	self assert: r equals: ColorList green
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorLime [
 
 	| obj r |
@@ -604,7 +605,7 @@ SteloBytecodeGeneratorTest >> testColorLime [
 	self assert: r equals: ColorList lime
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorMagenta [
 
 	| obj r |
@@ -613,7 +614,7 @@ SteloBytecodeGeneratorTest >> testColorMagenta [
 	self assert: r equals: ColorList magenta
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorOf [
 
 	| obj r |
@@ -624,7 +625,7 @@ SteloBytecodeGeneratorTest >> testColorOf [
 	self assert: r equals: ColorList white
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorOrange [
 
 	| obj r |
@@ -633,7 +634,7 @@ SteloBytecodeGeneratorTest >> testColorOrange [
 	self assert: r equals: ColorList orange
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorPink [
 
 	| obj r |
@@ -642,7 +643,7 @@ SteloBytecodeGeneratorTest >> testColorPink [
 	self assert: r equals: ColorList pink
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorPurple [
 
 	| obj r |
@@ -651,7 +652,7 @@ SteloBytecodeGeneratorTest >> testColorPurple [
 	self assert: r equals: ColorList purple
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorRandom [
 
 	| obj thread r |
@@ -664,7 +665,7 @@ SteloBytecodeGeneratorTest >> testColorRandom [
 		self assert: (r between: 0 and: ColorList colors size - 1) ]
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorRed [
 
 	| obj r |
@@ -673,7 +674,7 @@ SteloBytecodeGeneratorTest >> testColorRed [
 	self assert: r equals: ColorList red
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorSky [
 
 	| obj r |
@@ -682,7 +683,7 @@ SteloBytecodeGeneratorTest >> testColorSky [
 	self assert: r equals: ColorList sky
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorTurquoise [
 
 	| obj r |
@@ -691,7 +692,7 @@ SteloBytecodeGeneratorTest >> testColorTurquoise [
 	self assert: r equals: ColorList turquoise
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorWhite [
 
 	| obj r |
@@ -700,7 +701,7 @@ SteloBytecodeGeneratorTest >> testColorWhite [
 	self assert: r equals: ColorList white
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testColorYellow [
 
 	| obj r |
@@ -709,7 +710,7 @@ SteloBytecodeGeneratorTest >> testColorYellow [
 	self assert: r equals: ColorList yellow
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testComputeFunctionOf [
 	| t b r |
 	b := self newGenerator.
@@ -734,7 +735,7 @@ SteloBytecodeGeneratorTest >> testComputeFunctionOf [
 	self assert: (t evaluate: 1) equals: 2 sqrt.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testCopyPatchVarTo [
 
 	| app w vid1 vid2 b t |
@@ -773,7 +774,7 @@ SteloBytecodeGeneratorTest >> testCopyPatchVarTo [
 		equals: 6
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testCreatePatchesSize [
 	| w b t |
 	w := self newWorld.
@@ -802,7 +803,7 @@ SteloBytecodeGeneratorTest >> testCreatePatchesSize [
 	self assert: (w breedOf: 3) countAlive equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testCreateTurtleSizeBreedId [
 	| w b t |
 	w := self newWorld.
@@ -831,7 +832,7 @@ SteloBytecodeGeneratorTest >> testCreateTurtleSizeBreedId [
 	self assert: (w breedOf: 3) countAlive equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDie [
 	| w b t |
 	w := self newWorld.
@@ -855,7 +856,7 @@ SteloBytecodeGeneratorTest >> testDie [
 	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
 	| app w b v t arr |
 	app := self newApplication.
@@ -945,7 +946,7 @@ SteloBytecodeGeneratorTest >> testDiffuse4VarPercentage [
 		equals: #(0 20 0 20 20 20 0 20 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
 	| app w b v t arr |
 	app := self newApplication.
@@ -1035,7 +1036,7 @@ SteloBytecodeGeneratorTest >> testDiffuseVarPercentage [
 		equals: #(10 10 10 10 20 10 10 10 10) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDirectionTo [
 	| w t b r pno |
 	w := self newWorld.
@@ -1063,7 +1064,7 @@ SteloBytecodeGeneratorTest >> testDirectionTo [
 	self assert: r closeTo: 1 arcTan radiansToDegrees.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDistanceTo [
 	| w t b r pno |
 	w := self newWorld.
@@ -1085,7 +1086,7 @@ SteloBytecodeGeneratorTest >> testDistanceTo [
 	self assert: r closeTo: 2 sqrt
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDivideBy [
 	| t b r |
 	b := self newGenerator.
@@ -1124,7 +1125,7 @@ SteloBytecodeGeneratorTest >> testDivideBy [
 	self assert: (t evaluate: 1) equals: -0.5.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDoIfBegin [
 	| w b t i |
 	w := self newWorld.
@@ -1153,7 +1154,7 @@ SteloBytecodeGeneratorTest >> testDoIfBegin [
 	self deny: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 1)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDoIfElse [
 
 	| app w b t i |
@@ -1214,13 +1215,13 @@ SteloBytecodeGeneratorTest >> testDoIfElse [
 	self deny: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 2)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDoIfEnd [
 	self testDoIfBegin.
 	self testDoIfElse.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDoRepeatBegin [
 	| w b t arr |
 	w := self newWorld.
@@ -1239,12 +1240,12 @@ SteloBytecodeGeneratorTest >> testDoRepeatBegin [
 	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDoRepeatEndLabels [
 	self testDoRepeatBegin.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDoUntilBegin [
 	| w b t i |
 	w := self newWorld.
@@ -1265,12 +1266,12 @@ SteloBytecodeGeneratorTest >> testDoUntilBegin [
 	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 1) equals: 6
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDoUntilEndId [
 	self testDoUntilBegin.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDx [
 	| w b t |
 	w := self newWorld.
@@ -1290,7 +1291,7 @@ SteloBytecodeGeneratorTest >> testDx [
 	self assert: (t evaluate: 1) closeTo: 60 degreeCos
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testDy [
 	| w b t |
 	w := self newWorld.
@@ -1310,7 +1311,7 @@ SteloBytecodeGeneratorTest >> testDy [
 	self assert: (t evaluate: 1) closeTo: 60 degreeSin
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testEqualTo [
 	| t b r |
 	b := self newGenerator.
@@ -1342,7 +1343,7 @@ SteloBytecodeGeneratorTest >> testEqualTo [
 	self assert: (t evaluate: 1) equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testForward [
 	| w b t |
 	w := self newWorld.
@@ -1364,7 +1365,7 @@ SteloBytecodeGeneratorTest >> testForward [
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testFront [
 
 	| w b t ret x y |
@@ -1384,7 +1385,7 @@ SteloBytecodeGeneratorTest >> testFront [
 	self assert: (t evaluate: 1) equals: 14
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetBreedId [
 	| w b t ret |
 	w := self newWorld.
@@ -1409,7 +1410,7 @@ SteloBytecodeGeneratorTest >> testGetBreedId [
 	self assert: (t evaluate: 1) equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetBreedVarAt [
 
 	| g |
@@ -1422,7 +1423,7 @@ SteloBytecodeGeneratorTest >> testGetBreedVarAt [
 			#stop }
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetColor [
 	| w b t ret |
 	w := self newWorld.
@@ -1463,7 +1464,7 @@ SteloBytecodeGeneratorTest >> testGetColor [
 	self assert: ret equals: ColorList blue
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetHeading [
 
 	| w b t ret |
@@ -1485,7 +1486,7 @@ SteloBytecodeGeneratorTest >> testGetHeading [
 	self assert: (t evaluate: 1) equals: 123
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetId [
 	| w b t ret |
 	w := self newWorld.
@@ -1508,7 +1509,7 @@ SteloBytecodeGeneratorTest >> testGetId [
 	self assert: (t evaluate: 1) equals: 3.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetObserverVar [
 
 	| app w b t ret |
@@ -1530,7 +1531,7 @@ SteloBytecodeGeneratorTest >> testGetObserverVar [
 	self assert: (t evaluate: 1) equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 	| w b t ret pno |
 	w := self newWorld.
@@ -1584,7 +1585,7 @@ SteloBytecodeGeneratorTest >> testGetPatchColorAt [
 	self assert: ret equals: ColorList lime
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetPatchVarAt [
 	| app w b vid t ret pno |
 	app := self newApplication.
@@ -1610,7 +1611,7 @@ SteloBytecodeGeneratorTest >> testGetPatchVarAt [
 	self assert: (t evaluate: 1) equals: 4.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetTurtleBreedVar [
 
 	| app w vid b t |
@@ -1642,7 +1643,7 @@ SteloBytecodeGeneratorTest >> testGetTurtleBreedVar [
 	self assert: (t evaluate: 1) equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetVar [
 	| app w vid b t ret |
 	app := self newApplication.
@@ -1668,7 +1669,7 @@ SteloBytecodeGeneratorTest >> testGetVar [
 	self assert: (t evaluate: 1) equals: 20
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetVarBreedNoAt [
 	| w b vid t ret |
 	w := self newWorld.
@@ -1694,7 +1695,7 @@ SteloBytecodeGeneratorTest >> testGetVarBreedNoAt [
 	self assert: (t evaluate: 1) equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetXpos [
 	| w b t ret |
 	w := self newWorld.
@@ -1723,7 +1724,7 @@ SteloBytecodeGeneratorTest >> testGetXpos [
 	self assert: (t evaluate: 1) equals: -1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testGetYpos [
 	| w b t ret |
 	w := self newWorld.
@@ -1752,7 +1753,7 @@ SteloBytecodeGeneratorTest >> testGetYpos [
 	self assert: (t evaluate: 1) equals: -1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testHatch [
 	| w b t |
 	w := self newWorld.
@@ -1778,7 +1779,7 @@ SteloBytecodeGeneratorTest >> testHatch [
 		equals: 15
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testHere [
 	| w b t |
 	w := self newWorld.
@@ -1818,7 +1819,7 @@ SteloBytecodeGeneratorTest >> testHere [
 	self assert: (t evaluate: 1) equals: 3.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testIsBetweenAnd [
 	| t b r |
 	b := self newGenerator.
@@ -1857,7 +1858,7 @@ SteloBytecodeGeneratorTest >> testIsBetweenAnd [
 	self assert: (t evaluate: 1) equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testIsPenDown [
 	| w b t r |
 	w := self newWorld.
@@ -1886,7 +1887,7 @@ SteloBytecodeGeneratorTest >> testIsPenDown [
 	self assert: r equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testKillBreed [
 	| w b t |
 	w := self newWorld.
@@ -1906,7 +1907,7 @@ SteloBytecodeGeneratorTest >> testKillBreed [
 	self assert: (w flag: STurtlesVarDef aliveFlagNo breed: 3 at: 3)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testLessEqualThan [
 	| t b r |
 	b := self newGenerator.
@@ -1938,7 +1939,7 @@ SteloBytecodeGeneratorTest >> testLessEqualThan [
 	self assert: (t evaluate: 1) equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testLessThan [
 	| t b r |
 	b := self newGenerator.
@@ -1970,7 +1971,7 @@ SteloBytecodeGeneratorTest >> testLessThan [
 	self assert: (t evaluate: 1) equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testMinusWith [
 	| t b r |
 	b := self newGenerator.
@@ -2002,7 +2003,7 @@ SteloBytecodeGeneratorTest >> testMinusWith [
 	self assert: (t evaluate: 1) equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testModBy [
 	| t b r |
 	b := self newGenerator.
@@ -2034,7 +2035,7 @@ SteloBytecodeGeneratorTest >> testModBy [
 	self assert: (t evaluate: 1) equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testMoreEqualThan [
 
 	| t b r |
@@ -2073,7 +2074,7 @@ SteloBytecodeGeneratorTest >> testMoreEqualThan [
 	self assert: (t evaluate: 1) equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testMoreThan [
 
 	| t b r |
@@ -2113,7 +2114,7 @@ SteloBytecodeGeneratorTest >> testMoreThan [
 	self assert: (t evaluate: 1) equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testMultiplyAnd [
 	| t b r |
 	b := self newGenerator.
@@ -2145,7 +2146,7 @@ SteloBytecodeGeneratorTest >> testMultiplyAnd [
 	self assert: (t evaluate: 1) equals: 8.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testMultiplyVarBy [
 	| app w v b t |
 	app := self newApplication.
@@ -2168,7 +2169,7 @@ SteloBytecodeGeneratorTest >> testMultiplyVarBy [
 		equals: #(2 0 0 0 4 0 6 8 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testNegated [
 
 	| t b r |
@@ -2187,7 +2188,7 @@ SteloBytecodeGeneratorTest >> testNegated [
 	self assert: (t evaluate: 1) equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testNot [
 	| t b r |
 	b := self newGenerator.
@@ -2205,7 +2206,7 @@ SteloBytecodeGeneratorTest >> testNot [
 	self assert: (t evaluate: 1) equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testNsum4VarTo [
 
 	| app w v1 v2 b t |
@@ -2236,7 +2237,7 @@ SteloBytecodeGeneratorTest >> testNsum4VarTo [
 		equals: #(1 0 2 3 0 4 0 1 2 0 3 3 3 3 3 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testNsumVarTo [
 
 	| app w v1 v2 b t |
@@ -2267,7 +2268,7 @@ SteloBytecodeGeneratorTest >> testNsumVarTo [
 		equals: #(4 1 5 4 3 4 3 1 5 1 6 4 6 3 6 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testOrWith [
 
 	| t b r |
@@ -2300,7 +2301,7 @@ SteloBytecodeGeneratorTest >> testOrWith [
 	self assert: (t evaluate: 1) equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testPatchAtXY [
 	| w b t |
 	w := self newWorld.
@@ -2319,7 +2320,7 @@ SteloBytecodeGeneratorTest >> testPatchAtXY [
 	self assert: (t evaluate: 1) equals: 7.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testPenDown [
 
 	| w b t r |
@@ -2340,7 +2341,7 @@ SteloBytecodeGeneratorTest >> testPenDown [
 	self assert: r equals: 1 + (1 << STurtlesVarDef penDownFlagNo)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testPenDown2 [
 
 	| w b t r |
@@ -2369,7 +2370,7 @@ SteloBytecodeGeneratorTest >> testPenDown2 [
 	self assert: r equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testPenUp [
 
 	| w b t r |
@@ -2390,7 +2391,7 @@ SteloBytecodeGeneratorTest >> testPenUp [
 	self assert: r equals: 1
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testPlotColor [
 
 	| w b t ret |
@@ -2412,7 +2413,7 @@ SteloBytecodeGeneratorTest >> testPlotColor [
 	self assert: ret first color equals: (ColorList default colorAt: ColorList brown)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testPlotData [
 	| w b t ret |
 	w := self newWorld.
@@ -2431,7 +2432,7 @@ SteloBytecodeGeneratorTest >> testPlotData [
 	self assertCollection: ret first class equals: ScratchPlotData.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testPlusAnd [
 	| t b r |
 	b := self newGenerator.
@@ -2463,7 +2464,7 @@ SteloBytecodeGeneratorTest >> testPlusAnd [
 	self assert: (t evaluate: 1) equals: -6.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testRandomFromTo [
 	| t b r |
 	b := self newGenerator.
@@ -2475,7 +2476,7 @@ SteloBytecodeGeneratorTest >> testRandomFromTo [
 			self assert: ((t evaluate: 1) between: 1 and: 10) ].
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testRelativeToRTheta [
 	| w b t |
 	w := self newWorld.
@@ -2525,7 +2526,7 @@ SteloBytecodeGeneratorTest >> testRelativeToRTheta [
 	self assert: (t evaluate: 1) equals: 15.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testRelativeToXY [
 	| w b t |
 	w := self newWorld.
@@ -2558,12 +2559,12 @@ SteloBytecodeGeneratorTest >> testRelativeToXY [
 	self assert: (t evaluate: 1) equals: 8.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testReturn [
 	self testCallSub.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testReturnValue [
 	| b r |
 	b := self newGenerator.
@@ -2573,7 +2574,7 @@ SteloBytecodeGeneratorTest >> testReturnValue [
 	self assertCollection: r equals: #(returnValue stop).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testRounded [
 	| t b r |
 	b := self newGenerator.
@@ -2605,7 +2606,7 @@ SteloBytecodeGeneratorTest >> testRounded [
 	self assert: (t evaluate: 1) equals: -11.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testScalePatchColorFromTo [
 
 	| app w v b t |
@@ -2667,7 +2668,7 @@ SteloBytecodeGeneratorTest >> testScalePatchColorFromTo [
 		equals: ColorList black
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
 
 	| app w v b t |
@@ -2729,7 +2730,7 @@ SteloBytecodeGeneratorTest >> testScaleValueColorFromTo [
 		equals: ColorList black
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testScreenHeight [
 
 	| app w b t |
@@ -2747,7 +2748,7 @@ SteloBytecodeGeneratorTest >> testScreenHeight [
 	self assert: (t evaluate: 1) equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testScreenWidth [
 
 	| app w b t |
@@ -2765,7 +2766,7 @@ SteloBytecodeGeneratorTest >> testScreenWidth [
 	self assert: (t evaluate: 1) equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetColor [
 	| w b t |
 	w := self newWorld.
@@ -2817,7 +2818,7 @@ SteloBytecodeGeneratorTest >> testSetColor [
 		equals: ColorList yellow
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetHeading [
 	| w b t |
 	w := self newWorld.
@@ -2846,7 +2847,7 @@ SteloBytecodeGeneratorTest >> testSetHeading [
 		equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 	| w b t pno |
 	w := self newWorld.
@@ -2881,7 +2882,7 @@ SteloBytecodeGeneratorTest >> testSetPatchColorAtTo [
 		equals: ColorList black
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetPatchVarAtTo [
 
 	| app w b vid t pno |
@@ -2916,7 +2917,7 @@ SteloBytecodeGeneratorTest >> testSetPatchVarAtTo [
 	self assert: (w patches var: vid at: 5) equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetPlotYMax [
 
 	| w b t ret |
@@ -2939,7 +2940,7 @@ SteloBytecodeGeneratorTest >> testSetPlotYMax [
 	self assert: ret first args first equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetPlotYMin [
 
 	| w b t ret |
@@ -2962,7 +2963,7 @@ SteloBytecodeGeneratorTest >> testSetPlotYMin [
 	self assert: ret first args first equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetRandomSeed [
 	| w b t r |
 	w := self newWorld.
@@ -2978,7 +2979,7 @@ SteloBytecodeGeneratorTest >> testSetRandomSeed [
 	self deny: w random identicalTo: r
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetVarTo [
 
 	| app w vid b t |
@@ -2999,7 +3000,7 @@ SteloBytecodeGeneratorTest >> testSetVarTo [
 	self assert: (w var: vid breed: 3 at: 2) equals: 0.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetXpos [
 	| w b t |
 	w := self newWorld.
@@ -3016,7 +3017,7 @@ SteloBytecodeGeneratorTest >> testSetXpos [
 	self assert: (w var: STurtlesVarDef xVarNo breed: 3 at: 2) equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSetYpos [
 	| w b t |
 	w := self newWorld.
@@ -3033,7 +3034,7 @@ SteloBytecodeGeneratorTest >> testSetYpos [
 	self assert: (w var: STurtlesVarDef yVarNo breed: 3 at: 2) equals: 5
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testStamp [
 	| w b t |
 	w := self newWorld.
@@ -3075,7 +3076,7 @@ SteloBytecodeGeneratorTest >> testStamp [
 		equals: 15
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testStopAll [
 	| w b t |
 	w := self newWorld.
@@ -3092,7 +3093,7 @@ SteloBytecodeGeneratorTest >> testStopAll [
 	self assert: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testStopThread [
 	| w b t |
 	w := self newWorld.
@@ -3109,7 +3110,7 @@ SteloBytecodeGeneratorTest >> testStopThread [
 	self deny: t isTerminated.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testSubTable [
 	| b d |
 	b := self newGenerator.
@@ -3119,7 +3120,7 @@ SteloBytecodeGeneratorTest >> testSubTable [
 	self assert: b subTable equals: d.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testTicks [
 
 	| app w b t |
@@ -3145,7 +3146,7 @@ SteloBytecodeGeneratorTest >> testTicks [
 	self assert: (t evaluate: 1) equals: 3
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testTruncated [
 	| t b r |
 	b := self newGenerator.
@@ -3177,7 +3178,7 @@ SteloBytecodeGeneratorTest >> testTruncated [
 	self assert: (t evaluate: 1) equals: -10.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testTurn [
 	| w b t |
 	w := self newWorld.
@@ -3206,7 +3207,7 @@ SteloBytecodeGeneratorTest >> testTurn [
 		equals: 350
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testTurtleAt [
 	| w b t pno |
 	w := self newWorld.
@@ -3249,7 +3250,7 @@ SteloBytecodeGeneratorTest >> testTurtleAt [
 	self assert: (t evaluate: 1) equals: 0
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testTurtlesCount [
 
 	| app w b t |
@@ -3267,7 +3268,7 @@ SteloBytecodeGeneratorTest >> testTurtlesCount [
 	self assert: (t evaluate: 1) equals: 10
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SteloBytecodeGeneratorTest >> testVariableArgString [
 
 	| g r |

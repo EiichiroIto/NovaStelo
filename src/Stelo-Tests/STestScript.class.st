@@ -1,10 +1,11 @@
 Class {
-	#name : #STestScript,
-	#superclass : #Object,
-	#category : #'Stelo-Tests'
+	#name : 'STestScript',
+	#superclass : 'Object',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 STestScript >> varNoFor: aString [
 
 	aString = 'a' ifTrue: [ ^ 5 ].

@@ -2,17 +2,18 @@
 A SPatchesTest is a test class for testing the behavior of SPatches
 "
 Class {
-	#name : #SPatchesTest,
-	#superclass : #TestCase,
-	#category : #'Stelo-Tests'
+	#name : 'SPatchesTest',
+	#superclass : 'TestCase',
+	#category : 'Stelo-Tests',
+	#package : 'Stelo-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SPatchesTest >> newBreed [
 	^ SPatches new
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testAimHighVarNoAtPointDirection [
 	| ps v ret |
 	ps := SPatches new.
@@ -62,7 +63,7 @@ SPatchesTest >> testAimHighVarNoAtPointDirection [
 	self assert: ret equals: 45
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testAliveAt [
 
 	| obj |
@@ -73,13 +74,13 @@ SPatchesTest >> testAliveAt [
 	self deny: (obj aliveAt: 17)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testBreedName [
 
 	self assert: self newBreed breedName equals: 'Patch'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testBreedNo [
 	| o |
 	o := SPatches new.
@@ -88,7 +89,7 @@ SPatchesTest >> testBreedNo [
 	self assert: o breedNo equals: SBreedId patchesBreedNo.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testChangeBy [
 	| ps v |
 	ps := self newBreed.
@@ -107,7 +108,7 @@ SPatchesTest >> testChangeBy [
 		equals: #(7 7 9 10 12 7 7 18 7) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testClear [
 	| ps cs v |
 	ps := SPatches new.
@@ -128,7 +129,7 @@ SPatchesTest >> testClear [
 		equals: #(0 0 0 0 0 0 0 0 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testColorAtPoint [
 	| ps |
 	ps := SPatches new.
@@ -140,7 +141,7 @@ SPatchesTest >> testColorAtPoint [
 	self assert: (ps colorAtPoint: 1 @ 1) equals: 4.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testColorAtPointPut [
 	| ps |
 	ps := SPatches new.
@@ -153,7 +154,7 @@ SPatchesTest >> testColorAtPointPut [
 	self assertCollection: ps colors asArray equals: #(2 0 0 0 1 0 0 3 4).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testColorVariable [
 	| ps |
 	ps := SPatches new.
@@ -162,7 +163,7 @@ SPatchesTest >> testColorVariable [
 	self assert: (ps colors allSatisfy: [ :each | each = 0 ]).
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testCols [
 	| ps |
 	ps := SPatches new.
@@ -171,7 +172,7 @@ SPatchesTest >> testCols [
 	self assert: ps cols equals: 120.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testCreate [
 	| ps |
 	ps := SPatches new.
@@ -179,19 +180,19 @@ SPatchesTest >> testCreate [
 	self assert: (ps variables realArrayAt: 1) size equals: 16.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testDeadOnesDo [
 	"do nothing"
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testDefaultOrder [
 	| ps |
 	ps := SPatches new.
 	self assert: ps defaultOrder equals: 100.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testDiffuse4VarNo [
 	| ps v |
 	ps := SPatches new.
@@ -207,7 +208,7 @@ SPatchesTest >> testDiffuse4VarNo [
 		equals: #(0 20 0 20 20 20 0 20 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testDiffuse8VarNo [
 	| ps v |
 	ps := SPatches new.
@@ -223,7 +224,7 @@ SPatchesTest >> testDiffuse8VarNo [
 		equals: #(10 10 10 10 20 10 10 10 10) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testDiffuser [
 
 	| obj d |
@@ -234,7 +235,7 @@ SPatchesTest >> testDiffuser [
 	self assert: obj diffuser identicalTo: d
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testExtent [
 	| ps |
 	ps := SPatches new.
@@ -243,7 +244,7 @@ SPatchesTest >> testExtent [
 	self assert: ps extent equals: 120 @ 120.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testIndexAtColRow [
 	| ps |
 	ps := SPatches new.
@@ -255,7 +256,7 @@ SPatchesTest >> testIndexAtColRow [
 	self assert: (ps indexAtCol: 100 row: 100) equals: 10000.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testIndexAtPoint [
 	| ps |
 	ps := SPatches new.
@@ -294,7 +295,7 @@ SPatchesTest >> testIndexAtPoint [
 	self assert: (ps indexAtPoint: -49 @ -50) equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testIndexAtXY [
 	| ps |
 	ps := SPatches new.
@@ -314,7 +315,7 @@ SPatchesTest >> testIndexAtXY [
 	self assert: (ps indexAtX: -2 y: -3) equals: 21.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testInitialize [
 	| ps |
 	ps := SPatches new.
@@ -323,7 +324,7 @@ SPatchesTest >> testInitialize [
 	self assert: ps size equals: 10000.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testLivingOnesDo [
 	| ps count |
 	ps := SPatches new.
@@ -333,7 +334,7 @@ SPatchesTest >> testLivingOnesDo [
 	self assert: count equals: 25.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testMultiplyBy [
 	| ps v |
 	ps := SPatches new.
@@ -352,13 +353,13 @@ SPatchesTest >> testMultiplyBy [
 		equals: #(0 0 14 21 35 0 0 77 0) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testNewVarDef [
 
 	self assert: (self newBreed newVarDef isKindOf: SPatchesVarDef)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testNormalize [
 	| ps r |
 	ps := SPatches new.
@@ -419,7 +420,7 @@ SPatchesTest >> testNormalize [
 	self assert: r equals: 49.9.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testNsum4To [
 	| ps v1 v2 |
 	ps := SPatches new.
@@ -437,7 +438,7 @@ SPatchesTest >> testNsum4To [
 		equals: #(3 0 2 1 2 0 0 3 1) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testNsum8To [
 	| ps v1 v2 |
 	ps := SPatches new.
@@ -460,7 +461,7 @@ SPatchesTest >> testNsum8To [
 		equals: #(3 1 3 3 3 3 2 3 3) asFloatArray
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testOrder [
 	| ps |
 	ps := SPatches new.
@@ -469,7 +470,7 @@ SPatchesTest >> testOrder [
 	self assert: ps order equals: 120.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testPrintOn [
 	| ps |
 	ps := SPatches new.
@@ -478,7 +479,7 @@ SPatchesTest >> testPrintOn [
 	self assert: ps asString equals: 'Patches(10x10)'.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testReset [
 
 	| obj tmp |
@@ -491,7 +492,7 @@ SPatchesTest >> testReset [
 	self assert: obj varDef size equals: tmp
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testRows [
 	| ps |
 	ps := SPatches new.
@@ -500,7 +501,7 @@ SPatchesTest >> testRows [
 	self assert: ps rows equals: 120.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testScaleVarNoColorFromTo [
 
 	| obj v |
@@ -522,7 +523,7 @@ SPatchesTest >> testScaleVarNoColorFromTo [
 	self assert: (obj colorAt: 4) equals: 39
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testSize [
 
 	| obj |
@@ -532,7 +533,7 @@ SPatchesTest >> testSize [
 	self assert: obj size equals: 16
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testVarAt [
 	| ps |
 	ps := SPatches new.
@@ -548,7 +549,7 @@ SPatchesTest >> testVarAt [
 	self assert: (ps var: SPatchesVarDef yVarNo at: 14) equals: 1.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testVarAtPut [
 	| ps |
 	ps := SPatches new.
@@ -564,14 +565,14 @@ SPatchesTest >> testVarAtPut [
 	self assert: (ps colorAt: 2) equals: 200.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testVariables [
 	| ps |
 	ps := SPatches new.
 	self assert: ps variables class equals: Variables
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testXAt [
 	| ps |
 	ps := SPatches new.
@@ -619,7 +620,7 @@ SPatchesTest >> testXAt [
 	self assert: (ps xAt: 25) equals: 2.
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 SPatchesTest >> testYAt [
 	| ps |
 	ps := SPatches new.
