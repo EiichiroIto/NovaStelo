@@ -78,23 +78,19 @@ SpScratchApp class >> clipboard: anObject [
 
 { #category : 'accessing' }
 SpScratchApp class >> deploySystem [
-
 	"self deploySystem"
 
 	(self confirm: 'Deploying System?') ifFalse: [ ^ self ].
 	self currentWorld closeAllWindowsDiscardingChanges.
 	FreeTypeFontProvider current updateFromSystem.
-	MCRepositoryGroup allSubInstancesDo: [ :gr | 
-		gr repositories do: [ :r | gr removeRepository: r ] ].
+	MCRepositoryGroup allSubInstancesDo: [ :gr | gr repositories do: [ :r | gr removeRepository: r ] ].
 	IceRepository registry removeAll.
-	IceCredentialStore current in: [ :store | 
-		store allCredentials do: [ :each | each removeFrom: store ] ].
-	Smalltalk cleanUp: true except: {  } confirming: false.
+	IceCredentialStore current in: [ :store | store allCredentials do: [ :each | each removeFrom: store ] ].
+	Smalltalk cleanUp: true.
 	Deprecation
 		raiseWarning: false;
 		showWarning: false.
-	NoChangesLog install.
-	NoPharoFilesOpener install.
+	NoSourcesManager beCurrent.
 	Stdio useNullStreams.
 	MCCacheRepository uniqueInstance disable.
 	EpMonitor reset.

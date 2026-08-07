@@ -20,7 +20,7 @@ SpScratchPresenter class >> alert: aString [
 
 	SpInformDialog new
 		title: 'alert!' localized;
-		label: aString;
+		message: aString;
 		acceptLabel: 'Close' localized;
 		openModal
 ]
@@ -97,15 +97,19 @@ SpScratchPresenter class >> multiLineRequest: aString initialAnswer: aString2 [
 { #category : 'utilities' }
 SpScratchPresenter class >> multiSelect: aString chooseFrom: aCollection selectedItems: aCollection2 [
 
-	^ SpMultiSelectDialog new
-		  title: 'Multiple Select' localized;
-		  label: aString;
-		  items: aCollection;
-		  selectedItems: aCollection2;
-		  display: [ :each | each ];
-			acceptLabel: 'OK' localized;
-			cancelLabel: 'Cancel' localized;
-		  openModal
+	| dialog selection |
+	dialog := SpSelectMultipleDialog new.
+	dialog selectedItems addAll: aCollection2.
+	selection := dialog
+		             title: 'Multiple Select' localized;
+		             message: aString;
+		             items: aCollection;
+		             display: [ :each | each ];
+		             acceptLabel: 'OK' localized;
+		             cancelLabel: 'Cancel' localized;
+		             openModal.
+	selection ifNil: [ ^ nil ].
+	^ selection copy
 ]
 
 { #category : 'private' }
